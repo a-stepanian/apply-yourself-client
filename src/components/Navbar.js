@@ -18,18 +18,18 @@ const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
       />
       <div className="divider" />
       <Link to="/">
-        <span>Dashboard</span>
-        <RiFolderChartLine />
+        <span>View All</span>
+        <RiFolderOpenLine className="icon" />
       </Link>
       <div className="divider" />
       <Link to="/">
-        <span>Full List</span>
-        <RiFolderOpenLine />
+        <span>Dashboard</span>
+        <RiFolderChartLine className="icon" />
       </Link>
       <div className="divider" />
       <Link to="/create">
         <span>Add An Application</span>
-        <RiFolderAddLine />
+        <RiFolderAddLine className="icon" />
       </Link>
     </Wrapper>
   );
@@ -74,8 +74,15 @@ const Wrapper = styled.nav`
       display: flex;
       align-items: center;
       justify-content: center;
+      &:hover {
+        cursor: pointer;
+        text-decoration: underline;
+      }
       span {
         margin-right: 0.5rem;
+      }
+      .icon {
+        font-size: 1.2rem;
       }
     }
   }

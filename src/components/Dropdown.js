@@ -12,12 +12,12 @@ const Dropdown = ({ isDropdownOpen, toggleDropdown }) => {
     <Wrapper>
       <nav className={isDropdownOpen ? "open" : ""}>
         <Link to="/" onClick={() => toggleDropdown()}>
-          <span>Dashboard</span>
-          <RiFolderChartLine className="icon" />
+          <span>View All</span>
+          <RiFolderOpenLine className="icon" />
         </Link>
         <Link to="/" onClick={() => toggleDropdown()}>
-          <span>Full List</span>
-          <RiFolderOpenLine className="icon" />
+          <span>Dashboard</span>
+          <RiFolderChartLine className="icon" />
         </Link>
         <Link to="/create" onClick={() => toggleDropdown()}>
           <span>Add An Application</span>
@@ -52,6 +52,7 @@ const Wrapper = styled.div`
       align-items: center;
       &:hover {
         cursor: pointer;
+        text-decoration: underline;
       }
       span {
         margin-right: 0.5rem;

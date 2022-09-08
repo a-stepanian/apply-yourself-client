@@ -175,13 +175,21 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
 };
 
 const Wrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   .clipboard-img {
+    object-fit: cover;
     width: 100%;
+    max-height: 20rem;
   }
   form {
+    width: 100%;
     margin: 1rem;
+    padding: 1rem;
+    max-width: 30rem;
     h4 {
-      margin: 3rem 0 1rem;
+      margin: 3rem 0 2rem;
       font-weight: 500;
       text-align: center;
     }
@@ -190,13 +198,30 @@ const Wrapper = styled.section`
       margin-bottom: 1rem;
       display: flex;
       flex-direction: column;
+      input {
+        padding: 0.3rem;
+      }
+    }
+    .date-input {
+      margin-bottom: 1rem;
+      input {
+        padding: 0.15rem 0.3rem;
+        width: 8.5rem;
+        font-size: 1rem;
+      }
     }
     .label {
       font-weight: 700;
     }
     .radio-buttons {
+      border: 1px solid rgba(0, 0, 0, 0.6);
+      border-radius: 1px;
+      padding: 0.3rem;
       display: flex;
       justify-content: space-between;
+    }
+    textarea {
+      padding: 0.3rem;
     }
     button {
       width: 100%;
@@ -206,21 +231,9 @@ const Wrapper = styled.section`
       background-color: var(--beige);
       font-family: "Playfair Display", serif;
       font-weight: 700;
-    }
-  }
-  @media (min-width: 768px) {
-    form {
-      .form-input {
-        width: 100%;
-        flex-direction: row;
-        justify-content: flex-end;
-      }
-      .date-input {
-        margin: 1.5rem 0 1.5rem;
-        display: flex;
-        label {
-          margin-right: 1rem;
-        }
+      font-size: 1.1rem;
+      &:hover {
+        cursor: pointer;
       }
     }
   }
