@@ -21,11 +21,14 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
     });
   };
 
+  const url = "https://server-apply-yourself.herokuapp.com/applications";
+  // const url = "http://localhost:5000/applications/";
+
   // This function handles the form submission.
   const onSubmit = async (e) => {
     e.preventDefault();
     // send post request to server
-    await fetch("http://localhost:5000/applications/add", {
+    await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
