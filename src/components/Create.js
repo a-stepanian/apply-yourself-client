@@ -189,7 +189,8 @@ const Wrapper = styled.section`
     padding: 1rem;
     max-width: 30rem;
     h4 {
-      margin: 3rem 0 2rem;
+      margin: 5rem 0 1rem;
+      border-bottom: 1px solid var(--beige2);
       font-weight: 500;
       text-align: center;
     }
@@ -199,33 +200,37 @@ const Wrapper = styled.section`
       display: flex;
       flex-direction: column;
       input {
-        padding: 0.3rem;
+        padding: 0.4rem;
+        border: 1px solid rgba(0, 0, 0, 0.6);
+        border-radius: 1px;
       }
     }
     .date-input {
       margin-bottom: 1rem;
       input {
-        padding: 0.15rem 0.3rem;
+        padding: 0.2rem;
         width: 8.5rem;
         font-size: 1rem;
+        font-family: "Playfair Display", serif;
       }
     }
     .label {
       font-weight: 700;
     }
     .radio-buttons {
+      background-color: white;
       border: 1px solid rgba(0, 0, 0, 0.6);
       border-radius: 1px;
       padding: 0.3rem;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
     }
     textarea {
       padding: 0.3rem;
     }
     button {
       width: 100%;
-      margin: 2rem 0;
+      margin: 4rem 0;
       padding: 1rem;
       border: 1px solid black;
       background-color: var(--beige);
@@ -234,6 +239,7 @@ const Wrapper = styled.section`
       font-size: 1.1rem;
       &:hover {
         cursor: pointer;
+        background-color: var(--beige2);
       }
     }
   }
