@@ -15,7 +15,12 @@ const Job = ({
       <div className="job-info">
         <p className="company">{company}</p>
         <p>
-          <a href={website} target="_blank" className="position">
+          <a
+            href={website}
+            target="_blank"
+            rel="noreferrer"
+            className="position"
+          >
             {position}
           </a>{" "}
           - {location}
