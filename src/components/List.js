@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import Job from "./Job";
+import Filter from "./Filter";
 
 const List = () => {
-  const [apps, setApps] = useState([]);
+  const [allApps, setAllApps] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [filter, setFilter] = useState("all");
+  const [filteredApps, setFilteredApps] = useState([]);
 
   // Fetch all apps from DB
   useEffect(() => {
@@ -19,26 +24,25 @@ const List = () => {
       }
 
       const data = await response.json();
-      setApps(data);
+      await setAllApps(data);
       setIsLoading(false);
     };
     fetchApps();
     return;
-  }, [apps.length]);
+  }, [allApps.length]);
+
+  useEffect(() => {
+    if (filter === "all") {
+      setFilteredApps(allApps);
+    } else {
+      const filtered = allApps.filter((app) => app.status === filter);
+      setFilteredApps(filtered);
+    }
+  }, [filter]);
 
   if (isLoading) {
     return (
       <>
-        <h1>LOADING</h1>
-        <h1>LOADING</h1>
-        <h1>LOADING</h1>
-        <h1>LOADING</h1>
-        <h1>LOADING</h1>
-        <h1>LOADING</h1>
-        <h1>LOADING</h1>
-        <h1>LOADING</h1>
-        <h1>LOADING</h1>
-        <h1>LOADING</h1>
         <h1>LOADING</h1>
         <h1>LOADING</h1>
         <h1>LOADING</h1>
@@ -47,19 +51,37 @@ const List = () => {
   }
 
   return (
-    <main>
-      <h2>All Applications</h2>
+    <Wrapper>
+      <header>
+        <Filter setFilter={setFilter} />
+      </header>
+
       <section>
-        {apps.map((app) => {
-          return (
-            <article key={app._id}>
-              <h2>{app.company}</h2>
-            </article>
-          );
+        {filteredApps.map((app) => {
+          return <Job key={app._id} {...app} />;
         })}
       </section>
-    </main>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  header {
+    width: 100%;
+    height: 10rem;
+    background: url("list.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  section {
+    width: 100%;
+  }
+`;
 
 export default List;
