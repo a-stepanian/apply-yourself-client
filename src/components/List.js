@@ -4,14 +4,13 @@ const List = () => {
   const [apps, setApps] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const url =
-    "https://server-apply-yourself.herokuapp.com/applications" ||
-    "http://localhost:5000/applications/";
-
   // Fetch all apps from DB
   useEffect(() => {
     const fetchApps = async () => {
-      const response = await fetch(url);
+      const response = await fetch(
+        "https://server-apply-yourself.herokuapp.com/applications"
+      );
+      // const response = await fetch("http://localhost:5000/applications/");
 
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
@@ -25,7 +24,6 @@ const List = () => {
     };
     fetchApps();
     return;
-    // eslint-disable-next-line
   }, [apps.length]);
 
   if (isLoading) {
