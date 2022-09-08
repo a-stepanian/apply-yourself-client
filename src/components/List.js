@@ -24,6 +24,7 @@ const List = () => {
       }
 
       const data = await response.json();
+      await setFilteredApps(data);
       await setAllApps(data);
       setIsLoading(false);
     };
@@ -38,7 +39,7 @@ const List = () => {
       const filtered = allApps.filter((app) => app.status === filter);
       setFilteredApps(filtered);
     }
-  }, [filter]);
+  }, [filter, allApps]);
 
   if (isLoading) {
     return (
