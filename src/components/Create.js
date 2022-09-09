@@ -55,11 +55,13 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
 
   return (
     <Wrapper>
-      <img
-        className="clipboard-img"
-        src="create.jpg"
-        alt="A job application form is next to a pen and laptop"
-      />
+      <div className="img-container">
+        <img
+          className="clipboard-img"
+          src="create.jpg"
+          alt="A job application form is next to a pen and laptop"
+        />
+      </div>
       <form onSubmit={onSubmit}>
         <h4>Position Details</h4>
         <div className="form-input">
@@ -178,10 +180,14 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  .img-container {
+    width: 100%;
+    height: 20rem;
+  }
   .clipboard-img {
     object-fit: cover;
     width: 100%;
-    max-height: 20rem;
+    height: 20rem;
   }
   form {
     width: 100%;

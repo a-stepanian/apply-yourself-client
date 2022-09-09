@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Job from "./Job";
 import Filter from "./Filter";
+import Loading from "./Loading";
 
 const List = () => {
   const [allApps, setAllApps] = useState([]);
@@ -11,6 +12,7 @@ const List = () => {
 
   // Fetch all apps from DB
   useEffect(() => {
+    setIsLoading(true);
     const fetchApps = async () => {
       const response = await fetch(
         "https://server-apply-yourself.herokuapp.com/applications"
@@ -26,13 +28,19 @@ const List = () => {
       const data = await response.json();
       await setFilteredApps(data);
       await setAllApps(data);
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
     };
     fetchApps();
     return;
   }, [allApps.length]);
 
   useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
     if (filter === "all") {
       setFilteredApps(allApps);
     } else {
@@ -41,32 +49,26 @@ const List = () => {
     }
   }, [filter, allApps]);
 
-  if (isLoading) {
-    return (
-      <>
-        <h1>LOADING</h1>
-        <h1>LOADING</h1>
-        <h1>LOADING</h1>
-      </>
-    );
-  }
-
   return (
     <Wrapper>
       <header>
         <Filter setFilter={setFilter} />
       </header>
-
-      <section>
-        {filteredApps.map((app) => {
-          return <Job key={app._id} {...app} />;
-        })}
-      </section>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <section>
+          {filteredApps.map((app) => {
+            return <Job key={app._id} {...app} />;
+          })}
+        </section>
+      )}
     </Wrapper>
   );
 };
 
 const Wrapper = styled.section`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,6 +84,9 @@ const Wrapper = styled.section`
   }
   section {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 

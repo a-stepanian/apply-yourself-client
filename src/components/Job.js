@@ -37,6 +37,7 @@ const Job = ({
 
 const Wrapper = styled.article`
   width: calc(100% - 2rem);
+  max-width: 50rem;
   margin: 1rem;
   padding: 0.5rem;
   background-color: var(--beige2);
