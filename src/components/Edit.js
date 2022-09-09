@@ -14,6 +14,7 @@ const Edit = () => {
     comments: "",
     status: "",
   });
+  const [showChoices, setShowChoices] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
 
@@ -62,6 +63,16 @@ const Edit = () => {
     await fetch(`${url}${params.id}`, {
       method: "PUT",
       body: JSON.stringify(editedApplication),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    navigate("/applications");
+  };
+
+  const deleteApplication = async () => {
+    await fetch(`${url}${params.id}`, {
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
@@ -185,8 +196,26 @@ const Edit = () => {
               onChange={(e) => updateForm({ comments: e.target.value })}
             />
           </div>
-          <button type="submit">Save Changes</button>
+          <button className="save-btn" type="submit">
+            Save Changes
+          </button>
         </form>
+        <div className="delete-container">
+          <button className="delete-btn" onClick={() => setShowChoices(true)}>
+            Delete Application
+          </button>
+          {showChoices && (
+            <div className="check">
+              Are you sure?
+              <button className="yes-btn" onClick={() => deleteApplication()}>
+                yes
+              </button>
+              <button className="no-btn" onClick={() => setShowChoices(false)}>
+                no
+              </button>
+            </div>
+          )}
+        </div>
       </section>
     </Wrapper>
   );
@@ -286,7 +315,7 @@ const Wrapper = styled.section`
       border-radius: 2px;
       padding: 0.3rem;
     }
-    button {
+    .save-btn {
       color: black;
       width: 100%;
       margin: 4rem 0;
@@ -301,6 +330,56 @@ const Wrapper = styled.section`
         cursor: pointer;
         background-color: rgba(215, 210, 255, 1);
       }
+    }
+  }
+  .delete-container {
+    display: flex;
+    align-items: center;
+  }
+  .delete-btn {
+    color: black;
+    padding: 0.5rem;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    background-color: transparent;
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    font-size: 1rem;
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(255, 255, 200, 0.5);
+    }
+  }
+  .check {
+    margin: 0 1rem;
+  }
+  .yes-btn {
+    margin: 0 1rem;
+    color: black;
+    padding: 0.5rem;
+    border: 2px solid rgba(255, 0, 0, 0.5);
+    border-radius: 2px;
+    background-color: transparent;
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    font-size: 1rem;
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(255, 0, 0, 1);
+    }
+  }
+  .no-btn {
+    color: black;
+    padding: 0.5rem;
+    border: 2px solid rgba(0, 255, 0, 0.5);
+    border-radius: 2px;
+    background-color: transparent;
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    font-size: 1rem;
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(0, 255, 0, 1);
     }
   }
 
