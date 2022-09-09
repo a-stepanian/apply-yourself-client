@@ -23,12 +23,12 @@ const Wrapper = styled.div`
     filter: blur(70px);
     &:nth-of-type(2) {
       background-color: rgba(200, 220, 255, 0.4);
-      transform: translateX(15rem) rotate(-5deg);
+      transform: translateX(15rem) rotate(-3deg);
       transform-origin: top right;
     }
     &:nth-of-type(3) {
       background-color: rgba(215, 210, 255, 0.4);
-      transform: translateX(-15rem) rotate(5deg);
+      transform: translateX(-15rem) rotate(3deg);
       transform-origin: top right;
     }
   }

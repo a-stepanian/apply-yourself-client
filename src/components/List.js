@@ -27,7 +27,7 @@ const List = ({ allApps, setAllApps }) => {
 
   return (
     <Wrapper>
-      <header>
+      <header className="filter">
         <Filter setFilter={setFilter} />
       </header>
       <section>
@@ -55,7 +55,7 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  header {
+  .filter {
     width: 100%;
     height: 15rem;
     background: url("/list.jpg");

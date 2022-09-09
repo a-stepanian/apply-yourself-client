@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const Job = ({
@@ -10,11 +10,23 @@ const Job = ({
   status,
   website,
 }) => {
-  const [showComments, setShowComments] = useState(false);
   return (
     <Wrapper>
-      <div className="job-info">
-        <p className="company">{company}</p>
+      <header className="top-header">
+        <p
+          className="status"
+          style={{
+            backgroundColor:
+              (status === "Applied" && "beige") ||
+              (status === "Interview" && "rgba(0, 255, 0, 0.3)") ||
+              (status === "Rejected" && "rgba(255, 0, 0, 0.2)"),
+          }}
+        >
+          {status}
+        </p>
+        <p className="applied">{applied}</p>
+      </header>
+      <div className="job-card">
         <p>
           <a
             href={website}
@@ -23,31 +35,14 @@ const Job = ({
             className="position"
           >
             {position}
-          </a>{" "}
-          {location}
+          </a>
+        </p>{" "}
+        <p className="company">
+          {company} - <span>{location}</span>
         </p>
       </div>
 
-      <div className="application-info">
-        <p className="applied">
-          {applied.slice(5, 10)}-{applied.slice(0, 4)}
-        </p>
-        <p
-          className="status"
-          style={{
-            backgroundColor:
-              (status === "Applied" && "yellow") ||
-              (status === "Interview" && "green") ||
-              (status === "Rejected" && "red"),
-          }}
-        >
-          {status}
-        </p>
-        <button onClick={() => setShowComments((prev) => !prev)}>
-          Show Comments
-        </button>
-      </div>
-      {showComments && <p className="comments">{comments}</p>}
+      <p className="comments">{comments}</p>
     </Wrapper>
   );
 };
@@ -57,76 +52,55 @@ const Wrapper = styled.article`
   position: relative;
   width: calc(100% - 2rem);
   max-width: 30rem;
-  height: 5rem;
-  margin: 0.5rem 1rem;
-  padding: 0.8rem;
+  margin: 1rem 0.5rem;
+  padding: 1rem;
   background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: 5px 5px 15px rgb(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.8rem;
-  .job-info {
-    width: 75%;
-    height: 100%;
+  box-shadow: 5px 5px 15px rgb(0, 0, 0, 0.15);
+  .top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.7rem;
+    font-weight: 100;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  .status {
+    width: fit-content;
+    padding: 0.2rem;
+  }
+
+  .job-card {
+    height: 6rem;
+    margin: 1rem 0;
+    padding: 0.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-  }
-  .company {
-    font-size: 1.2rem;
-    letter-spacing: -0.05em;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 0.8rem;
+    background-color: var(--off-white);
+    box-shadow: 3px 3px 10px rgb(0, 0, 0, 0.2);
   }
   .position {
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     color: black;
   }
-  .application-info {
-    width: 25%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-  .applied {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 0.8rem;
-    font-weight: 300;
-  }
-  .status {
-    width: 4.6rem;
-    padding: 0.2rem;
-    text-align: center;
-    font-size: 0.9rem;
-    font-weight: 700;
+  .company {
+    font-size: 1rem;
+    letter-spacing: -0.05em;
+    span {
+      font-size: 0.8rem;
+    }
   }
   .comments {
-    z-index: -999;
-    height: 5rem;
-    padding: 0.8rem;
-    background-color: var(--off-white);
-    box-shadow: 5px 5px 15px rgb(0, 0, 0, 0.1);
-    position: absolute;
-    top: 0;
-    right: -50%;
-    height: 100%;
-    width: 15rem;
-    animation: slide-right 0.2s forwards;
-  }
-  @keyframes slide-right {
-    0% {
-      transform: translateX(-7.5rem) rotate3d(0, 1, 0, 90deg);
-    }
-    100% {
-      transform: translateX(0) rotate3d(0, 1, 0, 0deg);
-    }
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100;
+    font-size: 0.8rem;
   }
   @media (min-width: 480px) {
-    height: 6rem;
-    padding: 1.1rem;
+    /* padding: 1.1rem;
     .company {
       font-size: 1.2rem;
       letter-spacing: -0.05em;
@@ -149,7 +123,7 @@ const Wrapper = styled.article`
       text-align: center;
       font-size: 0.9rem;
       font-weight: 700;
-    }
+    } */
   }
 `;
 
