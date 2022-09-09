@@ -5,9 +5,14 @@
 }
 
 :root {
-  --main-bg: rgb(245, 240, 240);
+  --main-bg: rgb(245, 240, 249);
   --beige2: rgba(186, 177, 177, 0.5);
   --beige: rgb(186, 177, 177);
   --white: rgb(248, 246, 246);
   --off-white: rgb(253, 253, 248);
+}
+
+button {
+  border: none;
+  border-radius: 0;
 }

@@ -60,7 +60,7 @@ const Wrapper = styled.article`
   height: 5rem;
   margin: 0.5rem 1rem;
   padding: 0.8rem;
-  background-color: var(--off-white);
+  background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 5px 5px 15px rgb(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;

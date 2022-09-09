@@ -13,10 +13,12 @@ const Hamburger = ({ isDropdownOpen, toggleDropdown }) => {
 };
 
 const Wrapper = styled.button`
+  z-index: 2;
   position: relative;
   width: 2.5rem;
   height: 2rem;
   border: none;
+  background-color: transparent;
   &:hover {
     cursor: pointer;
   }
