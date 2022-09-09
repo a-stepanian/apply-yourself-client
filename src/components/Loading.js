@@ -5,7 +5,7 @@ const Loading = () => {
   useEffect(() => {
     const dots = document.querySelectorAll(".dot");
     for (let i = 0; i < dots.length; i++) {
-      const delay = (i + 1) * 40;
+      const delay = (i + 1) * 30;
       setTimeout(() => {
         dots[i].classList.add("show");
       }, delay);
@@ -26,6 +26,8 @@ const Loading = () => {
 };
 
 const Wrapper = styled.p`
+  z-index: 1;
+  position: relative;
   width: fit-content;
   margin: 3rem 0 20rem;
   font-size: 2rem;

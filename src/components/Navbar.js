@@ -22,12 +22,12 @@ const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
         <RiFolderOpenLine className="icon" />
       </Link>
       <div className="divider" />
-      <Link to="/">
+      <Link to="/dashboard">
         <span>Dashboard</span>
         <RiFolderChartLine className="icon" />
       </Link>
       <div className="divider" />
-      <Link to="/create">
+      <Link to="/new">
         <span>Add An Application</span>
         <RiFolderAddLine className="icon" />
       </Link>

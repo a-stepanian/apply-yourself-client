@@ -15,11 +15,11 @@ const Dropdown = ({ isDropdownOpen, toggleDropdown }) => {
           <span>View All</span>
           <RiFolderOpenLine className="icon" />
         </Link>
-        <Link to="/" onClick={() => toggleDropdown()}>
+        <Link to="/dashboard" onClick={() => toggleDropdown()}>
           <span>Dashboard</span>
           <RiFolderChartLine className="icon" />
         </Link>
-        <Link to="/create" onClick={() => toggleDropdown()}>
+        <Link to="/new" onClick={() => toggleDropdown()}>
           <span>Add An Application</span>
           <RiFolderAddLine className="icon" />
         </Link>

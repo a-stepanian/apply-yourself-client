@@ -3,50 +3,24 @@ import styled from "styled-components";
 import Job from "./Job";
 import Filter from "./Filter";
 import Loading from "./Loading";
+import LineDesign from "./LineDesign";
 
-const List = () => {
-  const [allApps, setAllApps] = useState([]);
+const List = ({ allApps, setAllApps }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState("all");
   const [filteredApps, setFilteredApps] = useState([]);
 
-  // Fetch all apps from DB
   useEffect(() => {
     setIsLoading(true);
-    const fetchApps = async () => {
-      const response = await fetch(
-        "https://server-apply-yourself.herokuapp.com/applications"
-      );
-      // const response = await fetch("http://localhost:5000/applications/");
-
-      if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
-
-      const data = await response.json();
-      await setFilteredApps(data);
-      await setAllApps(data);
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 500);
-    };
-    fetchApps();
-    return;
-  }, [allApps.length]);
-
-  useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
     if (filter === "all") {
       setFilteredApps(allApps);
     } else {
       const filtered = allApps.filter((app) => app.status === filter);
       setFilteredApps(filtered);
     }
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
   }, [filter, allApps]);
 
   return (
@@ -54,20 +28,27 @@ const List = () => {
       <header>
         <Filter setFilter={setFilter} />
       </header>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <section>
-          {filteredApps.map((app) => {
-            return <Job key={app._id} {...app} />;
-          })}
-        </section>
-      )}
+      <section>
+        <LineDesign />
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            {filteredApps.map((app) => {
+              return <Job key={app._id} {...app} />;
+            })}
+            {filteredApps.length === 0 && (
+              <p className="no-results">No results found.</p>
+            )}
+          </>
+        )}
+      </section>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.section`
+  overflow-x: hidden;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -83,10 +64,18 @@ const Wrapper = styled.section`
     justify-content: center;
   }
   section {
+    position: relative;
     width: 100%;
+    min-height: 30rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    .no-results {
+      z-index: 1;
+      position: relative;
+      margin: 3.5rem 0 15rem;
+      font-size: 1.5rem;
+    }
   }
 `;
 

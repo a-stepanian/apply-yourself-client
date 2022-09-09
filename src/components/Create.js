@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import LineDesign from "./LineDesign";
 
 const Create = ({ isDropdownOpen, toggleDropdown }) => {
   const [form, setForm] = useState({
@@ -55,123 +56,126 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
 
   return (
     <Wrapper>
-      <div className="img-container">
+      <header className="img-container">
         <img
           className="clipboard-img"
           src="create.jpg"
           alt="A job application form is next to a pen and laptop"
         />
-      </div>
-      <form onSubmit={onSubmit}>
-        <h4>Position Details</h4>
-        <div className="form-input">
-          <label className="label" htmlFor="company">
-            Company
-          </label>
-          <input
-            type="text"
-            id="company"
-            value={form.company}
-            onChange={(e) => updateForm({ company: e.target.value })}
-          />
-        </div>
-        <div className="form-input">
-          <label className="label" htmlFor="position">
-            Position
-          </label>
-          <input
-            type="text"
-            id="position"
-            value={form.position}
-            onChange={(e) => updateForm({ position: e.target.value })}
-          />
-        </div>
-        <div className="form-input">
-          <label className="label" htmlFor="website">
-            Website
-          </label>
-          <input
-            type="text"
-            id="website"
-            value={form.website}
-            onChange={(e) => updateForm({ website: e.target.value })}
-          />
-        </div>
-        <div className="form-input">
-          <label className="label" htmlFor="location">
-            Location
-          </label>
-          <input
-            type="text"
-            id="location"
-            value={form.location}
-            onChange={(e) => updateForm({ location: e.target.value })}
-          />
-        </div>
-        <h4>Application Details</h4>
-        <div className="date-input">
-          <label className="label" htmlFor="applied">
-            Date Applied
-          </label>
-          <input
-            type="date"
-            id="applied"
-            value={form.applied}
-            onChange={(e) => updateForm({ applied: e.target.value })}
-          />
-        </div>
-        <div className="form-input">
-          <p className="label">Status</p>
-          <div className="radio-buttons">
-            <div>
-              <input
-                type="radio"
-                name="positionOptions"
-                id="positionApplied"
-                value="Applied"
-                checked={form.status === "Applied"}
-                onChange={(e) => updateForm({ status: e.target.value })}
-              />
-              <label htmlFor="positionApplied">Applied</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                name="positionOptions"
-                id="positionRejected"
-                value="Rejected"
-                checked={form.status === "Rejected"}
-                onChange={(e) => updateForm({ status: e.target.value })}
-              />
-              <label htmlFor="positionRejected">Rejected</label>
-            </div>
-            <div>
-              <input
-                type="radio"
-                name="positionOptions"
-                id="positionInterview"
-                value="Interview"
-                checked={form.status === "Interview"}
-                onChange={(e) => updateForm({ status: e.target.value })}
-              />
-              <label htmlFor="positionInterview">Interview</label>
+      </header>
+      <section>
+        <LineDesign />
+        <form onSubmit={onSubmit}>
+          <h4>Position Details</h4>
+          <div className="form-input">
+            <label className="label" htmlFor="company">
+              Company
+            </label>
+            <input
+              type="text"
+              id="company"
+              value={form.company}
+              onChange={(e) => updateForm({ company: e.target.value })}
+            />
+          </div>
+          <div className="form-input">
+            <label className="label" htmlFor="position">
+              Position
+            </label>
+            <input
+              type="text"
+              id="position"
+              value={form.position}
+              onChange={(e) => updateForm({ position: e.target.value })}
+            />
+          </div>
+          <div className="form-input">
+            <label className="label" htmlFor="website">
+              Website
+            </label>
+            <input
+              type="url"
+              id="website"
+              value={form.website}
+              onChange={(e) => updateForm({ website: e.target.value })}
+            />
+          </div>
+          <div className="form-input">
+            <label className="label" htmlFor="location">
+              Location
+            </label>
+            <input
+              type="text"
+              id="location"
+              value={form.location}
+              onChange={(e) => updateForm({ location: e.target.value })}
+            />
+          </div>
+          <h4>Application Details</h4>
+          <div className="date-input">
+            <label className="label" htmlFor="applied">
+              Date Applied
+            </label>
+            <input
+              type="date"
+              id="applied"
+              value={form.applied}
+              onChange={(e) => updateForm({ applied: e.target.value })}
+            />
+          </div>
+          <div className="form-input">
+            <p className="label">Status</p>
+            <div className="radio-buttons">
+              <div>
+                <input
+                  type="radio"
+                  name="positionOptions"
+                  id="positionApplied"
+                  value="Applied"
+                  checked={form.status === "Applied"}
+                  onChange={(e) => updateForm({ status: e.target.value })}
+                />
+                <label htmlFor="positionApplied">Applied</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="positionOptions"
+                  id="positionRejected"
+                  value="Rejected"
+                  checked={form.status === "Rejected"}
+                  onChange={(e) => updateForm({ status: e.target.value })}
+                />
+                <label htmlFor="positionRejected">Rejected</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  name="positionOptions"
+                  id="positionInterview"
+                  value="Interview"
+                  checked={form.status === "Interview"}
+                  onChange={(e) => updateForm({ status: e.target.value })}
+                />
+                <label htmlFor="positionInterview">Interview</label>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="form-input">
-          <label className="label" htmlFor="comments">
-            Comments
-          </label>
-          <textarea
-            type="text"
-            rows="5"
-            id="comments"
-            value={form.comments}
-            onChange={(e) => updateForm({ comments: e.target.value })}
-          />
-        </div>
-        <button type="submit">Add New Job</button>
-      </form>
+          <div className="form-input">
+            <label className="label" htmlFor="comments">
+              Comments
+            </label>
+            <textarea
+              type="text"
+              rows="5"
+              id="comments"
+              value={form.comments}
+              onChange={(e) => updateForm({ comments: e.target.value })}
+            />
+          </div>
+          <button type="submit">Add New Job</button>
+        </form>
+      </section>
     </Wrapper>
   );
 };
@@ -180,6 +184,7 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: hidden;
   .img-container {
     width: 100%;
     height: 20rem;
@@ -188,6 +193,13 @@ const Wrapper = styled.section`
     object-fit: cover;
     width: 100%;
     height: 20rem;
+  }
+  section {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   form {
     width: 100%;
