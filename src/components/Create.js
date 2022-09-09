@@ -22,7 +22,7 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
     });
   };
 
-  const url = "https://server-apply-yourself.herokuapp.com/applications/add";
+  const url = "https://server-apply-yourself.herokuapp.com/applications/new";
   // const url = "http://localhost:5000/applications/add";
 
   // This function handles the form submission.

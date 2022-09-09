@@ -26,6 +26,7 @@ const App = () => {
         return;
       }
       const data = await response.json();
+      data.sort((a, b) => b.company - a.company);
       setAllApps(data);
     };
     fetchApps();
