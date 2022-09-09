@@ -8,6 +8,7 @@ import Create from "./components/Create";
 import Dropdown from "./components/Dropdown";
 import Dashboard from "./components/Dashboard";
 import Hero from "./components/Hero";
+import Footer from "./components/Footer";
 
 const App = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -34,6 +35,7 @@ const App = () => {
           <Route path="/applications/new" element={<Create />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
+        <Footer />
       </Wrapper>
     </BrowserRouter>
   );
