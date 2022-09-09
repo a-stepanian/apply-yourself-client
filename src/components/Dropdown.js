@@ -11,7 +11,7 @@ const Dropdown = ({ isDropdownOpen, toggleDropdown }) => {
   return (
     <Wrapper>
       <nav className={isDropdownOpen ? "open" : ""}>
-        <Link to="/" onClick={() => toggleDropdown()}>
+        <Link to="/applications" onClick={() => toggleDropdown()}>
           <span>View All</span>
           <RiFolderOpenLine className="icon" />
         </Link>
@@ -19,7 +19,7 @@ const Dropdown = ({ isDropdownOpen, toggleDropdown }) => {
           <span>Dashboard</span>
           <RiFolderChartLine className="icon" />
         </Link>
-        <Link to="/new" onClick={() => toggleDropdown()}>
+        <Link to="/applications/new" onClick={() => toggleDropdown()}>
           <span>Add An Application</span>
           <RiFolderAddLine className="icon" />
         </Link>
@@ -29,11 +29,13 @@ const Dropdown = ({ isDropdownOpen, toggleDropdown }) => {
 };
 
 const Wrapper = styled.div`
+  position: relative;
+  z-index: 1;
   width: 100%;
 
   nav {
     position: absolute;
-    top: 4rem;
+    top: 0;
     left: 0;
     width: 100%;
     height: 15rem;

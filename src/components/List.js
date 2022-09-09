@@ -12,16 +12,18 @@ const List = ({ allApps, setAllApps }) => {
 
   useEffect(() => {
     setIsLoading(true);
-    if (filter === "all") {
-      setFilteredApps(allApps);
-    } else {
-      const filtered = allApps.filter((app) => app.status === filter);
-      setFilteredApps(filtered);
+    if (allApps.length !== 0) {
+      if (filter === "all") {
+        setFilteredApps(allApps);
+      } else {
+        const filtered = allApps.filter((app) => app.status === filter);
+        setFilteredApps(filtered);
+      }
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
     }
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-  }, [filter, allApps]);
+  }, [filter, allApps.length]);
 
   return (
     <Wrapper>
@@ -55,8 +57,8 @@ const Wrapper = styled.section`
   align-items: center;
   header {
     width: 100%;
-    height: 20rem;
-    background: url("list.jpg");
+    height: 15rem;
+    background: url("/list.jpg");
     background-size: cover;
     background-position: center;
     display: flex;
@@ -67,6 +69,7 @@ const Wrapper = styled.section`
     position: relative;
     width: 100%;
     min-height: 30rem;
+    padding-top: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;

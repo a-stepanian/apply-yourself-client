@@ -59,7 +59,7 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
       <header className="img-container">
         <img
           className="clipboard-img"
-          src="create.jpg"
+          src="/create.jpg"
           alt="A job application form is next to a pen and laptop"
         />
       </header>
@@ -189,12 +189,12 @@ const Wrapper = styled.section`
   overflow-x: hidden;
   .img-container {
     width: 100%;
-    height: 20rem;
+    height: 15rem;
   }
   .clipboard-img {
     object-fit: cover;
     width: 100%;
-    height: 20rem;
+    height: 15rem;
   }
   section {
     position: relative;
@@ -238,6 +238,7 @@ const Wrapper = styled.section`
     }
     .date-and-status {
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
     }
     .label {
@@ -258,17 +259,27 @@ const Wrapper = styled.section`
       padding: 0.3rem;
     }
     button {
+      color: black;
       width: 100%;
       margin: 4rem 0;
       padding: 1rem;
-      border: 1px solid black;
-      background-color: var(--beige);
+      border: 2px solid rgba(0, 0, 0, 0.3);
+      border-radius: 2px;
+      background-color: rgba(215, 210, 255, 0.5);
       font-family: "Playfair Display", serif;
       font-weight: 700;
       font-size: 1.1rem;
       &:hover {
         cursor: pointer;
-        background-color: var(--beige2);
+        background-color: rgba(215, 210, 255, 1);
+      }
+    }
+  }
+
+  @media (min-width: 480px) {
+    form {
+      .date-and-status {
+        flex-direction: row;
       }
     }
   }

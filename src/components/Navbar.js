@@ -17,7 +17,7 @@ const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
         toggleDropdown={toggleDropdown}
       />
       <div className="divider" />
-      <Link to="/">
+      <Link to="/applications">
         <span>View All</span>
         <RiFolderOpenLine className="icon" />
       </Link>
@@ -27,7 +27,7 @@ const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
         <RiFolderChartLine className="icon" />
       </Link>
       <div className="divider" />
-      <Link to="/new">
+      <Link to="/applications/new">
         <span>Add An Application</span>
         <RiFolderAddLine className="icon" />
       </Link>
@@ -39,7 +39,7 @@ export default Navbar;
 
 const Wrapper = styled.nav`
   position: relative;
-  z-index: 1;
+  z-index: 2;
   width: 100%;
   height: 4rem;
   padding: 1rem;

@@ -7,6 +7,7 @@ import Edit from "./components/Edit";
 import Create from "./components/Create";
 import Dropdown from "./components/Dropdown";
 import Dashboard from "./components/Dashboard";
+import Hero from "./components/Hero";
 
 const App = () => {
   const [allApps, setAllApps] = useState([]);
@@ -47,13 +48,13 @@ const App = () => {
           toggleDropdown={toggleDropdown}
         />
         <Routes>
+          <Route exact path="/" element={<Hero />} />
           <Route
-            exact
-            path="/"
+            path="/applications"
             element={<List allApps={allApps} setAllApps={setAllApps} />}
           />
-          <Route path="/edit/:id" element={<Edit />} />
-          <Route path="/new" element={<Create />} />
+          <Route path="/applications/edit/:id" element={<Edit />} />
+          <Route path="/applications/new" element={<Create />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Wrapper>
