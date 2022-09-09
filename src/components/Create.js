@@ -230,6 +230,7 @@ const Wrapper = styled.section`
     .date-input {
       margin-bottom: 1rem;
       input {
+        background-color: white;
         padding: 0.2rem;
         width: 8.5rem;
         font-size: 1rem;
@@ -256,6 +257,7 @@ const Wrapper = styled.section`
       margin: 0 0.5rem;
     }
     textarea {
+      border-radius: 2px;
       padding: 0.3rem;
     }
     button {
