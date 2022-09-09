@@ -1,7 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Job = ({
+  _id,
   applied,
   comments,
   company,
@@ -43,6 +45,7 @@ const Job = ({
       </div>
 
       <p className="comments">{comments}</p>
+      <Link to={`/applications/edit/${_id}`}>Edit</Link>
     </Wrapper>
   );
 };

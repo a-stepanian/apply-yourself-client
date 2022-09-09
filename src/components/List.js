@@ -5,12 +5,36 @@ import Filter from "./Filter";
 import Loading from "./Loading";
 import LineDesign from "./LineDesign";
 
-const List = ({ allApps, setAllApps }) => {
+const List = () => {
+  const [allApps, setAllApps] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState("all");
   const [filteredApps, setFilteredApps] = useState([]);
 
+  // Fetch all apps from DB
   useEffect(() => {
+    console.log("fetching all apps from DB and setting allApps");
+    const fetchApps = async () => {
+      const response = await fetch(
+        "https://server-apply-yourself.herokuapp.com/applications"
+      );
+      // const response = await fetch("http://localhost:5000/applications/");
+      if (!response.ok) {
+        const message = `An error occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+      const data = await response.json();
+      setAllApps(data);
+    };
+    fetchApps();
+    return;
+  }, []);
+
+  useEffect(() => {
+    console.log(
+      "setting the filteredApps from the allApps if the filter changed or allApps changed"
+    );
     setIsLoading(true);
     if (allApps.length !== 0) {
       if (filter === "all") {
@@ -22,6 +46,8 @@ const List = ({ allApps, setAllApps }) => {
       setTimeout(() => {
         setIsLoading(false);
       }, 500);
+    } else {
+      return;
     }
   }, [filter, allApps]);
 

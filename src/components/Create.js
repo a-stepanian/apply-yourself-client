@@ -50,7 +50,7 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
       status: "",
     });
     // redirect to list of all applications page
-    navigate("/");
+    navigate("/applications");
     if (isDropdownOpen) toggleDropdown();
   };
 

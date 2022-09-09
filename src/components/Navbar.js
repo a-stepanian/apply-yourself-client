@@ -39,7 +39,7 @@ export default Navbar;
 
 const Wrapper = styled.nav`
   position: relative;
-  z-index: 2;
+  z-index: 3;
   width: 100%;
   height: 4rem;
   padding: 1rem;
