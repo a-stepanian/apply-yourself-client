@@ -112,52 +112,54 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
             />
           </div>
           <h4>Application Details</h4>
-          <div className="date-input">
-            <label className="label" htmlFor="applied">
-              Date Applied
-            </label>
-            <input
-              type="date"
-              id="applied"
-              value={form.applied}
-              onChange={(e) => updateForm({ applied: e.target.value })}
-            />
-          </div>
-          <div className="form-input">
-            <p className="label">Status</p>
-            <div className="radio-buttons">
-              <div>
-                <input
-                  type="radio"
-                  name="positionOptions"
-                  id="positionApplied"
-                  value="Applied"
-                  checked={form.status === "Applied"}
-                  onChange={(e) => updateForm({ status: e.target.value })}
-                />
-                <label htmlFor="positionApplied">Applied</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="positionOptions"
-                  id="positionRejected"
-                  value="Rejected"
-                  checked={form.status === "Rejected"}
-                  onChange={(e) => updateForm({ status: e.target.value })}
-                />
-                <label htmlFor="positionRejected">Rejected</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  name="positionOptions"
-                  id="positionInterview"
-                  value="Interview"
-                  checked={form.status === "Interview"}
-                  onChange={(e) => updateForm({ status: e.target.value })}
-                />
-                <label htmlFor="positionInterview">Interview</label>
+          <div className="date-and-status">
+            <div className="date-input">
+              <label className="label" htmlFor="applied">
+                Date Applied
+              </label>
+              <input
+                type="date"
+                id="applied"
+                value={form.applied}
+                onChange={(e) => updateForm({ applied: e.target.value })}
+              />
+            </div>
+            <div className="form-input">
+              <p className="label">Status</p>
+              <div className="radio-buttons">
+                <div className="button-wrapper">
+                  <input
+                    type="radio"
+                    name="positionOptions"
+                    id="positionApplied"
+                    value="Applied"
+                    checked={form.status === "Applied"}
+                    onChange={(e) => updateForm({ status: e.target.value })}
+                  />
+                  <label htmlFor="positionApplied">Applied</label>
+                </div>
+                <div className="button-wrapper">
+                  <input
+                    type="radio"
+                    name="positionOptions"
+                    id="positionRejected"
+                    value="Rejected"
+                    checked={form.status === "Rejected"}
+                    onChange={(e) => updateForm({ status: e.target.value })}
+                  />
+                  <label htmlFor="positionRejected">Rejected</label>
+                </div>
+                <div className="button-wrapper">
+                  <input
+                    type="radio"
+                    name="positionOptions"
+                    id="positionInterview"
+                    value="Interview"
+                    checked={form.status === "Interview"}
+                    onChange={(e) => updateForm({ status: e.target.value })}
+                  />
+                  <label htmlFor="positionInterview">Interview</label>
+                </div>
               </div>
             </div>
           </div>
@@ -202,6 +204,8 @@ const Wrapper = styled.section`
     align-items: center;
   }
   form {
+    z-index: 1;
+    position: relative;
     width: 100%;
     margin: 1rem;
     padding: 1rem;
@@ -232,6 +236,10 @@ const Wrapper = styled.section`
         font-family: "Playfair Display", serif;
       }
     }
+    .date-and-status {
+      display: flex;
+      justify-content: space-between;
+    }
     .label {
       font-weight: 700;
     }
@@ -242,6 +250,9 @@ const Wrapper = styled.section`
       padding: 0.3rem;
       display: flex;
       justify-content: space-around;
+    }
+    .button-wrapper {
+      margin: 0 0.5rem;
     }
     textarea {
       padding: 0.3rem;
