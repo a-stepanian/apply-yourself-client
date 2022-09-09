@@ -23,7 +23,7 @@ const List = ({ allApps, setAllApps }) => {
         setIsLoading(false);
       }, 500);
     }
-  }, [filter, allApps.length]);
+  }, [filter, allApps]);
 
   return (
     <Wrapper>
