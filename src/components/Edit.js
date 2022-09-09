@@ -163,12 +163,12 @@ const Edit = () => {
                   <input
                     type="radio"
                     name="positionOptions"
-                    id="positionRejected"
-                    value="Rejected"
-                    checked={form.status === "Rejected"}
+                    id="positionDeclined"
+                    value="Declined"
+                    checked={form.status === "Declined"}
                     onChange={(e) => updateForm({ status: e.target.value })}
                   />
-                  <label htmlFor="positionRejected">Rejected</label>
+                  <label htmlFor="positionDeclined">Declined</label>
                 </div>
                 <div className="button-wrapper">
                   <input

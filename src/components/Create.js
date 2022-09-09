@@ -111,7 +111,7 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
               onChange={(e) => updateForm({ location: e.target.value })}
             />
           </div>
-          <h4>Application Details</h4>
+          <h4 className="app-h4">Application Details</h4>
           <div className="date-and-status">
             <div className="date-input">
               <label className="label" htmlFor="applied">
@@ -142,12 +142,12 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
                   <input
                     type="radio"
                     name="positionOptions"
-                    id="positionRejected"
-                    value="Rejected"
-                    checked={form.status === "Rejected"}
+                    id="positionDeclined"
+                    value="Declined"
+                    checked={form.status === "Declined"}
                     onChange={(e) => updateForm({ status: e.target.value })}
                   />
-                  <label htmlFor="positionRejected">Rejected</label>
+                  <label htmlFor="positionDeclined">Declined</label>
                 </div>
                 <div className="button-wrapper">
                   <input
@@ -189,12 +189,12 @@ const Wrapper = styled.section`
   overflow-x: hidden;
   .img-container {
     width: 100%;
-    height: 15rem;
+    height: 10rem;
   }
   .clipboard-img {
     object-fit: cover;
     width: 100%;
-    height: 15rem;
+    height: 10rem;
   }
   section {
     position: relative;
@@ -211,10 +211,15 @@ const Wrapper = styled.section`
     padding: 1rem;
     max-width: 30rem;
     h4 {
-      margin: 5rem 0 1rem;
+      margin: 3rem 0 1rem;
+      padding-bottom: 1rem;
       border-bottom: 1px solid var(--beige2);
       font-weight: 500;
+      font-size: 2rem;
       text-align: center;
+    }
+    .app-h4 {
+      margin-top: 5rem;
     }
     .form-input,
     .date-input {

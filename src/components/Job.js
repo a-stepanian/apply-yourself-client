@@ -21,7 +21,7 @@ const Job = ({
             backgroundColor:
               (status === "Applied" && "beige") ||
               (status === "Interview" && "rgba(0, 255, 0, 0.3)") ||
-              (status === "Rejected" && "rgba(255, 0, 0, 0.2)"),
+              (status === "Declined" && "rgba(255, 0, 0, 0.2)"),
           }}
         >
           {status}

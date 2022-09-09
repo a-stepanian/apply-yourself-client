@@ -9,6 +9,7 @@ import Dropdown from "./components/Dropdown";
 import Dashboard from "./components/Dashboard";
 import Hero from "./components/Hero";
 import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -20,6 +21,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Wrapper>
+        <ScrollToTop />
         <Navbar
           isDropdownOpen={isDropdownOpen}
           toggleDropdown={toggleDropdown}

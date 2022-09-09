@@ -13,7 +13,7 @@ const Filter = ({ setFilter }) => {
         <option value="all">All</option>
         <option value="Applied">Applied</option>
         <option value="Interview">Interview</option>
-        <option value="Rejected">Rejected</option>
+        <option value="Declined">Declined</option>
       </select>
     </Wrapper>
   );
