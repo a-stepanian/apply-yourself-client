@@ -17,8 +17,8 @@ const Edit = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  // const url = "https://server-apply-yourself.herokuapp.com/applications/";
-  const url = "http://localhost:5000/applications/";
+  const url = "https://server-apply-yourself.herokuapp.com/applications/";
+  // const url = "http://localhost:5000/applications/";
 
   useEffect(() => {
     const fetchApplication = async () => {
