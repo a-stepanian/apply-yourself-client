@@ -25,7 +25,7 @@ const Wrapper = styled.button`
     width: 2.5rem;
     height: 0.05rem;
     background-color: black;
-    transition: 0.7s;
+    transition: 0.3s;
   }
   .top {
     top: 0.5rem;

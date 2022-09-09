@@ -72,7 +72,7 @@ const Wrapper = styled.section`
   align-items: center;
   header {
     width: 100%;
-    height: 10rem;
+    height: 20rem;
     background: url("list.jpg");
     background-size: cover;
     background-position: center;

@@ -36,16 +36,16 @@ const Wrapper = styled.div`
     top: 4rem;
     left: 0;
     width: 100%;
+    height: 15rem;
     background-color: var(--white);
     box-shadow: 2px 2px 5px var(--beige2);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    transition: 0.6s;
-    transform: translateY(-12rem);
+    transition: 0.4s;
+    transform: translateY(-15rem);
     a {
-      margin: 1rem;
       padding: 0.2rem;
       color: black;
       text-decoration: none;

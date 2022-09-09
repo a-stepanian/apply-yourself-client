@@ -20,14 +20,17 @@ const Filter = ({ setFilter }) => {
 };
 
 const Wrapper = styled.form`
+  width: 50%;
   font-size: 1rem;
   font-weight: 700;
-  padding: 1rem 1.5rem;
+  padding: 1.5rem 0;
   background-color: rgba(255, 255, 255, 0.85);
   border-radius: 3px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   select {
+    width: 9rem;
     padding: 0.2rem;
   }
 `;
