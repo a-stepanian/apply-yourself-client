@@ -10,6 +10,7 @@ const Dashboard = () => {
     totalDeclined: 0,
     totalInterview: 0,
   });
+  const [isLoading, setIsLoading] = useState(true);
 
   // Fetch all apps from DB
   useEffect(() => {
