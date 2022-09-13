@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import LineDesign from "./LineDesign";
+import DonutChart from "./DonutChart";
 
 const Dashboard = () => {
   const [allApps, setAllApps] = useState([]);
@@ -43,7 +44,6 @@ const Dashboard = () => {
       const totalInterview = allApps.filter(
         (app) => app.status === "Interview"
       ).length;
-      console.log(totalInterview);
       setTotals({
         total,
         totalWaiting,
@@ -64,6 +64,7 @@ const Dashboard = () => {
         <h2>Total waiting: {totals.totalWaiting}</h2>
         <h2>Total declined: {totals.totalDeclined}</h2>
       </section>
+      <DonutChart totals={totals} />
     </Wrapper>
   );
 };
