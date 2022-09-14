@@ -10,6 +10,7 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
     website: "",
     location: "",
     applied: "",
+    response: "",
     comments: "",
     status: "",
   });

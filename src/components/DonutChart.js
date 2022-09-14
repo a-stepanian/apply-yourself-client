@@ -6,7 +6,7 @@ import styled from "styled-components";
 const DonutChart = ({ totals }) => {
   return (
     <Wrapper>
-      <h2>Application Status</h2>
+      <h3>Application Status</h3>
       <div className="chart-wrapper">
         <Chart
           type="doughnut"
@@ -51,10 +51,13 @@ const Wrapper = styled.div`
   padding: 1rem;
   position: relative;
   z-index: 1;
-  h2 {
-    font-size: 1.5rem;
+  h3 {
+    font-size: 1.4rem;
+    font-weight: 500;
     text-align: center;
-    margin-bottom: 0.5rem;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   }
   .chart-wrapper {
     box-shadow: 3px 3px 10px rgb(0, 0, 0, 0.2);

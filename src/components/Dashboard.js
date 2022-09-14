@@ -26,6 +26,8 @@ const Dashboard = () => {
     november: 0,
     december: 0,
   });
+  const [respTime, setRespTime] = useState([]);
+  const [waitTime, setWaitTime] = useState([]);
 
   // Fetch all apps from DB
   useEffect(() => {
@@ -46,6 +48,7 @@ const Dashboard = () => {
     return;
   }, []);
 
+  // calculations for dashboard
   useEffect(() => {
     const calculateTotals = () => {
       const total = allApps.length;
@@ -120,8 +123,45 @@ const Dashboard = () => {
         december: decemberApps,
       });
     };
+
+    const calcAvgResponseTime = () => {
+      // turn string date into date object
+      const parseDate = (str) => {
+        let ymd = str.split("-");
+        let mdy = [ymd[1], ymd[2], ymd[0]];
+        return new Date(mdy[2], mdy[0] - 1, mdy[1]);
+      };
+      // find difference in days
+      const dateDiff = (responseDate, appliedDate) => {
+        return Math.round((responseDate - appliedDate) / (1000 * 60 * 60 * 24));
+      };
+      const responseTimes = allApps.map((app) => {
+        if (app.response) {
+          const responseDate = parseDate(app.response);
+          const appliedDate = parseDate(app.applied);
+          const difference = dateDiff(responseDate, appliedDate);
+          return {
+            company: app.company,
+            responded: true,
+            difference,
+          };
+        } else {
+          const todaysDate = new Date();
+          const appliedDate = parseDate(app.applied);
+          const waitTime = dateDiff(todaysDate, appliedDate);
+          return {
+            company: app.company,
+            responded: false,
+            waitTime,
+          };
+        }
+      });
+      setRespTime(responseTimes.filter((app) => app.responded === true));
+      setWaitTime(responseTimes.filter((app) => app.responded === false));
+    };
     calcMonthlySubmissions();
     calculateTotals();
+    calcAvgResponseTime();
   }, [allApps]);
 
   return (
@@ -130,6 +170,15 @@ const Dashboard = () => {
         <h2>DASHBOARD</h2>
       </header>
       <LineDesign />
+      <div className="metrics">
+        <h3>total apps: {allApps.length}</h3>
+        <h3>total responses: {respTime.length}</h3>
+        <h3>average response time: reduce</h3>
+        <h3>min response time</h3>
+        <h3>max response time</h3>
+        <h3>total no response: {waitTime.length}</h3>
+        <h3>companies with no response and days since application</h3>
+      </div>
       <div className="dashboard-wrapper">
         <LineChart monthlyCount={monthlyCount} />
         <DonutChart totals={totals} />

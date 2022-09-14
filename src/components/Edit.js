@@ -57,6 +57,7 @@ const Edit = () => {
       website: form.website,
       location: form.location,
       applied: form.applied,
+      response: form.response,
       comments: form.comments,
       status: form.status,
     };
@@ -143,6 +144,17 @@ const Edit = () => {
                 id="applied"
                 value={form.applied}
                 onChange={(e) => updateForm({ applied: e.target.value })}
+              />
+            </div>
+            <div className="date-input">
+              <label className="label" htmlFor="response">
+                Response Date
+              </label>
+              <input
+                type="date"
+                id="response"
+                value={form.response}
+                onChange={(e) => updateForm({ response: e.target.value })}
               />
             </div>
             <div className="form-input">
