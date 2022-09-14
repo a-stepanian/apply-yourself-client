@@ -47,7 +47,7 @@ const DonutChart = ({ totals }) => {
 
 const Wrapper = styled.div`
   position: relative;
-  z-index: 2;
+  z-index: 1;
   .chart-wrapper {
     box-shadow: 3px 3px 10px rgb(0, 0, 0, 0.2);
   }

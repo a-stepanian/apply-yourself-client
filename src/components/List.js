@@ -13,7 +13,6 @@ const List = () => {
 
   // Fetch all apps from DB
   useEffect(() => {
-    console.log("fetching all apps from DB and setting allApps");
     const fetchApps = async () => {
       const response = await fetch(
         "https://server-apply-yourself.herokuapp.com/applications"
@@ -32,9 +31,6 @@ const List = () => {
   }, []);
 
   useEffect(() => {
-    console.log(
-      "setting the filteredApps from the allApps if the filter changed or allApps changed"
-    );
     setIsLoading(true);
     if (allApps.length !== 0) {
       if (filter === "all") {

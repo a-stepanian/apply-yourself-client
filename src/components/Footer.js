@@ -18,6 +18,8 @@ const Wrapper = styled.footer`
 
   h1 {
     margin-bottom: 5rem;
+    text-align: center;
+    font-size: 1.8rem;
   }
 `;
 export default Footer;

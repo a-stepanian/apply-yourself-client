@@ -22,11 +22,11 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
     });
   };
 
-  const url = "https://server-apply-yourself.herokuapp.com/applications/new";
-  // const url = "http://localhost:5000/applications/add";
+  // const url = "https://server-apply-yourself.herokuapp.com/applications/new";
+  const url = "http://localhost:5000/applications/new";
 
   // This function handles the form submission.
-  const onSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // send post request to server
     await fetch(url, {
@@ -34,7 +34,7 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ ...form }),
+      body: JSON.stringify(form),
     }).catch((error) => {
       console.log(error);
       return;
@@ -65,7 +65,7 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
       </header>
       <section>
         <LineDesign />
-        <form onSubmit={onSubmit}>
+        <form onSubmit={handleSubmit}>
           <h4>Position Details</h4>
           <div className="form-input">
             <label className="label" htmlFor="company">
