@@ -102,31 +102,30 @@ const Wrapper = styled.article`
     font-weight: 100;
     font-size: 0.8rem;
   }
-  @media (min-width: 480px) {
-    /* padding: 1.1rem;
-    .company {
-      font-size: 1.2rem;
-      letter-spacing: -0.05em;
+  @media (min-width: 768px) {
+    max-width: 40rem;
+    padding: 1.5rem;
+    .top-header {
+      font-size: 0.8rem;
+    }
+    .job-card {
+      height: 8rem;
+      margin: 1.5rem 0;
     }
     .position {
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      color: black;
+      font-size: 1.6rem;
+      letter-spacing: 0.1rem;
     }
-    .applied {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 0.8rem;
-      font-weight: 300;
-      transform: translateY(0.3rem);
+    .company {
+      font-size: 1.3rem;
+      letter-spacing: -0.05rem;
+      span {
+        font-size: 1rem;
+      }
     }
-    .status {
-      width: 4rem;
-      padding: 0.1rem;
-      text-align: center;
-      font-size: 0.9rem;
-      font-weight: 700;
-    } */
+    .comments {
+      font-size: 1rem;
+    }
   }
 `;
 
