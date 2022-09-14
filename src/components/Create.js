@@ -29,13 +29,23 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
   // This function handles the form submission.
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const newApplication = {
+      company: form.company,
+      position: form.position,
+      website: form.website,
+      location: form.location,
+      applied: form.applied,
+      response: form.response,
+      comments: form.comments,
+      status: form.status,
+    };
     // send post request to server
     await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(form),
+      body: JSON.stringify(newApplication),
     }).catch((error) => {
       console.log(error);
       return;
@@ -47,6 +57,7 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
       website: "",
       location: "",
       applied: "",
+      response: "",
       comments: "",
       status: "",
     });
