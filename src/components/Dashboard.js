@@ -3,6 +3,8 @@ import styled from "styled-components";
 import LineDesign from "./LineDesign";
 import DonutChart from "./DonutChart";
 import LineChart from "./LineChart";
+import Loading from "./Loading";
+import Metrics from "./Metrics";
 
 const Dashboard = () => {
   const [allApps, setAllApps] = useState([]);
@@ -28,6 +30,7 @@ const Dashboard = () => {
   });
   const [respTime, setRespTime] = useState([]);
   const [waitTime, setWaitTime] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Fetch all apps from DB
   useEffect(() => {
@@ -164,21 +167,29 @@ const Dashboard = () => {
     calcAvgResponseTime();
   }, [allApps]);
 
+  useEffect(() => {
+    setIsLoading(true);
+    if (respTime.length || waitTime.length) {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 500);
+    } else {
+      return;
+    }
+  }, [respTime, waitTime]);
+
   return (
     <Wrapper>
       <header className="title">
         <h2>DASHBOARD</h2>
       </header>
       <LineDesign />
-      <div className="metrics">
-        <h3>total apps: {allApps.length}</h3>
-        <h3>total responses: {respTime.length}</h3>
-        <h3>average response time: reduce</h3>
-        <h3>min response time</h3>
-        <h3>max response time</h3>
-        <h3>total no response: {waitTime.length}</h3>
-        <h3>companies with no response and days since application</h3>
-      </div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <Metrics allApps={allApps} respTime={respTime} waitTime={waitTime} />
+      )}
+
       <div className="dashboard-wrapper">
         <LineChart monthlyCount={monthlyCount} />
         <DonutChart totals={totals} />

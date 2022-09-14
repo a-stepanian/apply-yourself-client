@@ -29,7 +29,7 @@ const Wrapper = styled.p`
   z-index: 2;
   position: relative;
   width: fit-content;
-  margin: 3rem 0 20rem;
+  margin: 3rem 0 5rem;
   font-size: 3rem;
   font-weight: 700;
   display: flex;
