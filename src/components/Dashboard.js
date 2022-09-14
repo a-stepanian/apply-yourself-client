@@ -3,7 +3,6 @@ import styled from "styled-components";
 import LineDesign from "./LineDesign";
 import DonutChart from "./DonutChart";
 import LineChart from "./LineChart";
-import Loading from "./Loading";
 import Metrics from "./Metrics";
 
 const Dashboard = () => {
@@ -30,7 +29,6 @@ const Dashboard = () => {
   });
   const [respTime, setRespTime] = useState([]);
   const [waitTime, setWaitTime] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   // Fetch all apps from DB
   useEffect(() => {
@@ -167,32 +165,19 @@ const Dashboard = () => {
     calcAvgResponseTime();
   }, [allApps]);
 
-  useEffect(() => {
-    setIsLoading(true);
-    if (respTime.length || waitTime.length) {
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 500);
-    } else {
-      return;
-    }
-  }, [respTime, waitTime]);
-
   return (
     <Wrapper>
       <header className="title">
         <h2>DASHBOARD</h2>
       </header>
       <LineDesign />
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <Metrics allApps={allApps} respTime={respTime} waitTime={waitTime} />
-      )}
 
       <div className="dashboard-wrapper">
-        <LineChart monthlyCount={monthlyCount} />
-        <DonutChart totals={totals} />
+        <Metrics allApps={allApps} respTime={respTime} waitTime={waitTime} />
+        <div className="bottom-chart-wrapper">
+          <LineChart monthlyCount={monthlyCount} />
+          <DonutChart totals={totals} />
+        </div>
       </div>
     </Wrapper>
   );
@@ -219,8 +204,14 @@ const Wrapper = styled.main`
     font-size: 2rem;
   }
   .dashboard-wrapper {
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 3px 3px 10px rgb(0, 0, 0, 0.2);
+  }
+  .bottom-chart-wrapper {
     width: 100%;
-    padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -228,7 +219,7 @@ const Wrapper = styled.main`
 
   @media (min-width: 990px) {
     .title {
-      height: 20rem;
+      height: 15rem;
       font-size: 4rem;
     }
   }
@@ -236,9 +227,13 @@ const Wrapper = styled.main`
   @media (min-width: 990px) {
     .dashboard-wrapper {
       margin: 5rem 0;
+      padding: 0 5rem;
       align-self: center;
       width: 90%;
+    }
+    .bottom-chart-wrapper {
       flex-direction: row;
+      align-items: flex-start;
     }
   }
 

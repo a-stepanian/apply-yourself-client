@@ -22,18 +22,18 @@ const Hero = () => {
         <span className="dot">a</span>
         <span className="dot">n</span>
         <span className="dot">d</span>
-        <span className="dot"> </span>
+        <span className="space"> </span>
         <span className="dot">y</span>
         <span className="dot">o</span>
         <span className="dot">u</span>
         <span className="dot">r</span>
-        <span className="dot"> </span>
+        <span className="space"> </span>
         <span className="dot">d</span>
         <span className="dot">r</span>
         <span className="dot">e</span>
         <span className="dot">a</span>
         <span className="dot">m</span>
-        <span className="dot"> </span>
+        <span className="space"> </span>
         <span className="dot">j</span>
         <span className="dot">o</span>
         <span className="dot">b</span>
@@ -53,7 +53,8 @@ const Wrapper = styled.main`
   h1 {
     text-align: center;
   }
-  .dot {
+  .dot,
+  .space {
     margin-left: 1rem;
     position: relative;
     z-index: 1;
@@ -62,7 +63,8 @@ const Wrapper = styled.main`
     display: none;
     letter-spacing: -1rem;
   }
-  .show {
+  .show,
+  .space {
     display: inline;
   }
   .smiley {

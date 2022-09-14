@@ -95,9 +95,6 @@ const Wrapper = styled.div`
     margin-bottom: 1.5rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   }
-  .chart-wrapper {
-    box-shadow: 3px 3px 10px rgb(0, 0, 0, 0.2);
-  }
   @media (min-width: 700px) {
     width: 80%;
   }
