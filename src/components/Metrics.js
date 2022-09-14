@@ -1,10 +1,64 @@
-import React from "react";
-import { BiCalendarX, BiCalendar } from "react-icons/bi";
+import React, { useEffect, useState } from "react";
 import { CgGhostCharacter } from "react-icons/cg";
+import { MdTimer } from "react-icons/md";
 import { RiReplyLine, RiStackLine } from "react-icons/ri";
 import styled from "styled-components";
 
 const Metrics = ({ allApps, respTime, waitTime }) => {
+  const [count, setCount] = useState({
+    totalApplications: 0,
+    responses: 0,
+    noresponse: 0,
+    time: 0,
+  });
+
+  const avgRespTime =
+    respTime.reduce((total, next) => total + next.difference, 0) /
+    respTime.length;
+
+  const countSpeed = 30;
+
+  // counting effect for the metrics
+  useEffect(() => {
+    for (let i = 0; i <= allApps.length; i++) {
+      setTimeout(() => {
+        setCount((prev) => {
+          return { ...prev, totalApplications: i };
+        });
+      }, countSpeed * i + 500);
+    }
+  }, [allApps]);
+
+  useEffect(() => {
+    for (let i = 0; i <= respTime.length; i++) {
+      setTimeout(() => {
+        setCount((prev) => {
+          return { ...prev, responses: i };
+        });
+      }, countSpeed * i + 500);
+    }
+  }, [respTime]);
+
+  useEffect(() => {
+    for (let i = 0; i <= waitTime.length; i++) {
+      setTimeout(() => {
+        setCount((prev) => {
+          return { ...prev, noresponse: i };
+        });
+      }, countSpeed * i + 500);
+    }
+  }, [waitTime]);
+
+  useEffect(() => {
+    for (let i = 0; i <= avgRespTime; i++) {
+      setTimeout(() => {
+        setCount((prev) => {
+          return { ...prev, time: i };
+        });
+      }, countSpeed * i + 500);
+    }
+  }, [avgRespTime]);
+
   return (
     <Wrapper>
       <h3>Application Insights</h3>
@@ -12,43 +66,33 @@ const Metrics = ({ allApps, respTime, waitTime }) => {
         <article className="metric">
           <h4>Total Applications</h4>
           <RiStackLine className="icon" />
-          <p>{allApps.length}</p>
+          <p>{count.totalApplications}</p>
         </article>
         <article className="metric">
           <h4>Responses</h4>
           <RiReplyLine className="icon" />
-          <p>{respTime.length}</p>
+          <p>{count.responses}</p>
         </article>
         <article className="metric">
           <h4>No Response</h4>
           <CgGhostCharacter className="icon" />
-          <p>{waitTime.length}</p>
+          <p>{count.noresponse}</p>
         </article>
-      </div>
-
-      <div className="misc">
-        <h4>
-          total responses: <RiReplyLine /> {respTime.length}
-        </h4>
-        <h4>
-          average response time <BiCalendar />: reduce
-        </h4>
-        <h4>min response time</h4>
-        <h4>max response time</h4>
-        <h4>
-          companies with no response and days since application <BiCalendarX />
-        </h4>
+        <article className="metric">
+          <h4>Avg Response Time</h4>
+          <MdTimer className="icon" />
+          <p>{count.time} days</p>
+        </article>
       </div>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.section`
-  margin: 4rem 2rem;
-  padding: 3rem 1rem;
+  width: 100%;
+  margin: 2rem 0;
+  padding: 1rem;
   position: relative;
-  z-index: 1;
-  box-shadow: 3px 3px 10px rgb(0, 0, 0, 0.2);
 
   h3 {
     font-size: 1.4rem;
@@ -64,21 +108,41 @@ const Wrapper = styled.section`
     align-items: center;
   }
   .metric {
-    width: 10rem;
-    height: 10rem;
+    width: 80%;
+    height: 0;
+    overflow: hidden;
     display: flex;
-    margin: 1rem;
+    margin: 0 1rem;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
+    animation: grow 0.5s forwards;
+    @keyframes grow {
+      0% {
+        height: 0;
+        margin: 0 1rem;
+      }
+      100% {
+        height: 10rem;
+        margin: 1rem;
+      }
+    }
     &:nth-of-type(1) {
-      background-color: rgba(200, 220, 255, 0.4);
+      background-color: rgba(200, 220, 255, 0.8);
     }
     &:nth-of-type(2) {
-      background-color: rgba(215, 210, 255, 0.4);
+      background-color: rgba(215, 210, 255, 0.8);
     }
     &:nth-of-type(3) {
-      background-color: rgba(235, 243, 200, 0.4);
+      background-color: rgba(235, 243, 200, 0.8);
+    }
+    &:nth-of-type(4) {
+      position: relative;
+      background: linear-gradient(
+        rgba(215, 210, 255, 0.8),
+        rgba(200, 220, 255, 0.8),
+        rgba(235, 243, 200, 0.8)
+      );
     }
     h4 {
       font-size: 1rem;
@@ -94,28 +158,23 @@ const Wrapper = styled.section`
       transform: translateY(-0.3rem);
     }
   }
-  @media (min-width: 600px) {
+  @media (min-width: 768px) {
     .row {
       flex-direction: row;
+      flex-wrap: wrap;
       justify-content: space-between;
     }
     .metric {
-      margin: 0;
-      width: 30%;
-    }
-  }
-  @media (min-width: 768px) {
-    .metric {
-      h4 {
-        font-size: 1.2rem;
-      }
+      width: 45%;
     }
   }
   @media (min-width: 990px) {
+    align-self: center;
+  }
+  @media (min-width: 1200px) {
     .metric {
-      h4 {
-        font-size: 1.4rem;
-      }
+      margin: 0;
+      width: 20%;
     }
   }
 `;
