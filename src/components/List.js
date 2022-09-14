@@ -11,13 +11,13 @@ const List = () => {
   const [filter, setFilter] = useState("all");
   const [filteredApps, setFilteredApps] = useState([]);
 
+  const url = "https://server-apply-yourself.herokuapp.com/applications";
+  // const url = "http://localhost:5000/applications";
+
   // Fetch all apps from DB
   useEffect(() => {
     const fetchApps = async () => {
-      const response = await fetch(
-        "https://server-apply-yourself.herokuapp.com/applications"
-      );
-      // const response = await fetch("http://localhost:5000/applications/");
+      const response = await fetch(url);
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         window.alert(message);
