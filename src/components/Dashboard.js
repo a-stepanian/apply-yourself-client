@@ -126,29 +126,66 @@ const Dashboard = () => {
 
   return (
     <Wrapper>
+      <header className="title">
+        <h2>DASHBOARD</h2>
+      </header>
       <LineDesign />
-      <section className="data">
-        <h1>Dashboard</h1>
-        <h2>Total: {totals.total}</h2>
-        <h2>Total interview: {totals.totalInterview}</h2>
-        <h2>Total waiting: {totals.totalWaiting}</h2>
-        <h2>Total declined: {totals.totalDeclined}</h2>
-      </section>
-      <DonutChart totals={totals} />
-      <LineChart monthlyCount={monthlyCount} />
+      <div className="dashboard-wrapper">
+        <LineChart monthlyCount={monthlyCount} />
+        <DonutChart totals={totals} />
+      </div>
     </Wrapper>
   );
 };
 const Wrapper = styled.main`
   position: relative;
-  width: 100%;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  .data {
+  justify-content: center;
+
+  .title {
     position: relative;
     z-index: 1;
+    width: 100%;
+    height: 10rem;
+    background: url("https://images.unsplash.com/photo-1485627941502-d2e6429a8af0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Josefin Slab", serif;
+    font-size: 2rem;
+  }
+  .dashboard-wrapper {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media (min-width: 990px) {
+    .title {
+      height: 20rem;
+      font-size: 4rem;
+    }
+  }
+
+  @media (min-width: 990px) {
+    .dashboard-wrapper {
+      margin: 5rem 0;
+      align-self: center;
+      width: 90%;
+      flex-direction: row;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .dashboard-wrapper {
+      width: 80%;
+    }
   }
 `;
 

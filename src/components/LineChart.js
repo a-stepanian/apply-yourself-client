@@ -6,7 +6,7 @@ import styled from "styled-components";
 const LineChart = ({ monthlyCount }) => {
   return (
     <Wrapper>
-      <h1>Monthly Submissions</h1>
+      <h2>Monthly Submissions</h2>
       <div className="chart-wrapper">
         <Chart
           type="line"
@@ -27,7 +27,7 @@ const LineChart = ({ monthlyCount }) => {
             ],
             datasets: [
               {
-                label: "This is the chart",
+                label: "Number of Applications Submitted",
                 data: [
                   monthlyCount.january,
                   monthlyCount.february,
@@ -42,10 +42,30 @@ const LineChart = ({ monthlyCount }) => {
                   monthlyCount.november,
                   monthlyCount.december,
                 ],
+                fill: false,
+                borderColor: "rgb(75, 192, 192)",
+                tension: 0.3,
+                pointRadius: 5,
+                pointHoverRadius: 8,
               },
             ],
           }}
           options={{
+            animations: {
+              tension: {
+                duration: 1500,
+                easing: "linear",
+                from: 0.4,
+                to: 0.2,
+                loop: true,
+              },
+            },
+            scales: {
+              y: {
+                min: 0,
+                max: 10,
+              },
+            },
             layout: {
               padding: "20",
             },
@@ -62,10 +82,24 @@ const LineChart = ({ monthlyCount }) => {
 };
 
 const Wrapper = styled.div`
+  width: 100%;
+  margin: 2rem 0;
+  padding: 1rem;
   position: relative;
   z-index: 1;
+  h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
   .chart-wrapper {
     box-shadow: 3px 3px 10px rgb(0, 0, 0, 0.2);
+  }
+  @media (min-width: 700px) {
+    width: 80%;
+  }
+  @media (min-width: 990px) {
+    width: 66%;
   }
 `;
 
