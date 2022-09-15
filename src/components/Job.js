@@ -38,14 +38,18 @@ const Job = ({
           >
             {position}
           </a>
-        </p>{" "}
+        </p>
         <p className="company">
           {company} - <span>{location}</span>
         </p>
       </div>
 
       <p className="comments">{comments}</p>
-      <Link to={`/applications/edit/${_id}`}>Edit</Link>
+      <div className="edit-wrapper">
+        <Link to={`/applications/edit/${_id}`} className="edit">
+          EDIT
+        </Link>
+      </div>
     </Wrapper>
   );
 };
@@ -101,6 +105,17 @@ const Wrapper = styled.article`
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 100;
     font-size: 0.8rem;
+    margin-bottom: 1rem;
+  }
+  .edit-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .edit {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 0.67em;
+    font-weight: 900;
+    color: gray;
   }
   @media (min-width: 768px) {
     max-width: 40rem;

@@ -345,25 +345,30 @@ const Wrapper = styled.section`
     }
   }
   .delete-container {
+    position: relative;
+    z-index: 2;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
   }
   .delete-btn {
     color: black;
     padding: 0.5rem;
+    margin-bottom: 2rem;
     border: 2px solid rgba(0, 0, 0, 0.3);
     border-radius: 2px;
     background-color: transparent;
     font-family: "Playfair Display", serif;
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.7rem;
     &:hover {
       cursor: pointer;
       background-color: rgba(255, 255, 200, 0.5);
     }
   }
   .check {
-    margin: 0 1rem;
+    margin: 1rem 1rem 3rem;
   }
   .yes-btn {
     margin: 0 1rem;
@@ -392,14 +397,6 @@ const Wrapper = styled.section`
     &:hover {
       cursor: pointer;
       background-color: rgba(0, 255, 0, 1);
-    }
-  }
-
-  @media (min-width: 480px) {
-    form {
-      .date-and-status {
-        flex-direction: row;
-      }
     }
   }
 `;
