@@ -108,7 +108,10 @@ const Wrapper = styled.section`
     align-items: center;
   }
   .metric {
+    font-family: "Josefin Slab", serif;
+    font-weight: 900;
     width: 80%;
+    padding: 0.2rem;
     height: 0;
     overflow: hidden;
     display: flex;
@@ -145,13 +148,12 @@ const Wrapper = styled.section`
       );
     }
     h4 {
-      font-size: 1rem;
+      font-size: 1.5rem;
+      text-align: center;
       margin-bottom: 0.8rem;
     }
     p {
-      font-family: "Josefin Slab", serif;
-      font-weight: 900;
-      font-size: 3rem;
+      font-size: 2.8rem;
     }
     .icon {
       font-size: 2.5rem;

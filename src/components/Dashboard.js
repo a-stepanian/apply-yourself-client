@@ -202,6 +202,7 @@ const Wrapper = styled.main`
     justify-content: center;
     font-family: "Josefin Slab", serif;
     font-size: 2rem;
+    color: rgba(0, 0, 0, 0.8);
   }
   .dashboard-wrapper {
     margin: 1rem;
@@ -219,15 +220,15 @@ const Wrapper = styled.main`
 
   @media (min-width: 990px) {
     .title {
-      height: 15rem;
-      font-size: 4rem;
+      height: 10rem;
+      font-size: 3rem;
     }
   }
 
   @media (min-width: 990px) {
     .dashboard-wrapper {
-      margin: 5rem 0;
-      padding: 0 5rem;
+      margin: 3rem 0;
+      padding: 0 3rem;
       align-self: center;
       width: 90%;
     }
