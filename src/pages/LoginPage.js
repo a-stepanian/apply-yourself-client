@@ -7,7 +7,6 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
   const [form, setForm] = useState({
     username: "",
     password: "",
-    applications: [],
   });
   const navigate = useNavigate();
 
@@ -18,16 +17,15 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
     });
   };
 
-  //   const url = "https://server-apply-yourself.herokuapp.com/users/new";
-  const url = "http://localhost:5000/users/new";
+  //   const url = "https://server-apply-yourself.herokuapp.com/login";
+  const url = "http://localhost:5000/login";
 
   // This function handles the form submission.
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newApplication = {
+    const loginInfo = {
       username: form.username,
       password: form.password,
-      applications: form.applications,
     };
     // send post request to server
     await fetch(url, {
@@ -35,7 +33,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newApplication),
+      body: JSON.stringify(loginInfo),
     }).catch((error) => {
       console.log(error);
       return;
@@ -44,7 +42,6 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
     setForm({
       username: "",
       password: "",
-      applications: [],
     });
     if (isDropdownOpen) toggleDropdown();
     navigate("/");
@@ -56,7 +53,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
       <section>
         <LineDesign />
         <form onSubmit={handleSubmit}>
-          <h4>Sign Up</h4>
+          <h4>Log In</h4>
           <div className="form-input">
             <label className="label" htmlFor="username">
               Username
@@ -79,7 +76,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
               onChange={(e) => updateForm({ password: e.target.value })}
             />
           </div>
-          <button type="submit">Create User</button>
+          <button type="submit">Log In</button>
         </form>
       </section>
     </Wrapper>

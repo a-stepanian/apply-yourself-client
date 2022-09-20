@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 const ShowAppsPage = () => {
   const [user, setUser] = useState({});
+  const [applications, setApplications] = useState([]);
 
   const params = useParams();
   const navigate = useNavigate();
@@ -12,7 +13,6 @@ const ShowAppsPage = () => {
   const url = "http://localhost:5000/users/";
 
   useEffect(() => {
-    console.log("use effect fired");
     const fetchUser = async () => {
       try {
         const id = params.id.toString();
@@ -27,8 +27,8 @@ const ShowAppsPage = () => {
           navigate("/");
           return;
         }
-        console.log(foundUser);
         setUser(foundUser);
+        setApplications(foundUser.applications);
       } catch (e) {
         console.log(e);
       }
@@ -38,7 +38,18 @@ const ShowAppsPage = () => {
     return;
   }, [params.id, navigate]);
 
-  return <Wrapper>{user && <h1>{user.username}</h1>}</Wrapper>;
+  return (
+    <Wrapper>
+      {user && <h1>{user.username}'s Applications</h1>}
+      {applications ? (
+        applications.map((app, index) => {
+          return <h2 key={index}>company: {app.company}</h2>;
+        })
+      ) : (
+        <h2>No applications found</h2>
+      )}
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.section`

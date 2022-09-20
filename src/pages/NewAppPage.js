@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import LineDesign from "../components/LineDesign";
 
 const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
-  const [user, setUser] = useState({});
   const [form, setForm] = useState({
     company: "",
     position: "",
@@ -31,6 +30,7 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
 
   // This function handles the form submission.
   const handleSubmit = async (e) => {
+    const id = params.id.toString();
     e.preventDefault();
     const newApplication = {
       company: form.company,
@@ -43,7 +43,7 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
       status: form.status,
     };
     // send post request to server
-    await fetch(`${url}${params.id.toString()}/applications/new`, {
+    await fetch(`${url}${id}/applications/new`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -65,7 +65,7 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
       status: "",
     });
     // redirect to list of all applications page
-    navigate("/applications");
+    navigate(`/users/${id}/applications`);
     if (isDropdownOpen) toggleDropdown();
   };
 

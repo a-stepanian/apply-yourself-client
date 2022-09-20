@@ -7,47 +7,47 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
   const [form, setForm] = useState({
     username: "",
     password: "",
-    applications: [],
   });
   const navigate = useNavigate();
 
-  // This function updates the form state when one of the form input values are changed.
+  // url variable to send create new user POST request to
+  //   const url = "https://server-apply-yourself.herokuapp.com/users/new";
+  const url = "http://localhost:5000/users/new";
+
+  // setForm state when form input values are changed
   const updateForm = (value) => {
     return setForm((prev) => {
       return { ...prev, ...value };
     });
   };
 
-  //   const url = "https://server-apply-yourself.herokuapp.com/users/new";
-  const url = "http://localhost:5000/users/new";
-
   // This function handles the form submission.
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newApplication = {
+    const newUser = {
       username: form.username,
       password: form.password,
-      applications: form.applications,
     };
     // send post request to server
-    await fetch(url, {
+    const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newApplication),
+      body: JSON.stringify(newUser),
     }).catch((error) => {
       console.log(error);
       return;
     });
+    const data = await response.json();
+    const newId = data.insertedId;
     // clear form
     setForm({
       username: "",
       password: "",
-      applications: [],
     });
     if (isDropdownOpen) toggleDropdown();
-    navigate("/");
+    navigate(`/users/${newId}/applications`);
   };
 
   return (
@@ -93,15 +93,6 @@ const Wrapper = styled.section`
   flex-direction: column;
   align-items: center;
   overflow-x: hidden;
-  .img-container {
-    width: 100%;
-    height: 10rem;
-  }
-  .clipboard-img {
-    object-fit: cover;
-    width: 100%;
-    height: 10rem;
-  }
   section {
     position: relative;
     width: 100%;
