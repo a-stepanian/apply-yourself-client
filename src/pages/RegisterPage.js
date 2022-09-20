@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import LineDesign from "./LineDesign";
+import LineDesign from "../components/LineDesign";
 
-const NewUser = ({ isDropdownOpen, toggleDropdown }) => {
+const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -18,8 +18,8 @@ const NewUser = ({ isDropdownOpen, toggleDropdown }) => {
     });
   };
 
-  //   const url = "https://server-apply-yourself.herokuapp.com/applications/new";
-  const url = "http://localhost:5000/applications/new";
+  //   const url = "https://server-apply-yourself.herokuapp.com/users/new";
+  const url = "http://localhost:5000/users/new";
 
   // This function handles the form submission.
   const handleSubmit = async (e) => {
@@ -53,11 +53,7 @@ const NewUser = ({ isDropdownOpen, toggleDropdown }) => {
   return (
     <Wrapper>
       <header className="img-container">
-        <img
-          className="clipboard-img"
-          src="/create.jpg"
-          alt="A job application form is next to a pen and laptop"
-        />
+        <h2>REGISTER PAGE</h2>
       </header>
       <section>
         <LineDesign />
@@ -202,4 +198,4 @@ const Wrapper = styled.section`
   }
 `;
 
-export default NewUser;
+export default RegisterPage;

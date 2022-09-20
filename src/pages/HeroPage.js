@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import LineDesign from "./LineDesign";
+import LineDesign from "../components/LineDesign";
 import { BsBuilding } from "react-icons/bs";
 
-const Hero = () => {
+const HeroPage = () => {
   useEffect(() => {
     const dots = document.querySelectorAll(".dot");
     for (let i = 0; i < dots.length; i++) {
@@ -84,4 +84,4 @@ const Wrapper = styled.main`
   }
 `;
 
-export default Hero;
+export default HeroPage;

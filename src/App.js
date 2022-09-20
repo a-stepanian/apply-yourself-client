@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "./components/Navbar";
-import List from "./components/List";
-import Edit from "./components/Edit";
-import Create from "./components/Create";
 import Dropdown from "./components/Dropdown";
-import Dashboard from "./components/Dashboard";
-import Hero from "./components/Hero";
+
+import HeroPage from "./pages/HeroPage";
+import ShowAppsPage from "./pages/ShowAppsPage";
+import DashboardPage from "./pages/DashboardPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import NewAppPage from "./pages/NewAppPage";
+import EditAppPage from "./pages/EditAppPage";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -31,11 +34,13 @@ const App = () => {
           toggleDropdown={toggleDropdown}
         />
         <Routes>
-          <Route exact path="/" element={<Hero />} />
-          <Route path="/applications" element={<List />} />
-          <Route path="/applications/edit/:id" element={<Edit />} />
-          <Route path="/applications/new" element={<Create />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route exact path="/" element={<HeroPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/users/:id/applications" element={<ShowAppsPage />} />
+          <Route path="/applications/edit/:id" element={<EditAppPage />} />
+          <Route path="/users/:id/applications/new" element={<NewAppPage />} />
+          <Route path="/dashboardPage" element={<DashboardPage />} />
         </Routes>
         <Footer />
       </Wrapper>

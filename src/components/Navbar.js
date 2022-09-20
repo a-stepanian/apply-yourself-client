@@ -5,6 +5,8 @@ import {
   RiFolderChartLine,
   RiFolderOpenLine,
   RiFolderAddLine,
+  RiLoginBoxLine,
+  RiUserAddLine,
 } from "react-icons/ri";
 import Hamburger from "./Hamburger";
 
@@ -30,6 +32,14 @@ const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
       <Link to="/applications/new">
         <span>Add An Application</span>
         <RiFolderAddLine className="icon" />
+      </Link>
+      <Link to="/register">
+        <span>Register</span>
+        <RiUserAddLine className="icon" />
+      </Link>
+      <Link to="/login">
+        <span>Login</span>
+        <RiLoginBoxLine className="icon" />
       </Link>
     </Wrapper>
   );

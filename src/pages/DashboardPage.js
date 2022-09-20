@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import LineDesign from "./LineDesign";
-import DonutChart from "./DonutChart";
-import LineChart from "./LineChart";
-import Metrics from "./Metrics";
+import LineDesign from "../components/LineDesign";
+import DonutChart from "../components/DonutChart";
+import LineChart from "../components/LineChart";
+import Metrics from "../components/Metrics";
 
-const Dashboard = () => {
+const DashboardPage = () => {
   const [allApps, setAllApps] = useState([]);
   const [totals, setTotals] = useState({
     total: 0,
@@ -33,10 +33,10 @@ const Dashboard = () => {
   // Fetch all apps from DB
   useEffect(() => {
     const fetchApps = async () => {
-      const response = await fetch(
-        "https://server-apply-yourself.herokuapp.com/applications"
-      );
-      // const response = await fetch("http://localhost:5000/applications/");
+      // const response = await fetch(
+      //   "https://server-apply-yourself.herokuapp.com/applications"
+      // );
+      const response = await fetch("http://localhost:5000/applications/");
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         window.alert(message);
@@ -245,4 +245,4 @@ const Wrapper = styled.main`
   }
 `;
 
-export default Dashboard;
+export default DashboardPage;

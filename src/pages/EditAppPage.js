@@ -1,35 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import LineDesign from "./LineDesign";
+import LineDesign from "../components/LineDesign";
+import { GrEdit } from "react-icons/gr";
 
-const Create = ({ isDropdownOpen, toggleDropdown }) => {
+const EditAppPage = () => {
   const [form, setForm] = useState({
     company: "",
     position: "",
     website: "",
     location: "",
     applied: "",
-    response: "",
     comments: "",
     status: "",
   });
+  const [showChoices, setShowChoices] = useState(false);
+  const params = useParams();
   const navigate = useNavigate();
 
-  // This function updates the form state when one of the form input values are changed.
+  // const url = "https://server-apply-yourself.herokuapp.com/applications/";
+  const url = "http://localhost:5000/applications/";
+
+  useEffect(() => {
+    const fetchApplication = async () => {
+      const id = params.id.toString();
+      const response = await fetch(`${url}${id}`);
+      if (!response.ok) {
+        const message = `An error has occurred: ${response.statusText}`;
+        window.alert(message);
+        return;
+      }
+      const record = await response.json();
+      if (!record) {
+        window.alert(`Record with id ${id} not found`);
+        navigate("/");
+        return;
+      }
+      setForm(record);
+    };
+    fetchApplication();
+    return;
+  }, [params.id, navigate]);
+
+  // These methods will update the state properties.
   const updateForm = (value) => {
     return setForm((prev) => {
       return { ...prev, ...value };
     });
   };
 
-  const url = "https://server-apply-yourself.herokuapp.com/applications/new";
-  // const url = "http://localhost:5000/applications/new";
-
-  // This function handles the form submission.
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    const newApplication = {
+    const editedApplication = {
       company: form.company,
       position: form.position,
       website: form.website,
@@ -39,45 +61,33 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
       comments: form.comments,
       status: form.status,
     };
-    // send post request to server
-    await fetch(url, {
-      method: "POST",
+    await fetch(`${url}${params.id}`, {
+      method: "PUT",
+      body: JSON.stringify(editedApplication),
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newApplication),
-    }).catch((error) => {
-      console.log(error);
-      return;
     });
-    // clear form
-    setForm({
-      company: "",
-      position: "",
-      website: "",
-      location: "",
-      applied: "",
-      response: "",
-      comments: "",
-      status: "",
-    });
-    // redirect to list of all applications page
     navigate("/applications");
-    if (isDropdownOpen) toggleDropdown();
+  };
+
+  const deleteApplication = async () => {
+    await fetch(`${url}${params.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    navigate("/applications");
   };
 
   return (
     <Wrapper>
-      <header className="img-container">
-        <img
-          className="clipboard-img"
-          src="/create.jpg"
-          alt="A job application form is next to a pen and laptop"
-        />
-      </header>
       <section>
+        <GrEdit className="icon" />
+        <h2>Edit Application</h2>
         <LineDesign />
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={onSubmit}>
           <h4>Position Details</h4>
           <div className="form-input">
             <label className="label" htmlFor="company">
@@ -123,7 +133,7 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
               onChange={(e) => updateForm({ location: e.target.value })}
             />
           </div>
-          <h4 className="app-h4">Application Details</h4>
+          <h4>Application Details</h4>
           <div className="date-and-status">
             <div className="date-input">
               <label className="label" htmlFor="applied">
@@ -134,6 +144,17 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
                 id="applied"
                 value={form.applied}
                 onChange={(e) => updateForm({ applied: e.target.value })}
+              />
+            </div>
+            <div className="date-input">
+              <label className="label" htmlFor="response">
+                Response Date
+              </label>
+              <input
+                type="date"
+                id="response"
+                value={form.response}
+                onChange={(e) => updateForm({ response: e.target.value })}
               />
             </div>
             <div className="form-input">
@@ -187,8 +208,26 @@ const Create = ({ isDropdownOpen, toggleDropdown }) => {
               onChange={(e) => updateForm({ comments: e.target.value })}
             />
           </div>
-          <button type="submit">Add New Job</button>
+          <button className="save-btn" type="submit">
+            Save Changes
+          </button>
         </form>
+        <div className="delete-container">
+          <button className="delete-btn" onClick={() => setShowChoices(true)}>
+            Delete Application
+          </button>
+          {showChoices && (
+            <div className="check">
+              Are you sure?
+              <button className="yes-btn" onClick={() => deleteApplication()}>
+                yes
+              </button>
+              <button className="no-btn" onClick={() => setShowChoices(false)}>
+                no
+              </button>
+            </div>
+          )}
+        </div>
       </section>
     </Wrapper>
   );
@@ -199,14 +238,30 @@ const Wrapper = styled.section`
   flex-direction: column;
   align-items: center;
   overflow-x: hidden;
+  .icon {
+    position: relative;
+    z-index: 1;
+    margin-top: 5rem;
+    font-size: 3rem;
+    font-weight: 100;
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.3);
+  }
+  h2 {
+    position: relative;
+    z-index: 1;
+    margin-top: 1rem;
+    font-size: 2.4rem;
+    font-weight: 100;
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.3);
+  }
   .img-container {
     width: 100%;
-    height: 10rem;
+    height: 15rem;
   }
   .clipboard-img {
     object-fit: cover;
     width: 100%;
-    height: 10rem;
+    height: 15rem;
   }
   section {
     position: relative;
@@ -223,15 +278,10 @@ const Wrapper = styled.section`
     padding: 1rem;
     max-width: 30rem;
     h4 {
-      margin: 3rem 0 1rem;
-      padding-bottom: 1rem;
+      margin: 5rem 0 1rem;
       border-bottom: 1px solid var(--beige2);
       font-weight: 500;
-      font-size: 2rem;
       text-align: center;
-    }
-    .app-h4 {
-      margin-top: 5rem;
     }
     .form-input,
     .date-input {
@@ -277,7 +327,7 @@ const Wrapper = styled.section`
       border-radius: 2px;
       padding: 0.3rem;
     }
-    button {
+    .save-btn {
       color: black;
       width: 100%;
       margin: 4rem 0;
@@ -294,14 +344,61 @@ const Wrapper = styled.section`
       }
     }
   }
-
-  @media (min-width: 480px) {
-    form {
-      .date-and-status {
-        flex-direction: row;
-      }
+  .delete-container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .delete-btn {
+    color: black;
+    padding: 0.5rem;
+    margin-bottom: 2rem;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 2px;
+    background-color: transparent;
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    font-size: 0.7rem;
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(255, 255, 200, 0.5);
+    }
+  }
+  .check {
+    margin: 1rem 1rem 3rem;
+  }
+  .yes-btn {
+    margin: 0 1rem;
+    color: black;
+    padding: 0.5rem;
+    border: 2px solid rgba(255, 0, 0, 0.5);
+    border-radius: 2px;
+    background-color: transparent;
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    font-size: 1rem;
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(255, 0, 0, 1);
+    }
+  }
+  .no-btn {
+    color: black;
+    padding: 0.5rem;
+    border: 2px solid rgba(0, 255, 0, 0.5);
+    border-radius: 2px;
+    background-color: transparent;
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    font-size: 1rem;
+    &:hover {
+      cursor: pointer;
+      background-color: rgba(0, 255, 0, 1);
     }
   }
 `;
 
-export default Create;
+export default EditAppPage;
