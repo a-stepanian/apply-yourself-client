@@ -15,6 +15,7 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
+  const [user, setUser] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -35,12 +36,48 @@ const App = () => {
         />
         <Routes>
           <Route exact path="/" element={<HeroPage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/login"
+            element={
+              <LoginPage
+                isDropdownOpen={isDropdownOpen}
+                toggleDropdown={toggleDropdown}
+                setUser={setUser}
+              />
+            }
+          />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/users/:id/applications" element={<ShowAppsPage />} />
+          <Route
+            path="/applications"
+            element={
+              <ShowAppsPage
+                isDropdownOpen={isDropdownOpen}
+                toggleDropdown={toggleDropdown}
+                user={user}
+              />
+            }
+          />
           <Route path="/applications/edit/:id" element={<EditAppPage />} />
-          <Route path="/users/:id/applications/new" element={<NewAppPage />} />
-          <Route path="/dashboardPage" element={<DashboardPage />} />
+          <Route
+            path="/applications/new"
+            element={
+              <NewAppPage
+                isDropdownOpen={isDropdownOpen}
+                toggleDropdown={toggleDropdown}
+                user={user}
+              />
+            }
+          />
+          <Route
+            path="/dashboardPage"
+            element={
+              <DashboardPage
+                isDropdownOpen={isDropdownOpen}
+                toggleDropdown={toggleDropdown}
+                user={user}
+              />
+            }
+          />
         </Routes>
         <Footer />
       </Wrapper>

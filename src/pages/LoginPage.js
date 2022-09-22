@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import LineDesign from "../components/LineDesign";
 
-const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
+const LoginPage = ({ isDropdownOpen, toggleDropdown, setUser }) => {
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -28,7 +28,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
       password: form.password,
     };
     // send post request to server
-    await fetch(url, {
+    const user = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -38,13 +38,16 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
       console.log(error);
       return;
     });
+
+    const userParsed = await user.json();
+    setUser(userParsed);
     // clear form
     setForm({
       username: "",
       password: "",
     });
     if (isDropdownOpen) toggleDropdown();
-    navigate("/");
+    navigate("/applications");
   };
 
   return (

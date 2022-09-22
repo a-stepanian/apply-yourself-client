@@ -6,13 +6,15 @@ import LineDesign from "../components/LineDesign";
 const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
   const [form, setForm] = useState({
     username: "",
+    email: "",
     password: "",
+    passwordVerify: "",
   });
   const navigate = useNavigate();
 
   // url variable to send create new user POST request to
-  //   const url = "https://server-apply-yourself.herokuapp.com/users/new";
-  const url = "http://localhost:5000/users/new";
+  //   const url = "https://server-apply-yourself.herokuapp.com/auth";
+  const url = "http://localhost:5000/auth/";
 
   // setForm state when form input values are changed
   const updateForm = (value) => {
@@ -26,28 +28,32 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
     e.preventDefault();
     const newUser = {
       username: form.username,
+      email: form.email,
       password: form.password,
+      passwordVerify: form.passwordVerify,
     };
     // send post request to server
-    const response = await fetch(url, {
+    await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newUser),
+      credentials: "same-origin",
     }).catch((error) => {
       console.log(error);
       return;
     });
-    const data = await response.json();
-    const newId = data.insertedId;
+
     // clear form
     setForm({
       username: "",
+      email: "",
       password: "",
+      passwordVerify: "",
     });
     if (isDropdownOpen) toggleDropdown();
-    navigate(`/users/${newId}/applications`);
+    navigate(`/`);
   };
 
   return (
@@ -71,6 +77,17 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
             />
           </div>
           <div className="form-input">
+            <label className="label" htmlFor="email">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={form.email}
+              onChange={(e) => updateForm({ email: e.target.value })}
+            />
+          </div>
+          <div className="form-input">
             <label className="label" htmlFor="password">
               Password
             </label>
@@ -79,6 +96,17 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
               id="password"
               value={form.password}
               onChange={(e) => updateForm({ password: e.target.value })}
+            />
+          </div>
+          <div className="form-input">
+            <label className="label" htmlFor="passwordVerify">
+              Confirm Password
+            </label>
+            <input
+              type="text"
+              id="passwordVerify"
+              value={form.passwordVerify}
+              onChange={(e) => updateForm({ passwordVerify: e.target.value })}
             />
           </div>
           <button type="submit">Create User</button>

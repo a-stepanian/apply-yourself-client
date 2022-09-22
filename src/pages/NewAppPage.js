@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import LineDesign from "../components/LineDesign";
 
-const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
+const NewAppPage = ({ isDropdownOpen, toggleDropdown, user }) => {
   const [form, setForm] = useState({
     company: "",
     position: "",
@@ -30,7 +30,7 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
 
   // This function handles the form submission.
   const handleSubmit = async (e) => {
-    const id = params.id.toString();
+    const id = user._id;
     e.preventDefault();
     const newApplication = {
       company: form.company,
@@ -65,7 +65,7 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
       status: "",
     });
     // redirect to list of all applications page
-    navigate(`/users/${id}/applications`);
+    navigate(`/applications`);
     if (isDropdownOpen) toggleDropdown();
   };
 

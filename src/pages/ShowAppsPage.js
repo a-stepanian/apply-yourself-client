@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 
-const ShowAppsPage = () => {
-  const [user, setUser] = useState({});
+const ShowAppsPage = ({ user }) => {
+  const [currentUser, setCurrentUser] = useState({});
   const [applications, setApplications] = useState([]);
 
   const params = useParams();
@@ -15,7 +15,7 @@ const ShowAppsPage = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const id = params.id.toString();
+        const id = user._id;
         const response = await fetch(`${url}${id}`);
         if (!response.ok) {
           console.log(`An error has occurred: ${response.statusText}`);
@@ -27,7 +27,7 @@ const ShowAppsPage = () => {
           navigate("/");
           return;
         }
-        setUser(foundUser);
+        setCurrentUser(foundUser);
         setApplications(foundUser.applications);
       } catch (e) {
         console.log(e);
@@ -40,7 +40,7 @@ const ShowAppsPage = () => {
 
   return (
     <Wrapper>
-      {user && <h1>{user.username}'s Applications</h1>}
+      {currentUser && <h1>{currentUser.username}'s Applications</h1>}
       {applications ? (
         applications.map((app, index) => {
           return <h2 key={index}>company: {app.company}</h2>;

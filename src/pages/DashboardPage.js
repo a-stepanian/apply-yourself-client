@@ -5,7 +5,7 @@ import DonutChart from "../components/DonutChart";
 import LineChart from "../components/LineChart";
 import Metrics from "../components/Metrics";
 
-const DashboardPage = () => {
+const DashboardPage = ({ isDropdownOpen, toggleDropdown, user }) => {
   const [allApps, setAllApps] = useState([]);
   const [totals, setTotals] = useState({
     total: 0,
