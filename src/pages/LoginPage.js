@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../context/AuthContext";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
@@ -10,9 +10,9 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
     password: "",
   });
   const navigate = useNavigate();
-  const { getLoggedIn } = useContext(AuthContext);
+  const { loggedIn, getLoggedIn } = useContext(AuthContext);
 
-  // This function updates the form state when one of the form input values are changed.
+  // Set form state when input values change
   const updateForm = (value) => {
     return setForm((prev) => {
       return { ...prev, ...value };
@@ -42,6 +42,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
       return;
     });
 
+    // check token
     await getLoggedIn();
 
     // clear form
@@ -49,9 +50,15 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
       username: "",
       password: "",
     });
+
+    // close mobile dropdown menu
     if (isDropdownOpen) toggleDropdown();
-    navigate("/applications");
   };
+
+  // redirect user upon successful login
+  useEffect(() => {
+    if (loggedIn) navigate("/applications");
+  }, [loggedIn]);
 
   return (
     <Wrapper>

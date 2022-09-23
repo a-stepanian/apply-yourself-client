@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
-import styled from "styled-components";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import styled from "styled-components";
 import LineDesign from "../components/LineDesign";
 
 const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
@@ -12,8 +12,7 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
     passwordVerify: "",
   });
   const navigate = useNavigate();
-
-  const { getLoggedIn } = useContext(AuthContext);
+  const { loggedIn, getLoggedIn } = useContext(AuthContext);
 
   // url variable to send create new user POST request to
   //   const url = "https://server-apply-yourself.herokuapp.com/auth";
@@ -63,13 +62,15 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
 
       // close mobile nav menu
       if (isDropdownOpen) toggleDropdown();
-
-      // redirect to ShowAppsPage
-      navigate("/applications");
     } catch (err) {
       console.log(err);
     }
   };
+
+  // redirect user upon successful login
+  useEffect(() => {
+    if (loggedIn) navigate("/applications");
+  }, [loggedIn]);
 
   return (
     <Wrapper>
