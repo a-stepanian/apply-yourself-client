@@ -1,49 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import Job from "../components/Job";
 import styled from "styled-components";
 
-const ShowAppsPage = ({ user }) => {
-  const [currentUser, setCurrentUser] = useState({});
+const ShowAppsPage = () => {
   const [applications, setApplications] = useState([]);
 
-  const params = useParams();
-  const navigate = useNavigate();
-
   // const url = "https://server-apply-yourself.herokuapp.com/applications";
-  const url = "http://localhost:5000/applications/";
+  const url = "http://localhost:5000/applications";
 
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const id = user._id;
-  //       const response = await fetch(`${url}${id}`);
-  //       if (!response.ok) {
-  //         console.log(`An error has occurred: ${response.statusText}`);
-  //         return;
-  //       }
-  //       const foundUser = await response.json();
-  //       if (!foundUser) {
-  //         console.log(`foundUser with id ${id} not found`);
-  //         navigate("/");
-  //         return;
-  //       }
-  //       setCurrentUser(foundUser);
-  //       setApplications(foundUser.applications);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        await fetch(url, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            setApplications(data);
+          })
 
-  //   fetchUser();
-  //   return;
-  // }, [params.id, navigate]);
+          .catch((error) => {
+            console.log(error);
+            return;
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    fetchUser();
+    return;
+  }, []);
 
   return (
     <Wrapper>
-      {currentUser && <h1>{currentUser.username}'s Applications</h1>}
+      {applications && <h1>Your Applications</h1>}
       {applications ? (
         applications.map((app, index) => {
-          return <h2 key={index}>company: {app.company}</h2>;
+          return <Job key={index} {...app} />;
         })
       ) : (
         <h2>No applications found</h2>
