@@ -10,9 +10,11 @@ import {
   RiUserAddLine,
 } from "react-icons/ri";
 import Hamburger from "./Hamburger";
+import LogoutButton from "./LogoutButton";
 
 const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
   const { loggedIn } = useContext(AuthContext);
+
   return (
     <Wrapper className="navbar">
       <h1>Apply Yourself</h1>
@@ -36,7 +38,9 @@ const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
           <Link to="/applications/new">
             <span>Add An Application</span>
             <RiFolderAddLine className="icon" />
-          </Link>{" "}
+          </Link>
+          <div className="divider" />
+          <LogoutButton />
         </>
       )}
       {!loggedIn && (
@@ -86,7 +90,8 @@ const Wrapper = styled.nav`
     }
     h1,
     a {
-      width: 25%;
+      border: 1px solid red;
+      width: 12rem;
     }
     a {
       display: block;
