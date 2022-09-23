@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import LineDesign from "../components/LineDesign";
 
 const NewAppPage = ({ isDropdownOpen, toggleDropdown, user }) => {
@@ -14,12 +14,10 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown, user }) => {
     comments: "",
     status: "",
   });
-
-  // const url = "https://server-apply-yourself.herokuapp.com/applications/new";
-  const url = "http://localhost:5000/users/";
-
-  const params = useParams();
   const navigate = useNavigate();
+
+  // const url = "https://server-apply-yourself.herokuapp.com/applications";
+  const url = "http://localhost:5000/applications";
 
   // This function updates the form state when one of the form input values are changed.
   const updateForm = (value) => {
@@ -30,7 +28,6 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown, user }) => {
 
   // This function handles the form submission.
   const handleSubmit = async (e) => {
-    const id = user._id;
     e.preventDefault();
     const newApplication = {
       company: form.company,
@@ -43,12 +40,13 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown, user }) => {
       status: form.status,
     };
     // send post request to server
-    await fetch(`${url}${id}/applications/new`, {
-      method: "PUT",
+    await fetch(url, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newApplication),
+      credentials: "include",
     }).catch((error) => {
       console.log(error);
       return;
