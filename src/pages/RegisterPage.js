@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 import LineDesign from "../components/LineDesign";
 
 const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
@@ -12,9 +13,11 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
   });
   const navigate = useNavigate();
 
+  const { getLoggedIn } = useContext(AuthContext);
+
   // url variable to send create new user POST request to
   //   const url = "https://server-apply-yourself.herokuapp.com/auth";
-  const url = "http://localhost:5000/auth/";
+  const url = "http://localhost:5000/auth";
 
   // setForm state when form input values are changed
   const updateForm = (value) => {
@@ -26,34 +29,46 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
   // This function handles the form submission.
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newUser = {
-      username: form.username,
-      email: form.email,
-      password: form.password,
-      passwordVerify: form.passwordVerify,
-    };
-    // send post request to server
-    await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-      credentials: "same-origin",
-    }).catch((error) => {
-      console.log(error);
-      return;
-    });
+    try {
+      const newUser = {
+        username: form.username,
+        email: form.email,
+        password: form.password,
+        passwordVerify: form.passwordVerify,
+      };
 
-    // clear form
-    setForm({
-      username: "",
-      email: "",
-      password: "",
-      passwordVerify: "",
-    });
-    if (isDropdownOpen) toggleDropdown();
-    navigate(`/`);
+      // send post request to server
+      await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newUser),
+        credentials: "include",
+      }).catch((error) => {
+        console.log(error);
+        return;
+      });
+
+      // verify token and set state to logged in
+      await getLoggedIn();
+
+      // clear form
+      setForm({
+        username: "",
+        email: "",
+        password: "",
+        passwordVerify: "",
+      });
+
+      // close mobile nav menu
+      if (isDropdownOpen) toggleDropdown();
+
+      // redirect to dashboard
+      navigate("/register");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -92,7 +107,8 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
               Password
             </label>
             <input
-              type="text"
+              autoComplete="off"
+              type="password"
               id="password"
               value={form.password}
               onChange={(e) => updateForm({ password: e.target.value })}
@@ -103,7 +119,8 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
               Confirm Password
             </label>
             <input
-              type="text"
+              autoComplete="off"
+              type="password"
               id="passwordVerify"
               value={form.passwordVerify}
               onChange={(e) => updateForm({ passwordVerify: e.target.value })}

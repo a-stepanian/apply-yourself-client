@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { AuthContextProvider } from "./context/AuthContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
+
 import Navbar from "./components/Navbar";
 import Dropdown from "./components/Dropdown";
 
@@ -23,65 +25,67 @@ const App = () => {
   };
 
   return (
-    <BrowserRouter>
-      <Wrapper>
-        <ScrollToTop />
-        <Navbar
-          isDropdownOpen={isDropdownOpen}
-          toggleDropdown={toggleDropdown}
-        />
-        <Dropdown
-          isDropdownOpen={isDropdownOpen}
-          toggleDropdown={toggleDropdown}
-        />
-        <Routes>
-          <Route exact path="/" element={<HeroPage />} />
-          <Route
-            path="/login"
-            element={
-              <LoginPage
-                isDropdownOpen={isDropdownOpen}
-                toggleDropdown={toggleDropdown}
-                setUser={setUser}
-              />
-            }
+    <AuthContextProvider>
+      <BrowserRouter>
+        <Wrapper>
+          <ScrollToTop />
+          <Navbar
+            isDropdownOpen={isDropdownOpen}
+            toggleDropdown={toggleDropdown}
           />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route
-            path="/applications"
-            element={
-              <ShowAppsPage
-                isDropdownOpen={isDropdownOpen}
-                toggleDropdown={toggleDropdown}
-                user={user}
-              />
-            }
+          <Dropdown
+            isDropdownOpen={isDropdownOpen}
+            toggleDropdown={toggleDropdown}
           />
-          <Route path="/applications/edit/:id" element={<EditAppPage />} />
-          <Route
-            path="/applications/new"
-            element={
-              <NewAppPage
-                isDropdownOpen={isDropdownOpen}
-                toggleDropdown={toggleDropdown}
-                user={user}
-              />
-            }
-          />
-          <Route
-            path="/dashboardPage"
-            element={
-              <DashboardPage
-                isDropdownOpen={isDropdownOpen}
-                toggleDropdown={toggleDropdown}
-                user={user}
-              />
-            }
-          />
-        </Routes>
-        <Footer />
-      </Wrapper>
-    </BrowserRouter>
+          <Routes>
+            <Route exact path="/" element={<HeroPage />} />
+            <Route
+              path="/login"
+              element={
+                <LoginPage
+                  isDropdownOpen={isDropdownOpen}
+                  toggleDropdown={toggleDropdown}
+                  setUser={setUser}
+                />
+              }
+            />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route
+              path="/applications"
+              element={
+                <ShowAppsPage
+                  isDropdownOpen={isDropdownOpen}
+                  toggleDropdown={toggleDropdown}
+                  user={user}
+                />
+              }
+            />
+            <Route path="/applications/edit/:id" element={<EditAppPage />} />
+            <Route
+              path="/applications/new"
+              element={
+                <NewAppPage
+                  isDropdownOpen={isDropdownOpen}
+                  toggleDropdown={toggleDropdown}
+                  user={user}
+                />
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <DashboardPage
+                  isDropdownOpen={isDropdownOpen}
+                  toggleDropdown={toggleDropdown}
+                  user={user}
+                />
+              }
+            />
+          </Routes>
+          <Footer />
+        </Wrapper>
+      </BrowserRouter>
+    </AuthContextProvider>
   );
 };
 

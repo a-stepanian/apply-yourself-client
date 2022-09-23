@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import AuthContext from "../context/AuthContext";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import LineDesign from "../components/LineDesign";
 
-const LoginPage = ({ isDropdownOpen, toggleDropdown, setUser }) => {
+const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
   const [form, setForm] = useState({
     username: "",
     password: "",
   });
   const navigate = useNavigate();
+  const { getLoggedIn } = useContext(AuthContext);
 
   // This function updates the form state when one of the form input values are changed.
   const updateForm = (value) => {
@@ -17,8 +19,8 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown, setUser }) => {
     });
   };
 
-  //   const url = "https://server-apply-yourself.herokuapp.com/login";
-  const url = "http://localhost:5000/login";
+  //   const url = "https://server-apply-yourself.herokuapp.com/auth/login";
+  const url = "http://localhost:5000/auth/login";
 
   // This function handles the form submission.
   const handleSubmit = async (e) => {
@@ -28,19 +30,20 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown, setUser }) => {
       password: form.password,
     };
     // send post request to server
-    const user = await fetch(url, {
+    await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(loginInfo),
+      credentials: "include",
     }).catch((error) => {
       console.log(error);
       return;
     });
 
-    const userParsed = await user.json();
-    setUser(userParsed);
+    await getLoggedIn();
+
     // clear form
     setForm({
       username: "",
@@ -52,7 +55,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown, setUser }) => {
 
   return (
     <Wrapper>
-      <h2>LOGIN PAGE</h2>
+      <h2>Log in to your account</h2>
       <section>
         <LineDesign />
         <form onSubmit={handleSubmit}>
@@ -62,6 +65,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown, setUser }) => {
               Username
             </label>
             <input
+              autoComplete="false"
               type="text"
               id="username"
               value={form.username}
@@ -73,7 +77,8 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown, setUser }) => {
               Password
             </label>
             <input
-              type="text"
+              autoComplete="false"
+              type="password"
               id="password"
               value={form.password}
               onChange={(e) => updateForm({ password: e.target.value })}
