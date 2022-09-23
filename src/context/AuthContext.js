@@ -18,7 +18,6 @@ const AuthContextProvider = (props) => {
     })
       .then(async (response) => {
         const data = await response.json();
-        console.log("data:", data);
         setLoggedIn(data);
       })
       .catch((error) => {
@@ -32,7 +31,7 @@ const AuthContextProvider = (props) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ loggedIn, getLoggedIn }}>
+    <AuthContext.Provider value={{ loggedIn, getLoggedIn, setLoggedIn }}>
       {props.children}
     </AuthContext.Provider>
   );
