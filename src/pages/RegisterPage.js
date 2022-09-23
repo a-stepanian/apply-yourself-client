@@ -64,8 +64,8 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
       // close mobile nav menu
       if (isDropdownOpen) toggleDropdown();
 
-      // redirect to dashboard
-      navigate("/register");
+      // redirect to ShowAppsPage
+      navigate("/applications");
     } catch (err) {
       console.log(err);
     }

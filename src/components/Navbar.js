@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import AuthContext from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
@@ -11,6 +12,7 @@ import {
 import Hamburger from "./Hamburger";
 
 const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
+  const { loggedIn } = useContext(AuthContext);
   return (
     <Wrapper className="navbar">
       <h1>Apply Yourself</h1>
@@ -19,28 +21,37 @@ const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
         toggleDropdown={toggleDropdown}
       />
       <div className="divider" />
-      <Link to="/applications">
-        <span>View All</span>
-        <RiFolderOpenLine className="icon" />
-      </Link>
-      <div className="divider" />
-      <Link to="/dashboard">
-        <span>Dashboard</span>
-        <RiFolderChartLine className="icon" />
-      </Link>
-      <div className="divider" />
-      <Link to="/applications/new">
-        <span>Add An Application</span>
-        <RiFolderAddLine className="icon" />
-      </Link>
-      <Link to="/register">
-        <span>Register</span>
-        <RiUserAddLine className="icon" />
-      </Link>
-      <Link to="/login">
-        <span>Login</span>
-        <RiLoginBoxLine className="icon" />
-      </Link>
+      {loggedIn && (
+        <>
+          <Link to="/applications">
+            <span>View All</span>
+            <RiFolderOpenLine className="icon" />
+          </Link>
+          <div className="divider" />
+          <Link to="/dashboard">
+            <span>Dashboard</span>
+            <RiFolderChartLine className="icon" />
+          </Link>
+          <div className="divider" />
+          <Link to="/applications/new">
+            <span>Add An Application</span>
+            <RiFolderAddLine className="icon" />
+          </Link>{" "}
+        </>
+      )}
+      {!loggedIn && (
+        <>
+          <Link to="/register">
+            <span>Register</span>
+            <RiUserAddLine className="icon" />
+          </Link>
+          <div className="divider" />
+          <Link to="/login">
+            <span>Login</span>
+            <RiLoginBoxLine className="icon" />
+          </Link>
+        </>
+      )}
     </Wrapper>
   );
 };

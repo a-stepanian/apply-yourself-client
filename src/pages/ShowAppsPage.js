@@ -10,33 +10,33 @@ const ShowAppsPage = ({ user }) => {
   const navigate = useNavigate();
 
   // const url = "https://server-apply-yourself.herokuapp.com/applications";
-  const url = "http://localhost:5000/users/";
+  const url = "http://localhost:5000/applications/";
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const id = user._id;
-        const response = await fetch(`${url}${id}`);
-        if (!response.ok) {
-          console.log(`An error has occurred: ${response.statusText}`);
-          return;
-        }
-        const foundUser = await response.json();
-        if (!foundUser) {
-          console.log(`foundUser with id ${id} not found`);
-          navigate("/");
-          return;
-        }
-        setCurrentUser(foundUser);
-        setApplications(foundUser.applications);
-      } catch (e) {
-        console.log(e);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     try {
+  //       const id = user._id;
+  //       const response = await fetch(`${url}${id}`);
+  //       if (!response.ok) {
+  //         console.log(`An error has occurred: ${response.statusText}`);
+  //         return;
+  //       }
+  //       const foundUser = await response.json();
+  //       if (!foundUser) {
+  //         console.log(`foundUser with id ${id} not found`);
+  //         navigate("/");
+  //         return;
+  //       }
+  //       setCurrentUser(foundUser);
+  //       setApplications(foundUser.applications);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
 
-    fetchUser();
-    return;
-  }, [params.id, navigate]);
+  //   fetchUser();
+  //   return;
+  // }, [params.id, navigate]);
 
   return (
     <Wrapper>

@@ -5,6 +5,8 @@ import {
   RiFolderChartLine,
   RiFolderOpenLine,
   RiFolderAddLine,
+  RiUserAddLine,
+  RiLoginBoxLine,
 } from "react-icons/ri";
 
 const Dropdown = ({ isDropdownOpen, toggleDropdown }) => {
@@ -22,6 +24,14 @@ const Dropdown = ({ isDropdownOpen, toggleDropdown }) => {
         <Link to="/applications/new" onClick={() => toggleDropdown()}>
           <span>Add An Application</span>
           <RiFolderAddLine className="icon" />
+        </Link>
+        <Link to="/register" onClick={() => toggleDropdown()}>
+          <span>Register</span>
+          <RiUserAddLine className="icon" />
+        </Link>
+        <Link to="/login" onClick={() => toggleDropdown()}>
+          <span>Login</span>
+          <RiLoginBoxLine className="icon" />
         </Link>
       </nav>
     </Wrapper>
