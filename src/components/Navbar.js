@@ -90,7 +90,6 @@ const Wrapper = styled.nav`
     }
     h1,
     a {
-      border: 1px solid red;
       width: 12rem;
     }
     a {

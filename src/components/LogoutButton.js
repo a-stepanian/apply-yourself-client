@@ -25,7 +25,7 @@ const LogoutButton = () => {
   };
   return (
     <Wrapper onClick={logoutUser}>
-      LOGOUT <RiLogoutBoxRLine />
+      <span>Logout</span> <RiLogoutBoxRLine className="icon" />
     </Wrapper>
   );
 };
@@ -33,7 +33,22 @@ const LogoutButton = () => {
 const Wrapper = styled.button`
   width: 12rem;
   border: none;
-  border: 1px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Playfair Display", serif;
+  font-size: 1rem;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  span {
+    margin-right: 0.5rem;
+  }
+  .icon {
+    font-size: 1.2rem;
+  }
 `;
 
 export default LogoutButton;
