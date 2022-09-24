@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
+import LogoutButton from "./LogoutButton";
 import {
   RiFolderChartLine,
   RiFolderOpenLine,
@@ -10,29 +12,39 @@ import {
 } from "react-icons/ri";
 
 const Dropdown = ({ isDropdownOpen, toggleDropdown }) => {
+  const { loggedIn } = useContext(AuthContext);
   return (
     <Wrapper>
       <nav className={isDropdownOpen ? "open" : ""}>
-        <Link to="/applications" onClick={() => toggleDropdown()}>
-          <span>View All</span>
-          <RiFolderOpenLine className="icon" />
-        </Link>
-        <Link to="/dashboard" onClick={() => toggleDropdown()}>
-          <span>Dashboard</span>
-          <RiFolderChartLine className="icon" />
-        </Link>
-        <Link to="/applications/new" onClick={() => toggleDropdown()}>
-          <span>Add An Application</span>
-          <RiFolderAddLine className="icon" />
-        </Link>
-        <Link to="/register" onClick={() => toggleDropdown()}>
-          <span>Register</span>
-          <RiUserAddLine className="icon" />
-        </Link>
-        <Link to="/login" onClick={() => toggleDropdown()}>
-          <span>Login</span>
-          <RiLoginBoxLine className="icon" />
-        </Link>
+        {loggedIn && (
+          <>
+            <Link to="/applications" onClick={() => toggleDropdown()}>
+              <span>View All</span>
+              <RiFolderOpenLine className="icon" />
+            </Link>
+            <Link to="/dashboard" onClick={() => toggleDropdown()}>
+              <span>Dashboard</span>
+              <RiFolderChartLine className="icon" />
+            </Link>
+            <Link to="/applications/new" onClick={() => toggleDropdown()}>
+              <span>Add An Application</span>
+              <RiFolderAddLine className="icon" />
+            </Link>
+            <LogoutButton />
+          </>
+        )}
+        {!loggedIn && (
+          <>
+            <Link to="/register" onClick={() => toggleDropdown()}>
+              <span>Register</span>
+              <RiUserAddLine className="icon" />
+            </Link>
+            <Link to="/login" onClick={() => toggleDropdown()}>
+              <span>Login</span>
+              <RiLoginBoxLine className="icon" />
+            </Link>
+          </>
+        )}
       </nav>
     </Wrapper>
   );

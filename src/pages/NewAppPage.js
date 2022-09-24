@@ -79,116 +79,120 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown, user }) => {
       <section>
         <LineDesign />
         <form onSubmit={handleSubmit}>
-          <h4>Position Details</h4>
-          <div className="form-input">
-            <label className="label" htmlFor="company">
-              Company
-            </label>
-            <input
-              type="text"
-              id="company"
-              value={form.company}
-              onChange={(e) => updateForm({ company: e.target.value })}
-            />
-          </div>
-          <div className="form-input">
-            <label className="label" htmlFor="position">
-              Position
-            </label>
-            <input
-              type="text"
-              id="position"
-              value={form.position}
-              onChange={(e) => updateForm({ position: e.target.value })}
-            />
-          </div>
-          <div className="form-input">
-            <label className="label" htmlFor="website">
-              Website
-            </label>
-            <input
-              type="url"
-              id="website"
-              value={form.website}
-              onChange={(e) => updateForm({ website: e.target.value })}
-            />
-          </div>
-          <div className="form-input">
-            <label className="label" htmlFor="location">
-              Location
-            </label>
-            <input
-              type="text"
-              id="location"
-              value={form.location}
-              onChange={(e) => updateForm({ location: e.target.value })}
-            />
-          </div>
-          <h4 className="app-h4">Application Details</h4>
-          <div className="date-and-status">
-            <div className="date-input">
-              <label className="label" htmlFor="applied">
-                Date Applied
+          <div className="top-half-of-form">
+            <h4>Position Details</h4>
+            <div className="form-input">
+              <label className="label" htmlFor="company">
+                Company
               </label>
               <input
-                type="date"
-                id="applied"
-                value={form.applied}
-                onChange={(e) => updateForm({ applied: e.target.value })}
+                type="text"
+                id="company"
+                value={form.company}
+                onChange={(e) => updateForm({ company: e.target.value })}
               />
             </div>
             <div className="form-input">
-              <p className="label">Status</p>
-              <div className="radio-buttons">
-                <div className="button-wrapper">
-                  <input
-                    type="radio"
-                    name="positionOptions"
-                    id="positionApplied"
-                    value="Applied"
-                    checked={form.status === "Applied"}
-                    onChange={(e) => updateForm({ status: e.target.value })}
-                  />
-                  <label htmlFor="positionApplied">Applied</label>
-                </div>
-                <div className="button-wrapper">
-                  <input
-                    type="radio"
-                    name="positionOptions"
-                    id="positionDeclined"
-                    value="Declined"
-                    checked={form.status === "Declined"}
-                    onChange={(e) => updateForm({ status: e.target.value })}
-                  />
-                  <label htmlFor="positionDeclined">Declined</label>
-                </div>
-                <div className="button-wrapper">
-                  <input
-                    type="radio"
-                    name="positionOptions"
-                    id="positionInterview"
-                    value="Interview"
-                    checked={form.status === "Interview"}
-                    onChange={(e) => updateForm({ status: e.target.value })}
-                  />
-                  <label htmlFor="positionInterview">Interview</label>
+              <label className="label" htmlFor="position">
+                Position
+              </label>
+              <input
+                type="text"
+                id="position"
+                value={form.position}
+                onChange={(e) => updateForm({ position: e.target.value })}
+              />
+            </div>
+            <div className="form-input">
+              <label className="label" htmlFor="website">
+                Website
+              </label>
+              <input
+                type="url"
+                id="website"
+                value={form.website}
+                onChange={(e) => updateForm({ website: e.target.value })}
+              />
+            </div>
+            <div className="form-input">
+              <label className="label" htmlFor="location">
+                Location
+              </label>
+              <input
+                type="text"
+                id="location"
+                value={form.location}
+                onChange={(e) => updateForm({ location: e.target.value })}
+              />
+            </div>
+          </div>
+          <div className="bottom-half-of-form">
+            <h4 className="app-h4">Application Details</h4>
+            <div className="date-and-status">
+              <div className="date-input">
+                <label className="label" htmlFor="applied">
+                  Date Applied
+                </label>
+                <input
+                  type="date"
+                  id="applied"
+                  value={form.applied}
+                  onChange={(e) => updateForm({ applied: e.target.value })}
+                />
+              </div>
+              <div className="form-input">
+                <p className="label">Status</p>
+                <div className="radio-buttons">
+                  <div className="button-wrapper">
+                    <input
+                      type="radio"
+                      name="positionOptions"
+                      id="positionApplied"
+                      value="Applied"
+                      checked={form.status === "Applied"}
+                      onChange={(e) => updateForm({ status: e.target.value })}
+                    />
+                    <label htmlFor="positionApplied">Applied</label>
+                  </div>
+                  <div className="button-wrapper">
+                    <input
+                      type="radio"
+                      name="positionOptions"
+                      id="positionDeclined"
+                      value="Declined"
+                      checked={form.status === "Declined"}
+                      onChange={(e) => updateForm({ status: e.target.value })}
+                    />
+                    <label htmlFor="positionDeclined">Declined</label>
+                  </div>
+                  <div className="button-wrapper">
+                    <input
+                      type="radio"
+                      name="positionOptions"
+                      id="positionInterview"
+                      value="Interview"
+                      checked={form.status === "Interview"}
+                      onChange={(e) => updateForm({ status: e.target.value })}
+                    />
+                    <label htmlFor="positionInterview">Interview</label>
+                  </div>
                 </div>
               </div>
             </div>
+            <div className="form-input">
+              <label className="label" htmlFor="comments">
+                Comments
+              </label>
+              <textarea
+                type="text"
+                rows="5"
+                id="comments"
+                value={form.comments}
+                onChange={(e) => updateForm({ comments: e.target.value })}
+              />
+            </div>
+            <button type="submit">Add New Job</button>
           </div>
-          <div className="form-input">
-            <label className="label" htmlFor="comments">
-              Comments
-            </label>
-            <textarea
-              type="text"
-              rows="5"
-              id="comments"
-              value={form.comments}
-              onChange={(e) => updateForm({ comments: e.target.value })}
-            />
-          </div>
-          <button type="submit">Add New Job</button>
         </form>
       </section>
     </Wrapper>
@@ -203,12 +207,13 @@ const Wrapper = styled.section`
   .img-container {
     width: 100%;
     height: 10rem;
+    .clipboard-img {
+      object-fit: cover;
+      width: 100%;
+      height: 10rem;
+    }
   }
-  .clipboard-img {
-    object-fit: cover;
-    width: 100%;
-    height: 10rem;
-  }
+
   section {
     position: relative;
     width: 100%;
@@ -300,6 +305,34 @@ const Wrapper = styled.section`
     form {
       .date-and-status {
         flex-direction: row;
+      }
+    }
+  }
+
+  @media (min-width: 990px) {
+    form {
+      width: 100%;
+      max-width: 100%;
+      display: flex;
+      justify-content: center;
+      .top-half-of-form,
+      .bottom-half-of-form {
+        width: 27rem;
+      }
+      .top-half-of-form {
+        margin-right: 4rem;
+      }
+      h4 {
+        margin: 0 0 1rem;
+        padding-bottom: 0;
+        font-weight: 500;
+        font-size: 1rem;
+      }
+      .app-h4 {
+        margin-top: 0;
+      }
+      button {
+        margin: 0;
       }
     }
   }

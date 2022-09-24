@@ -92,7 +92,6 @@ const App = () => {
 export default App;
 
 const Wrapper = styled.div`
-  min-height: calc(100vh + 5rem);
   background-color: var(--white);
   font-family: "Playfair Display", serif;
 `;

@@ -40,7 +40,9 @@ const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
             <RiFolderAddLine className="icon" />
           </Link>
           <div className="divider" />
-          <LogoutButton />
+          <div className="logout-btn-wrapper">
+            <LogoutButton />
+          </div>
         </>
       )}
       {!loggedIn && (
@@ -76,7 +78,8 @@ const Wrapper = styled.nav`
     font-weight: 500;
   }
   .divider,
-  a {
+  a,
+  .logout-btn-wrapper {
     display: none;
   }
 
@@ -109,6 +112,9 @@ const Wrapper = styled.nav`
       .icon {
         font-size: 1.2rem;
       }
+    }
+    .logout-btn-wrapper {
+      display: block;
     }
   }
 `;

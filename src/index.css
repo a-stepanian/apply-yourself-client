@@ -6,6 +6,8 @@
 
 :root {
   --main-bg: rgb(245, 240, 249);
+  --purple: #b49ec6;
+  --yellow: #dfe8bb;
   --beige2: rgba(186, 177, 177, 0.5);
   --beige: rgb(186, 177, 177);
   --white: rgb(248, 246, 246);

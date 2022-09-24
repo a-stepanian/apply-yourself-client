@@ -58,15 +58,15 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
   // redirect user upon successful login
   useEffect(() => {
     if (loggedIn) navigate("/applications");
+    // eslint-disable-next-line
   }, [loggedIn]);
 
   return (
     <Wrapper>
-      <h2>Log in to your account</h2>
       <section>
         <LineDesign />
+        <h4>Log In To Your Account</h4>
         <form onSubmit={handleSubmit}>
-          <h4>Log In</h4>
           <div className="form-input">
             <label className="label" htmlFor="username">
               Username
@@ -98,7 +98,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
   );
 };
 
-const Wrapper = styled.section`
+const Wrapper = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -110,26 +110,21 @@ const Wrapper = styled.section`
     flex-direction: column;
     align-items: center;
   }
+  h4 {
+    margin: 5rem 1rem 1rem;
+    font-weight: 500;
+    font-size: 2.4rem;
+    text-align: center;
+  }
   form {
     z-index: 1;
     position: relative;
     width: 100%;
+    max-width: 16rem;
     margin: 1rem;
-    padding: 1rem;
-    max-width: 30rem;
-    h4 {
-      margin: 3rem 0 1rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--beige2);
-      font-weight: 500;
-      font-size: 2rem;
-      text-align: center;
-    }
-    .app-h4 {
-      margin-top: 5rem;
-    }
-    .form-input,
-    .date-input {
+    padding: 2rem 0;
+    border-top: 1px solid var(--beige2);
+    .form-input {
       margin-bottom: 1rem;
       display: flex;
       flex-direction: column;
@@ -139,43 +134,14 @@ const Wrapper = styled.section`
         border-radius: 1px;
       }
     }
-    .date-input {
-      margin-bottom: 1rem;
-      input {
-        background-color: white;
-        padding: 0.2rem;
-        width: 8.5rem;
-        font-size: 1rem;
-        font-family: "Playfair Display", serif;
-      }
-    }
-    .date-and-status {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
     .label {
-      font-weight: 700;
+      font-weight: 500;
     }
-    .radio-buttons {
-      background-color: white;
-      border: 1px solid rgba(0, 0, 0, 0.6);
-      border-radius: 1px;
-      padding: 0.3rem;
-      display: flex;
-      justify-content: space-around;
-    }
-    .button-wrapper {
-      margin: 0 0.5rem;
-    }
-    textarea {
-      border-radius: 2px;
-      padding: 0.3rem;
-    }
+
     button {
       color: black;
       width: 100%;
-      margin: 4rem 0;
+      margin: 2rem 0 6rem;
       padding: 1rem;
       border: 2px solid rgba(0, 0, 0, 0.3);
       border-radius: 2px;
@@ -186,14 +152,6 @@ const Wrapper = styled.section`
       &:hover {
         cursor: pointer;
         background-color: rgba(215, 210, 255, 1);
-      }
-    }
-  }
-
-  @media (min-width: 480px) {
-    form {
-      .date-and-status {
-        flex-direction: row;
       }
     }
   }
