@@ -38,10 +38,24 @@ const HeroPage = () => {
         <span className="dot">b</span>
         <span className="dot">.</span>
       </h1>
-      <img src="hero.svg" alt="Happy employees collaborating at work." />
-      <Link to="/register" className="register">
-        Sign up for a free account
-      </Link>
+      <div className="register-wrapper">
+        <Link to="/register" className="register">
+          Sign up for a free account
+        </Link>
+      </div>
+      <div className="login-wrapper">
+        <p>
+          Already have an account?
+          <Link to="/login" className="login">
+            Login
+          </Link>
+        </p>
+      </div>
+      <img
+        className="svg"
+        src="hero.svg"
+        alt="Happy employees collaborating at work."
+      />
     </Wrapper>
   );
 };
@@ -55,7 +69,7 @@ const Wrapper = styled.main`
   justify-content: center;
   align-items: center;
   h1 {
-    margin-top: 5rem;
+    margin: 5rem 0 3rem;
     text-align: center;
   }
   .dot,
@@ -72,16 +86,21 @@ const Wrapper = styled.main`
   .space {
     display: inline;
   }
-  img {
+  .svg {
     width: 100%;
+    animation: fadeIn 5s;
   }
 
+  .register-wrapper {
+    animation: fadeIn 5s;
+  }
   .register {
+    text-decoration: none;
     position: relative;
     z-index: 1;
     width: 100%;
     height: 4rem;
-    margin: 4rem 0;
+    padding: 0 2rem;
     border: 2px solid rgba(0, 0, 0, 0.7);
     border-radius: 2rem;
     background: linear-gradient(
@@ -109,6 +128,30 @@ const Wrapper = styled.main`
       }
     }
   }
+  .login-wrapper {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    animation: fadeIn 5s;
+    p {
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+    .login {
+      margin-left: 0.5rem;
+      font-size: 1rem;
+    }
+  }
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    25% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 
   @media (min-width: 460px) {
     .dot {
@@ -121,7 +164,7 @@ const Wrapper = styled.main`
     .dot {
       font-size: 6rem;
     }
-    img {
+    .svg {
       width: 60%;
     }
   }
