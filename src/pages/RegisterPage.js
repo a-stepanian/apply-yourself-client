@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import styled from "styled-components";
 import LineDesign from "../components/LineDesign";
@@ -70,6 +70,7 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
   // redirect user upon successful login
   useEffect(() => {
     if (loggedIn) navigate("/applications");
+    // eslint-disable-next-line
   }, [loggedIn]);
 
   return (
@@ -89,12 +90,22 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
         </div>
         <LineDesign />
         <h4>Create An Account</h4>
+        <div className="login-wrapper">
+          <p>
+            Already have an account?
+            <Link to="/login" className="login">
+              Log In
+            </Link>
+          </p>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="form-input">
             <label className="label" htmlFor="username">
               Username
             </label>
             <input
+              autoComplete="off"
+              required
               type="text"
               id="username"
               value={form.username}
@@ -106,6 +117,8 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
               Email
             </label>
             <input
+              autoComplete="off"
+              required
               type="email"
               id="email"
               value={form.email}
@@ -118,6 +131,7 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
             </label>
             <input
               autoComplete="off"
+              required
               type="password"
               id="password"
               value={form.password}
@@ -129,6 +143,7 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
               Confirm Password
             </label>
             <input
+              required
               autoComplete="off"
               type="password"
               id="passwordVerify"
@@ -144,6 +159,7 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
 };
 
 const Wrapper = styled.main`
+  height: 50rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -165,6 +181,19 @@ const Wrapper = styled.main`
     font-weight: 500;
     font-size: 2.4rem;
     text-align: center;
+  }
+  .login-wrapper {
+    position: relative;
+    z-index: 1;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    p {
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+    .login {
+      margin-left: 0.5rem;
+    }
   }
   form {
     z-index: 1;
@@ -213,7 +242,7 @@ const Wrapper = styled.main`
         display: block;
         position: absolute;
         &:nth-of-type(1) {
-          top: calc(50% - -5rem);
+          top: calc(50% + 5rem);
           opacity: 0.5;
           width: calc(40% - 7rem);
           left: 0;

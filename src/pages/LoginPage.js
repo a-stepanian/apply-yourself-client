@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 import LineDesign from "../components/LineDesign";
 
 const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
@@ -19,6 +19,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
     });
   };
 
+  // url variable to send create new user POST request to
   //   const url = "https://server-apply-yourself.herokuapp.com/auth/login";
   const url = "http://localhost:5000/auth/login";
 
@@ -63,16 +64,36 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
 
   return (
     <Wrapper>
-      <section>
+      <section className="form-section">
+        <div className="image-wrapper">
+          <img
+            src="newaccount.svg"
+            alt="Ambitious job seeker creating a new Apply Yourself account."
+          />
+        </div>
+        <div className="image-wrapper">
+          <img
+            src="newaccount2.svg"
+            alt="Ambitious job seeker creating a new Apply Yourself account."
+          />
+        </div>
         <LineDesign />
         <h4>Log In To Your Account</h4>
+        <div className="register-wrapper">
+          <p>
+            Don't have an account?
+            <Link to="/register" className="register">
+              Sign Up
+            </Link>
+          </p>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="form-input">
             <label className="label" htmlFor="username">
               Username
             </label>
             <input
-              autoComplete="false"
+              required
               type="text"
               id="username"
               value={form.username}
@@ -84,7 +105,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
               Password
             </label>
             <input
-              autoComplete="false"
+              required
               type="password"
               id="password"
               value={form.password}
@@ -99,31 +120,52 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
 };
 
 const Wrapper = styled.main`
+  height: 50rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-x: hidden;
-  section {
+  overflow: hidden;
+  .form-section {
     position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    .image-wrapper {
+      display: none;
+    }
   }
   h4 {
+    z-index: 1;
+    position: relative;
     margin: 5rem 1rem 1rem;
     font-weight: 500;
     font-size: 2.4rem;
     text-align: center;
   }
+  .register-wrapper {
+    position: relative;
+    z-index: 1;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    p {
+      font-size: 0.8rem;
+      font-weight: 900;
+    }
+    .register {
+      margin-left: 0.5rem;
+    }
+  }
   form {
     z-index: 1;
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 3px 3px 10px rgb(0, 0, 0, 0.2);
+    border-radius: 3px;
     position: relative;
     width: 100%;
-    max-width: 16rem;
-    margin: 1rem;
-    padding: 2rem 0;
-    border-top: 1px solid var(--beige2);
+    max-width: 20rem;
+    margin: 1rem 1rem 5rem;
+    padding: 2rem;
     .form-input {
       margin-bottom: 1rem;
       display: flex;
@@ -137,11 +179,10 @@ const Wrapper = styled.main`
     .label {
       font-weight: 500;
     }
-
     button {
       color: black;
       width: 100%;
-      margin: 2rem 0 6rem;
+      margin: 1rem 0;
       padding: 1rem;
       border: 2px solid rgba(0, 0, 0, 0.3);
       border-radius: 2px;
@@ -152,6 +193,49 @@ const Wrapper = styled.main`
       &:hover {
         cursor: pointer;
         background-color: rgba(215, 210, 255, 1);
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .form-section {
+      .image-wrapper {
+        display: block;
+        position: absolute;
+        &:nth-of-type(1) {
+          top: calc(50% + 5rem);
+          opacity: 0.5;
+          width: calc(40% - 7rem);
+          left: 0;
+        }
+        &:nth-of-type(2) {
+          top: calc(50% - 5rem);
+          opacity: 0.6;
+          width: calc(40% - 5rem);
+          right: 0;
+        }
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .form-section {
+      .image-wrapper {
+        &:nth-of-type(1) {
+          top: calc(50% - 5rem);
+          opacity: 0.2;
+          width: calc(60% - 7rem);
+          left: 0;
+        }
+        &:nth-of-type(2) {
+          top: calc(50% - 10rem);
+          opacity: 0.3;
+          width: calc(60% - 5rem);
+          right: 0;
+        }
       }
     }
   }

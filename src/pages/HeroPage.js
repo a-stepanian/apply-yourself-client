@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import styled from "styled-components";
 import LineDesign from "../components/LineDesign";
 import { Link } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
 const HeroPage = () => {
+  const { loggedIn } = useContext(AuthContext);
   useEffect(() => {
     const dots = document.querySelectorAll(".dot");
     for (let i = 0; i < dots.length; i++) {
@@ -39,18 +41,27 @@ const HeroPage = () => {
         <span className="dot">.</span>
       </h1>
       <div className="register-wrapper">
-        <Link to="/register" className="register">
-          Sign up for a free account
-        </Link>
-      </div>
-      <div className="login-wrapper">
-        <p>
-          Already have an account?
-          <Link to="/login" className="login">
-            Login
+        {loggedIn ? (
+          <Link to="/dashboard" className="register">
+            Continue to Dashboard
           </Link>
-        </p>
+        ) : (
+          <Link to="/register" className="register">
+            Sign up for a free account
+          </Link>
+        )}
       </div>
+      {!loggedIn && (
+        <div className="login-wrapper">
+          <p>
+            Already have an account?
+            <Link to="/login" className="login">
+              Log In
+            </Link>
+          </p>
+        </div>
+      )}
+
       <img
         className="svg"
         src="hero.svg"
@@ -93,6 +104,7 @@ const Wrapper = styled.main`
     position: relative;
     z-index: 1;
     width: 100%;
+    margin-bottom: 30vh;
   }
 
   .register {
@@ -131,7 +143,7 @@ const Wrapper = styled.main`
   /* Media Queries */
   @media (min-width: 480px) {
     h1 {
-      width: 30rem;
+      width: 100%;
       height: 4rem;
       margin: 5rem 0 3rem;
       font-size: 2.8rem;
@@ -147,10 +159,35 @@ const Wrapper = styled.main`
 
   @media (min-width: 768px) {
     h1 {
-      width: 50rem;
+      width: 100%;
       margin: 25vh 0 40vh;
       font-size: 4.5rem;
       line-height: 4.5rem;
+    }
+    .register-wrapper,
+    .login-wrapper {
+      position: absolute;
+      right: calc(50% - 20rem);
+      width: 17rem;
+      display: flex;
+      justify-content: center;
+    }
+    .register-wrapper {
+      top: 60vh;
+    }
+    .login-wrapper {
+      color: rgba(0, 0, 0, 0.5);
+      top: calc(60vh + 2.5rem);
+    }
+    .svg {
+      max-width: 60rem;
+    }
+  }
+
+  @media (min-width: 990px) {
+    h1 {
+      margin: 25vh 0 40vh;
+      font-size: 5.5rem;
     }
     .register-wrapper,
     .login-wrapper {
