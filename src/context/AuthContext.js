@@ -4,12 +4,43 @@ const AuthContext = createContext();
 
 const AuthContextProvider = (props) => {
   const [loggedIn, setLoggedIn] = useState(undefined);
+  const [applications, setApplications] = useState([]);
 
-  // const url = "https://client-apply-yourself/auth/loggedIn";
-  const url = "http://localhost:5000/auth/loggedIn";
+  // const url = "https://client-apply-yourself";
+  const url = "http://localhost:5000";
+
+  useEffect(() => {
+    if (loggedIn) {
+      const fetchApplications = async () => {
+        try {
+          await fetch(`${url}/applications`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              setApplications(data);
+            })
+
+            .catch((error) => {
+              console.log(error);
+              return;
+            });
+        } catch (e) {
+          console.log(e);
+        }
+      };
+
+      fetchApplications();
+      return;
+    }
+  }, [loggedIn]);
 
   const getLoggedIn = async () => {
-    await fetch(url, {
+    await fetch(`${url}/auth/loggedIn`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +62,9 @@ const AuthContextProvider = (props) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ loggedIn, getLoggedIn, setLoggedIn }}>
+    <AuthContext.Provider
+      value={{ loggedIn, getLoggedIn, setLoggedIn, applications }}
+    >
       {props.children}
     </AuthContext.Provider>
   );

@@ -1,41 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Job from "../components/Job";
 import styled from "styled-components";
+import AuthContext from "../context/AuthContext";
 
 const ShowAppsPage = () => {
-  const [applications, setApplications] = useState([]);
-
-  // const url = "https://server-apply-yourself.herokuapp.com/applications";
-  const url = "http://localhost:5000/applications";
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        await fetch(url, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            setApplications(data);
-          })
-
-          .catch((error) => {
-            console.log(error);
-            return;
-          });
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    fetchUser();
-    return;
-  }, []);
-
+  const { applications } = useContext(AuthContext);
   return (
     <Wrapper>
       {applications && <h1>Your Applications</h1>}
