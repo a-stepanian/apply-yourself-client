@@ -69,15 +69,18 @@ const Wrapper = styled.main`
   justify-content: center;
   align-items: center;
   h1 {
-    margin: 5rem 0 3rem;
+    width: 17rem;
+    height: 8rem;
+    margin: 5rem 0;
     text-align: center;
+    font-size: 3.5rem;
+    line-height: 3rem;
   }
   .dot,
   .space {
     margin-left: 1rem;
     position: relative;
     z-index: 1;
-    font-size: 4rem;
     font-family: "Josefin Slab", serif;
     display: none;
     letter-spacing: -1rem;
@@ -87,22 +90,20 @@ const Wrapper = styled.main`
     display: inline;
   }
   .svg {
+    position: relative;
+    z-index: 1;
     width: 100%;
-    animation: fadeIn 5s;
   }
 
-  .register-wrapper {
-    animation: fadeIn 5s;
-  }
   .register {
     text-decoration: none;
     position: relative;
     z-index: 1;
     width: 100%;
-    height: 4rem;
-    padding: 0 2rem;
+    height: 3rem;
+    padding: 0 1.5rem;
     border: 2px solid rgba(0, 0, 0, 0.7);
-    border-radius: 2rem;
+    border-radius: 1.5rem;
     background: linear-gradient(
       rgba(215, 210, 255, 0.8),
       rgba(235, 243, 200, 0.8),
@@ -114,33 +115,64 @@ const Wrapper = styled.main`
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: hover 1.2s infinite;
-    @keyframes hover {
-      0% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-3px);
-        box-shadow: 1px 5px 2px rgba(0, 0, 0, 0.15);
-      }
-      100% {
-        transform: translateY(0);
-      }
-    }
   }
   .login-wrapper {
     margin-top: 1rem;
     margin-bottom: 2rem;
-    animation: fadeIn 5s;
     p {
       font-size: 0.8rem;
       font-weight: 900;
     }
     .login {
       margin-left: 0.5rem;
-      font-size: 1rem;
     }
   }
+
+  /* Media Queries */
+  @media (min-width: 480px) {
+    h1 {
+      width: 30rem;
+      height: 4rem;
+      margin: 5rem 0 3rem;
+      font-size: 2.8rem;
+    }
+    .register-wrapper,
+    .login-wrapper {
+      animation: fadeIn 5s;
+    }
+    .register {
+      animation: hover 1.2s infinite;
+    }
+  }
+
+  @media (min-width: 768px) {
+    h1 {
+      width: 50rem;
+      margin: 25vh 0 40vh;
+      font-size: 4.5rem;
+      line-height: 4.5rem;
+    }
+    .register-wrapper,
+    .login-wrapper {
+      position: absolute;
+      right: calc(50% - 20rem);
+      width: 17rem;
+      display: flex;
+      justify-content: center;
+    }
+    .register-wrapper {
+      top: 60vh;
+    }
+    .login-wrapper {
+      color: rgba(0, 0, 0, 0.5);
+      top: calc(60vh + 2.5rem);
+    }
+    .svg {
+      max-width: 60rem;
+    }
+  }
+
+  /* Animations */
   @keyframes fadeIn {
     0% {
       opacity: 0;
@@ -152,20 +184,16 @@ const Wrapper = styled.main`
       opacity: 1;
     }
   }
-
-  @media (min-width: 460px) {
-    .dot {
-      font-size: 5rem;
+  @keyframes hover {
+    0% {
+      transform: translateY(0);
     }
-  }
-
-  @media (min-width: 560px) {
-    height: 130vh;
-    .dot {
-      font-size: 6rem;
+    50% {
+      transform: translateY(-3px);
+      box-shadow: 1px 5px 2px rgba(0, 0, 0, 0.15);
     }
-    .svg {
-      width: 60%;
+    100% {
+      transform: translateY(0);
     }
   }
 `;
