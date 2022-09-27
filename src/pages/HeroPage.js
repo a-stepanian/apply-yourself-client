@@ -9,7 +9,7 @@ const HeroPage = () => {
   useEffect(() => {
     const dots = document.querySelectorAll(".dot");
     for (let i = 0; i < dots.length; i++) {
-      const delay = (i + 1) * 100;
+      const delay = (i + 1) * 80;
       setTimeout(() => {
         dots[i].classList.add("show");
       }, delay);
@@ -43,7 +43,7 @@ const HeroPage = () => {
       <div className="register-wrapper">
         {loggedIn ? (
           <Link to="/dashboard" className="register">
-            Continue to Dashboard
+            Go To Your Dashboard
           </Link>
         ) : (
           <Link to="/register" className="register">
@@ -61,12 +61,43 @@ const HeroPage = () => {
           </p>
         </div>
       )}
-
       <img
         className="svg"
         src="hero.svg"
         alt="Happy employees collaborating at work."
       />
+      <h2 className="info">Manage your application process</h2>
+      <p className="details">
+        Getting a job can be difficult - managing the process shouldn't be.
+      </p>
+      <img
+        className="svg"
+        src="manage.svg"
+        alt="Employee managing their application process."
+      />
+      <h2 className="info">Make the most of your time</h2>
+      <p className="details">
+        Spend more time focusing on your career and less time organizing your
+        applications and interviews.
+      </p>
+      <img
+        className="svg"
+        src="time.svg"
+        alt="Employee excerizing excellent time management."
+      />
+      <h2 className="info">Gain valuable insights</h2>
+      <p className="details">
+        Learn what works and what doesn't - see what companies respond to and
+        leverage this information in your search.
+      </p>
+      <img
+        className="svg"
+        src="charts.svg"
+        alt="Job application metrics visualized to help with your job search."
+      />
+      <Link to="/register" className="register">
+        Sign up for a free account
+      </Link>
     </Wrapper>
   );
 };
@@ -104,7 +135,10 @@ const Wrapper = styled.main`
     position: relative;
     z-index: 1;
     width: 100%;
-    margin-bottom: 30vh;
+    margin-bottom: 8rem;
+    &:nth-of-type(1) {
+      margin-bottom: 30vh;
+    }
   }
 
   .register {
@@ -138,6 +172,20 @@ const Wrapper = styled.main`
     .login {
       margin-left: 0.5rem;
     }
+  }
+
+  .info {
+    position: relative;
+    z-index: 1;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    font-family: "Josefin Slab", serif;
+  }
+  .details {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 3rem;
+    line-height: 2rem;
   }
 
   /* Media Queries */
@@ -180,7 +228,10 @@ const Wrapper = styled.main`
       top: calc(60vh + 2.5rem);
     }
     .svg {
-      max-width: 60rem;
+      max-width: 30rem;
+      &:nth-of-type(1) {
+        max-width: 60rem;
+      }
     }
   }
 
@@ -203,9 +254,6 @@ const Wrapper = styled.main`
     .login-wrapper {
       color: rgba(0, 0, 0, 0.5);
       top: calc(60vh + 2.5rem);
-    }
-    .svg {
-      max-width: 60rem;
     }
   }
 
