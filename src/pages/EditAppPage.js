@@ -63,6 +63,7 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
       });
     };
     fetchFormData();
+    // eslint-disable-next-line
   }, [id]);
 
   // This function handles the form submission.
