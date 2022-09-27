@@ -10,7 +10,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
     password: "",
   });
   const navigate = useNavigate();
-  const { loggedIn, getLoggedIn } = useContext(AuthContext);
+  const { loggedIn, getLoggedIn, url } = useContext(AuthContext);
 
   // Set form state when input values change
   const updateForm = (value) => {
@@ -18,10 +18,6 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
       return { ...prev, ...value };
     });
   };
-
-  // url variable to send create new user POST request to
-  //   const url = "https://server-apply-yourself.herokuapp.com/auth/login";
-  const url = "http://localhost:5000/auth/login";
 
   // This function handles the form submission.
   const handleSubmit = async (e) => {
@@ -31,7 +27,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
       password: form.password,
     };
     // send post request to server
-    await fetch(url, {
+    await fetch(`${url}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

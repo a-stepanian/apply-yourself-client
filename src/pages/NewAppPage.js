@@ -16,10 +16,7 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
     status: "",
   });
   const navigate = useNavigate();
-  const { fetchApplications } = useContext(AuthContext);
-
-  // const url = "https://server-apply-yourself.herokuapp.com/applications";
-  const url = "http://localhost:5000/applications";
+  const { fetchApplications, url } = useContext(AuthContext);
 
   // This function updates the form state when one of the form input values are changed.
   const updateForm = (value) => {
@@ -42,7 +39,7 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
       status: form.status,
     };
     // send post request to server
-    await fetch(url, {
+    await fetch(`${url}/applications`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

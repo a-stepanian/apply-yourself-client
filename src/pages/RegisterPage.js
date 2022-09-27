@@ -12,11 +12,7 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
     passwordVerify: "",
   });
   const navigate = useNavigate();
-  const { loggedIn, getLoggedIn } = useContext(AuthContext);
-
-  // url variable to send create new user POST request to
-  //   const url = "https://server-apply-yourself.herokuapp.com/auth";
-  const url = "http://localhost:5000/auth";
+  const { loggedIn, getLoggedIn, url } = useContext(AuthContext);
 
   // setForm state when form input values are changed
   const updateForm = (value) => {
@@ -37,7 +33,7 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
       };
 
       // send post request to server
-      await fetch(url, {
+      await fetch(`${url}/auth`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -8,8 +8,8 @@ const LogoutButton = () => {
   const { setLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const logoutUser = async () => {
-    // const url = "https://server-apply-yourself.herokuapp.com/auth/logout";
-    const url = "http://localhost:5000/auth/logout";
+    const url = "https://server-apply-yourself.herokuapp.com/auth/logout";
+    // const url = "http://localhost:5000/auth/logout";
     await fetch(url, {
       method: "GET",
       headers: {

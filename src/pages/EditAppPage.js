@@ -17,7 +17,7 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
     status: "",
   });
   const navigate = useNavigate();
-  const { fetchApplications } = useContext(AuthContext);
+  const { fetchApplications, url } = useContext(AuthContext);
   const { id } = useParams();
 
   // This function updates the form state when one of the form input values are changed.
@@ -27,13 +27,10 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
     });
   };
 
-  // const url = "https://server-apply-yourself.herokuapp.com/applications";
-  const url = "http://localhost:5000/applications";
-
   // Populate the form input states with existing values
   useEffect(() => {
     const fetchFormData = async () => {
-      const foundApplication = await fetch(`${url}/${id}`, {
+      const foundApplication = await fetch(`${url}/applications/${id}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -84,7 +81,7 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
     // send post request to server
     console.log("updated app: ", updatedApplication);
     console.log("url sending put reqest to: ", updatedApplication);
-    await fetch(`${url}/${id}`, {
+    await fetch(`${url}/applications/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
