@@ -1,57 +1,77 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router";
+import React, { useState, useContext } from "react";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import LineDesign from "../components/LineDesign";
-import { GrEdit } from "react-icons/gr";
+import AuthContext from "../context/AuthContext";
 
-const EditAppPage = () => {
+const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
   const [form, setForm] = useState({
     company: "",
     position: "",
     website: "",
     location: "",
     applied: "",
+    response: "",
     comments: "",
     status: "",
   });
-  const [showChoices, setShowChoices] = useState(false);
-  const params = useParams();
   const navigate = useNavigate();
+  const { fetchApplications } = useContext(AuthContext);
+  const { id } = useParams();
 
-  // const url = "https://server-apply-yourself.herokuapp.com/applications/";
-  const url = "http://localhost:5000/applications/";
-
-  useEffect(() => {
-    const fetchApplication = async () => {
-      const id = params.id.toString();
-      const response = await fetch(`${url}${id}`);
-      if (!response.ok) {
-        const message = `An error has occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
-      const record = await response.json();
-      if (!record) {
-        window.alert(`Record with id ${id} not found`);
-        navigate("/");
-        return;
-      }
-      setForm(record);
-    };
-    fetchApplication();
-    return;
-  }, [params.id, navigate]);
-
-  // These methods will update the state properties.
+  // This function updates the form state when one of the form input values are changed.
   const updateForm = (value) => {
     return setForm((prev) => {
       return { ...prev, ...value };
     });
   };
 
-  const onSubmit = async (e) => {
+  // const url = "https://server-apply-yourself.herokuapp.com/applications";
+  const url = "http://localhost:5000/applications";
+
+  // Populate the form input states with existing values
+  useEffect(() => {
+    const fetchFormData = async () => {
+      const foundApplication = await fetch(`${url}/${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }).catch((error) => {
+        console.log(error);
+        return;
+      });
+      const data = await foundApplication.json();
+      const {
+        company,
+        position,
+        website,
+        location,
+        applied,
+        response,
+        comments,
+        status,
+      } = data;
+      setForm({
+        company,
+        position,
+        website,
+        location,
+        applied,
+        response,
+        comments,
+        status,
+      });
+    };
+    fetchFormData();
+  }, [id]);
+
+  // This function handles the form submission.
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const editedApplication = {
+    const updatedApplication = {
       company: form.company,
       position: form.position,
       website: form.website,
@@ -61,39 +81,51 @@ const EditAppPage = () => {
       comments: form.comments,
       status: form.status,
     };
-    await fetch(`${url}${params.id}`, {
+    // send post request to server
+    console.log("updated app: ", updatedApplication);
+    console.log("url sending put reqest to: ", updatedApplication);
+    await fetch(`${url}/${id}`, {
       method: "PUT",
-      body: JSON.stringify(editedApplication),
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify(updatedApplication),
+      credentials: "include",
+    }).catch((error) => {
+      console.log(error);
+      return;
     });
-    navigate("/applications");
-  };
+    // clear form
+    setForm({
+      company: "",
+      position: "",
+      website: "",
+      location: "",
+      applied: "",
+      response: "",
+      comments: "",
+      status: "",
+    });
 
-  const deleteApplication = async () => {
-    await fetch(`${url}${params.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    navigate("/applications");
+    fetchApplications();
+
+    // redirect to list of all applications page
+    navigate(`/applications`);
+    if (isDropdownOpen) toggleDropdown();
   };
 
   return (
     <Wrapper>
-      <section>
-        <GrEdit className="icon" />
-        <h2>Edit Application</h2>
+      <section className="form-section">
         <LineDesign />
-        <form onSubmit={onSubmit}>
-          <h4>Position Details</h4>
+        <h4>Edit Application</h4>
+        <form onSubmit={handleSubmit}>
           <div className="form-input">
             <label className="label" htmlFor="company">
               Company
             </label>
             <input
+              required="yes"
               type="text"
               id="company"
               value={form.company}
@@ -105,6 +137,7 @@ const EditAppPage = () => {
               Position
             </label>
             <input
+              required="yes"
               type="text"
               id="position"
               value={form.position}
@@ -116,7 +149,8 @@ const EditAppPage = () => {
               Website
             </label>
             <input
-              type="url"
+              required="yes"
+              type="text"
               id="website"
               value={form.website}
               onChange={(e) => updateForm({ website: e.target.value })}
@@ -127,19 +161,20 @@ const EditAppPage = () => {
               Location
             </label>
             <input
+              required="yes"
               type="text"
               id="location"
               value={form.location}
               onChange={(e) => updateForm({ location: e.target.value })}
             />
           </div>
-          <h4>Application Details</h4>
           <div className="date-and-status">
             <div className="date-input">
               <label className="label" htmlFor="applied">
                 Date Applied
               </label>
               <input
+                required="yes"
                 type="date"
                 id="applied"
                 value={form.applied}
@@ -148,7 +183,7 @@ const EditAppPage = () => {
             </div>
             <div className="date-input">
               <label className="label" htmlFor="response">
-                Response Date
+                Company Response
               </label>
               <input
                 type="date"
@@ -162,6 +197,7 @@ const EditAppPage = () => {
               <div className="radio-buttons">
                 <div className="button-wrapper">
                   <input
+                    required="yes"
                     type="radio"
                     name="positionOptions"
                     id="positionApplied"
@@ -173,6 +209,7 @@ const EditAppPage = () => {
                 </div>
                 <div className="button-wrapper">
                   <input
+                    required="yes"
                     type="radio"
                     name="positionOptions"
                     id="positionDeclined"
@@ -184,6 +221,7 @@ const EditAppPage = () => {
                 </div>
                 <div className="button-wrapper">
                   <input
+                    required="yes"
                     type="radio"
                     name="positionOptions"
                     id="positionInterview"
@@ -202,203 +240,79 @@ const EditAppPage = () => {
             </label>
             <textarea
               type="text"
-              rows="5"
+              rows="3"
               id="comments"
               value={form.comments}
               onChange={(e) => updateForm({ comments: e.target.value })}
             />
           </div>
-          <button className="save-btn" type="submit">
-            Save Changes
-          </button>
+          <button type="submit">Save</button>
         </form>
-        <div className="delete-container">
-          <button className="delete-btn" onClick={() => setShowChoices(true)}>
-            Delete Application
-          </button>
-          {showChoices && (
-            <div className="check">
-              Are you sure?
-              <button className="yes-btn" onClick={() => deleteApplication()}>
-                yes
-              </button>
-              <button className="no-btn" onClick={() => setShowChoices(false)}>
-                no
-              </button>
-            </div>
-          )}
-        </div>
       </section>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.section`
+const Wrapper = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow-x: hidden;
-  .icon {
-    position: relative;
-    z-index: 1;
-    margin-top: 5rem;
-    font-size: 3rem;
-    font-weight: 100;
-    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.3);
-  }
-  h2 {
-    position: relative;
-    z-index: 1;
-    margin-top: 1rem;
-    font-size: 2.4rem;
-    font-weight: 100;
-    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.3);
-  }
-  .img-container {
-    width: 100%;
-    height: 15rem;
-  }
-  .clipboard-img {
-    object-fit: cover;
-    width: 100%;
-    height: 15rem;
-  }
-  section {
+  overflow: hidden;
+  .form-section {
     position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
-  form {
+  h4 {
     z-index: 1;
     position: relative;
+    margin: 5rem 1rem 1rem;
+    font-weight: 500;
+    font-size: 2.4rem;
+    text-align: center;
+  }
+  form {
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 3px 3px 10px rgb(0, 0, 0, 0.2);
+    border-radius: 3px;
+    position: relative;
     width: 100%;
-    margin: 1rem;
-    padding: 1rem;
-    max-width: 30rem;
-    h4 {
-      margin: 5rem 0 1rem;
-      border-bottom: 1px solid var(--beige2);
-      font-weight: 500;
-      text-align: center;
-    }
-    .form-input,
-    .date-input {
-      margin-bottom: 1rem;
+    max-width: 20rem;
+    margin: 1rem 1rem 5rem;
+    padding: 2rem;
+    .form-input {
+      margin-bottom: 0.5rem;
       display: flex;
       flex-direction: column;
       input {
-        padding: 0.4rem;
+        padding: 0.2rem 0.3rem 0.1rem;
         border: 1px solid rgba(0, 0, 0, 0.6);
         border-radius: 1px;
       }
     }
-    .date-input {
-      margin-bottom: 1rem;
-      input {
-        background-color: white;
-        padding: 0.2rem;
-        width: 8.5rem;
-        font-size: 1rem;
-        font-family: "Playfair Display", serif;
-      }
-    }
-    .date-and-status {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
     .label {
+      font-size: 0.8rem;
       font-weight: 700;
     }
-    .radio-buttons {
-      background-color: white;
-      border: 1px solid rgba(0, 0, 0, 0.6);
-      border-radius: 1px;
-      padding: 0.3rem;
-      display: flex;
-      justify-content: space-around;
-    }
-    .button-wrapper {
-      margin: 0 0.5rem;
-    }
-    textarea {
-      border-radius: 2px;
-      padding: 0.3rem;
-    }
-    .save-btn {
+    button {
       color: black;
       width: 100%;
-      margin: 4rem 0;
+      margin: 1rem 0;
       padding: 1rem;
       border: 2px solid rgba(0, 0, 0, 0.3);
       border-radius: 2px;
       background-color: rgba(215, 210, 255, 0.5);
       font-family: "Playfair Display", serif;
       font-weight: 700;
-      font-size: 1.1rem;
       &:hover {
         cursor: pointer;
         background-color: rgba(215, 210, 255, 1);
       }
     }
   }
-  .delete-container {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .delete-btn {
-    color: black;
-    padding: 0.5rem;
-    margin-bottom: 2rem;
-    border: 2px solid rgba(0, 0, 0, 0.3);
-    border-radius: 2px;
-    background-color: transparent;
-    font-family: "Playfair Display", serif;
-    font-weight: 700;
-    font-size: 0.7rem;
-    &:hover {
-      cursor: pointer;
-      background-color: rgba(255, 255, 200, 0.5);
-    }
-  }
-  .check {
-    margin: 1rem 1rem 3rem;
-  }
-  .yes-btn {
-    margin: 0 1rem;
-    color: black;
-    padding: 0.5rem;
-    border: 2px solid rgba(255, 0, 0, 0.5);
-    border-radius: 2px;
-    background-color: transparent;
-    font-family: "Playfair Display", serif;
-    font-weight: 700;
-    font-size: 1rem;
-    &:hover {
-      cursor: pointer;
-      background-color: rgba(255, 0, 0, 1);
-    }
-  }
-  .no-btn {
-    color: black;
-    padding: 0.5rem;
-    border: 2px solid rgba(0, 255, 0, 0.5);
-    border-radius: 2px;
-    background-color: transparent;
-    font-family: "Playfair Display", serif;
-    font-weight: 700;
-    font-size: 1rem;
-    &:hover {
-      cursor: pointer;
-      background-color: rgba(0, 255, 0, 1);
-    }
-  }
 `;
 
-export default EditAppPage;
+export default NewAppPage;
