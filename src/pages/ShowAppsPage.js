@@ -1,19 +1,34 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import Job from "../components/Job";
 import styled from "styled-components";
 import AuthContext from "../context/AuthContext";
+import { RiFolderAddLine } from "react-icons/ri";
 
 const ShowAppsPage = () => {
   const { applications } = useContext(AuthContext);
   return (
     <Wrapper>
+      <div className="divider" />
+      <Link to="/applications/new">
+        <span>Add An Application</span>
+        <RiFolderAddLine className="icon" />
+      </Link>
       {applications && <h1>Your Applications</h1>}
       {applications ? (
         applications.map((app, index) => {
-          return <Job key={index} {...app} />;
+          const { _id } = app;
+          return <Job key={_id} app={app} />;
         })
       ) : (
-        <h2>No applications found</h2>
+        <>
+          <h2>No applications found</h2>
+          <div className="divider" />
+          <Link to="/applications/new">
+            <span>Add An Application</span>
+            <RiFolderAddLine className="icon" />
+          </Link>{" "}
+        </>
       )}
     </Wrapper>
   );
