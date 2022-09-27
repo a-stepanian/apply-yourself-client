@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import LineDesign from "../components/LineDesign";
 import DonutChart from "../components/DonutChart";
 import LineChart from "../components/LineChart";
 import Metrics from "../components/Metrics";
+import AuthContext from "../context/AuthContext";
 
-const DashboardPage = ({ isDropdownOpen, toggleDropdown, user }) => {
+const DashboardPage = () => {
   const [allApps, setAllApps] = useState([]);
   const [totals, setTotals] = useState({
     total: 0,
@@ -30,24 +31,11 @@ const DashboardPage = ({ isDropdownOpen, toggleDropdown, user }) => {
   const [respTime, setRespTime] = useState([]);
   const [waitTime, setWaitTime] = useState([]);
 
-  // Fetch all apps from DB
+  const { applications } = useContext(AuthContext);
+
   useEffect(() => {
-    const fetchApps = async () => {
-      // const response = await fetch(
-      //   "https://server-apply-yourself.herokuapp.com/applications"
-      // );
-      const response = await fetch("http://localhost:5000/applications/");
-      if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
-      const data = await response.json();
-      setAllApps(data);
-    };
-    fetchApps();
-    return;
-  }, []);
+    setAllApps(applications);
+  }, [applications]);
 
   // calculations for dashboard
   useEffect(() => {
