@@ -2,16 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-const Job = ({
-  _id,
-  applied,
-  comments,
-  company,
-  location,
-  position,
-  status,
-  website,
-}) => {
+const Job = ({ app }) => {
+  const {
+    applied,
+    comments,
+    company,
+    location,
+    position,
+    status,
+    website,
+    _id,
+  } = app;
   return (
     <Wrapper>
       <header className="top-header">
@@ -46,7 +47,7 @@ const Job = ({
 
       <p className="comments">{comments}</p>
       <div className="edit-wrapper">
-        <Link to={`/applications/edit/${_id}`} className="edit">
+        <Link to={`/applications/${_id}/edit`} className="edit">
           EDIT
         </Link>
       </div>
