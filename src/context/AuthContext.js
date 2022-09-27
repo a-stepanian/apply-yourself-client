@@ -7,7 +7,7 @@ const AuthContextProvider = (props) => {
   const [applications, setApplications] = useState([]);
   const [user, setUser] = useState([]);
 
-  const url = "https://client-apply-yourself";
+  const url = "https://server-apply-yourself.herokuapp.com";
   // const url = "http://localhost:5000";
 
   // Fetch all applications submitted by the logged in user and clear applications when user logs out
