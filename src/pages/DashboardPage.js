@@ -155,9 +155,6 @@ const DashboardPage = () => {
 
   return (
     <Wrapper>
-      <header className="title">
-        <h2>DASHBOARD</h2>
-      </header>
       <LineDesign />
 
       <div className="dashboard-wrapper">
