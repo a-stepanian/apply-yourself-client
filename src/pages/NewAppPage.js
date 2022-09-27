@@ -65,6 +65,7 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
       status: "",
     });
 
+    // Refresh the applications array in context after adding the new app
     fetchApplications();
 
     // redirect to list of all applications page

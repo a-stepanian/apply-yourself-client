@@ -64,10 +64,11 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
 
   return (
     <Wrapper>
+      <LineDesign />
       <section className="form-section">
         <div className="image-wrapper">
           <img
-            src="newaccount.svg"
+            src="login.svg"
             alt="Ambitious job seeker creating a new Apply Yourself account."
           />
         </div>
@@ -77,7 +78,6 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
             alt="Ambitious job seeker creating a new Apply Yourself account."
           />
         </div>
-        <LineDesign />
         <h4>Log In To Your Account</h4>
         <div className="register-wrapper">
           <p>
@@ -120,7 +120,8 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
 };
 
 const Wrapper = styled.main`
-  height: 50rem;
+  position: relative;
+  height: 60rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -131,12 +132,28 @@ const Wrapper = styled.main`
     display: flex;
     flex-direction: column;
     align-items: center;
-    .image-wrapper {
+    .image-wrapper:nth-of-type(1) {
+      display: block;
+      position: absolute;
+      top: 42rem;
+      opacity: 0.4;
+      width: 100%;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      img {
+        padding-right: 2rem;
+        width: 100%;
+        max-width: 20rem;
+      }
+    }
+    .image-wrapper:nth-of-type(2) {
       display: none;
     }
   }
   h4 {
     z-index: 1;
+    width: 20rem;
     position: relative;
     margin: 5rem 1rem 1rem;
     font-weight: 500;
@@ -198,17 +215,22 @@ const Wrapper = styled.main`
   }
 
   @media (min-width: 768px) {
+    height: 45rem;
+
     .form-section {
       .image-wrapper {
-        display: block;
-        position: absolute;
         &:nth-of-type(1) {
           top: calc(50% + 5rem);
-          opacity: 0.5;
+          opacity: 0.4;
           width: calc(40% - 7rem);
           left: 0;
+          img {
+            max-width: 100%;
+          }
         }
         &:nth-of-type(2) {
+          display: block;
+          position: absolute;
           top: calc(50% - 5rem);
           opacity: 0.6;
           width: calc(40% - 5rem);
@@ -226,13 +248,13 @@ const Wrapper = styled.main`
       .image-wrapper {
         &:nth-of-type(1) {
           top: calc(50% - 5rem);
-          opacity: 0.2;
+          opacity: 0.05;
           width: calc(60% - 7rem);
           left: 0;
         }
         &:nth-of-type(2) {
           top: calc(50% - 10rem);
-          opacity: 0.3;
+          opacity: 0.2;
           width: calc(60% - 5rem);
           right: 0;
         }

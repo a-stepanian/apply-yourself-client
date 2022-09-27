@@ -14,8 +14,8 @@ const ShowAppsPage = () => {
         <span>Add An Application</span>
         <RiFolderAddLine className="icon" />
       </Link>
-      {applications && <h1>Your Applications</h1>}
-      {applications ? (
+      {applications.length && <h1>Your Applications</h1>}
+      {applications.length ? (
         applications.map((app, index) => {
           const { _id } = app;
           return <Job key={_id} app={app} />;
