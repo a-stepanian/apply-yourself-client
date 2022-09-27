@@ -5,6 +5,7 @@ const AuthContext = createContext();
 const AuthContextProvider = (props) => {
   const [loggedIn, setLoggedIn] = useState(undefined);
   const [applications, setApplications] = useState([]);
+  const [user, setUser] = useState([]);
 
   // const url = "https://client-apply-yourself";
   const url = "http://localhost:5000";
@@ -32,9 +33,35 @@ const AuthContextProvider = (props) => {
       console.log(e);
     }
   };
+
+  const fetchUser = async () => {
+    try {
+      await fetch(`${url}/auth`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setUser(data);
+        })
+
+        .catch((error) => {
+          console.log(error);
+          return;
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  // Set applications when user logs in or out
   useEffect(() => {
     if (loggedIn) {
       fetchApplications();
+      fetchUser();
       return;
     } else {
       setApplications([]);
@@ -72,6 +99,7 @@ const AuthContextProvider = (props) => {
         setLoggedIn,
         applications,
         fetchApplications,
+        user,
       }}
     >
       {props.children}
