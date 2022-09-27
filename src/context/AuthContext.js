@@ -9,36 +9,39 @@ const AuthContextProvider = (props) => {
   // const url = "https://client-apply-yourself";
   const url = "http://localhost:5000";
 
+  // Fetch all applications submitted by the logged in user and clear applications when user logs out
+  const fetchApplications = async () => {
+    try {
+      await fetch(`${url}/applications`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setApplications(data);
+        })
+
+        .catch((error) => {
+          console.log(error);
+          return;
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  };
   useEffect(() => {
     if (loggedIn) {
-      const fetchApplications = async () => {
-        try {
-          await fetch(`${url}/applications`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              setApplications(data);
-            })
-
-            .catch((error) => {
-              console.log(error);
-              return;
-            });
-        } catch (e) {
-          console.log(e);
-        }
-      };
-
       fetchApplications();
       return;
+    } else {
+      setApplications([]);
     }
   }, [loggedIn]);
 
+  // Validate user's token to set loggedIn state
   const getLoggedIn = async () => {
     await fetch(`${url}/auth/loggedIn`, {
       method: "GET",
@@ -63,7 +66,13 @@ const AuthContextProvider = (props) => {
 
   return (
     <AuthContext.Provider
-      value={{ loggedIn, getLoggedIn, setLoggedIn, applications }}
+      value={{
+        loggedIn,
+        getLoggedIn,
+        setLoggedIn,
+        applications,
+        fetchApplications,
+      }}
     >
       {props.children}
     </AuthContext.Provider>
