@@ -31,7 +31,7 @@ const LogoutButton = () => {
 };
 
 const Wrapper = styled.button`
-  background-color: var(--main-bg);
+  background-color: transparent;
   height: 100%;
   display: flex;
   align-items: center;

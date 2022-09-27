@@ -95,7 +95,7 @@ const Wrapper = styled.nav`
   z-index: 3;
   width: 100%;
   height: 3rem;
-  background-color: var(--main-bg);
+  background-color: var(--light-purple);
   display: flex;
   align-items: center;
   justify-content: space-between;
