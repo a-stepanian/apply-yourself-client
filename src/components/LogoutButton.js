@@ -31,8 +31,8 @@ const LogoutButton = () => {
 };
 
 const Wrapper = styled.button`
-  width: 12rem;
-  border: none;
+  background-color: var(--main-bg);
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,6 +48,20 @@ const Wrapper = styled.button`
   }
   .icon {
     font-size: 1.2rem;
+  }
+  @media (min-width: 768px) {
+    font-size: 0.8rem;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    span {
+      margin-right: 0.5rem;
+    }
+    .icon {
+      display: none;
+    }
   }
 `;
 

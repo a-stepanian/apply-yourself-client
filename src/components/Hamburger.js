@@ -15,6 +15,7 @@ const Hamburger = ({ isDropdownOpen, toggleDropdown }) => {
 const Wrapper = styled.button`
   z-index: 2;
   position: relative;
+  margin-right: 0.5rem;
   width: 2rem;
   height: 2rem;
   border: none;
