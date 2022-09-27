@@ -5,7 +5,6 @@ import styled from "styled-components";
 import {
   RiFolderChartLine,
   RiFolderOpenLine,
-  RiFolderAddLine,
   RiLoginBoxLine,
   RiUserAddLine,
 } from "react-icons/ri";
@@ -33,11 +32,6 @@ const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
           <Link to="/dashboard">
             <span>Dashboard</span>
             <RiFolderChartLine className="icon" />
-          </Link>
-          <div className="divider" />
-          <Link to="/applications/new">
-            <span>Add An Application</span>
-            <RiFolderAddLine className="icon" />
           </Link>
           <div className="divider" />
           <div className="logout-btn-wrapper">
