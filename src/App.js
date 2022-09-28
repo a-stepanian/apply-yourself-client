@@ -6,13 +6,16 @@ import styled from "styled-components";
 import Navbar from "./components/Navbar";
 import Dropdown from "./components/Dropdown";
 
-import HeroPage from "./pages/HeroPage";
-import ShowAppsPage from "./pages/ShowAppsPage";
-import DashboardPage from "./pages/DashboardPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import NewAppPage from "./pages/NewAppPage";
-import EditAppPage from "./pages/EditAppPage";
+import {
+  HeroPage,
+  ShowAppsPage,
+  DashboardPage,
+  LoginPage,
+  RegisterPage,
+  NewAppPage,
+  EditAppPage,
+  FourOhFourPage,
+} from "./pages";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -52,6 +55,7 @@ const App = () => {
             <Route path="/applications/new" element={<NewAppPage />} />
             <Route path="/applications/:id/edit" element={<EditAppPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="*" element={<FourOhFourPage />} />
           </Routes>
           <Footer />
         </Wrapper>
