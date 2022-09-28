@@ -5,12 +5,10 @@ import styled from "styled-components";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 
 const LogoutButton = () => {
-  const { setLoggedIn } = useContext(AuthContext);
+  const { setLoggedIn, url } = useContext(AuthContext);
   const navigate = useNavigate();
   const logoutUser = async () => {
-    const url = "https://server-apply-yourself.herokuapp.com/auth/logout";
-    // const url = "http://localhost:5000/auth/logout";
-    await fetch(url, {
+    await fetch(`${url}/auth/logout`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

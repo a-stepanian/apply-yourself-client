@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import styled from "styled-components";
 import LineDesign from "../components/LineDesign";
+import { useEffect } from "react";
 
 const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
   const [form, setForm] = useState({
@@ -43,6 +44,10 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
 
     // check token
     await getLoggedIn();
+    if (!loggedIn) setError(true);
+  };
+
+  useEffect(() => {
     if (loggedIn) {
       setError(false);
 
@@ -57,10 +62,9 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
 
       // Redirect user to applications page
       if (loggedIn) navigate("/applications");
-    } else {
-      setError(true);
     }
-  };
+    // eslint-disable-next-line
+  }, [loggedIn]);
 
   return (
     <Wrapper>

@@ -11,6 +11,15 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
     password: "",
     passwordVerify: "",
   });
+  const [pwdError, setPwdError] = useState({ isError: false, msg: "" });
+  const [fieldsReqError, setFieldsReqError] = useState({
+    isError: false,
+    msg: "",
+  });
+  const [serverError, setServerError] = useState({
+    isError: false,
+    msg: "",
+  });
   const navigate = useNavigate();
   const { loggedIn, getLoggedIn, url } = useContext(AuthContext);
 
@@ -21,32 +30,67 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
     });
   };
 
+  // Form validation user feedback
+  useEffect(() => {
+    setServerError({ isError: false, msg: "" });
+    setPwdError({ isError: false, msg: "" });
+    setFieldsReqError({ isError: false, msg: "" });
+    if (
+      !form.username ||
+      !form.email ||
+      !form.password ||
+      !form.passwordVerify
+    ) {
+      setFieldsReqError({ isError: true, msg: "Please fill out all fields" });
+      return;
+    }
+    if (form.password.length < 6) {
+      setPwdError({
+        isError: true,
+        msg: "Password must contain at least 6 characters",
+      });
+    } else if (form.password !== form.passwordVerify) {
+      setPwdError({ isError: true, msg: "Passwords do not match" });
+    }
+  }, [form]);
+
   // This function handles the form submission.
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const newUser = {
-        username: form.username,
-        email: form.email,
-        password: form.password,
-        passwordVerify: form.passwordVerify,
-      };
+    const newUser = {
+      username: form.username,
+      email: form.email,
+      password: form.password,
+      passwordVerify: form.passwordVerify,
+    };
 
-      // send post request to server
-      await fetch(`${url}/auth`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-        credentials: "include",
-      }).catch((error) => {
-        console.log(error);
-        return;
-      });
+    // send post request to server
+    const response = await fetch(`${url}/auth`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+      credentials: "include",
+    }).catch((error) => {
+      console.log("error from server: ", error);
+      return;
+    });
 
-      // verify token and set state to logged in
-      await getLoggedIn();
+    if (response.status !== 200) {
+      const data = await response.json();
+      if (data) setServerError({ isError: true, msg: data.errorMessage });
+    }
+
+    // verify token and set state to logged in
+    await getLoggedIn();
+  };
+
+  useEffect(() => {
+    if (loggedIn) {
+      setServerError({ isError: false, msg: "" });
+      setPwdError({ isError: false, msg: "" });
+      setFieldsReqError({ isError: false, msg: "" });
 
       // clear form
       setForm({
@@ -56,18 +100,21 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
         passwordVerify: "",
       });
 
-      // close mobile nav menu
+      // Close mobile dropdown menu
       if (isDropdownOpen) toggleDropdown();
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
-  // redirect user upon successful login
-  useEffect(() => {
-    if (loggedIn) navigate("/applications");
+      // Redirect user to applications page
+      navigate("/applications");
+    }
     // eslint-disable-next-line
   }, [loggedIn]);
+  useEffect(() => {
+    if (loggedIn) {
+      // Redirect user to applications page
+      navigate("/applications");
+    }
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <Wrapper>
@@ -96,6 +143,13 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
         </div>
         <form onSubmit={handleSubmit}>
           <div className="form-input">
+            {fieldsReqError.isError && (
+              <p className="form-error">{fieldsReqError.msg}</p>
+            )}
+            {pwdError.isError && <p className="pwd-error">{pwdError.msg}</p>}
+            {serverError.isError && (
+              <p className="server-error">{serverError.msg}</p>
+            )}
             <label className="label" htmlFor="username">
               Username
             </label>
@@ -200,7 +254,24 @@ const Wrapper = styled.main`
     width: 100%;
     max-width: 20rem;
     margin: 1rem 1rem 5rem;
-    padding: 2rem;
+    padding: 3rem 2rem;
+    .form-error,
+    .server-error {
+      position: absolute;
+      width: 15rem;
+      text-align: center;
+      color: red;
+      font-family: "Josefin Slab", serif;
+      top: 1.5rem;
+    }
+    .pwd-error {
+      position: absolute;
+      width: 15rem;
+      text-align: center;
+      color: red;
+      font-family: "Josefin Slab", serif;
+      top: 19.5rem;
+    }
     .form-input {
       margin-bottom: 1rem;
       display: flex;
@@ -217,7 +288,7 @@ const Wrapper = styled.main`
     button {
       color: black;
       width: 100%;
-      margin: 1rem 0;
+      margin: 3rem 0 1rem;
       padding: 1rem;
       border: 2px solid rgba(0, 0, 0, 0.3);
       border-radius: 2px;
