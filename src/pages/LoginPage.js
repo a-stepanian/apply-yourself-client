@@ -70,7 +70,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
         </div>
         <div className="image-wrapper">
           <img
-            src="newaccount2.svg"
+            src="login2.svg"
             alt="Ambitious job seeker creating a new Apply Yourself account."
           />
         </div>
