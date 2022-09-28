@@ -17,8 +17,12 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
     status: "",
   });
   const navigate = useNavigate();
-  const { fetchApplications, url } = useContext(AuthContext);
+  const { fetchApplications, url, loggedIn } = useContext(AuthContext);
   const { id } = useParams();
+
+  useEffect(() => {
+    if (!loggedIn) navigate("/login");
+  }, [loggedIn, navigate]);
 
   // This function updates the form state when one of the form input values are changed.
   const updateForm = (value) => {

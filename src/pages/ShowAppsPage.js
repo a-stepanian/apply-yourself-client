@@ -1,12 +1,19 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Job from "../components/Job";
 import styled from "styled-components";
 import AuthContext from "../context/AuthContext";
 import { RiFolderAddLine } from "react-icons/ri";
+import { useEffect } from "react";
 
 const ShowAppsPage = () => {
-  const { applications } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const { applications, loggedIn } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!loggedIn) navigate("/login");
+  }, [loggedIn, navigate]);
+
   return (
     <Wrapper>
       <div className="divider" />
@@ -27,7 +34,7 @@ const ShowAppsPage = () => {
           <Link to="/applications/new">
             <span>Add An Application</span>
             <RiFolderAddLine className="icon" />
-          </Link>{" "}
+          </Link>
         </>
       )}
     </Wrapper>

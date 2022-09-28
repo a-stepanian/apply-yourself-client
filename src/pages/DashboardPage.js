@@ -5,6 +5,7 @@ import DonutChart from "../components/DonutChart";
 import LineChart from "../components/LineChart";
 import Metrics from "../components/Metrics";
 import AuthContext from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const DashboardPage = () => {
   const [allApps, setAllApps] = useState([]);
@@ -30,8 +31,13 @@ const DashboardPage = () => {
   });
   const [respTime, setRespTime] = useState([]);
   const [waitTime, setWaitTime] = useState([]);
+  const navigate = useNavigate();
 
-  const { applications } = useContext(AuthContext);
+  const { applications, loggedIn } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!loggedIn) navigate("/login");
+  }, [loggedIn, navigate]);
 
   useEffect(() => {
     setAllApps(applications);

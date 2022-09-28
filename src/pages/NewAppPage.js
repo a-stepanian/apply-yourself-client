@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import LineDesign from "../components/LineDesign";
@@ -16,7 +16,11 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
     status: "",
   });
   const navigate = useNavigate();
-  const { fetchApplications, url } = useContext(AuthContext);
+  const { fetchApplications, url, loggedIn } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (!loggedIn) navigate("/login");
+  }, [loggedIn, navigate]);
 
   // This function updates the form state when one of the form input values are changed.
   const updateForm = (value) => {

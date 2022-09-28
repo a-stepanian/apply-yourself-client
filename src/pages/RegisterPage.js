@@ -23,6 +23,13 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
   const navigate = useNavigate();
   const { loggedIn, getLoggedIn, url } = useContext(AuthContext);
 
+  useEffect(() => {
+    if (loggedIn) {
+      // Redirect user to applications page
+      navigate("/applications");
+    }
+  }, [loggedIn, navigate]);
+
   // setForm state when form input values are changed
   const updateForm = (value) => {
     return setForm((prev) => {
@@ -108,13 +115,6 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
     }
     // eslint-disable-next-line
   }, [loggedIn]);
-  useEffect(() => {
-    if (loggedIn) {
-      // Redirect user to applications page
-      navigate("/applications");
-    }
-    // eslint-disable-next-line
-  }, []);
 
   return (
     <Wrapper>
