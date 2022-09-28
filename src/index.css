@@ -7,9 +7,11 @@
 :root {
   --main-bg: rgb(243, 238, 247);
   --purple: #b49ec6;
+  --dark-purple: #9679ac;
   --light-purple: #dfd4e8;
   --yellow: #dfe8bb;
   --blue: #c0d0ff;
+  --dark-blue: #11172c;
   --beige2: rgba(186, 177, 177, 0.5);
   --beige: rgb(186, 177, 177);
   --white: rgb(248, 246, 246);

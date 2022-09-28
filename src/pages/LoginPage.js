@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import styled from "styled-components";
@@ -9,11 +9,13 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
     username: "",
     password: "",
   });
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
   const { loggedIn, getLoggedIn, url } = useContext(AuthContext);
 
   // Set form state when input values change
   const updateForm = (value) => {
+    setError(false);
     return setForm((prev) => {
       return { ...prev, ...value };
     });
@@ -35,28 +37,30 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
       body: JSON.stringify(loginInfo),
       credentials: "include",
     }).catch((error) => {
-      console.log(error);
+      console.error(error);
       return;
     });
 
     // check token
     await getLoggedIn();
+    if (loggedIn) {
+      setError(false);
 
-    // clear form
-    setForm({
-      username: "",
-      password: "",
-    });
+      // clear form
+      setForm({
+        username: "",
+        password: "",
+      });
 
-    // close mobile dropdown menu
-    if (isDropdownOpen) toggleDropdown();
+      // Close mobile dropdown menu
+      if (isDropdownOpen) toggleDropdown();
+
+      // Redirect user to applications page
+      if (loggedIn) navigate("/applications");
+    } else {
+      setError(true);
+    }
   };
-
-  // redirect user upon successful login
-  useEffect(() => {
-    if (loggedIn) navigate("/applications");
-    // eslint-disable-next-line
-  }, [loggedIn]);
 
   return (
     <Wrapper>
@@ -84,11 +88,17 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
           </p>
         </div>
         <form onSubmit={handleSubmit}>
+          {error && (
+            <div className="error">
+              <p>Username or password incorrect Please try again</p>
+            </div>
+          )}
           <div className="form-input">
             <label className="label" htmlFor="username">
               Username
             </label>
             <input
+              autoComplete="off"
               required
               type="text"
               id="username"
@@ -101,6 +111,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
               Password
             </label>
             <input
+              autoComplete="off"
               required
               type="password"
               id="password"
@@ -178,7 +189,15 @@ const Wrapper = styled.main`
     width: 100%;
     max-width: 20rem;
     margin: 1rem 1rem 5rem;
-    padding: 2rem;
+    padding: 3rem 2rem;
+    .error {
+      width: 15rem;
+      position: absolute;
+      top: 0.5rem;
+      text-align: center;
+      color: red;
+      font-family: "Josefin Slab", serif;
+    }
     .form-input {
       margin-bottom: 1rem;
       display: flex;

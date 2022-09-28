@@ -5,6 +5,10 @@ const Error = ({ error }) => {
     <div>
       <h1>Error:</h1>
       <p>{error}</p>
+      <img
+        src="/error.svg"
+        alt="Gremlin cutting cable between server and computer."
+      />
     </div>
   );
 };
