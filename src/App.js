@@ -8,7 +8,6 @@ import Dropdown from "./components/Dropdown";
 
 import {
   HeroPage,
-  ShowAppsPage,
   DashboardPage,
   LoginPage,
   RegisterPage,
@@ -51,7 +50,6 @@ const App = () => {
               }
             />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/applications" element={<ShowAppsPage />} />
             <Route path="/applications/new" element={<NewAppPage />} />
             <Route path="/applications/:id/edit" element={<EditAppPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />

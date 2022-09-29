@@ -19,7 +19,7 @@ const LogoutButton = () => {
       return;
     });
     setLoggedIn(false);
-    navigate("/");
+    navigate("/login");
   };
   return (
     <Wrapper onClick={logoutUser}>

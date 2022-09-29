@@ -26,7 +26,7 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
   useEffect(() => {
     if (loggedIn) {
       // Redirect user to applications page
-      navigate("/applications");
+      navigate("/dashboard");
     }
   }, [loggedIn, navigate]);
 

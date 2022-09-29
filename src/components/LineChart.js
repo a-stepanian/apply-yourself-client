@@ -2,46 +2,41 @@ import React from "react";
 import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
 import styled from "styled-components";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const LineChart = ({ monthlyCount }) => {
+  const [monthlyData, setmonthlyData] = useState([]);
+
+  useEffect(() => {
+    setmonthlyData([
+      monthlyCount.july,
+      monthlyCount.august,
+      monthlyCount.september,
+      monthlyCount.october,
+      monthlyCount.november,
+      monthlyCount.december,
+    ]);
+  }, [monthlyCount]);
+
   return (
     <Wrapper>
-      <h3>Monthly Submissions</h3>
       <div className="chart-wrapper">
         <Chart
           type="line"
           data={{
             labels: [
-              "january",
-              "february",
-              "march",
-              "april",
-              "may",
-              "june",
-              "july",
-              "august",
-              "september",
-              "october",
-              "november",
-              "december",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December",
             ],
             datasets: [
               {
-                label: "Number of Applications Submitted",
-                data: [
-                  monthlyCount.january,
-                  monthlyCount.february,
-                  monthlyCount.march,
-                  monthlyCount.april,
-                  monthlyCount.may,
-                  monthlyCount.june,
-                  monthlyCount.july,
-                  monthlyCount.august,
-                  monthlyCount.september,
-                  monthlyCount.october,
-                  monthlyCount.november,
-                  monthlyCount.december,
-                ],
+                label: "Monthly Applications",
+                data: monthlyData,
                 fill: false,
                 borderColor: "rgb(75, 192, 192)",
                 tension: 0.3,
@@ -53,21 +48,21 @@ const LineChart = ({ monthlyCount }) => {
           options={{
             animations: {
               tension: {
-                duration: 1500,
+                duration: 2000,
                 easing: "linear",
                 from: 0.4,
-                to: 0.2,
+                to: 0,
                 loop: true,
               },
             },
             scales: {
               y: {
                 min: 0,
-                max: 10,
+                max: monthlyData.max,
               },
             },
             layout: {
-              padding: "20",
+              padding: "0",
             },
             plugins: {
               title: {
@@ -83,23 +78,14 @@ const LineChart = ({ monthlyCount }) => {
 
 const Wrapper = styled.div`
   width: 100%;
-  margin: 2rem 0;
-  padding: 1rem;
   position: relative;
   z-index: 1;
-  h3 {
-    font-size: 1.4rem;
-    font-weight: 500;
-    text-align: center;
-    padding-bottom: 1rem;
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+
+  @media (min-width: 480px) {
+    width: 70%;
   }
-  @media (min-width: 700px) {
-    width: 80%;
-  }
-  @media (min-width: 990px) {
-    width: 66%;
+  @media (min-width: 768px) {
+    width: 60%;
   }
 `;
 

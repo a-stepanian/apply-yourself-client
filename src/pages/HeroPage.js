@@ -292,7 +292,7 @@ const Wrapper = styled.main`
       transform: translateX(0);
     }
     .slide-right {
-      transform: translateX(-70%);
+      transform: translateX(-50%);
     }
   }
 

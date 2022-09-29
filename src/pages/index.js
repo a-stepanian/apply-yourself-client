@@ -1,5 +1,4 @@
 import HeroPage from "./HeroPage";
-import ShowAppsPage from "./ShowAppsPage";
 import DashboardPage from "./DashboardPage";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
@@ -9,7 +8,6 @@ import FourOhFourPage from "./FourOhFourPage";
 
 export {
   HeroPage,
-  ShowAppsPage,
   DashboardPage,
   LoginPage,
   RegisterPage,

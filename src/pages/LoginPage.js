@@ -61,7 +61,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
       if (isDropdownOpen) toggleDropdown();
 
       // Redirect user to applications page
-      if (loggedIn) navigate("/applications");
+      if (loggedIn) navigate("/dashboard");
     }
     // eslint-disable-next-line
   }, [loggedIn]);

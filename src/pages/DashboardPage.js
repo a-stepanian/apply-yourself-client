@@ -6,6 +6,7 @@ import LineChart from "../components/LineChart";
 import Metrics from "../components/Metrics";
 import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import ApplicationSection from "../components/ApplicationSection";
 
 const DashboardPage = () => {
   const [allApps, setAllApps] = useState([]);
@@ -162,13 +163,16 @@ const DashboardPage = () => {
   return (
     <Wrapper>
       <LineDesign />
-
-      <div className="dashboard-wrapper">
+      <div className="metrics-section">
         <Metrics allApps={allApps} respTime={respTime} waitTime={waitTime} />
-        <div className="bottom-chart-wrapper">
-          <LineChart monthlyCount={monthlyCount} />
-          <DonutChart totals={totals} />
-        </div>
+      </div>
+
+      <div className="chart-section">
+        <LineChart monthlyCount={monthlyCount} />
+        <DonutChart totals={totals} />
+      </div>
+      <div className="application-section">
+        <ApplicationSection />
       </div>
     </Wrapper>
   );
@@ -176,62 +180,40 @@ const DashboardPage = () => {
 const Wrapper = styled.main`
   position: relative;
   overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  .title {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: 10rem;
-    background: url("https://images.unsplash.com/photo-1485627941502-d2e6429a8af0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "Josefin Slab", serif;
-    font-size: 2rem;
-    color: rgba(0, 0, 0, 0.8);
-  }
-  .dashboard-wrapper {
-    margin: 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 3px 3px 10px rgb(0, 0, 0, 0.2);
-  }
-  .bottom-chart-wrapper {
-    width: 100%;
+  .chart-section {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  @media (min-width: 990px) {
-    .title {
-      height: 10rem;
-      font-size: 3rem;
-    }
-  }
-
-  @media (min-width: 990px) {
-    .dashboard-wrapper {
-      margin: 3rem 0;
-      padding: 0 3rem;
-      align-self: center;
-      width: 90%;
-    }
-    .bottom-chart-wrapper {
+  @media (min-width: 480px) {
+    .chart-section {
+      margin: 1rem;
       flex-direction: row;
-      align-items: flex-start;
+      justify-content: space-evenly;
     }
   }
-
-  @media (min-width: 1200px) {
-    .dashboard-wrapper {
-      width: 80%;
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: auto;
+    .chart-section {
+      grid-row-start: 1;
+      grid-row-end: 2;
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+    .application-section {
+      grid-row-start: 2;
+      grid-row-end: 3;
+      grid-column-start: 1;
+      grid-column-end: 2;
+    }
+    .metrics-section {
+      grid-row-start: 2;
+      grid-row-end: 3;
+      grid-column-start: 2;
+      grid-column-end: 3;
     }
   }
 `;

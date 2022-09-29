@@ -61,75 +61,51 @@ const Metrics = ({ allApps, respTime, waitTime }) => {
 
   return (
     <Wrapper>
-      <h3>Application Insights</h3>
-      <div className="row">
-        <article className="metric">
-          <h4>Total Applications</h4>
-          <RiStackLine className="icon" />
-          <p>{count.totalApplications}</p>
-        </article>
-        <article className="metric">
-          <h4>Responses</h4>
-          <RiReplyLine className="icon" />
-          <p>{count.responses}</p>
-        </article>
-        <article className="metric">
-          <h4>No Response</h4>
-          <CgGhostCharacter className="icon" />
-          <p>{count.noresponse}</p>
-        </article>
-        <article className="metric">
-          <h4>Avg Response Time</h4>
-          <MdTimer className="icon" />
-          <p>{count.time} days</p>
-        </article>
-      </div>
+      <article className="metric">
+        <h4>Total Applications</h4>
+        <RiStackLine className="icon" />
+        <p>{count.totalApplications}</p>
+      </article>
+      <article className="metric">
+        <h4>Responses</h4>
+        <RiReplyLine className="icon" />
+        <p>{count.responses}</p>
+      </article>
+      <article className="metric">
+        <h4>No Response</h4>
+        <CgGhostCharacter className="icon" />
+        <p>{count.noresponse}</p>
+      </article>
+      <article className="metric">
+        <h4>Avg Response Time</h4>
+        <MdTimer className="icon" />
+        <p>
+          {count.time} <span>days</span>
+        </p>
+      </article>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.section`
   width: 100%;
-  margin: 2rem 0;
   padding: 1rem;
   position: relative;
-
-  h3 {
-    font-size: 1.4rem;
-    font-weight: 500;
-    text-align: center;
-    padding-bottom: 1rem;
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  }
-  .row {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
   .metric {
     font-family: "Josefin Slab", serif;
     font-weight: 900;
-    width: 80%;
-    padding: 0.2rem;
-    height: 0;
+    width: calc(50% - 1rem);
+    padding-top: 0.5rem;
     overflow: hidden;
     display: flex;
-    margin: 0 1rem;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     animation: grow 0.5s forwards;
-    @keyframes grow {
-      0% {
-        height: 0;
-        margin: 0 1rem;
-      }
-      100% {
-        height: 10rem;
-        margin: 1rem;
-      }
-    }
     &:nth-of-type(1) {
       background-color: rgba(200, 220, 255, 0.8);
     }
@@ -140,7 +116,6 @@ const Wrapper = styled.section`
       background-color: rgba(235, 243, 200, 0.8);
     }
     &:nth-of-type(4) {
-      position: relative;
       background: linear-gradient(
         rgba(215, 210, 255, 0.8),
         rgba(200, 220, 255, 0.8),
@@ -148,35 +123,53 @@ const Wrapper = styled.section`
       );
     }
     h4 {
-      font-size: 1.5rem;
+      height: 2.2rem;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
       text-align: center;
-      margin-bottom: 0.8rem;
-    }
-    p {
-      font-size: 2.8rem;
     }
     .icon {
-      font-size: 2.5rem;
-      transform: translateY(-0.3rem);
+      font-size: 2rem;
+    }
+    p {
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      span {
+        margin-left: 0.3rem;
+        font-size: 1.5rem;
+        transform: translateY(0.05rem);
+      }
+    }
+  }
+
+  //--------------
+  // Media queries
+  //--------------
+  @media (min-width: 480px) {
+    .metric {
+      width: 21%;
     }
   }
   @media (min-width: 768px) {
-    .row {
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
+    flex-direction: column;
     .metric {
-      width: 45%;
+      width: 100%;
     }
   }
-  @media (min-width: 990px) {
-    align-self: center;
-  }
-  @media (min-width: 1200px) {
-    .metric {
-      margin: 0;
-      width: 20%;
+
+  //--------------
+  // Animations
+  //--------------
+  @keyframes grow {
+    0% {
+      height: 0;
+      margin: 0 0.5rem;
+    }
+    100% {
+      height: 7rem;
+      margin: 0.5rem;
     }
   }
 `;

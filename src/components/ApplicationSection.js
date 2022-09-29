@@ -1,19 +1,13 @@
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Job from "../components/Job";
+import { Link } from "react-router-dom";
+import Job from "./Job";
 import styled from "styled-components";
 import AuthContext from "../context/AuthContext";
 import { RiFolderAddLine } from "react-icons/ri";
-import { useEffect } from "react";
-import LineDesign from "../components/LineDesign";
+import LineDesign from "./LineDesign";
 
-const ShowAppsPage = () => {
-  const navigate = useNavigate();
-  const { applications, loggedIn } = useContext(AuthContext);
-
-  useEffect(() => {
-    if (!loggedIn) navigate("/login");
-  }, [loggedIn, navigate]);
+const ApplicationSection = () => {
+  const { applications } = useContext(AuthContext);
 
   return (
     <Wrapper>
@@ -109,4 +103,4 @@ const Wrapper = styled.section`
   }
 `;
 
-export default ShowAppsPage;
+export default ApplicationSection;
