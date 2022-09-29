@@ -6,6 +6,8 @@ import AuthContext from "../context/AuthContext";
 
 const HeroPage = () => {
   const { loggedIn } = useContext(AuthContext);
+
+  // Make hero letters appear with typing effect
   useEffect(() => {
     const dots = document.querySelectorAll(".dot");
     for (let i = 0; i < dots.length; i++) {
@@ -15,6 +17,50 @@ const HeroPage = () => {
       }, delay);
     }
   });
+
+  //
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTarget0 = document.querySelectorAll(".scroll-target")[0];
+      // get distance from the top of the viewport
+      const distanceFromTop0 = scrollTarget0.getBoundingClientRect().top;
+      if (distanceFromTop0 < 400) {
+        const blueBlockTop = document.querySelector(".blue-block-top");
+        blueBlockTop.classList.add("slide-left");
+        const blueBlockBottom = document.querySelector(".blue-block-bottom");
+        blueBlockBottom.classList.add("slide-right");
+      }
+
+      const scrollTarget1 = document.querySelectorAll(".scroll-target")[1];
+      // get distance from the top of the viewport
+      const distanceFromTop1 = scrollTarget1.getBoundingClientRect().top;
+      if (distanceFromTop1 < 400) {
+        const yellowBlockTop = document.querySelector(".yellow-block-top");
+        yellowBlockTop.classList.add("slide-left");
+        const yellowBlockBottom = document.querySelector(
+          ".yellow-block-bottom"
+        );
+        yellowBlockBottom.classList.add("slide-right");
+      }
+
+      const scrollTarget2 = document.querySelectorAll(".scroll-target")[2];
+      // get distance from the top of the viewport
+      const distanceFromTop2 = scrollTarget2.getBoundingClientRect().top;
+      if (distanceFromTop2 < 400) {
+        const purpleBlockTop = document.querySelector(".purple-block-top");
+        purpleBlockTop.classList.add("slide-left");
+        const purpleBlockBottom = document.querySelector(
+          ".purple-block-bottom"
+        );
+        purpleBlockBottom.classList.add("slide-right");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <Wrapper>
       <LineDesign />
@@ -66,45 +112,65 @@ const HeroPage = () => {
         src="hero.svg"
         alt="Happy employees collaborating at work."
       />
-      <h2 className="info">Manage your application process</h2>
-      <p className="details">
-        Getting a job can be difficult - managing the process shouldn't be.
-      </p>
-      <img
-        className="svg"
-        src="manage.svg"
-        alt="Employee managing their application process."
-      />
-      <h2 className="info">Make the most of your time</h2>
-      <p className="details">
-        Spend more time focusing on your career and less time organizing your
-        applications and interviews.
-      </p>
-      <img
-        className="svg"
-        src="time.svg"
-        alt="Employee excerizing excellent time management."
-      />
-      <h2 className="info">Gain valuable insights</h2>
-      <p className="details">
-        Learn what works and what doesn't - see what companies respond to and
-        leverage this information in your search.
-      </p>
-      <img
-        className="svg"
-        src="charts.svg"
-        alt="Job application metrics visualized to help with your job search."
-      />
-      <Link to="/register" className="register">
-        Sign up for a free account
-      </Link>
+      <div className="scroll-target" />
+      <article className="hero hero1">
+        <h2 className="info">Manage the application process</h2>
+        <div className="blue-block-top block-top" />
+        <p className="details">
+          Getting a job can be difficult - managing the process shouldn't be.
+        </p>
+        <img
+          className="hero1-svg"
+          src="manage.svg"
+          alt="Employee managing their application process."
+        />
+        <div className="blue-block-bottom block-bottom" />
+      </article>
+      <div className="scroll-target" />
+      <article className="hero hero2">
+        <h2 className="info">Make the most of your time</h2>
+        <div className="yellow-block-top block-top" />
+        <p className="details">
+          Spend more time focusing on your career and less time organizing your
+          applications and interviews.
+        </p>
+        <img
+          className="hero2-svg"
+          src="time.svg"
+          alt="Employee excerizing excellent time management."
+        />
+        <div className="yellow-block-bottom block-bottom" />
+      </article>
+
+      <div className="scroll-target" />
+      <article className="hero hero3">
+        <h2 className="info">Gain valuable insights</h2>
+        <div className="purple-block-top block-top" />
+        <p className="details">
+          Learn what works and what doesn't - see what companies respond to and
+          leverage this information in your search.
+        </p>
+        <img
+          className="hero3-svg"
+          src="charts.svg"
+          alt="Job application metrics visualized to help with your job search."
+        />
+        <div className="purple-block-bottom block-bottom" />
+      </article>
+      <div className="register-wrapper">
+        <Link to="/register" className="register">
+          Get started for free today
+        </Link>
+      </div>
+
+      <div className="spacer" />
     </Wrapper>
   );
 };
 const Wrapper = styled.main`
   position: relative;
   width: 100%;
-  padding: 1rem;
+  padding: 0 1rem;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -113,7 +179,7 @@ const Wrapper = styled.main`
   h1 {
     width: 17rem;
     height: 8rem;
-    margin: 5rem 0;
+    margin: 6rem 0;
     text-align: center;
     font-size: 3.5rem;
     line-height: 3rem;
@@ -135,10 +201,7 @@ const Wrapper = styled.main`
     position: relative;
     z-index: 1;
     width: 100%;
-    margin-bottom: 8rem;
-    &:nth-of-type(1) {
-      margin-bottom: 30vh;
-    }
+    margin: 3rem 0 8rem;
   }
 
   .register {
@@ -178,14 +241,90 @@ const Wrapper = styled.main`
     position: relative;
     z-index: 1;
     font-size: 2rem;
-    margin-bottom: 3rem;
+    margin: 1rem 0 2rem 1rem;
     font-family: "Josefin Slab", serif;
   }
   .details {
     position: relative;
     z-index: 1;
     margin-bottom: 3rem;
+    margin-left: 3rem;
     line-height: 2rem;
+  }
+
+  // Shared
+  .hero {
+    position: relative;
+    margin: 7rem 0;
+    .block-top {
+      position: absolute;
+      top: 0;
+      z-index: 0;
+      width: 100vw;
+      height: 6rem;
+      transition: 1s;
+      transform: translateX(110%);
+    }
+    .block-bottom {
+      position: absolute;
+      bottom: 0;
+      z-index: 0;
+      width: 50vw;
+      height: 1rem;
+      transition: 1s;
+      transform: translateX(-110%);
+    }
+    .slide-left {
+      transform: translateX(0);
+    }
+    .slide-right {
+      transform: translateX(-10%);
+    }
+  }
+
+  // Manage the application process article
+  .hero1 {
+    .blue-block-top,
+    .blue-block-bottom {
+      background-color: var(--blue);
+    }
+    .hero1-svg {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+  }
+
+  // Make the most of your time
+  .hero3 {
+    .purple-block-top,
+    .purple-block-bottom {
+      background-color: var(--purple);
+    }
+    .hero3-svg {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+  }
+
+  // Gain valuable insights
+  .hero2 {
+    .yellow-block-top,
+    .yellow-block-bottom {
+      background-color: var(--yellow);
+    }
+    .hero2-svg {
+      position: relative;
+      z-index: 1;
+      width: 80%;
+      padding-left: 20%;
+      transform: translateX(20%);
+    }
+  }
+
+  .spacer {
+    margin-bottom: 8rem;
   }
 
   /* Media Queries */
