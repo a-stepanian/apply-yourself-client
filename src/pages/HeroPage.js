@@ -108,7 +108,7 @@ const HeroPage = () => {
         </div>
       )}
       <img
-        className="svg"
+        className="main-svg"
         src="hero.svg"
         alt="Happy employees collaborating at work."
       />
@@ -119,11 +119,13 @@ const HeroPage = () => {
         <p className="details">
           Getting a job can be difficult - managing the process shouldn't be.
         </p>
-        <img
-          className="hero1-svg"
-          src="manage.svg"
-          alt="Employee managing their application process."
-        />
+        <div className="svg-wrapper">
+          <img
+            className="hero1-svg svg"
+            src="manage.svg"
+            alt="Employee managing their application process."
+          />
+        </div>{" "}
         <div className="blue-block-bottom block-bottom" />
       </article>
       <div className="scroll-target" />
@@ -134,11 +136,13 @@ const HeroPage = () => {
           Spend more time focusing on your career and less time organizing your
           applications and interviews.
         </p>
-        <img
-          className="hero2-svg"
-          src="time.svg"
-          alt="Employee excerizing excellent time management."
-        />
+        <div className="svg-wrapper">
+          <img
+            className="hero2-svg svg"
+            src="time.svg"
+            alt="Employee excerizing excellent time management."
+          />
+        </div>{" "}
         <div className="yellow-block-bottom block-bottom" />
       </article>
 
@@ -150,14 +154,16 @@ const HeroPage = () => {
           Learn what works and what doesn't - see what companies respond to and
           leverage this information in your search.
         </p>
-        <img
-          className="hero3-svg"
-          src="charts.svg"
-          alt="Job application metrics visualized to help with your job search."
-        />
+        <div className="svg-wrapper">
+          <img
+            className="hero3-svg svg"
+            src="charts.svg"
+            alt="Job application metrics visualized to help with your job search."
+          />
+        </div>{" "}
         <div className="purple-block-bottom block-bottom" />
       </article>
-      <div className="register-wrapper">
+      <div className="register-wrapper-bottom">
         <Link to="/register" className="register">
           Get started for free today
         </Link>
@@ -183,21 +189,22 @@ const Wrapper = styled.main`
     text-align: center;
     font-size: 3.5rem;
     line-height: 3rem;
+    .dot,
+    .space {
+      margin-left: 1rem;
+      position: relative;
+      z-index: 1;
+      font-family: "Josefin Slab", serif;
+      display: none;
+      letter-spacing: -1rem;
+    }
+    .show,
+    .space {
+      display: inline;
+    }
   }
-  .dot,
-  .space {
-    margin-left: 1rem;
-    position: relative;
-    z-index: 1;
-    font-family: "Josefin Slab", serif;
-    display: none;
-    letter-spacing: -1rem;
-  }
-  .show,
-  .space {
-    display: inline;
-  }
-  .svg {
+
+  .main-svg {
     position: relative;
     z-index: 1;
     width: 100%;
@@ -237,25 +244,17 @@ const Wrapper = styled.main`
     }
   }
 
-  .info {
-    position: relative;
-    z-index: 1;
-    font-size: 2rem;
-    margin: 1rem 0 2rem 1rem;
-    font-family: "Josefin Slab", serif;
-  }
-  .details {
-    position: relative;
-    z-index: 1;
-    margin-bottom: 3rem;
-    margin-left: 3rem;
-    line-height: 2rem;
-  }
-
   // Shared
   .hero {
     position: relative;
     margin: 7rem 0;
+    .info {
+      position: relative;
+      z-index: 1;
+      font-size: 2rem;
+      margin: 1rem 0 2rem 1rem;
+      font-family: "Josefin Slab", serif;
+    }
     .block-top {
       position: absolute;
       top: 0;
@@ -265,12 +264,27 @@ const Wrapper = styled.main`
       transition: 1s;
       transform: translateX(110%);
     }
+    .details {
+      position: relative;
+      z-index: 1;
+      margin: 5rem 0 3rem 2rem;
+      line-height: 2rem;
+    }
+    .svg-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      img {
+        max-width: 40rem;
+      }
+    }
     .block-bottom {
+      opacity: 0.5;
       position: absolute;
       bottom: 0;
       z-index: 0;
-      width: 50vw;
-      height: 1rem;
+      width: 100vw;
+      height: 2rem;
       transition: 1s;
       transform: translateX(-110%);
     }
@@ -278,7 +292,7 @@ const Wrapper = styled.main`
       transform: translateX(0);
     }
     .slide-right {
-      transform: translateX(-10%);
+      transform: translateX(-70%);
     }
   }
 
@@ -296,19 +310,6 @@ const Wrapper = styled.main`
   }
 
   // Make the most of your time
-  .hero3 {
-    .purple-block-top,
-    .purple-block-bottom {
-      background-color: var(--purple);
-    }
-    .hero3-svg {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-    }
-  }
-
-  // Gain valuable insights
   .hero2 {
     .yellow-block-top,
     .yellow-block-bottom {
@@ -323,6 +324,18 @@ const Wrapper = styled.main`
     }
   }
 
+  // Gain valuable insights
+  .hero3 {
+    .purple-block-top,
+    .purple-block-bottom {
+      background-color: var(--purple);
+    }
+    .hero3-svg {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+  }
   .spacer {
     margin-bottom: 8rem;
   }
@@ -366,10 +379,25 @@ const Wrapper = styled.main`
       color: rgba(0, 0, 0, 0.5);
       top: calc(60vh + 2.5rem);
     }
-    .svg {
-      max-width: 30rem;
-      &:nth-of-type(1) {
-        max-width: 60rem;
+    .main-svg {
+      max-width: 60rem;
+    }
+    .hero {
+      .info {
+        position: relative;
+        z-index: 1;
+        font-size: 2.5rem;
+        margin: 1rem 0 2rem 10rem;
+        font-family: "Josefin Slab", serif;
+      }
+      .details {
+        position: relative;
+        z-index: 1;
+        margin: 5rem 0 3rem 2rem;
+        line-height: 2rem;
+      }
+      .slide-left {
+        transform: translateX(8rem);
       }
     }
   }
