@@ -5,6 +5,7 @@ import styled from "styled-components";
 import AuthContext from "../context/AuthContext";
 import { RiFolderAddLine } from "react-icons/ri";
 import { useEffect } from "react";
+import LineDesign from "../components/LineDesign";
 
 const ShowAppsPage = () => {
   const navigate = useNavigate();
@@ -16,25 +17,28 @@ const ShowAppsPage = () => {
 
   return (
     <Wrapper>
-      <div className="divider" />
-      <Link to="/applications/new">
-        <span>Add An Application</span>
-        <RiFolderAddLine className="icon" />
-      </Link>
-      {applications.length && <h1>Your Applications</h1>}
-      {applications.length ? (
+      <LineDesign />
+      {applications.length > 0 ? (
         applications.map((app, index) => {
           const { _id } = app;
           return <Job key={_id} app={app} />;
         })
       ) : (
         <>
-          <h2>No applications found</h2>
-          <div className="divider" />
-          <Link to="/applications/new">
-            <span>Add An Application</span>
-            <RiFolderAddLine className="icon" />
-          </Link>
+          <div className="wrapper">
+            <h2>No applications found.</h2>
+            <Link to="/applications/new" className="add-first-app">
+              <span>Add Application</span>
+              <RiFolderAddLine className="icon" />
+            </Link>
+          </div>
+          <div className="img-wrapper">
+            <img
+              src="/empty.svg"
+              alt="Person standing next to a document with a plus sign."
+              className="image"
+            />
+          </div>
         </>
       )}
     </Wrapper>
@@ -42,20 +46,51 @@ const ShowAppsPage = () => {
 };
 
 const Wrapper = styled.section`
+  position: relative;
   overflow-x: hidden;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  .filter {
-    width: 100%;
-    height: 15rem;
-    background: url("/list.jpg");
-    background-size: cover;
-    background-position: center;
+  min-height: 38rem;
+  .wrapper {
+    position: absolute;
+    z-index: 1;
+    top: 15rem;
+  }
+  .add-first-app {
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+    height: 3rem;
+    width: 16rem;
+    padding: 0 1.5rem;
+    border: 2px solid rgba(0, 0, 0, 0.7);
+    border-radius: 1.5rem;
+    background: linear-gradient(
+      rgba(215, 210, 255, 0.8),
+      rgba(235, 243, 200, 0.8),
+      rgba(200, 220, 255, 0.8)
+    );
+    color: black;
+    font-weight: 700;
+    font-size: 1.1rem;
     display: flex;
+    justify-content: space-evenly;
     align-items: center;
-    justify-content: center;
+    margin: 3rem 0;
+    .icon {
+      font-size: 1.3rem;
+    }
+  }
+  .img-wrapper {
+    width: 100%;
+    max-width: 30rem;
+    padding: 5rem 1rem;
+    opacity: 0.2;
+    img {
+      width: 100%;
+    }
   }
   section {
     position: relative;
