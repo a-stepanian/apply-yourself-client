@@ -160,60 +160,77 @@ const DashboardPage = () => {
     calcAvgResponseTime();
   }, [allApps]);
 
+  if (totals.total === 0) {
+    return <ApplicationSection />;
+  }
+
   return (
     <Wrapper>
-      <LineDesign />
-      <div className="metrics-section">
-        <Metrics allApps={allApps} respTime={respTime} waitTime={waitTime} />
-      </div>
+      <section className="dashboard-section">
+        <div className="metrics-section">
+          <Metrics allApps={allApps} respTime={respTime} waitTime={waitTime} />
+        </div>
 
-      <div className="chart-section">
-        <LineChart monthlyCount={monthlyCount} />
-        <DonutChart totals={totals} />
-      </div>
-      <div className="application-section">
+        <div className="chart-section">
+          <LineChart monthlyCount={monthlyCount} />
+          <DonutChart totals={totals} />
+        </div>
+      </section>
+
+      <section className="application-section">
         <ApplicationSection />
-      </div>
+      </section>
     </Wrapper>
   );
 };
 const Wrapper = styled.main`
   position: relative;
-  overflow-x: hidden;
-  .chart-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .dashboard-section {
+    margin: 1rem;
+    width: 100%;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 40rem;
+    h2 {
+      text-align: center;
+    }
+    .chart-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  .application-section {
+    width: 100%;
   }
 
   @media (min-width: 480px) {
-    .chart-section {
-      margin: 1rem;
-      flex-direction: row;
-      justify-content: space-evenly;
+    .dashboard-section {
+      .chart-section {
+        margin: 0 1rem 1rem;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: flex-start;
+      }
     }
   }
-  @media (min-width: 768px) {
-    display: grid;
-    grid-template-columns: 70% 30%;
-    grid-template-rows: auto;
-    .chart-section {
-      grid-row-start: 1;
-      grid-row-end: 2;
-      grid-column-start: 1;
-      grid-column-end: 3;
-    }
-    .application-section {
-      grid-row-start: 2;
-      grid-row-end: 3;
-      grid-column-start: 1;
-      grid-column-end: 2;
-    }
-    .metrics-section {
-      grid-row-start: 2;
-      grid-row-end: 3;
-      grid-column-start: 2;
-      grid-column-end: 3;
+
+  @media (min-width: 990px) {
+    flex-direction: row;
+    align-items: flex-start;
+
+    .dashboard-section {
+      margin: 0;
+      height: 100vh;
+      width: 20rem;
+      position: sticky;
+      top: 0;
+      box-shadow: 4px -2px 8px rgba(0, 0, 0, 0.3);
+      .chart-section {
+        flex-direction: column;
+      }
     }
   }
 `;

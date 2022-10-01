@@ -62,26 +62,27 @@ const Metrics = ({ allApps, respTime, waitTime }) => {
   return (
     <Wrapper>
       <article className="metric">
-        <h4>Total Applications</h4>
         <RiStackLine className="icon" />
         <p>{count.totalApplications}</p>
+        <h4>Total Applications</h4>
       </article>
+
       <article className="metric">
-        <h4>Responses</h4>
+        <MdTimer className="icon" />
+        <p>{count.time}</p>
+        <h4>Avg Response Time</h4>
+      </article>
+
+      <article className="metric">
         <RiReplyLine className="icon" />
         <p>{count.responses}</p>
+        <h4>Responses</h4>
       </article>
+
       <article className="metric">
-        <h4>No Response</h4>
         <CgGhostCharacter className="icon" />
         <p>{count.noresponse}</p>
-      </article>
-      <article className="metric">
-        <h4>Avg Response Time</h4>
-        <MdTimer className="icon" />
-        <p>
-          {count.time} <span>days</span>
-        </p>
+        <h4>No Response</h4>
       </article>
     </Wrapper>
   );
@@ -96,43 +97,45 @@ const Wrapper = styled.section`
   align-items: center;
   justify-content: center;
   .metric {
+    position: relative;
+    height: 5rem;
+    width: calc(50% - 1.2rem);
+    margin: 0.2rem;
     font-family: "Josefin Slab", serif;
-    font-weight: 900;
-    width: calc(50% - 1rem);
-    padding-top: 0.5rem;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
-    animation: grow 0.5s forwards;
+    justify-content: center;
     &:nth-of-type(1) {
       background-color: rgba(200, 220, 255, 0.8);
     }
     &:nth-of-type(2) {
-      background-color: rgba(215, 210, 255, 0.8);
-    }
-    &:nth-of-type(3) {
-      background-color: rgba(235, 243, 200, 0.8);
-    }
-    &:nth-of-type(4) {
       background: linear-gradient(
         rgba(215, 210, 255, 0.8),
         rgba(200, 220, 255, 0.8),
         rgba(235, 243, 200, 0.8)
       );
     }
+    &:nth-of-type(3) {
+      background-color: rgba(235, 243, 200, 0.8);
+    }
+
+    &:nth-of-type(4) {
+      background-color: rgba(215, 210, 255, 0.8);
+    }
     h4 {
-      height: 2.2rem;
       font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      text-align: center;
     }
     .icon {
-      font-size: 2rem;
+      color: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: 1.2rem;
     }
+
     p {
+      font-weight: 900;
       font-size: 2rem;
       display: flex;
       align-items: center;
@@ -149,13 +152,15 @@ const Wrapper = styled.section`
   //--------------
   @media (min-width: 480px) {
     .metric {
-      width: 21%;
+      width: 6.5rem;
+      h4 {
+        text-align: center;
+      }
     }
   }
-  @media (min-width: 768px) {
-    flex-direction: column;
+  @media (min-width: 990px) {
     .metric {
-      width: 100%;
+      width: calc(50% - 1rem);
     }
   }
 
@@ -164,12 +169,10 @@ const Wrapper = styled.section`
   //--------------
   @keyframes grow {
     0% {
-      height: 0;
-      margin: 0 0.5rem;
+      border-radius: 50%;
     }
     100% {
-      height: 7rem;
-      margin: 0.5rem;
+      border-radius: 0;
     }
   }
 `;

@@ -22,6 +22,7 @@ const LineChart = ({ monthlyCount }) => {
   return (
     <Wrapper>
       <div className="chart-wrapper">
+        <h3>Monthly Applications</h3>
         <Chart
           type="line"
           data={{
@@ -68,6 +69,9 @@ const LineChart = ({ monthlyCount }) => {
               title: {
                 text: "Application Status",
               },
+              legend: {
+                display: false,
+              },
             },
           }}
         />
@@ -80,12 +84,19 @@ const Wrapper = styled.div`
   width: 100%;
   position: relative;
   z-index: 1;
+  max-width: 22rem;
+  h3 {
+    font-size: 0.8rem;
+    font-weight: 900;
+    margin: 1rem 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+  }
 
   @media (min-width: 480px) {
-    width: 70%;
-  }
-  @media (min-width: 768px) {
     width: 60%;
+  }
+  @media (min-width: 990px) {
+    width: 100%;
   }
 `;
 
