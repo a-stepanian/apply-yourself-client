@@ -17,14 +17,9 @@ const Footer = () => {
           <Link to="/" className="logo">
             Home
           </Link>
-
-          <Link to="/applications">All Applications</Link>
           <Link to="/applications/new">New Application</Link>
-
           <Link to="/dashboard">Dashboard</Link>
-
           <Link to="/register">Register</Link>
-
           <Link to="/login">Login</Link>
         </article>
         <article className="sitemap">
@@ -124,6 +119,24 @@ const Wrapper = styled.footer`
       width: 33%;
       img {
         width: 100%;
+        animation: rock 4s infinite linear;
+      }
+    }
+    @keyframes rock {
+      0% {
+        transform: rotate(0);
+      }
+      25% {
+        transform: rotate(3deg);
+      }
+      50% {
+        transform: rotate(0);
+      }
+      75% {
+        transform: rotate(-3deg);
+      }
+      100% {
+        transform: rotate(0);
       }
     }
   }

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import {
   RiFolderChartLine,
-  RiFolderOpenLine,
   RiLoginBoxLine,
   RiUserAddLine,
   RiUserLine,
@@ -28,13 +27,8 @@ const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
         {loggedIn && (
           <>
             <div className="links">
-              <Link to="/applications">
-                <span>My Applications</span>
-                <RiFolderOpenLine className="icon" />
-              </Link>
-              <div className="divider" />
               <Link to="/dashboard">
-                <span>My Dashboard</span>
+                <span>Dashboard</span>
                 <RiFolderChartLine className="icon" />
               </Link>
               <div className="divider" />
