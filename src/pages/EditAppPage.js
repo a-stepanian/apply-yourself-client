@@ -109,10 +109,10 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
       status: "",
     });
 
-    fetchApplications();
+    await fetchApplications();
 
     // redirect to list of all applications page
-    navigate(`/applications`);
+    navigate(`/dashboard`);
     if (isDropdownOpen) toggleDropdown();
   };
 
