@@ -227,7 +227,7 @@ const Wrapper = styled.main`
       width: 20rem;
       position: sticky;
       top: 0;
-      box-shadow: 4px -2px 8px rgba(0, 0, 0, 0.3);
+      box-shadow: 4px -2px 8px rgba(0, 0, 0, 0.1);
       .chart-section {
         flex-direction: column;
       }
