@@ -5,12 +5,16 @@
 }
 
 :root {
+  --black: rgb(17, 6, 26);
   --main-bg: rgb(243, 238, 247);
   --purple: #b49ec6;
+  --purple2: rgba(180, 158, 198, 0.5);
   --dark-purple: #9679ac;
   --light-purple: #dfd4e8;
   --yellow: #dfe8bb;
+  --yellow2: rgba(223, 232, 187, 0.5);
   --blue: #c0d0ff;
+  --blue2: rgba(192, 208, 255, 0.5);
   --dark-blue: #11172c;
   --beige2: rgba(186, 177, 177, 0.5);
   --beige: rgb(186, 177, 177);
