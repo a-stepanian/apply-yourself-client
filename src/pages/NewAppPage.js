@@ -70,7 +70,7 @@ const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
     fetchApplications();
 
     // redirect to list of all applications page
-    navigate(`/applications`);
+    navigate("/dashboard");
     if (isDropdownOpen) toggleDropdown();
   };
 

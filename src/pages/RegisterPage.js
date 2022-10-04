@@ -25,7 +25,7 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
 
   useEffect(() => {
     if (loggedIn) {
-      // Redirect user to applications page
+      // Redirect user to dashboard page
       navigate("/dashboard");
     }
   }, [loggedIn, navigate]);
@@ -111,7 +111,7 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
       if (isDropdownOpen) toggleDropdown();
 
       // Redirect user to applications page
-      navigate("/applications");
+      navigate("/dashboard");
     }
     // eslint-disable-next-line
   }, [loggedIn]);
@@ -330,18 +330,27 @@ const Wrapper = styled.main`
   @media (min-width: 1200px) {
     .form-section {
       .image-wrapper {
+        animation: fadeUp 1s forwards;
         &:nth-of-type(1) {
           top: calc(50% - 5rem);
-          opacity: 0.2;
           width: calc(60% - 7rem);
           left: 0;
         }
         &:nth-of-type(2) {
           top: calc(50% - 10rem);
-          opacity: 0.3;
           width: calc(60% - 5rem);
           right: 0;
         }
+      }
+    }
+    @keyframes fadeUp {
+      0% {
+        opacity: 0.04;
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 0.1;
+        transform: scale(1);
       }
     }
   }
