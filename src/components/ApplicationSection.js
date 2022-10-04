@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import Job from "./Job";
 import styled from "styled-components";
 import AuthContext from "../context/AuthContext";
 import { RiFolderAddLine } from "react-icons/ri";
 import Filter from "./Filter";
-import { useState } from "react";
-import { useEffect } from "react";
+import LineDesign from "./LineDesign";
 
 const ApplicationSection = () => {
   const [filter, setFilter] = useState("all");
@@ -24,10 +23,11 @@ const ApplicationSection = () => {
 
   return (
     <Wrapper>
+      <LineDesign />
       {applications.length > 0 ? (
         <>
           <header className="sticky-header">
-            <h2>My Applications</h2>
+            <h2 className="my-applications">My Applications</h2>
             <div className="cover-strip" />
             <div className="button-wrapper">
               <Link to="/applications/new" className="add-app">
@@ -64,11 +64,12 @@ const ApplicationSection = () => {
   );
 };
 
-const Wrapper = styled.section`
+const Wrapper = styled.div`
   position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
+  background-color: var(--main-bg);
   align-items: center;
   min-height: 38rem;
   .sticky-header {
@@ -82,43 +83,72 @@ const Wrapper = styled.section`
     width: 100%;
     display: flex;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+    .my-applications {
+      margin-top: 0.5rem;
+      font-family: "Josefin Slab", serif;
+    }
     .button-wrapper {
       padding: 1rem;
       width: 100%;
       display: flex;
-    }
-  }
-  .wrapper {
-    position: absolute;
-    z-index: 1;
-    top: 15rem;
-  }
-
-  .add-app {
-    text-decoration: none;
-    position: relative;
-    z-index: 1;
-    height: 2rem;
-    width: 11rem;
-    border: 2px solid rgba(0, 0, 0, 0.7);
-    border-radius: 1.5rem;
-    background: linear-gradient(
-      rgba(215, 210, 255, 0.8),
-      rgba(235, 243, 200, 0.8),
-      rgba(200, 220, 255, 0.8)
-    );
-    color: black;
-    font-weight: 700;
-    font-size: 0.9rem;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    .icon {
-      font-size: 1.3rem;
+      justify-content: center;
+      .add-app {
+        text-decoration: none;
+        position: relative;
+        z-index: 1;
+        height: 2rem;
+        width: 10.2rem;
+        border: 2px solid rgba(0, 0, 0, 0.7);
+        border-radius: 1.5rem;
+        background: linear-gradient(
+          rgba(215, 210, 255, 0.8),
+          rgba(235, 243, 200, 0.8),
+          rgba(200, 220, 255, 0.8)
+        );
+        color: black;
+        font-weight: 700;
+        font-size: 0.9rem;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        .icon {
+          font-size: 1.3rem;
+        }
+      }
     }
   }
 
   // Displayed when user has no applications
+  .wrapper {
+    position: absolute;
+    z-index: 1;
+    top: 15rem;
+    .add-first-app {
+      text-decoration: none;
+      position: relative;
+      z-index: 1;
+      height: 3rem;
+      width: 16rem;
+      padding: 0 1.5rem;
+      border: 2px solid rgba(0, 0, 0, 0.7);
+      border-radius: 1.5rem;
+      background: linear-gradient(
+        rgba(215, 210, 255, 0.8),
+        rgba(235, 243, 200, 0.8),
+        rgba(200, 220, 255, 0.8)
+      );
+      color: black;
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      margin: 3rem 0;
+      .icon {
+        font-size: 1.3rem;
+      }
+    }
+  }
   .img-wrapper {
     width: 100%;
     max-width: 30rem;
@@ -126,31 +156,6 @@ const Wrapper = styled.section`
     opacity: 0.2;
     img {
       width: 100%;
-    }
-  }
-  .add-first-app {
-    text-decoration: none;
-    position: relative;
-    z-index: 1;
-    height: 3rem;
-    width: 16rem;
-    padding: 0 1.5rem;
-    border: 2px solid rgba(0, 0, 0, 0.7);
-    border-radius: 1.5rem;
-    background: linear-gradient(
-      rgba(215, 210, 255, 0.8),
-      rgba(235, 243, 200, 0.8),
-      rgba(200, 220, 255, 0.8)
-    );
-    color: black;
-    font-weight: 700;
-    font-size: 1.1rem;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: 3rem 0;
-    .icon {
-      font-size: 1.3rem;
     }
   }
 
@@ -163,6 +168,21 @@ const Wrapper = styled.section`
       left: -0.4rem;
       width: 0.8rem;
       height: 100%;
+    }
+
+    .sticky-header {
+      height: 6rem;
+      flex-direction: row;
+      justify-content: center;
+      .my-applications {
+        margin-top: 0;
+        padding-right: 1rem;
+        font-size: 2.5rem;
+        border-right: 1px solid rgba(0, 0, 0, 0.3);
+      }
+      .button-wrapper {
+        width: 18rem;
+      }
     }
   }
 `;

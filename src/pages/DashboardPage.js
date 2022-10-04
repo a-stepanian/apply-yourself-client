@@ -188,6 +188,7 @@ const Wrapper = styled.main`
   flex-direction: column;
   align-items: center;
   .dashboard-section {
+    background-color: var(--white);
     margin: 1rem;
     width: 100%;
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
@@ -222,9 +223,11 @@ const Wrapper = styled.main`
 
     .dashboard-section {
       margin: 0;
+      padding-top: 1rem;
       height: 100vh;
       width: 20rem;
       position: sticky;
+      z-index: 1;
       top: 0;
       box-shadow: 4px -2px 8px rgba(0, 0, 0, 0.1);
       .chart-section {

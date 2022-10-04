@@ -41,7 +41,8 @@ const Filter = ({ setFilter }) => {
 };
 
 const Wrapper = styled.form`
-  width: 40%;
+  width: 5rem;
+  margin-left: 1rem;
   font-size: 1rem;
   font-weight: 700;
   display: flex;
