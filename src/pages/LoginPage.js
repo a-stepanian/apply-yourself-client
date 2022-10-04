@@ -267,16 +267,36 @@ const Wrapper = styled.main`
       .image-wrapper {
         &:nth-of-type(1) {
           top: calc(50% - 5rem);
-          opacity: 0.05;
           width: calc(60% - 7rem);
           left: 0;
+          animation: fadeUp1 1s forwards;
         }
         &:nth-of-type(2) {
           top: calc(50% - 10rem);
-          opacity: 0.2;
           width: calc(60% - 5rem);
           right: 0;
+          animation: fadeUp2 1s forwards;
         }
+      }
+    }
+    @keyframes fadeUp1 {
+      0% {
+        opacity: 0.01;
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 0.05;
+        transform: scale(1);
+      }
+    }
+    @keyframes fadeUp2 {
+      0% {
+        opacity: 0.04;
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 0.1;
+        transform: scale(1);
       }
     }
   }

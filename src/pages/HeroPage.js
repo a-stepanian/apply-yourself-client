@@ -86,6 +86,11 @@ const HeroPage = () => {
         <span className="dot">b</span>
         <span className="dot">.</span>
       </h1>
+      <img
+        className="main-svg"
+        src="hero.svg"
+        alt="Happy employees collaborating at work."
+      />
       <div className="register-wrapper">
         {loggedIn ? (
           <Link to="/dashboard" className="register">
@@ -107,11 +112,6 @@ const HeroPage = () => {
           </p>
         </div>
       )}
-      <img
-        className="main-svg"
-        src="hero.svg"
-        alt="Happy employees collaborating at work."
-      />
       <div className="scroll-target" />
       <article className="hero hero1">
         <h2 className="info">Manage the application process</h2>
@@ -125,9 +125,10 @@ const HeroPage = () => {
             src="manage.svg"
             alt="Employee managing their application process."
           />
-        </div>{" "}
+        </div>
         <div className="blue-block-bottom block-bottom" />
       </article>
+
       <div className="scroll-target" />
       <article className="hero hero2">
         <h2 className="info">Make the most of your time</h2>
@@ -142,7 +143,7 @@ const HeroPage = () => {
             src="time.svg"
             alt="Employee excerizing excellent time management."
           />
-        </div>{" "}
+        </div>
         <div className="yellow-block-bottom block-bottom" />
       </article>
 
@@ -151,8 +152,8 @@ const HeroPage = () => {
         <h2 className="info">Gain valuable insights</h2>
         <div className="purple-block-top block-top" />
         <p className="details">
-          Learn what works and what doesn't - see what companies respond to and
-          leverage this information in your search.
+          Learn what works and what doesn't - leverage this information in your
+          search.
         </p>
         <div className="svg-wrapper">
           <img
@@ -160,14 +161,22 @@ const HeroPage = () => {
             src="charts.svg"
             alt="Job application metrics visualized to help with your job search."
           />
-        </div>{" "}
+        </div>
         <div className="purple-block-bottom block-bottom" />
       </article>
-      <div className="register-wrapper-bottom">
-        <Link to="/register" className="register">
-          Get started for free today
-        </Link>
-      </div>
+
+      {loggedIn ? (
+        <div className="register-wrapper-bottom">
+          <h2 className="get-started">Good Luck!</h2>
+        </div>
+      ) : (
+        <div className="register-wrapper-bottom">
+          <h2 className="get-started">Get started today</h2>
+          <Link to="/register" className="register sign-up">
+            Sign Up
+          </Link>
+        </div>
+      )}
 
       <div className="spacer" />
     </Wrapper>
@@ -185,10 +194,11 @@ const Wrapper = styled.main`
   h1 {
     width: 17rem;
     height: 8rem;
-    margin: 6rem 0;
-    text-align: center;
+    margin: 8rem 0;
     font-size: 3.5rem;
     line-height: 3rem;
+    display: flex;
+    flex-wrap: wrap;
     .dot,
     .space {
       margin-left: 1rem;
@@ -208,7 +218,7 @@ const Wrapper = styled.main`
     position: relative;
     z-index: 1;
     width: 100%;
-    margin: 3rem 0 8rem;
+    margin-bottom: 1rem;
   }
 
   .register {
@@ -248,10 +258,12 @@ const Wrapper = styled.main`
   .hero {
     position: relative;
     margin: 7rem 0;
+    max-width: 40rem;
     .info {
       position: relative;
       z-index: 1;
       font-size: 2rem;
+      height: 4rem;
       margin: 1rem 0 2rem 1rem;
       font-family: "Josefin Slab", serif;
     }
@@ -267,32 +279,33 @@ const Wrapper = styled.main`
     .details {
       position: relative;
       z-index: 1;
-      margin: 5rem 0 3rem 2rem;
+      margin: 5rem 0 3rem 0;
       line-height: 2rem;
+      text-align: center;
     }
     .svg-wrapper {
       width: 100%;
       display: flex;
       justify-content: center;
       img {
-        max-width: 40rem;
+        max-width: 30rem;
       }
     }
     .block-bottom {
-      opacity: 0.5;
       position: absolute;
       bottom: 0;
+      left: 0;
       z-index: 0;
       width: 100vw;
       height: 2rem;
       transition: 1s;
-      transform: translateX(-110%);
+      transform: translateX(-100%);
     }
     .slide-left {
       transform: translateX(0);
     }
     .slide-right {
-      transform: translateX(-50%);
+      transform: translateX(-40%);
     }
   }
 
@@ -303,6 +316,8 @@ const Wrapper = styled.main`
       background-color: var(--blue);
     }
     .hero1-svg {
+      padding: 1rem;
+      background-color: var(--blue2);
       position: relative;
       z-index: 1;
       width: 100%;
@@ -315,7 +330,14 @@ const Wrapper = styled.main`
     .yellow-block-bottom {
       background-color: var(--yellow);
     }
+    .svg-wrapper {
+      img {
+        max-width: 25rem;
+      }
+    }
     .hero2-svg {
+      padding: 1rem;
+      background-color: var(--yellow2);
       position: relative;
       z-index: 1;
       width: 80%;
@@ -330,12 +352,39 @@ const Wrapper = styled.main`
     .purple-block-bottom {
       background-color: var(--purple);
     }
+    .svg-wrapper {
+      img {
+        max-width: 25rem;
+      }
+    }
     .hero3-svg {
+      padding: 1rem;
+      background-color: var(--purple2);
       position: relative;
       z-index: 1;
       width: 100%;
     }
   }
+
+  .register-wrapper-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 8rem 0;
+    .get-started {
+      position: relative;
+      width: 18rem;
+      z-index: 1;
+      margin-bottom: 2rem;
+      text-align: center;
+      font-size: 3rem;
+      font-family: "Josefin Slab", serif;
+    }
+    .sign-up {
+      width: 10rem;
+    }
+  }
+
   .spacer {
     margin-bottom: 8rem;
   }
@@ -343,10 +392,13 @@ const Wrapper = styled.main`
   /* Media Queries */
   @media (min-width: 480px) {
     h1 {
-      width: 100%;
-      height: 4rem;
-      margin: 5rem 0 3rem;
-      font-size: 2.8rem;
+      width: 20rem;
+      height: 8rem;
+      font-size: 4.2rem;
+      line-height: 5rem;
+    }
+    .main-svg {
+      margin-bottom: 5rem;
     }
     .register-wrapper,
     .login-wrapper {
@@ -354,6 +406,24 @@ const Wrapper = styled.main`
     }
     .register {
       animation: hover 1.2s infinite;
+    }
+    .hero {
+      .details {
+        width: 80%;
+        margin: 5rem 10%;
+        font-size: 1.4rem;
+        text-align: start;
+      }
+    }
+    .register-wrapper-bottom {
+      .get-started {
+        width: 24rem;
+        font-size: 5rem;
+        margin-bottom: 4rem;
+      }
+      .sign-up {
+        width: 12rem;
+      }
     }
   }
 
@@ -363,6 +433,8 @@ const Wrapper = styled.main`
       margin: 25vh 0 40vh;
       font-size: 4.5rem;
       line-height: 4.5rem;
+      display: flex;
+      justify-content: center;
     }
     .register-wrapper,
     .login-wrapper {
@@ -384,20 +456,26 @@ const Wrapper = styled.main`
     }
     .hero {
       .info {
-        position: relative;
-        z-index: 1;
         font-size: 2.5rem;
         margin: 1rem 0 2rem 10rem;
-        font-family: "Josefin Slab", serif;
       }
       .details {
-        position: relative;
-        z-index: 1;
-        margin: 5rem 0 3rem 2rem;
+        margin: 5rem 0 5rem 2rem;
         line-height: 2rem;
+        transform: translateX(8rem);
       }
       .slide-left {
         transform: translateX(8rem);
+      }
+    }
+    .register-wrapper-bottom {
+      .get-started {
+        width: 45rem;
+        font-size: 5.5rem;
+        margin-bottom: 4rem;
+      }
+      .sign-up {
+        width: 12rem;
       }
     }
   }
