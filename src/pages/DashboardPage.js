@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import LineDesign from "../components/LineDesign";
 import DonutChart from "../components/DonutChart";
 import LineChart from "../components/LineChart";
 import Metrics from "../components/Metrics";
