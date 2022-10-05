@@ -70,6 +70,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-color: var(--main-bg);
+  overflow-x: hidden;
   align-items: center;
   min-height: 38rem;
   .sticky-header {
