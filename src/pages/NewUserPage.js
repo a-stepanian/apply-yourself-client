@@ -7,36 +7,36 @@ const NewUserPage = ({ isDropdownOpen, toggleDropdown }) => {
   const [form, setForm] = useState({
     username: "",
     password: "",
-    applications: [],
+    applications: []
   });
   const navigate = useNavigate();
 
   // This function updates the form state when one of the form input values are changed.
-  const updateForm = (value) => {
-    return setForm((prev) => {
+  const updateForm = value => {
+    return setForm(prev => {
       return { ...prev, ...value };
     });
   };
 
-  //   const url = "https://server-apply-yourself.herokuapp.com/users/new";
+  //   const url = "https://apply-yourself-server.onrender.com/users/new";
   const url = "http://localhost:5000/users/new";
 
   // This function handles the form submission.
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     const newApplication = {
       username: form.username,
       password: form.password,
-      applications: form.applications,
+      applications: form.applications
     };
     // send post request to server
     await fetch(url, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(newApplication),
-    }).catch((error) => {
+      body: JSON.stringify(newApplication)
+    }).catch(error => {
       console.log(error);
       return;
     });
@@ -44,7 +44,7 @@ const NewUserPage = ({ isDropdownOpen, toggleDropdown }) => {
     setForm({
       username: "",
       password: "",
-      applications: [],
+      applications: []
     });
     if (isDropdownOpen) toggleDropdown();
     navigate("/");
@@ -53,11 +53,7 @@ const NewUserPage = ({ isDropdownOpen, toggleDropdown }) => {
   return (
     <Wrapper>
       <header className="img-container">
-        <img
-          className="clipboard-img"
-          src="/create.jpg"
-          alt="A job application form is next to a pen and laptop"
-        />
+        <img className="clipboard-img" src="/create.jpg" alt="A job application form is next to a pen and laptop" />
       </header>
       <section>
         <LineDesign />
@@ -71,7 +67,7 @@ const NewUserPage = ({ isDropdownOpen, toggleDropdown }) => {
               type="text"
               id="username"
               value={form.username}
-              onChange={(e) => updateForm({ username: e.target.value })}
+              onChange={e => updateForm({ username: e.target.value })}
             />
           </div>
           <div className="form-input">
@@ -82,7 +78,7 @@ const NewUserPage = ({ isDropdownOpen, toggleDropdown }) => {
               type="text"
               id="password"
               value={form.password}
-              onChange={(e) => updateForm({ password: e.target.value })}
+              onChange={e => updateForm({ password: e.target.value })}
             />
           </div>
           <button type="submit">Create User</button>

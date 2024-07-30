@@ -2,12 +2,12 @@ import React, { createContext, useEffect, useState } from "react";
 
 const AuthContext = createContext();
 
-const AuthContextProvider = (props) => {
+const AuthContextProvider = props => {
   const [loggedIn, setLoggedIn] = useState(undefined);
   const [applications, setApplications] = useState([]);
   const [user, setUser] = useState([]);
 
-  const url = "https://server-apply-yourself.herokuapp.com";
+  const url = "https://apply-yourself-server.onrender.com";
   // const url = "http://localhost:5000";
 
   // Fetch all applications submitted by the logged in user and clear applications when user logs out
@@ -16,16 +16,16 @@ const AuthContextProvider = (props) => {
       await fetch(`${url}/applications`, {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        credentials: "include",
+        credentials: "include"
       })
-        .then((response) => response.json())
-        .then((data) => {
+        .then(response => response.json())
+        .then(data => {
           setApplications(data);
         })
 
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
           return;
         });
@@ -39,16 +39,16 @@ const AuthContextProvider = (props) => {
       await fetch(`${url}/auth`, {
         method: "GET",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        credentials: "include",
+        credentials: "include"
       })
-        .then((response) => response.json())
-        .then((data) => {
+        .then(response => response.json())
+        .then(data => {
           setUser(data);
         })
 
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
           return;
         });
@@ -73,15 +73,15 @@ const AuthContextProvider = (props) => {
     await fetch(`${url}/auth/loggedIn`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      credentials: "include",
+      credentials: "include"
     })
-      .then(async (response) => {
+      .then(async response => {
         const data = await response.json();
         setLoggedIn(data);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
         return;
       });
@@ -100,9 +100,8 @@ const AuthContextProvider = (props) => {
         applications,
         fetchApplications,
         user,
-        url,
-      }}
-    >
+        url
+      }}>
       {props.children}
     </AuthContext.Provider>
   );
