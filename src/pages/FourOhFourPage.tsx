@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const FourOhFourPage = () => {
+export const FourOhFourPage = () => {
   return (
     <Wrapper>
       <p className="four-oh-four">404</p>
@@ -13,6 +13,7 @@ const FourOhFourPage = () => {
   );
 };
 
+// @ts-ignore
 const Wrapper = styled.main`
   background-color: var(--dark-blue);
   display: flex;
@@ -41,4 +42,3 @@ const Wrapper = styled.main`
     }
   }
 `;
-export default FourOhFourPage;

@@ -1,11 +1,11 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import LineDesign from "../components/LineDesign";
+import { LineDesign } from "../components/LineDesign.tsx";
 import { Link } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
+import { useAuthContext } from "../context/AuthContext.tsx";
 
-const HeroPage = () => {
-  const { loggedIn } = useContext(AuthContext);
+export const HeroPage = () => {
+  const { loggedIn } = useAuthContext();
 
   // Make hero letters appear with typing effect
   useEffect(() => {
@@ -26,9 +26,9 @@ const HeroPage = () => {
       const distanceFromTop0 = scrollTarget0.getBoundingClientRect().top;
       if (distanceFromTop0 < 400) {
         const blueBlockTop = document.querySelector(".blue-block-top");
-        blueBlockTop.classList.add("slide-left");
+        blueBlockTop?.classList.add("slide-left");
         const blueBlockBottom = document.querySelector(".blue-block-bottom");
-        blueBlockBottom.classList.add("slide-right");
+        blueBlockBottom?.classList.add("slide-right");
       }
 
       const scrollTarget1 = document.querySelectorAll(".scroll-target")[1];
@@ -36,11 +36,9 @@ const HeroPage = () => {
       const distanceFromTop1 = scrollTarget1.getBoundingClientRect().top;
       if (distanceFromTop1 < 400) {
         const yellowBlockTop = document.querySelector(".yellow-block-top");
-        yellowBlockTop.classList.add("slide-left");
-        const yellowBlockBottom = document.querySelector(
-          ".yellow-block-bottom"
-        );
-        yellowBlockBottom.classList.add("slide-right");
+        yellowBlockTop?.classList.add("slide-left");
+        const yellowBlockBottom = document.querySelector(".yellow-block-bottom");
+        yellowBlockBottom?.classList.add("slide-right");
       }
 
       const scrollTarget2 = document.querySelectorAll(".scroll-target")[2];
@@ -48,11 +46,9 @@ const HeroPage = () => {
       const distanceFromTop2 = scrollTarget2.getBoundingClientRect().top;
       if (distanceFromTop2 < 400) {
         const purpleBlockTop = document.querySelector(".purple-block-top");
-        purpleBlockTop.classList.add("slide-left");
-        const purpleBlockBottom = document.querySelector(
-          ".purple-block-bottom"
-        );
-        purpleBlockBottom.classList.add("slide-right");
+        purpleBlockTop?.classList?.add("slide-left");
+        const purpleBlockBottom = document.querySelector(".purple-block-bottom");
+        purpleBlockBottom?.classList?.add("slide-right");
       }
     };
 
@@ -86,11 +82,7 @@ const HeroPage = () => {
         <span className="dot">b</span>
         <span className="dot">.</span>
       </h1>
-      <img
-        className="main-svg"
-        src="hero.svg"
-        alt="Happy employees collaborating at work."
-      />
+      <img className="main-svg" src="hero.svg" alt="Happy employees collaborating at work." />
       <div className="register-wrapper">
         {loggedIn ? (
           <Link to="/dashboard" className="register">
@@ -116,15 +108,9 @@ const HeroPage = () => {
       <article className="hero hero1">
         <h2 className="info">Manage the application process</h2>
         <div className="blue-block-top block-top" />
-        <p className="details">
-          Getting a job can be difficult - managing the process shouldn't be.
-        </p>
+        <p className="details">Getting a job can be difficult - managing the process shouldn't be.</p>
         <div className="svg-wrapper">
-          <img
-            className="hero1-svg svg"
-            src="manage.svg"
-            alt="Employee managing their application process."
-          />
+          <img className="hero1-svg svg" src="manage.svg" alt="Employee managing their application process." />
         </div>
         <div className="blue-block-bottom block-bottom" />
       </article>
@@ -134,15 +120,10 @@ const HeroPage = () => {
         <h2 className="info">Make the most of your time</h2>
         <div className="yellow-block-top block-top" />
         <p className="details">
-          Spend more time focusing on your career and less time organizing your
-          applications and interviews.
+          Spend more time focusing on your career and less time organizing your applications and interviews.
         </p>
         <div className="svg-wrapper">
-          <img
-            className="hero2-svg svg"
-            src="time.svg"
-            alt="Employee excerizing excellent time management."
-          />
+          <img className="hero2-svg svg" src="time.svg" alt="Employee excerizing excellent time management." />
         </div>
         <div className="yellow-block-bottom block-bottom" />
       </article>
@@ -151,10 +132,7 @@ const HeroPage = () => {
       <article className="hero hero3">
         <h2 className="info">Gain valuable insights</h2>
         <div className="purple-block-top block-top" />
-        <p className="details">
-          Learn what works and what doesn't - leverage this information in your
-          search.
-        </p>
+        <p className="details">Learn what works and what doesn't - leverage this information in your search.</p>
         <div className="svg-wrapper">
           <img
             className="hero3-svg svg"
@@ -182,6 +160,8 @@ const HeroPage = () => {
     </Wrapper>
   );
 };
+
+// @ts-ignore
 const Wrapper = styled.main`
   position: relative;
   width: 100%;
@@ -230,11 +210,7 @@ const Wrapper = styled.main`
     padding: 0 1.5rem;
     border: 2px solid rgba(0, 0, 0, 0.7);
     border-radius: 1.5rem;
-    background: linear-gradient(
-      rgba(215, 210, 255, 0.8),
-      rgba(235, 243, 200, 0.8),
-      rgba(200, 220, 255, 0.8)
-    );
+    background: linear-gradient(rgba(215, 210, 255, 0.8), rgba(235, 243, 200, 0.8), rgba(200, 220, 255, 0.8));
     color: black;
     font-weight: 700;
     font-size: 1.1rem;
@@ -527,5 +503,3 @@ const Wrapper = styled.main`
     }
   }
 `;
-
-export default HeroPage;

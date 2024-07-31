@@ -1,43 +1,51 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
 import styled from "styled-components";
-import LineDesign from "../components/LineDesign";
+import { LineDesign } from "../components/LineDesign.tsx";
 import { useEffect } from "react";
+import { url, useAuthContext } from "../context/AuthContext.tsx";
 
-const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
-  const [form, setForm] = useState({
+interface ILoginForm {
+  username: string;
+  password: string;
+}
+
+export const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
+  const [form, setForm] = useState<ILoginForm>({
     username: "",
-    password: "",
+    password: ""
   });
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<boolean>(false);
+
   const navigate = useNavigate();
-  const { loggedIn, getLoggedIn, url } = useContext(AuthContext);
+  const { loggedIn, getLoggedIn } = useAuthContext();
 
   // Set form state when input values change
-  const updateForm = (value) => {
+  const updateForm = value => {
     setError(false);
-    return setForm((prev) => {
+    return setForm(prev => {
       return { ...prev, ...value };
     });
   };
 
   // This function handles the form submission.
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     const loginInfo = {
       username: form.username,
-      password: form.password,
+      password: form.password
     };
-    // send post request to server
+
+    try {
+    } catch (e) {}
     await fetch(`${url}/auth/login`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(loginInfo),
-      credentials: "include",
-    }).catch((error) => {
+      credentials: "include"
+    }).catch(error => {
       console.error(error);
       return;
     });
@@ -54,7 +62,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
       // clear form
       setForm({
         username: "",
-        password: "",
+        password: ""
       });
 
       // Close mobile dropdown menu
@@ -71,16 +79,10 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
       <LineDesign />
       <section className="form-section">
         <div className="image-wrapper">
-          <img
-            src="login.svg"
-            alt="Ambitious job seeker creating a new Apply Yourself account."
-          />
+          <img src="login.svg" alt="Ambitious job seeker creating a new Apply Yourself account." />
         </div>
         <div className="image-wrapper">
-          <img
-            src="login2.svg"
-            alt="Ambitious job seeker creating a new Apply Yourself account."
-          />
+          <img src="login2.svg" alt="Ambitious job seeker creating a new Apply Yourself account." />
         </div>
         <h4>Log In To Your Account</h4>
         <div className="register-wrapper">
@@ -107,7 +109,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
               type="text"
               id="username"
               value={form.username}
-              onChange={(e) => updateForm({ username: e.target.value })}
+              onChange={e => updateForm({ username: e.target.value })}
             />
           </div>
           <div className="form-input">
@@ -120,7 +122,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
               type="password"
               id="password"
               value={form.password}
-              onChange={(e) => updateForm({ password: e.target.value })}
+              onChange={e => updateForm({ password: e.target.value })}
             />
           </div>
           <button type="submit">Log In</button>
@@ -130,6 +132,7 @@ const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
   );
 };
 
+// @ts-ignore
 const Wrapper = styled.main`
   position: relative;
   height: 60rem;
@@ -301,5 +304,3 @@ const Wrapper = styled.main`
     }
   }
 `;
-
-export default LoginPage;

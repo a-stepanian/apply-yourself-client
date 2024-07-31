@@ -1,22 +1,22 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Job from "./Job";
+import { Job } from "./Job.tsx";
 import styled from "styled-components";
-import AuthContext from "../context/AuthContext";
+import { useAuthContext } from "../context/AuthContext.tsx";
 import { RiFolderAddLine } from "react-icons/ri";
-import Filter from "./Filter";
-import LineDesign from "./LineDesign";
+import { Filter } from "./Filter.tsx";
+import { LineDesign } from "./LineDesign.tsx";
 
-const ApplicationSection = () => {
+export const ApplicationSection = () => {
   const [filter, setFilter] = useState("all");
   const [appsToDisplay, setAppsToDisplay] = useState([]);
-  const { applications } = useContext(AuthContext);
+  const { applications } = useAuthContext();
 
   useEffect(() => {
     if (filter === "all") {
       setAppsToDisplay(applications);
     } else {
-      const filteredApps = applications.filter((app) => app.status === filter);
+      const filteredApps = applications.filter(app => app.status === filter);
       setAppsToDisplay(filteredApps);
     }
   }, [applications, filter]);
@@ -52,11 +52,7 @@ const ApplicationSection = () => {
             </Link>
           </div>
           <div className="img-wrapper">
-            <img
-              src="/empty.svg"
-              alt="Person standing next to a document with a plus sign."
-              className="image"
-            />
+            <img src="/empty.svg" alt="Person standing next to a document with a plus sign." className="image" />
           </div>
         </>
       )}
@@ -101,11 +97,7 @@ const Wrapper = styled.div`
         width: 10.2rem;
         border: 2px solid rgba(0, 0, 0, 0.7);
         border-radius: 1.5rem;
-        background: linear-gradient(
-          rgba(215, 210, 255, 0.8),
-          rgba(235, 243, 200, 0.8),
-          rgba(200, 220, 255, 0.8)
-        );
+        background: linear-gradient(rgba(215, 210, 255, 0.8), rgba(235, 243, 200, 0.8), rgba(200, 220, 255, 0.8));
         color: black;
         font-weight: 700;
         font-size: 0.9rem;
@@ -133,11 +125,7 @@ const Wrapper = styled.div`
       padding: 0 1.5rem;
       border: 2px solid rgba(0, 0, 0, 0.7);
       border-radius: 1.5rem;
-      background: linear-gradient(
-        rgba(215, 210, 255, 0.8),
-        rgba(235, 243, 200, 0.8),
-        rgba(200, 220, 255, 0.8)
-      );
+      background: linear-gradient(rgba(215, 210, 255, 0.8), rgba(235, 243, 200, 0.8), rgba(200, 220, 255, 0.8));
       color: black;
       font-weight: 700;
       font-size: 1.1rem;
@@ -187,5 +175,3 @@ const Wrapper = styled.div`
     }
   }
 `;
-
-export default ApplicationSection;

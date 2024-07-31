@@ -4,17 +4,15 @@ import { MdTimer } from "react-icons/md";
 import { RiReplyLine, RiStackLine } from "react-icons/ri";
 import styled from "styled-components";
 
-const Metrics = ({ allApps, respTime, waitTime }) => {
+export const Metrics = ({ allApps, respTime, waitTime }) => {
   const [count, setCount] = useState({
     totalApplications: 0,
     responses: 0,
     noresponse: 0,
-    time: 0,
+    time: 0
   });
 
-  const avgRespTime =
-    respTime.reduce((total, next) => total + next.difference, 0) /
-    respTime.length;
+  const avgRespTime = respTime.reduce((total, next) => total + next.difference, 0) / respTime.length;
 
   const countSpeed = 30;
 
@@ -22,7 +20,7 @@ const Metrics = ({ allApps, respTime, waitTime }) => {
   useEffect(() => {
     for (let i = 0; i <= allApps.length; i++) {
       setTimeout(() => {
-        setCount((prev) => {
+        setCount(prev => {
           return { ...prev, totalApplications: i };
         });
       }, countSpeed * i + 500);
@@ -32,7 +30,7 @@ const Metrics = ({ allApps, respTime, waitTime }) => {
   useEffect(() => {
     for (let i = 0; i <= respTime.length; i++) {
       setTimeout(() => {
-        setCount((prev) => {
+        setCount(prev => {
           return { ...prev, responses: i };
         });
       }, countSpeed * i + 500);
@@ -42,7 +40,7 @@ const Metrics = ({ allApps, respTime, waitTime }) => {
   useEffect(() => {
     for (let i = 0; i <= waitTime.length; i++) {
       setTimeout(() => {
-        setCount((prev) => {
+        setCount(prev => {
           return { ...prev, noresponse: i };
         });
       }, countSpeed * i + 500);
@@ -52,7 +50,7 @@ const Metrics = ({ allApps, respTime, waitTime }) => {
   useEffect(() => {
     for (let i = 0; i <= avgRespTime; i++) {
       setTimeout(() => {
-        setCount((prev) => {
+        setCount(prev => {
           return { ...prev, time: i };
         });
       }, countSpeed * i + 500);
@@ -110,11 +108,7 @@ const Wrapper = styled.section`
       background-color: rgba(200, 220, 255, 0.8);
     }
     &:nth-of-type(2) {
-      background: linear-gradient(
-        rgba(215, 210, 255, 0.8),
-        rgba(200, 220, 255, 0.8),
-        rgba(235, 243, 200, 0.8)
-      );
+      background: linear-gradient(rgba(215, 210, 255, 0.8), rgba(200, 220, 255, 0.8), rgba(235, 243, 200, 0.8));
     }
     &:nth-of-type(3) {
       background-color: rgba(235, 243, 200, 0.8);
@@ -176,5 +170,3 @@ const Wrapper = styled.section`
     }
   }
 `;
-
-export default Metrics;

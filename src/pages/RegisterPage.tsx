@@ -1,27 +1,27 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
 import styled from "styled-components";
-import LineDesign from "../components/LineDesign";
+import { LineDesign } from "../components/LineDesign.tsx";
+import { url, useAuthContext } from "../context/AuthContext.tsx";
 
-const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
+export const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
   const [form, setForm] = useState({
     username: "",
     email: "",
     password: "",
-    passwordVerify: "",
+    passwordVerify: ""
   });
   const [pwdError, setPwdError] = useState({ isError: false, msg: "" });
   const [fieldsReqError, setFieldsReqError] = useState({
     isError: false,
-    msg: "",
+    msg: ""
   });
   const [serverError, setServerError] = useState({
     isError: false,
-    msg: "",
+    msg: ""
   });
   const navigate = useNavigate();
-  const { loggedIn, getLoggedIn, url } = useContext(AuthContext);
+  const { loggedIn, getLoggedIn } = useAuthContext();
 
   useEffect(() => {
     if (loggedIn) {
@@ -31,8 +31,8 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
   }, [loggedIn, navigate]);
 
   // setForm state when form input values are changed
-  const updateForm = (value) => {
-    return setForm((prev) => {
+  const updateForm = value => {
+    return setForm(prev => {
       return { ...prev, ...value };
     });
   };
@@ -42,19 +42,14 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
     setServerError({ isError: false, msg: "" });
     setPwdError({ isError: false, msg: "" });
     setFieldsReqError({ isError: false, msg: "" });
-    if (
-      !form.username ||
-      !form.email ||
-      !form.password ||
-      !form.passwordVerify
-    ) {
+    if (!form.username || !form.email || !form.password || !form.passwordVerify) {
       setFieldsReqError({ isError: true, msg: "Please fill out all fields" });
       return;
     }
     if (form.password.length < 6) {
       setPwdError({
         isError: true,
-        msg: "Password must contain at least 6 characters",
+        msg: "Password must contain at least 6 characters"
       });
     } else if (form.password !== form.passwordVerify) {
       setPwdError({ isError: true, msg: "Passwords do not match" });
@@ -62,30 +57,30 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
   }, [form]);
 
   // This function handles the form submission.
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     const newUser = {
       username: form.username,
       email: form.email,
       password: form.password,
-      passwordVerify: form.passwordVerify,
+      passwordVerify: form.passwordVerify
     };
 
     // send post request to server
     const response = await fetch(`${url}/auth`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       body: JSON.stringify(newUser),
-      credentials: "include",
-    }).catch((error) => {
+      credentials: "include"
+    }).catch(error => {
       console.log("error from server: ", error);
       return;
     });
 
-    if (response.status !== 200) {
-      const data = await response.json();
+    if (response?.status !== 200) {
+      const data = await response?.json();
       if (data) setServerError({ isError: true, msg: data.errorMessage });
     }
 
@@ -104,7 +99,7 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
         username: "",
         email: "",
         password: "",
-        passwordVerify: "",
+        passwordVerify: ""
       });
 
       // Close mobile dropdown menu
@@ -120,16 +115,10 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
     <Wrapper>
       <section className="form-section">
         <div className="image-wrapper">
-          <img
-            src="newaccount.svg"
-            alt="Ambitious job seeker creating a new Apply Yourself account."
-          />
+          <img src="newaccount.svg" alt="Ambitious job seeker creating a new Apply Yourself account." />
         </div>
         <div className="image-wrapper">
-          <img
-            src="newaccount2.svg"
-            alt="Ambitious job seeker creating a new Apply Yourself account."
-          />
+          <img src="newaccount2.svg" alt="Ambitious job seeker creating a new Apply Yourself account." />
         </div>
         <LineDesign />
         <h4>Create An Account</h4>
@@ -143,13 +132,9 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
         </div>
         <form onSubmit={handleSubmit}>
           <div className="form-input">
-            {fieldsReqError.isError && (
-              <p className="form-error">{fieldsReqError.msg}</p>
-            )}
+            {fieldsReqError.isError && <p className="form-error">{fieldsReqError.msg}</p>}
             {pwdError.isError && <p className="pwd-error">{pwdError.msg}</p>}
-            {serverError.isError && (
-              <p className="server-error">{serverError.msg}</p>
-            )}
+            {serverError.isError && <p className="server-error">{serverError.msg}</p>}
             <label className="label" htmlFor="username">
               Username
             </label>
@@ -159,7 +144,7 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
               type="text"
               id="username"
               value={form.username}
-              onChange={(e) => updateForm({ username: e.target.value })}
+              onChange={e => updateForm({ username: e.target.value })}
             />
           </div>
           <div className="form-input">
@@ -172,7 +157,7 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
               type="email"
               id="email"
               value={form.email}
-              onChange={(e) => updateForm({ email: e.target.value })}
+              onChange={e => updateForm({ email: e.target.value })}
             />
           </div>
           <div className="form-input">
@@ -185,7 +170,7 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
               type="password"
               id="password"
               value={form.password}
-              onChange={(e) => updateForm({ password: e.target.value })}
+              onChange={e => updateForm({ password: e.target.value })}
             />
           </div>
           <div className="form-input">
@@ -198,7 +183,7 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
               type="password"
               id="passwordVerify"
               value={form.passwordVerify}
-              onChange={(e) => updateForm({ passwordVerify: e.target.value })}
+              onChange={e => updateForm({ passwordVerify: e.target.value })}
             />
           </div>
           <button type="submit">Create Account</button>
@@ -208,6 +193,7 @@ const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
   );
 };
 
+// @ts-ignore
 const Wrapper = styled.main`
   height: 50rem;
   display: flex;
@@ -355,5 +341,3 @@ const Wrapper = styled.main`
     }
   }
 `;
-
-export default RegisterPage;

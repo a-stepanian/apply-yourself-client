@@ -1,20 +1,20 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
 import styled from "styled-components";
 import { RiLogoutBoxRLine } from "react-icons/ri";
+import { useAuthContext } from "../context/AuthContext.tsx";
 
-const LogoutButton = () => {
-  const { setLoggedIn, url } = useContext(AuthContext);
+export const LogoutButton = () => {
+  const { setLoggedIn, url } = useAuthContext();
   const navigate = useNavigate();
   const logoutUser = async () => {
     await fetch(`${url}/auth/logout`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
-      credentials: "include",
-    }).catch((error) => {
+      credentials: "include"
+    }).catch(error => {
       console.log(error);
       return;
     });
@@ -62,5 +62,3 @@ const Wrapper = styled.button`
     }
   }
 `;
-
-export default LogoutButton;

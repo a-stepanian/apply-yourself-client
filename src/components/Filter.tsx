@@ -3,7 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { RiFilter3Line, RiCloseLine } from "react-icons/ri";
 
-const Filter = ({ setFilter }) => {
+export const Filter = ({ setFilter }) => {
   const [open, setOpen] = useState(false);
 
   const openFilter = () => {
@@ -14,21 +14,12 @@ const Filter = ({ setFilter }) => {
   return (
     <Wrapper>
       <button className="filter-btn" type="button" onClick={() => openFilter()}>
-        Filter{" "}
-        {open ? (
-          <RiCloseLine className="icon" />
-        ) : (
-          <RiFilter3Line className="icon" />
-        )}
+        Filter {open ? <RiCloseLine className="icon" /> : <RiFilter3Line className="icon" />}
       </button>
       {open && (
         <div className="filter-input">
           <label htmlFor="status">Application Status</label>
-          <select
-            name="status"
-            id="status"
-            onChange={(e) => setFilter(e.target.value)}
-          >
+          <select name="status" id="status" onChange={e => setFilter(e.target.value)}>
             <option value="all">All</option>
             <option value="Applied">Waiting</option>
             <option value="Interview">Interview</option>
@@ -40,6 +31,7 @@ const Filter = ({ setFilter }) => {
   );
 };
 
+// @ts-ignore
 const Wrapper = styled.form`
   width: 5rem;
   margin-left: 1rem;
@@ -80,5 +72,3 @@ const Wrapper = styled.form`
     }
   }
 `;
-
-export default Filter;

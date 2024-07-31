@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-const Loading = () => {
+export const Loading = () => {
   useEffect(() => {
     const dots = document.querySelectorAll(".dot");
     for (let i = 0; i < dots.length; i++) {
@@ -66,6 +66,7 @@ const Loading = () => {
   );
 };
 
+// @ts-ignore
 const Wrapper = styled.p`
   z-index: 2;
   position: relative;
@@ -82,5 +83,3 @@ const Wrapper = styled.p`
     display: block;
   }
 `;
-
-export default Loading;

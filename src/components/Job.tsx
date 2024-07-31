@@ -2,27 +2,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { GrEdit } from "react-icons/gr";
-import {
-  MdOutlineLocationOn,
-  MdExpandLess,
-  MdExpandMore,
-} from "react-icons/md";
+import { MdOutlineLocationOn, MdExpandLess, MdExpandMore } from "react-icons/md";
 
-const Job = ({ app }) => {
+export const Job = ({ app }) => {
   const [showMore, setShowMore] = useState(false);
 
   // Destructure from props
-  const {
-    applied,
-    comments,
-    company,
-    location,
-    position,
-    status,
-    response,
-    website,
-    _id,
-  } = app;
+  const { applied, comments, company, location, position, status, response, website, _id } = app;
 
   const toggleFooter = () => {
     if (showMore) setShowMore(false);
@@ -35,18 +21,12 @@ const Job = ({ app }) => {
         backgroundColor:
           (status === "Applied" && "rgb(250, 250, 250)") ||
           (status === "Interview" && "rgb(230, 255, 230)") ||
-          (status === "Declined" && "rgb(255, 230, 230)"),
-      }}
-    >
+          (status === "Declined" && "rgb(255, 230, 230)")
+      }}>
       <header className="job-details">
         <div className="left-column">
           <p>
-            <a
-              href={website}
-              target="_blank"
-              rel="noreferrer"
-              className="position"
-            >
+            <a href={website} target="_blank" rel="noreferrer" className="position">
               {position}
             </a>
           </p>
@@ -57,7 +37,13 @@ const Job = ({ app }) => {
           </p>
         </div>
         <div className="right-column">
-          <p className="status">{status === "Applied" ? "Waiting" : status}</p>
+          <p className="status">{status}</p>
+          <select name="status" id="status" value={status}>
+            <option value="Applied">Applied</option>
+            <option value="Waiting">Waiting</option>
+            <option value="Interview">Interview</option>
+            <option value="Rejected">Rejected</option>
+          </select>
           <p className="applied">
             Applied <br /> {applied.slice(5, 10)}-{applied.slice(0, 4)}
           </p>
@@ -69,11 +55,7 @@ const Job = ({ app }) => {
         </div>
       </header>
       <div className="btn-wrapper">
-        <button
-          type="button"
-          className="show-more-btn"
-          onClick={() => toggleFooter()}
-        >
+        <button type="button" className="show-more-btn" onClick={() => toggleFooter()}>
           {showMore ? <MdExpandLess /> : <MdExpandMore />}
         </button>
       </div>
@@ -91,6 +73,7 @@ const Job = ({ app }) => {
   );
 };
 
+// @ts-ignore
 const Wrapper = styled.article`
   z-index: 1;
   position: relative;
@@ -229,5 +212,3 @@ const Wrapper = styled.article`
     }
   }
 `;
-
-export default Job;

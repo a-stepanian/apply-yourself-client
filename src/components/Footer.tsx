@@ -1,14 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import {
-  RiLinkedinBoxFill,
-  RiProfileLine,
-  RiComputerLine,
-  RiServerLine,
-} from "react-icons/ri";
+import { RiLinkedinBoxFill, RiProfileLine, RiComputerLine, RiServerLine } from "react-icons/ri";
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <Wrapper>
       <section className="top">
@@ -24,32 +19,16 @@ const Footer = () => {
         </article>
         <article className="sitemap">
           <h2>Connect</h2>
-          <a
-            rel="noreferrer"
-            target="_blank"
-            href="https://www.alexstepanian.com/"
-          >
+          <a rel="noreferrer" target="_blank" href="https://www.alexstepanian.com/">
             <RiProfileLine className="icon" /> Portfolio
           </a>
-          <a
-            rel="noreferrer"
-            target="_blank"
-            href="https://www.linkedin.com/in/alexander-stepanian/"
-          >
+          <a rel="noreferrer" target="_blank" href="https://www.linkedin.com/in/alexander-stepanian/">
             <RiLinkedinBoxFill className="icon" /> LinkedIn
           </a>
-          <a
-            rel="noreferrer"
-            target="_blank"
-            href="https://github.com/a-stepanian/apply-yourself-client"
-          >
+          <a rel="noreferrer" target="_blank" href="https://github.com/a-stepanian/apply-yourself-client">
             <RiComputerLine className="icon" /> Client Repo
           </a>
-          <a
-            rel="noreferrer"
-            target="_blank"
-            href="https://github.com/a-stepanian/apply-yourself-server"
-          >
+          <a rel="noreferrer" target="_blank" href="https://github.com/a-stepanian/apply-yourself-server">
             <RiServerLine className="icon" /> Server Repo
           </a>
         </article>
@@ -62,6 +41,7 @@ const Footer = () => {
   );
 };
 
+// @ts-ignore
 const Wrapper = styled.footer`
   background-color: var(--light-purple);
 
@@ -141,4 +121,3 @@ const Wrapper = styled.footer`
     }
   }
 `;
-export default Footer;

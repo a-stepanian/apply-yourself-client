@@ -3,7 +3,7 @@ import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
 import styled from "styled-components";
 
-const DonutChart = ({ totals }) => {
+export const DonutChart = ({ totals }) => {
   return (
     <Wrapper>
       <h3>Application Status</h3>
@@ -19,29 +19,21 @@ const DonutChart = ({ totals }) => {
               datasets: [
                 {
                   label: "This is the chart",
-                  data: [
-                    totals.totalWaiting,
-                    totals.totalDeclined,
-                    totals.totalInterview,
-                  ],
-                  backgroundColor: [
-                    "rgb(54, 162, 235)",
-                    "rgb(255, 99, 132)",
-                    "rgb(50, 235, 86)",
-                  ],
-                  hoverOffset: 10,
-                },
-              ],
+                  data: [totals.totalWaiting, totals.totalDeclined, totals.totalInterview],
+                  backgroundColor: ["rgb(54, 162, 235)", "rgb(255, 99, 132)", "rgb(50, 235, 86)"],
+                  hoverOffset: 10
+                }
+              ]
             }}
             options={{
               layout: {
-                padding: "10",
+                padding: 10
               },
               plugins: {
                 title: {
-                  text: "Application Status",
-                },
-              },
+                  text: "Application Status"
+                }
+              }
             }}
           />
         </div>
@@ -105,5 +97,3 @@ const Wrapper = styled.div`
     }
   }
 `;
-
-export default DonutChart;

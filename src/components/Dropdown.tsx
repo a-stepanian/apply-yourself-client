@@ -1,18 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
-import LogoutButton from "./LogoutButton";
-import {
-  RiFolderChartLine,
-  RiFolderOpenLine,
-  RiFolderAddLine,
-  RiUserAddLine,
-  RiLoginBoxLine,
-} from "react-icons/ri";
+import { LogoutButton } from "./LogoutButton.tsx";
+import { RiFolderChartLine, RiFolderOpenLine, RiFolderAddLine, RiUserAddLine, RiLoginBoxLine } from "react-icons/ri";
+import { useAuthContext } from "../context/AuthContext.tsx";
 
-const Dropdown = ({ isDropdownOpen, toggleDropdown }) => {
-  const { loggedIn } = useContext(AuthContext);
+export const Dropdown = ({ isDropdownOpen, toggleDropdown }) => {
+  const { loggedIn } = useAuthContext();
   return (
     <Wrapper>
       <nav className={isDropdownOpen ? "open" : ""}>
@@ -50,6 +44,7 @@ const Dropdown = ({ isDropdownOpen, toggleDropdown }) => {
   );
 };
 
+// @ts-ignore
 const Wrapper = styled.div`
   position: relative;
   z-index: 2;
@@ -93,6 +88,6 @@ const Wrapper = styled.div`
 
   @media (min-width: 768px) {
     display: none;
-  } ;
+  }
 `;
 export default Dropdown;

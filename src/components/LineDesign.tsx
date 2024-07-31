@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const LineDesign = () => {
+export const LineDesign = () => {
   return (
     <Wrapper>
       <div className="line" />
@@ -11,6 +11,7 @@ const LineDesign = () => {
   );
 };
 
+// @ts-ignore
 const Wrapper = styled.div`
   .line {
     position: absolute;
@@ -47,5 +48,3 @@ const Wrapper = styled.div`
     }
   }
 `;
-
-export default LineDesign;

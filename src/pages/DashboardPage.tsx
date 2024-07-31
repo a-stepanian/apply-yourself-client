@@ -1,19 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
-import DonutChart from "../components/DonutChart";
-import LineChart from "../components/LineChart";
-import Metrics from "../components/Metrics";
-import AuthContext from "../context/AuthContext";
+import { DonutChart } from "../components/DonutChart.tsx";
+import { LineChart } from "../components/LineChart.tsx";
+import { Metrics } from "../components/Metrics.tsx";
+import { useAuthContext } from "../context/AuthContext.tsx";
 import { useNavigate } from "react-router-dom";
-import ApplicationSection from "../components/ApplicationSection";
+import { ApplicationSection } from "../components/ApplicationSection.tsx";
+import { IApplicationModel } from "../models/models";
 
-const DashboardPage = () => {
+export const DashboardPage = () => {
   const [allApps, setAllApps] = useState([]);
   const [totals, setTotals] = useState({
     total: 0,
     totalWaiting: 0,
     totalDeclined: 0,
-    totalInterview: 0,
+    totalInterview: 0
   });
   const [monthlyCount, setMonthlyCount] = useState({
     january: 0,
@@ -27,13 +28,13 @@ const DashboardPage = () => {
     september: 0,
     october: 0,
     november: 0,
-    december: 0,
+    december: 0
   });
   const [respTime, setRespTime] = useState([]);
   const [waitTime, setWaitTime] = useState([]);
   const navigate = useNavigate();
 
-  const { applications, loggedIn } = useContext(AuthContext);
+  const { applications, loggedIn } = useAuthContext();
 
   useEffect(() => {
     if (!loggedIn) navigate("/login");
@@ -47,62 +48,30 @@ const DashboardPage = () => {
   useEffect(() => {
     const calculateTotals = () => {
       const total = allApps.length;
-      const totalWaiting = allApps.filter(
-        (app) => app.status === "Applied"
-      ).length;
-      const totalDeclined = allApps.filter(
-        (app) => app.status === "Declined"
-      ).length;
-      const totalInterview = allApps.filter(
-        (app) => app.status === "Interview"
-      ).length;
+      const totalWaiting = allApps.filter((app: IApplicationModel) => app?.status === "Applied").length;
+      const totalDeclined = allApps.filter((app: IApplicationModel) => app?.status === "Declined").length;
+      const totalInterview = allApps.filter((app: IApplicationModel) => app?.status === "Interview").length;
       setTotals({
         total,
         totalWaiting,
         totalDeclined,
-        totalInterview,
+        totalInterview
       });
     };
     const calcMonthlySubmissions = () => {
-      const thisYearApps = allApps.filter(
-        (app) => app.applied.slice(0, 4) === "2022"
-      );
-      const januaryApps = thisYearApps.filter(
-        (app) => app.applied.slice(5, 7) === "01"
-      ).length;
-      const februaryApps = thisYearApps.filter(
-        (app) => app.applied.slice(5, 7) === "02"
-      ).length;
-      const marchApps = thisYearApps.filter(
-        (app) => app.applied.slice(5, 7) === "03"
-      ).length;
-      const aprilApps = thisYearApps.filter(
-        (app) => app.applied.slice(5, 7) === "04"
-      ).length;
-      const mayApps = thisYearApps.filter(
-        (app) => app.applied.slice(5, 7) === "05"
-      ).length;
-      const juneApps = thisYearApps.filter(
-        (app) => app.applied.slice(5, 7) === "06"
-      ).length;
-      const julyApps = thisYearApps.filter(
-        (app) => app.applied.slice(5, 7) === "07"
-      ).length;
-      const augustApps = thisYearApps.filter(
-        (app) => app.applied.slice(5, 7) === "08"
-      ).length;
-      const septemberApps = thisYearApps.filter(
-        (app) => app.applied.slice(5, 7) === "09"
-      ).length;
-      const octoberApps = thisYearApps.filter(
-        (app) => app.applied.slice(5, 7) === "10"
-      ).length;
-      const novemberApps = thisYearApps.filter(
-        (app) => app.applied.slice(5, 7) === "11"
-      ).length;
-      const decemberApps = thisYearApps.filter(
-        (app) => app.applied.slice(5, 7) === "12"
-      ).length;
+      const thisYearApps = allApps.filter((app: IApplicationModel) => app?.applied?.slice(0, 4) === "2022");
+      const januaryApps = thisYearApps.filter((app: IApplicationModel) => app?.applied?.slice(5, 7) === "01").length;
+      const februaryApps = thisYearApps.filter((app: IApplicationModel) => app?.applied?.slice(5, 7) === "02").length;
+      const marchApps = thisYearApps.filter((app: IApplicationModel) => app?.applied?.slice(5, 7) === "03").length;
+      const aprilApps = thisYearApps.filter((app: IApplicationModel) => app?.applied?.slice(5, 7) === "04").length;
+      const mayApps = thisYearApps.filter((app: IApplicationModel) => app?.applied?.slice(5, 7) === "05").length;
+      const juneApps = thisYearApps.filter((app: IApplicationModel) => app?.applied?.slice(5, 7) === "06").length;
+      const julyApps = thisYearApps.filter((app: IApplicationModel) => app?.applied?.slice(5, 7) === "07").length;
+      const augustApps = thisYearApps.filter((app: IApplicationModel) => app?.applied?.slice(5, 7) === "08").length;
+      const septemberApps = thisYearApps.filter((app: IApplicationModel) => app?.applied?.slice(5, 7) === "09").length;
+      const octoberApps = thisYearApps.filter((app: IApplicationModel) => app?.applied?.slice(5, 7) === "10").length;
+      const novemberApps = thisYearApps.filter((app: IApplicationModel) => app?.applied?.slice(5, 7) === "11").length;
+      const decemberApps = thisYearApps.filter((app: IApplicationModel) => app?.applied?.slice(5, 7) === "12").length;
       setMonthlyCount({
         january: januaryApps,
         february: februaryApps,
@@ -115,13 +84,13 @@ const DashboardPage = () => {
         september: septemberApps,
         october: octoberApps,
         november: novemberApps,
-        december: decemberApps,
+        december: decemberApps
       });
     };
 
     const calcAvgResponseTime = () => {
       // turn string date into date object
-      const parseDate = (str) => {
+      const parseDate = str => {
         let ymd = str.split("-");
         let mdy = [ymd[1], ymd[2], ymd[0]];
         return new Date(mdy[2], mdy[0] - 1, mdy[1]);
@@ -130,29 +99,29 @@ const DashboardPage = () => {
       const dateDiff = (responseDate, appliedDate) => {
         return Math.round((responseDate - appliedDate) / (1000 * 60 * 60 * 24));
       };
-      const responseTimes = allApps.map((app) => {
+      const responseTimes = allApps.map((app: IApplicationModel) => {
         if (app.response) {
           const responseDate = parseDate(app.response);
-          const appliedDate = parseDate(app.applied);
+          const appliedDate = parseDate(app?.applied);
           const difference = dateDiff(responseDate, appliedDate);
           return {
             company: app.company,
             responded: true,
-            difference,
+            difference
           };
         } else {
           const todaysDate = new Date();
-          const appliedDate = parseDate(app.applied);
+          const appliedDate = parseDate(app?.applied);
           const waitTime = dateDiff(todaysDate, appliedDate);
           return {
             company: app.company,
             responded: false,
-            waitTime,
+            waitTime
           };
         }
       });
-      setRespTime(responseTimes.filter((app) => app.responded === true));
-      setWaitTime(responseTimes.filter((app) => app.responded === false));
+      // setRespTime(responseTimes?.filter((app) => app?.responded === true));
+      // setWaitTime(responseTimes?.filter((app) => app?.responded === false));
     };
     calcMonthlySubmissions();
     calculateTotals();
@@ -182,6 +151,8 @@ const DashboardPage = () => {
     </Wrapper>
   );
 };
+
+// @ts-ignore
 const Wrapper = styled.main`
   position: relative;
   display: flex;
@@ -236,5 +207,3 @@ const Wrapper = styled.main`
     }
   }
 `;
-
-export default DashboardPage;

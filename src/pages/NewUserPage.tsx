@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import LineDesign from "../components/LineDesign";
+import { LineDesign } from "../components/LineDesign.tsx";
 
 const NewUserPage = ({ isDropdownOpen, toggleDropdown }) => {
   const [form, setForm] = useState({

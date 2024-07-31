@@ -1,17 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-const Hamburger = ({ isDropdownOpen, toggleDropdown }) => {
+export const Hamburger = ({ isDropdownOpen, toggleDropdown }) => {
   return (
     <Wrapper onClick={() => toggleDropdown()}>
       <div className={isDropdownOpen ? "line top top-open" : "line top"} />
-      <div
-        className={isDropdownOpen ? "line bottom bottom-open" : "line bottom"}
-      />
+      <div className={isDropdownOpen ? "line bottom bottom-open" : "line bottom"} />
     </Wrapper>
   );
 };
 
+// @ts-ignore
 const Wrapper = styled.button`
   z-index: 2;
   position: relative;
@@ -48,5 +47,3 @@ const Wrapper = styled.button`
     display: none;
   }
 `;
-
-export default Hamburger;

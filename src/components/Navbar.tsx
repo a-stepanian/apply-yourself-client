@@ -1,18 +1,13 @@
-import React, { useContext } from "react";
-import AuthContext from "../context/AuthContext";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import {
-  RiFolderChartLine,
-  RiLoginBoxLine,
-  RiUserAddLine,
-  RiUserLine,
-} from "react-icons/ri";
-import Hamburger from "./Hamburger";
-import LogoutButton from "./LogoutButton";
+import { RiFolderChartLine, RiLoginBoxLine, RiUserAddLine, RiUserLine } from "react-icons/ri";
+import { Hamburger } from "./Hamburger.tsx";
+import { LogoutButton } from "./LogoutButton.tsx";
+import { useAuthContext } from "../context/AuthContext.tsx";
 
-const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
-  const { loggedIn, user } = useContext(AuthContext);
+export const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
+  const { loggedIn, user } = useAuthContext();
 
   return (
     <>
@@ -20,10 +15,7 @@ const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
         <Link to="/" className="logo">
           <h1>Apply Yourself</h1>
         </Link>
-        <Hamburger
-          isDropdownOpen={isDropdownOpen}
-          toggleDropdown={toggleDropdown}
-        />
+        <Hamburger isDropdownOpen={isDropdownOpen} toggleDropdown={toggleDropdown} />
         {loggedIn && (
           <>
             <div className="links">
@@ -34,33 +26,15 @@ const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
               <div className="divider" />
               <div
                 className="username"
-                onMouseEnter={() =>
-                  document
-                    .querySelector(".logout-btn-wrapper")
-                    .classList.add("slide-in")
-                }
-                onMouseLeave={() =>
-                  document
-                    .querySelector(".logout-btn-wrapper")
-                    .classList.remove("slide-in")
-                }
-              >
+                onMouseEnter={() => document?.querySelector(".logout-btn-wrapper")?.classList?.add("slide-in")}
+                onMouseLeave={() => document?.querySelector(".logout-btn-wrapper")?.classList?.remove("slide-in")}>
                 <span>{user.username}</span>
                 <RiUserLine className="icon" />
               </div>
               <div
                 className="logout-btn-wrapper"
-                onMouseEnter={() =>
-                  document
-                    .querySelector(".logout-btn-wrapper")
-                    .classList.add("slide-in")
-                }
-                onMouseLeave={() =>
-                  document
-                    .querySelector(".logout-btn-wrapper")
-                    .classList.remove("slide-in")
-                }
-              >
+                onMouseEnter={() => document?.querySelector(".logout-btn-wrapper")?.classList?.add("slide-in")}
+                onMouseLeave={() => document?.querySelector(".logout-btn-wrapper")?.classList?.remove("slide-in")}>
                 <LogoutButton />
               </div>
             </div>
@@ -84,6 +58,7 @@ const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
   );
 };
 
+// @ts-ignore
 const Wrapper = styled.nav`
   position: relative;
   z-index: 3;
@@ -169,5 +144,3 @@ const Wrapper = styled.nav`
     }
   }
 `;
-
-export default Navbar;

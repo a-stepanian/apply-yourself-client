@@ -5,8 +5,8 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useEffect } from "react";
 
-const LineChart = ({ monthlyCount }) => {
-  const [monthlyData, setmonthlyData] = useState([]);
+export const LineChart = ({ monthlyCount }) => {
+  const [monthlyData, setmonthlyData] = useState<number[]>([]);
 
   useEffect(() => {
     setmonthlyData([
@@ -15,7 +15,7 @@ const LineChart = ({ monthlyCount }) => {
       monthlyCount.september,
       monthlyCount.october,
       monthlyCount.november,
-      monthlyCount.december,
+      monthlyCount.december
     ]);
   }, [monthlyCount]);
 
@@ -26,14 +26,7 @@ const LineChart = ({ monthlyCount }) => {
         <Chart
           type="line"
           data={{
-            labels: [
-              "July",
-              "August",
-              "September",
-              "October",
-              "November",
-              "December",
-            ],
+            labels: ["July", "August", "September", "October", "November", "December"],
             datasets: [
               {
                 label: "Monthly Applications",
@@ -42,9 +35,9 @@ const LineChart = ({ monthlyCount }) => {
                 borderColor: "rgb(75, 192, 192)",
                 tension: 0.3,
                 pointRadius: 5,
-                pointHoverRadius: 8,
-              },
-            ],
+                pointHoverRadius: 8
+              }
+            ]
           }}
           options={{
             animations: {
@@ -53,26 +46,26 @@ const LineChart = ({ monthlyCount }) => {
                 easing: "linear",
                 from: 0.4,
                 to: 0,
-                loop: true,
-              },
+                loop: true
+              }
             },
             scales: {
               y: {
                 min: 0,
-                max: monthlyData.max,
-              },
+                max: Math.max(...monthlyData)
+              }
             },
             layout: {
-              padding: "0",
+              padding: 0
             },
             plugins: {
               title: {
-                text: "Application Status",
+                text: "Application Status"
               },
               legend: {
-                display: false,
-              },
-            },
+                display: false
+              }
+            }
           }}
         />
       </div>
@@ -99,5 +92,3 @@ const Wrapper = styled.div`
     width: 100%;
   }
 `;
-
-export default LineChart;
