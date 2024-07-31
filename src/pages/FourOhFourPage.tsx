@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const FourOhFourPage = () => {
   return (
     <Wrapper>
-      <p className="four-oh-four">404</p>npm i --save-dev @types/styled-components
+      <p className="four-oh-four">404</p>
       <p className="not-found">Page Not Found</p>
       <div className="img-wrapper">
         <img src="/notfound.svg" alt="Alien getting abducted into spaceship." />

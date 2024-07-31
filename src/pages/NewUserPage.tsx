@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { LineDesign } from "../components/LineDesign";
 // @ts-ignore
 import styled from "styled-components";
+import { url } from "../context/AppContext";
 
 interface INewUserPageProps {
   isDropdownOpen: boolean;
@@ -25,9 +26,6 @@ const NewUserPage = (props: INewUserPageProps) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
-
-  //   const url = "https://apply-yourself-server.onrender.com/users/new";
-  const url = "http://localhost:5000/users/new";
 
   // This function handles the form submission.
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
