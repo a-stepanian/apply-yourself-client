@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
-import { LineDesign } from "../components/LineDesign.tsx";
+import { LineDesign } from "../components/LineDesign";
 import { Link } from "react-router-dom";
-import { useAuthContext } from "../context/AuthContext.tsx";
+import { useAppContext } from "../context/AppContext";
 
 export const HeroPage = () => {
-  const { loggedIn } = useAuthContext();
+  const { loggedIn } = useAppContext();
 
   // Make hero letters appear with typing effect
   useEffect(() => {

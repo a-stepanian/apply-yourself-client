@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+// @ts-ignore
 import styled from "styled-components";
 
 export const Loading = () => {

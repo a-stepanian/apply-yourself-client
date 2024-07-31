@@ -2,9 +2,20 @@ import React, { useEffect, useState } from "react";
 import { CgGhostCharacter } from "react-icons/cg";
 import { MdTimer } from "react-icons/md";
 import { RiReplyLine, RiStackLine } from "react-icons/ri";
+// @ts-ignore
 import styled from "styled-components";
+import { IApplicationModel } from "../models/models";
+import { IResponseTime, IWaitTime } from "../pages/DashboardPage";
 
-export const Metrics = ({ allApps, respTime, waitTime }) => {
+interface IMetricsProps {
+  allApps: IApplicationModel[];
+  respTime: IResponseTime[];
+  waitTime: IWaitTime[];
+}
+
+export const Metrics = (props: IMetricsProps) => {
+  const { allApps, respTime, waitTime } = props;
+
   const [count, setCount] = useState({
     totalApplications: 0,
     responses: 0,
@@ -12,7 +23,7 @@ export const Metrics = ({ allApps, respTime, waitTime }) => {
     time: 0
   });
 
-  const avgRespTime = respTime.reduce((total, next) => total + next.difference, 0) / respTime.length;
+  const avgRespTime = respTime?.reduce((total: number, next: any) => total + next.difference, 0) / respTime.length;
 
   const countSpeed = 30;
 

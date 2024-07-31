@@ -1,10 +1,8 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { LineDesign } from "../components/LineDesign";
+import { useAppContext, url } from "../context/AppContext";
 import styled from "styled-components";
-import { LineDesign } from "../components/LineDesign.tsx";
-import { useAuthContext } from "../context/AuthContext.tsx";
-import { url } from "../context/AuthContext.tsx";
 
 export interface IApplicationForm {
   company: string;
@@ -17,7 +15,7 @@ export interface IApplicationForm {
   status: "Submitted" | "Applied" | "Interview" | "Declined" | "";
 }
 
-export const EditAppPage = ({ isDropdownOpen, toggleDropdown }) => {
+export const EditAppPage = () => {
   const [form, setForm] = useState<IApplicationForm>({
     company: "",
     position: "",
@@ -28,8 +26,9 @@ export const EditAppPage = ({ isDropdownOpen, toggleDropdown }) => {
     comments: "",
     status: ""
   });
+
   const navigate = useNavigate();
-  const { fetchApplications, loggedIn } = useAuthContext();
+  const { fetchApplications, loggedIn, isDropdownOpen, toggleDropdown } = useAppContext();
   const { id } = useParams();
 
   useEffect(() => {
@@ -37,9 +36,9 @@ export const EditAppPage = ({ isDropdownOpen, toggleDropdown }) => {
   }, [loggedIn, navigate]);
 
   // This function updates the form state when one of the form input values are changed.
-  const updateForm = value => {
+  const updateForm = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     return setForm(prev => {
-      return { ...prev, ...value };
+      return { ...prev, [e.target.name]: e.target.value };
     });
   };
 
@@ -76,7 +75,7 @@ export const EditAppPage = ({ isDropdownOpen, toggleDropdown }) => {
   }, [id]);
 
   // This function handles the form submission.
-  const handleSubmit = async (e, form) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, form: IApplicationForm) => {
     e.preventDefault();
     const updatedApplication = {
       company: form.company,
@@ -135,8 +134,9 @@ export const EditAppPage = ({ isDropdownOpen, toggleDropdown }) => {
               required={true}
               type="text"
               id="company"
+              name="company"
               value={form.company}
-              onChange={e => updateForm({ company: e.target.value })}
+              onChange={e => updateForm(e)}
             />
           </div>
           <div className="form-input">
@@ -147,8 +147,9 @@ export const EditAppPage = ({ isDropdownOpen, toggleDropdown }) => {
               required={true}
               type="text"
               id="position"
+              name="position"
               value={form.position}
-              onChange={e => updateForm({ position: e.target.value })}
+              onChange={e => updateForm(e)}
             />
           </div>
           <div className="form-input">
@@ -159,8 +160,9 @@ export const EditAppPage = ({ isDropdownOpen, toggleDropdown }) => {
               required={true}
               type="text"
               id="website"
+              name="website"
               value={form.website}
-              onChange={e => updateForm({ website: e.target.value })}
+              onChange={e => updateForm(e)}
             />
           </div>
           <div className="form-input">
@@ -171,8 +173,9 @@ export const EditAppPage = ({ isDropdownOpen, toggleDropdown }) => {
               required={true}
               type="text"
               id="location"
+              name="location"
               value={form.location}
-              onChange={e => updateForm({ location: e.target.value })}
+              onChange={e => updateForm(e)}
             />
           </div>
           <div className="date-and-status">
@@ -184,20 +187,16 @@ export const EditAppPage = ({ isDropdownOpen, toggleDropdown }) => {
                 required={true}
                 type="date"
                 id="applied"
+                name="applied"
                 value={form.applied}
-                onChange={e => updateForm({ applied: e.target.value })}
+                onChange={e => updateForm(e)}
               />
             </div>
             <div className="date-input">
               <label className="label" htmlFor="response">
                 Company Response
               </label>
-              <input
-                type="date"
-                id="response"
-                value={form.response}
-                onChange={e => updateForm({ response: e.target.value })}
-              />
+              <input type="date" id="response" name="response" value={form.response} onChange={e => updateForm(e)} />
             </div>
             <div className="form-input">
               <p className="label">Status</p>
@@ -206,11 +205,11 @@ export const EditAppPage = ({ isDropdownOpen, toggleDropdown }) => {
                   <input
                     required={true}
                     type="radio"
-                    name="positionOptions"
+                    name="status"
                     id="positionApplied"
                     value="Applied"
                     checked={form.status === "Applied"}
-                    onChange={e => updateForm({ status: e.target.value })}
+                    onChange={e => updateForm(e)}
                   />
                   <label htmlFor="positionApplied">Applied</label>
                 </div>
@@ -218,11 +217,11 @@ export const EditAppPage = ({ isDropdownOpen, toggleDropdown }) => {
                   <input
                     required={true}
                     type="radio"
-                    name="positionOptions"
+                    name="status"
                     id="positionDeclined"
                     value="Declined"
                     checked={form.status === "Declined"}
-                    onChange={e => updateForm({ status: e.target.value })}
+                    onChange={e => updateForm(e)}
                   />
                   <label htmlFor="positionDeclined">Declined</label>
                 </div>
@@ -230,11 +229,11 @@ export const EditAppPage = ({ isDropdownOpen, toggleDropdown }) => {
                   <input
                     required={true}
                     type="radio"
-                    name="positionOptions"
+                    name="status"
                     id="positionInterview"
                     value="Interview"
                     checked={form.status === "Interview"}
-                    onChange={e => updateForm({ status: e.target.value })}
+                    onChange={e => updateForm(e)}
                   />
                   <label htmlFor="positionInterview">Interview</label>
                 </div>
@@ -245,12 +244,7 @@ export const EditAppPage = ({ isDropdownOpen, toggleDropdown }) => {
             <label className="label" htmlFor="comments">
               Comments
             </label>
-            <textarea
-              rows={3}
-              id="comments"
-              value={form.comments}
-              onChange={e => updateForm({ comments: e.target.value })}
-            />
+            <textarea rows={3} id="comments" name="comments" value={form.comments} onChange={e => updateForm(e)} />
           </div>
           <button type="submit">Save</button>
         </form>

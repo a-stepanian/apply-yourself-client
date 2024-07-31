@@ -1,9 +1,17 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { LineDesign } from "../components/LineDesign.tsx";
+import { LineDesign } from "../components/LineDesign";
+// @ts-ignore
+import styled from "styled-components";
 
-const NewUserPage = ({ isDropdownOpen, toggleDropdown }) => {
+interface INewUserPageProps {
+  isDropdownOpen: boolean;
+  toggleDropdown: () => void;
+}
+
+const NewUserPage = (props: INewUserPageProps) => {
+  const { isDropdownOpen, toggleDropdown } = props;
+
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -12,9 +20,9 @@ const NewUserPage = ({ isDropdownOpen, toggleDropdown }) => {
   const navigate = useNavigate();
 
   // This function updates the form state when one of the form input values are changed.
-  const updateForm = value => {
-    return setForm(prev => {
-      return { ...prev, ...value };
+  const updateForm = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm(prev => {
+      return { ...prev, [e.target.name]: e.target.value };
     });
   };
 
@@ -22,7 +30,7 @@ const NewUserPage = ({ isDropdownOpen, toggleDropdown }) => {
   const url = "http://localhost:5000/users/new";
 
   // This function handles the form submission.
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newApplication = {
       username: form.username,
@@ -63,23 +71,13 @@ const NewUserPage = ({ isDropdownOpen, toggleDropdown }) => {
             <label className="label" htmlFor="username">
               Username
             </label>
-            <input
-              type="text"
-              id="username"
-              value={form.username}
-              onChange={e => updateForm({ username: e.target.value })}
-            />
+            <input type="text" id="username" name="username" value={form.username} onChange={e => updateForm(e)} />
           </div>
           <div className="form-input">
             <label className="label" htmlFor="password">
               Password
             </label>
-            <input
-              type="text"
-              id="password"
-              value={form.password}
-              onChange={e => updateForm({ password: e.target.value })}
-            />
+            <input type="text" id="password" name="password" value={form.password} onChange={e => updateForm(e)} />
           </div>
           <button type="submit">Create User</button>
         </form>

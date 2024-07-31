@@ -1,11 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+// @ts-ignore
 import styled from "styled-components";
 import { RiLogoutBoxRLine } from "react-icons/ri";
-import { useAuthContext } from "../context/AuthContext.tsx";
+import { useAppContext, url } from "../context/AppContext";
 
 export const LogoutButton = () => {
-  const { setLoggedIn, url } = useAuthContext();
+  const { setLoggedIn } = useAppContext();
   const navigate = useNavigate();
   const logoutUser = async () => {
     await fetch(`${url}/auth/logout`, {

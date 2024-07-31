@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+// @ts-ignore
 import styled from "styled-components";
-import { LineDesign } from "../components/LineDesign.tsx";
-import { useAuthContext } from "../context/AuthContext.tsx";
+import { LineDesign } from "../components/LineDesign";
+import { useAppContext, url } from "../context/AppContext";
 
-export const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
+export const NewAppPage = () => {
   const [form, setForm] = useState({
     company: "",
     position: "",
@@ -16,21 +17,20 @@ export const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
     status: ""
   });
   const navigate = useNavigate();
-  const { fetchApplications, url, loggedIn } = useAuthContext();
+  const { fetchApplications, loggedIn, isDropdownOpen, toggleDropdown } = useAppContext();
 
   useEffect(() => {
     if (!loggedIn) navigate("/login");
   }, [loggedIn, navigate]);
 
-  // This function updates the form state when one of the form input values are changed.
-  const updateForm = value => {
-    return setForm(prev => {
-      return { ...prev, ...value };
+  const updateForm = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm(prev => {
+      return { ...prev, [e.target.name]: e.target.value };
     });
   };
 
   // This function handles the form submission.
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newApplication = {
       company: form.company,
@@ -84,58 +84,32 @@ export const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
             <label className="label" htmlFor="company">
               Company
             </label>
-            <input
-              required={true}
-              id="company"
-              value={form.company}
-              onChange={e => updateForm({ company: e.target.value })}
-            />
+            <input required={true} id="company" value={form.company} onChange={e => updateForm(e)} />
           </div>
           <div className="form-input">
             <label className="label" htmlFor="position">
               Position
             </label>
-            <input
-              required={true}
-              id="position"
-              value={form.position}
-              onChange={e => updateForm({ position: e.target.value })}
-            />
+            <input required={true} id="position" value={form.position} onChange={e => updateForm(e)} />
           </div>
           <div className="form-input">
             <label className="label" htmlFor="website">
               Website
             </label>
-            <input
-              required={true}
-              id="website"
-              value={form.website}
-              onChange={e => updateForm({ website: e.target.value })}
-            />
+            <input required={true} id="website" value={form.website} onChange={e => updateForm(e)} />
           </div>
           <div className="form-input">
             <label className="label" htmlFor="location">
               Location
             </label>
-            <input
-              required={true}
-              id="location"
-              value={form.location}
-              onChange={e => updateForm({ location: e.target.value })}
-            />
+            <input required={true} id="location" value={form.location} onChange={e => updateForm(e)} />
           </div>
           <div className="date-and-status">
             <div className="date-input">
               <label className="label" htmlFor="applied">
                 Date Applied
               </label>
-              <input
-                required={true}
-                type="date"
-                id="applied"
-                value={form.applied}
-                onChange={e => updateForm({ applied: e.target.value })}
-              />
+              <input required={true} type="date" id="applied" value={form.applied} onChange={e => updateForm(e)} />
             </div>
             <div className="form-input">
               <p className="label">Status</p>
@@ -148,7 +122,7 @@ export const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
                     id="positionApplied"
                     value="Applied"
                     checked={form.status === "Applied"}
-                    onChange={e => updateForm({ status: e.target.value })}
+                    onChange={e => updateForm(e)}
                   />
                   <label htmlFor="positionApplied">Applied</label>
                 </div>
@@ -160,7 +134,7 @@ export const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
                     id="positionDeclined"
                     value="Declined"
                     checked={form.status === "Declined"}
-                    onChange={e => updateForm({ status: e.target.value })}
+                    onChange={e => updateForm(e)}
                   />
                   <label htmlFor="positionDeclined">Declined</label>
                 </div>
@@ -172,7 +146,7 @@ export const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
                     id="positionInterview"
                     value="Interview"
                     checked={form.status === "Interview"}
-                    onChange={e => updateForm({ status: e.target.value })}
+                    onChange={e => updateForm(e)}
                   />
                   <label htmlFor="positionInterview">Interview</label>
                 </div>
@@ -183,12 +157,7 @@ export const NewAppPage = ({ isDropdownOpen, toggleDropdown }) => {
             <label className="label" htmlFor="comments">
               Comments
             </label>
-            <textarea
-              rows={3}
-              id="comments"
-              value={form.comments}
-              onChange={e => updateForm({ comments: e.target.value })}
-            />
+            <textarea rows={3} id="comments" value={form.comments} onChange={e => updateForm(e)} />
           </div>
           <button type="submit">Add New Job</button>
         </form>

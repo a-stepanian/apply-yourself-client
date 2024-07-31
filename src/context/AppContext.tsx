@@ -13,26 +13,33 @@ interface IAppState {
   setUser: React.Dispatch<React.SetStateAction<IUserModel | undefined>>;
   fetchApplications: () => void;
   getLoggedIn: () => void;
+  toggleDropdown: () => void;
+  isDropdownOpen: boolean;
 }
 
 interface Props {
   children: React.ReactNode;
 }
 
-const AuthContext = createContext<IAppState | undefined>(undefined);
+const AppContext = createContext<IAppState | undefined>(undefined);
 
-const useAuthContext = () => {
-  const context = useContext(AuthContext);
+const useAppContext = () => {
+  const context = useContext(AppContext);
   if (!context) {
-    throw new Error("useAuthContext must be used within an AuthContextProvider");
+    throw new Error("useAppContext must be used within an AppContextProvider");
   }
   return context;
 };
 
-const AuthContextProvider: React.FC<Props> = ({ children }) => {
+const AppContextProvider: React.FC<Props> = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [applications, setApplications] = useState<IApplicationModel[]>([]);
   const [user, setUser] = useState<IUserModel | undefined>(undefined);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(currentValue => !currentValue);
+  };
 
   // Fetch all applications submitted by the logged in user and clear applications when user logs out
   const fetchApplications = async () => {
@@ -122,10 +129,12 @@ const AuthContextProvider: React.FC<Props> = ({ children }) => {
     user,
     setUser,
     fetchApplications,
-    getLoggedIn
+    getLoggedIn,
+    isDropdownOpen,
+    toggleDropdown
   };
 
-  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
+  return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;
 };
 
-export { AuthContextProvider, useAuthContext };
+export { AppContextProvider, useAppContext };

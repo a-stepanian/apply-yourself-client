@@ -1,12 +1,13 @@
 import React from "react";
+// @ts-ignore
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { LogoutButton } from "./LogoutButton.tsx";
+import { LogoutButton } from "./LogoutButton";
 import { RiFolderChartLine, RiFolderOpenLine, RiFolderAddLine, RiUserAddLine, RiLoginBoxLine } from "react-icons/ri";
-import { useAuthContext } from "../context/AuthContext.tsx";
+import { useAppContext } from "../context/AppContext";
 
-export const Dropdown = ({ isDropdownOpen, toggleDropdown }) => {
-  const { loggedIn } = useAuthContext();
+export const Dropdown = () => {
+  const { loggedIn, isDropdownOpen, toggleDropdown } = useAppContext();
   return (
     <Wrapper>
       <nav className={isDropdownOpen ? "open" : ""}>

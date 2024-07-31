@@ -1,7 +1,10 @@
 import React from "react";
+// @ts-ignore
 import styled from "styled-components";
+import { useAppContext } from "../context/AppContext";
 
-export const Hamburger = ({ isDropdownOpen, toggleDropdown }) => {
+export const Hamburger = () => {
+  const { isDropdownOpen, toggleDropdown } = useAppContext();
   return (
     <Wrapper onClick={() => toggleDropdown()}>
       <div className={isDropdownOpen ? "line top top-open" : "line top"} />

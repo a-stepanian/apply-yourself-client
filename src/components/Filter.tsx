@@ -1,9 +1,16 @@
 import React from "react";
 import { useState } from "react";
+// @ts-ignore
 import styled from "styled-components";
 import { RiFilter3Line, RiCloseLine } from "react-icons/ri";
 
-export const Filter = ({ setFilter }) => {
+interface IFilterProps {
+  setFilter: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export const Filter = (props: IFilterProps) => {
+  const { setFilter } = props;
+
   const [open, setOpen] = useState(false);
 
   const openFilter = () => {

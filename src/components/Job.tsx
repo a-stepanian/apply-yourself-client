@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+// @ts-ignore
 import styled from "styled-components";
 import { GrEdit } from "react-icons/gr";
 import { MdOutlineLocationOn, MdExpandLess, MdExpandMore } from "react-icons/md";
+import { IApplicationModel } from "../models/models";
 
-export const Job = ({ app }) => {
+interface IJobProps {
+  app: IApplicationModel;
+}
+
+export const Job = (props: IJobProps) => {
+  const { applied, comments, company, location, position, status, response, website, _id } = props.app;
+
   const [showMore, setShowMore] = useState(false);
 
   // Destructure from props
-  const { applied, comments, company, location, position, status, response, website, _id } = app;
 
   const toggleFooter = () => {
     if (showMore) setShowMore(false);
@@ -18,10 +25,13 @@ export const Job = ({ app }) => {
   return (
     <Wrapper
       style={{
-        backgroundColor:
-          (status === "Applied" && "rgb(250, 250, 250)") ||
-          (status === "Interview" && "rgb(230, 255, 230)") ||
-          (status === "Declined" && "rgb(255, 230, 230)")
+        backgroundColor: `${
+          status === "Applied"
+            ? "rgb(250, 250, 250)"
+            : status === "Interview"
+            ? "rgb(230, 255, 230)"
+            : status === "Declined" && "rgb(255, 230, 230)"
+        }`
       }}>
       <header className="job-details">
         <div className="left-column">

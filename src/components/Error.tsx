@@ -1,6 +1,9 @@
-import React from "react";
+interface IErrorProps {
+  error: string;
+}
 
-export const Error = ({ error }) => {
+export const Error = (props: IErrorProps) => {
+  const { error } = props;
   return (
     <div>
       <h1>Error:</h1>

@@ -1,9 +1,17 @@
 import React from "react";
 import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
+// @ts-ignore
 import styled from "styled-components";
+import { ITotals } from "../pages/DashboardPage";
 
-export const DonutChart = ({ totals }) => {
+interface IDonutChartProps {
+  totals: ITotals;
+}
+
+export const DonutChart = (props: IDonutChartProps) => {
+  const { totals } = props;
+
   return (
     <Wrapper>
       <h3>Application Status</h3>

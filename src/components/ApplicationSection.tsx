@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Job } from "./Job.tsx";
+import { Job } from "./Job";
+// @ts-ignore
 import styled from "styled-components";
-import { useAuthContext } from "../context/AuthContext.tsx";
+import { useAppContext } from "../context/AppContext";
 import { RiFolderAddLine } from "react-icons/ri";
-import { Filter } from "./Filter.tsx";
-import { LineDesign } from "./LineDesign.tsx";
+import { Filter } from "./Filter";
+import { LineDesign } from "./LineDesign";
+import { IApplicationModel } from "../models/models";
 
 export const ApplicationSection = () => {
-  const [filter, setFilter] = useState("all");
-  const [appsToDisplay, setAppsToDisplay] = useState([]);
-  const { applications } = useAuthContext();
+  const [filter, setFilter] = useState<string>("all");
+  const [appsToDisplay, setAppsToDisplay] = useState<IApplicationModel[]>([]);
+  const { applications } = useAppContext();
 
   useEffect(() => {
     if (filter === "all") {
@@ -37,7 +39,7 @@ export const ApplicationSection = () => {
               <Filter setFilter={setFilter} />
             </div>
           </header>
-          {appsToDisplay.map((app, index) => {
+          {appsToDisplay.map(app => {
             const { _id } = app;
             return <Job key={_id} app={app} />;
           })}

@@ -1,22 +1,56 @@
 import React, { useState, useEffect, useContext } from "react";
+// @ts-ignore
 import styled from "styled-components";
-import { DonutChart } from "../components/DonutChart.tsx";
-import { LineChart } from "../components/LineChart.tsx";
-import { Metrics } from "../components/Metrics.tsx";
-import { useAuthContext } from "../context/AuthContext.tsx";
+import { DonutChart } from "../components/DonutChart";
+import { LineChart } from "../components/LineChart";
+import { Metrics } from "../components/Metrics";
+import { useAppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
-import { ApplicationSection } from "../components/ApplicationSection.tsx";
+import { ApplicationSection } from "../components/ApplicationSection";
 import { IApplicationModel } from "../models/models";
 
+export interface ITotals {
+  total: number;
+  totalWaiting: number;
+  totalDeclined: number;
+  totalInterview: number;
+}
+
+export interface IMonthlyCount {
+  january: number;
+  february: number;
+  march: number;
+  april: number;
+  may: number;
+  june: number;
+  july: number;
+  august: number;
+  september: number;
+  october: number;
+  november: number;
+  december: number;
+}
+
+export interface IResponseTime {
+  company: string;
+  responded: boolean;
+  difference?: number;
+}
+export interface IWaitTime {
+  company: string;
+  responded: boolean;
+  waitTime?: number;
+}
+
 export const DashboardPage = () => {
-  const [allApps, setAllApps] = useState([]);
-  const [totals, setTotals] = useState({
+  const [allApps, setAllApps] = useState<IApplicationModel[]>([]);
+  const [totals, setTotals] = useState<ITotals>({
     total: 0,
     totalWaiting: 0,
     totalDeclined: 0,
     totalInterview: 0
   });
-  const [monthlyCount, setMonthlyCount] = useState({
+  const [monthlyCount, setMonthlyCount] = useState<IMonthlyCount>({
     january: 0,
     february: 0,
     march: 0,
@@ -30,11 +64,11 @@ export const DashboardPage = () => {
     november: 0,
     december: 0
   });
-  const [respTime, setRespTime] = useState([]);
-  const [waitTime, setWaitTime] = useState([]);
+  const [respTime, setRespTime] = useState<IResponseTime[]>([]);
+  const [waitTime, setWaitTime] = useState<IWaitTime[]>([]);
   const navigate = useNavigate();
 
-  const { applications, loggedIn } = useAuthContext();
+  const { applications, loggedIn } = useAppContext();
 
   useEffect(() => {
     if (!loggedIn) navigate("/login");
@@ -90,14 +124,15 @@ export const DashboardPage = () => {
 
     const calcAvgResponseTime = () => {
       // turn string date into date object
-      const parseDate = str => {
-        let ymd = str.split("-");
-        let mdy = [ymd[1], ymd[2], ymd[0]];
-        return new Date(mdy[2], mdy[0] - 1, mdy[1]);
+      const parseDate = (str: string) => {
+        const yearMonthDayStringArray = str.split("-");
+        const yearMonthDayNumberArray = yearMonthDayStringArray.map(x => parseInt(x));
+        const monthDayYear = [yearMonthDayNumberArray[1], yearMonthDayNumberArray[2], yearMonthDayNumberArray[0]];
+        return new Date(monthDayYear[2], monthDayYear[0] - 1, monthDayYear[1]);
       };
       // find difference in days
-      const dateDiff = (responseDate, appliedDate) => {
-        return Math.round((responseDate - appliedDate) / (1000 * 60 * 60 * 24));
+      const dateDiff = (responseDate: Date, appliedDate: Date) => {
+        return Math.round((responseDate.getTime() - appliedDate.getTime()) / (1000 * 60 * 60 * 24));
       };
       const responseTimes = allApps.map((app: IApplicationModel) => {
         if (app.response) {
@@ -120,8 +155,8 @@ export const DashboardPage = () => {
           };
         }
       });
-      // setRespTime(responseTimes?.filter((app) => app?.responded === true));
-      // setWaitTime(responseTimes?.filter((app) => app?.responded === false));
+      setRespTime(responseTimes?.filter(app => app?.responded === true));
+      setWaitTime(responseTimes?.filter(app => app?.responded === false));
     };
     calcMonthlySubmissions();
     calculateTotals();

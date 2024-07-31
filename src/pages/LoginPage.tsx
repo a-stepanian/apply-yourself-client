@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+// @ts-ignore
 import styled from "styled-components";
-import { LineDesign } from "../components/LineDesign.tsx";
+import { LineDesign } from "../components/LineDesign";
 import { useEffect } from "react";
-import { url, useAuthContext } from "../context/AuthContext.tsx";
+import { url, useAppContext } from "../context/AppContext";
 
 interface ILoginForm {
   username: string;
   password: string;
 }
 
-export const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
+export const LoginPage = () => {
   const [form, setForm] = useState<ILoginForm>({
     username: "",
     password: ""
@@ -18,18 +19,17 @@ export const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
   const [error, setError] = useState<boolean>(false);
 
   const navigate = useNavigate();
-  const { loggedIn, getLoggedIn } = useAuthContext();
+  const { loggedIn, getLoggedIn, isDropdownOpen, toggleDropdown } = useAppContext();
 
   // Set form state when input values change
-  const updateForm = value => {
-    setError(false);
+  const updateForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     return setForm(prev => {
-      return { ...prev, ...value };
+      return { ...prev, [e.target.name]: e.target.value };
     });
   };
 
   // This function handles the form submission.
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const loginInfo = {
       username: form.username,
@@ -109,7 +109,7 @@ export const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
               type="text"
               id="username"
               value={form.username}
-              onChange={e => updateForm({ username: e.target.value })}
+              onChange={e => updateForm(e)}
             />
           </div>
           <div className="form-input">
@@ -122,7 +122,7 @@ export const LoginPage = ({ isDropdownOpen, toggleDropdown }) => {
               type="password"
               id="password"
               value={form.password}
-              onChange={e => updateForm({ password: e.target.value })}
+              onChange={e => updateForm(e)}
             />
           </div>
           <button type="submit">Log In</button>

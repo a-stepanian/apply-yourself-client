@@ -1,27 +1,39 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { LineDesign } from "../components/LineDesign";
+import { url, useAppContext } from "../context/AppContext";
+// @ts-ignore
 import styled from "styled-components";
-import { LineDesign } from "../components/LineDesign.tsx";
-import { url, useAuthContext } from "../context/AuthContext.tsx";
+interface IRegistrationForm {
+  username: string;
+  email: string;
+  password: string;
+  passwordVerify: string;
+}
 
-export const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
-  const [form, setForm] = useState({
+interface IPasswordError {
+  isError: boolean;
+  msg: string;
+}
+interface IPasswordError {
+  isError: boolean;
+  msg: string;
+}
+
+export const RegisterPage = () => {
+  const [form, setForm] = useState<IRegistrationForm>({
     username: "",
     email: "",
     password: "",
     passwordVerify: ""
   });
-  const [pwdError, setPwdError] = useState({ isError: false, msg: "" });
-  const [fieldsReqError, setFieldsReqError] = useState({
-    isError: false,
-    msg: ""
-  });
-  const [serverError, setServerError] = useState({
-    isError: false,
-    msg: ""
-  });
+  const initialErrorState = { isError: false, msg: "" };
+  const [passwordError, setPasswordError] = useState<IPasswordError>(initialErrorState);
+  const [fieldsRequiredError, setFieldsRequiredError] = useState<IPasswordError>(initialErrorState);
+  const [serverError, setServerError] = useState<IPasswordError>(initialErrorState);
+
   const navigate = useNavigate();
-  const { loggedIn, getLoggedIn } = useAuthContext();
+  const { loggedIn, getLoggedIn, isDropdownOpen, toggleDropdown } = useAppContext();
 
   useEffect(() => {
     if (loggedIn) {
@@ -31,33 +43,33 @@ export const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
   }, [loggedIn, navigate]);
 
   // setForm state when form input values are changed
-  const updateForm = value => {
+  const updateForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     return setForm(prev => {
-      return { ...prev, ...value };
+      return { ...prev, [e.target.name]: e.target.value };
     });
   };
 
   // Form validation user feedback
   useEffect(() => {
     setServerError({ isError: false, msg: "" });
-    setPwdError({ isError: false, msg: "" });
-    setFieldsReqError({ isError: false, msg: "" });
+    setPasswordError({ isError: false, msg: "" });
+    setFieldsRequiredError({ isError: false, msg: "" });
     if (!form.username || !form.email || !form.password || !form.passwordVerify) {
-      setFieldsReqError({ isError: true, msg: "Please fill out all fields" });
+      setFieldsRequiredError({ isError: true, msg: "Please fill out all fields" });
       return;
     }
     if (form.password.length < 6) {
-      setPwdError({
+      setPasswordError({
         isError: true,
         msg: "Password must contain at least 6 characters"
       });
     } else if (form.password !== form.passwordVerify) {
-      setPwdError({ isError: true, msg: "Passwords do not match" });
+      setPasswordError({ isError: true, msg: "Passwords do not match" });
     }
   }, [form]);
 
   // This function handles the form submission.
-  const handleSubmit = async e => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newUser = {
       username: form.username,
@@ -91,8 +103,8 @@ export const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
   useEffect(() => {
     if (loggedIn) {
       setServerError({ isError: false, msg: "" });
-      setPwdError({ isError: false, msg: "" });
-      setFieldsReqError({ isError: false, msg: "" });
+      setPasswordError({ isError: false, msg: "" });
+      setFieldsRequiredError({ isError: false, msg: "" });
 
       // clear form
       setForm({
@@ -130,10 +142,10 @@ export const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
             </Link>
           </p>
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={e => handleSubmit(e)}>
           <div className="form-input">
-            {fieldsReqError.isError && <p className="form-error">{fieldsReqError.msg}</p>}
-            {pwdError.isError && <p className="pwd-error">{pwdError.msg}</p>}
+            {fieldsRequiredError.isError && <p className="form-error">{fieldsRequiredError.msg}</p>}
+            {passwordError.isError && <p className="pwd-error">{passwordError.msg}</p>}
             {serverError.isError && <p className="server-error">{serverError.msg}</p>}
             <label className="label" htmlFor="username">
               Username
@@ -143,8 +155,9 @@ export const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
               required
               type="text"
               id="username"
+              name="username"
               value={form.username}
-              onChange={e => updateForm({ username: e.target.value })}
+              onChange={e => updateForm(e)}
             />
           </div>
           <div className="form-input">
@@ -156,8 +169,9 @@ export const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
               required
               type="email"
               id="email"
+              name="email"
               value={form.email}
-              onChange={e => updateForm({ email: e.target.value })}
+              onChange={e => updateForm(e)}
             />
           </div>
           <div className="form-input">
@@ -169,8 +183,9 @@ export const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
               required
               type="password"
               id="password"
+              name="password"
               value={form.password}
-              onChange={e => updateForm({ password: e.target.value })}
+              onChange={e => updateForm(e)}
             />
           </div>
           <div className="form-input">
@@ -182,8 +197,9 @@ export const RegisterPage = ({ isDropdownOpen, toggleDropdown }) => {
               autoComplete="off"
               type="password"
               id="passwordVerify"
+              name="passwordVerify"
               value={form.passwordVerify}
-              onChange={e => updateForm({ passwordVerify: e.target.value })}
+              onChange={e => updateForm(e)}
             />
           </div>
           <button type="submit">Create Account</button>

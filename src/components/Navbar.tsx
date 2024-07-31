@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+// @ts-ignore
 import styled from "styled-components";
 import { RiFolderChartLine, RiLoginBoxLine, RiUserAddLine, RiUserLine } from "react-icons/ri";
-import { Hamburger } from "./Hamburger.tsx";
-import { LogoutButton } from "./LogoutButton.tsx";
-import { useAuthContext } from "../context/AuthContext.tsx";
+import { Hamburger } from "./Hamburger";
+import { LogoutButton } from "./LogoutButton";
+import { useAppContext } from "../context/AppContext";
 
-export const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
-  const { loggedIn, user } = useAuthContext();
+export const Navbar = () => {
+  const { loggedIn, user, isDropdownOpen, toggleDropdown } = useAppContext();
 
   return (
     <>
@@ -15,7 +16,7 @@ export const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
         <Link to="/" className="logo">
           <h1>Apply Yourself</h1>
         </Link>
-        <Hamburger isDropdownOpen={isDropdownOpen} toggleDropdown={toggleDropdown} />
+        <Hamburger />
         {loggedIn && (
           <>
             <div className="links">
@@ -28,7 +29,7 @@ export const Navbar = ({ isDropdownOpen, toggleDropdown }) => {
                 className="username"
                 onMouseEnter={() => document?.querySelector(".logout-btn-wrapper")?.classList?.add("slide-in")}
                 onMouseLeave={() => document?.querySelector(".logout-btn-wrapper")?.classList?.remove("slide-in")}>
-                <span>{user.username}</span>
+                <span>{user?.username}</span>
                 <RiUserLine className="icon" />
               </div>
               <div
