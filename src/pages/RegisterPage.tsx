@@ -134,14 +134,6 @@ export const RegisterPage = () => {
         </div>
         <LineDesign />
         <h4>Create An Account</h4>
-        <div className="login-wrapper">
-          <p>
-            Already have an account?
-            <Link to="/login" className="login">
-              Log In
-            </Link>
-          </p>
-        </div>
         <form onSubmit={e => handleSubmit(e)}>
           <div className="form-input">
             {fieldsRequiredError.isError && <p className="form-error">{fieldsRequiredError.msg}</p>}
@@ -202,6 +194,14 @@ export const RegisterPage = () => {
               onChange={e => updateForm(e)}
             />
           </div>
+          <div className="login-wrapper">
+            <p>
+              Already have an account?
+              <Link to="/login" className="login">
+                Log In
+              </Link>
+            </p>
+          </div>
           <button type="submit">Create Account</button>
         </form>
       </section>
@@ -211,7 +211,6 @@ export const RegisterPage = () => {
 
 // @ts-ignore
 const Wrapper = styled.main`
-  height: 50rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -234,22 +233,9 @@ const Wrapper = styled.main`
     font-size: 2.4rem;
     text-align: center;
   }
-  .login-wrapper {
-    position: relative;
-    z-index: 1;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    p {
-      font-size: 0.8rem;
-      font-weight: 900;
-    }
-    .login {
-      margin-left: 0.5rem;
-    }
-  }
   form {
     z-index: 1;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: #fafafa;
     box-shadow: 3px 3px 10px rgb(0, 0, 0, 0.2);
     border-radius: 3px;
     position: relative;
@@ -287,10 +273,22 @@ const Wrapper = styled.main`
     .label {
       font-weight: 500;
     }
+    .login-wrapper {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 1rem;
+      p {
+        font-size: 0.8rem;
+        font-weight: 900;
+      }
+      .login {
+        margin-left: 0.5rem;
+      }
+    }
     button {
       color: black;
       width: 100%;
-      margin: 3rem 0 1rem;
+      margin-bottom: 1rem;
       padding: 1rem;
       border: 2px solid rgba(0, 0, 0, 0.3);
       border-radius: 2px;
@@ -330,29 +328,45 @@ const Wrapper = styled.main`
   }
 
   @media (min-width: 1200px) {
+    form {
+      max-width: 30rem;
+      padding: 4rem;
+      margin: 1rem 1rem 8rem;
+    }
     .form-section {
       .image-wrapper {
-        animation: fadeUp 1s forwards;
         &:nth-of-type(1) {
+          animation: fadeUpLeft 1s forwards;
           top: calc(50% - 5rem);
           width: calc(60% - 7rem);
           left: 0;
         }
         &:nth-of-type(2) {
+          animation: fadeUpRight 1s forwards;
           top: calc(50% - 10rem);
           width: calc(60% - 5rem);
           right: 0;
         }
       }
     }
-    @keyframes fadeUp {
+    @keyframes fadeUpLeft {
       0% {
         opacity: 0.04;
-        transform: scale(0.95);
+        transform: translateX(0) scale(0.5);
       }
       100% {
-        opacity: 0.1;
-        transform: scale(1);
+        opacity: 0.3;
+        transform: translateX(-80px) scale(0.8);
+      }
+    }
+    @keyframes fadeUpRight {
+      0% {
+        opacity: 0.04;
+        transform: translateX(0) scale(0.5);
+      }
+      100% {
+        opacity: 0.3;
+        transform: translateX(80px) scale(0.8);
       }
     }
   }

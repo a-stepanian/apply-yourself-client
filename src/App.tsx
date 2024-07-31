@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 
 import { HeroPage } from "./pages/HeroPage";
+import { JobsPage } from "./pages/JobsPage";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { LoginPage } from "./pages/LoginPage";
@@ -24,6 +25,7 @@ const App = () => {
           <Dropdown />
           <Routes>
             <Route path="/" element={<HeroPage />} />
+            <Route path="/jobs" element={<JobsPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/applications/new" element={<NewAppPage />} />

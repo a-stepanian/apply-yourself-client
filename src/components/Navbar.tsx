@@ -16,6 +16,9 @@ export const Navbar = () => {
         <Link to="/" className="logo">
           <h1>Apply Yourself</h1>
         </Link>
+        <Link to="/jobs" className="logo">
+          Job Listings
+        </Link>
         <Hamburger />
         {loggedIn && (
           <>
@@ -64,12 +67,16 @@ const Wrapper = styled.nav`
   position: relative;
   z-index: 3;
   width: 100%;
-  height: 3rem;
+  padding: 0.5rem 0;
   background-color: var(--light-purple);
   display: flex;
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
+  .flex {
+    display: flex;
+    align-items: center;
+  }
   .logo {
     padding-left: 0.5rem;
     text-decoration: none;

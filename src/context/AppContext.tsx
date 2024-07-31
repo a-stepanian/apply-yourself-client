@@ -15,6 +15,8 @@ interface IAppState {
   getLoggedIn: () => void;
   toggleDropdown: () => void;
   isDropdownOpen: boolean;
+  jobs: any[];
+  setJobs: React.Dispatch<React.SetStateAction<any[]>>;
 }
 
 interface Props {
@@ -34,6 +36,7 @@ const useAppContext = () => {
 const AppContextProvider: React.FC<Props> = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [applications, setApplications] = useState<IApplicationModel[]>([]);
+  const [jobs, setJobs] = useState<any[]>([]);
   const [user, setUser] = useState<IUserModel | undefined>(undefined);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
@@ -131,7 +134,9 @@ const AppContextProvider: React.FC<Props> = ({ children }) => {
     fetchApplications,
     getLoggedIn,
     isDropdownOpen,
-    toggleDropdown
+    toggleDropdown,
+    jobs,
+    setJobs
   };
 
   return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;
