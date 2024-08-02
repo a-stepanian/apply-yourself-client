@@ -26,3 +26,15 @@ button {
   border: none;
   border-radius: 0;
 }
+
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.items-center {
+  align-items: center;
+}

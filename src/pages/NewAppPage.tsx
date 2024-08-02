@@ -84,32 +84,39 @@ export const NewAppPage = () => {
             <label className="label" htmlFor="company">
               Company
             </label>
-            <input required={true} id="company" value={form.company} onChange={e => updateForm(e)} />
+            <input required={true} id="company" name="company" value={form.company} onChange={e => updateForm(e)} />
           </div>
           <div className="form-input">
             <label className="label" htmlFor="position">
               Position
             </label>
-            <input required={true} id="position" value={form.position} onChange={e => updateForm(e)} />
+            <input required={true} id="position" name="position" value={form.position} onChange={e => updateForm(e)} />
           </div>
           <div className="form-input">
             <label className="label" htmlFor="website">
               Website
             </label>
-            <input required={true} id="website" value={form.website} onChange={e => updateForm(e)} />
+            <input required={true} id="website" name="website" value={form.website} onChange={e => updateForm(e)} />
           </div>
           <div className="form-input">
             <label className="label" htmlFor="location">
               Location
             </label>
-            <input required={true} id="location" value={form.location} onChange={e => updateForm(e)} />
+            <input required={true} id="location" name="location" value={form.location} onChange={e => updateForm(e)} />
           </div>
           <div className="date-and-status">
             <div className="date-input">
               <label className="label" htmlFor="applied">
                 Date Applied
               </label>
-              <input required={true} type="date" id="applied" value={form.applied} onChange={e => updateForm(e)} />
+              <input
+                required={true}
+                type="date"
+                id="applied"
+                name="applied"
+                value={form.applied}
+                onChange={e => updateForm(e)}
+              />
             </div>
             <div className="form-input">
               <p className="label">Status</p>
@@ -118,8 +125,8 @@ export const NewAppPage = () => {
                   <input
                     required={true}
                     type="radio"
-                    name="positionOptions"
                     id="positionApplied"
+                    name="positionApplied"
                     value="Applied"
                     checked={form.status === "Applied"}
                     onChange={e => updateForm(e)}
@@ -130,8 +137,8 @@ export const NewAppPage = () => {
                   <input
                     required={true}
                     type="radio"
-                    name="positionOptions"
                     id="positionDeclined"
+                    name="positionDeclined"
                     value="Declined"
                     checked={form.status === "Declined"}
                     onChange={e => updateForm(e)}
@@ -142,8 +149,8 @@ export const NewAppPage = () => {
                   <input
                     required={true}
                     type="radio"
-                    name="positionOptions"
                     id="positionInterview"
+                    name="positionInterview"
                     value="Interview"
                     checked={form.status === "Interview"}
                     onChange={e => updateForm(e)}
@@ -157,7 +164,7 @@ export const NewAppPage = () => {
             <label className="label" htmlFor="comments">
               Comments
             </label>
-            <textarea rows={3} id="comments" value={form.comments} onChange={e => updateForm(e)} />
+            <textarea rows={3} id="comments" name="comments" value={form.comments} onChange={e => updateForm(e)} />
           </div>
           <button type="submit">Add New Job</button>
         </form>

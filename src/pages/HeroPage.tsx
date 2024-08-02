@@ -3,22 +3,11 @@ import styled from "styled-components";
 import { LineDesign } from "../components/LineDesign";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
+import { TypingEffect } from "../components/TypingEffect";
 
 export const HeroPage = () => {
   const { loggedIn } = useAppContext();
 
-  // Make hero letters appear with typing effect
-  useEffect(() => {
-    const dots = document.querySelectorAll(".dot");
-    for (let i = 0; i < dots.length; i++) {
-      const delay = (i + 1) * 80;
-      setTimeout(() => {
-        dots[i].classList.add("show");
-      }, delay);
-    }
-  });
-
-  //
   useEffect(() => {
     const handleScroll = () => {
       const scrollTarget0 = document.querySelectorAll(".scroll-target")[0];
@@ -60,28 +49,7 @@ export const HeroPage = () => {
   return (
     <Wrapper>
       <LineDesign />
-      <h1>
-        <span className="dot">L</span>
-        <span className="dot">a</span>
-        <span className="dot">n</span>
-        <span className="dot">d</span>
-        <span className="space"> </span>
-        <span className="dot">y</span>
-        <span className="dot">o</span>
-        <span className="dot">u</span>
-        <span className="dot">r</span>
-        <span className="space"> </span>
-        <span className="dot">d</span>
-        <span className="dot">r</span>
-        <span className="dot">e</span>
-        <span className="dot">a</span>
-        <span className="dot">m</span>
-        <span className="space"> </span>
-        <span className="dot">j</span>
-        <span className="dot">o</span>
-        <span className="dot">b</span>
-        <span className="dot">.</span>
-      </h1>
+      <TypingEffect text="Land your dream job." textElementType="h1" speedInMilliseconds={50} />
       <img className="main-svg" src="hero.svg" alt="Happy employees collaborating at work." />
       <div className="register-wrapper">
         {loggedIn ? (
@@ -177,21 +145,8 @@ const Wrapper = styled.main`
     margin: 8rem 0;
     font-size: 3.5rem;
     line-height: 3rem;
-    display: flex;
-    flex-wrap: wrap;
-    .dot,
-    .space {
-      margin-left: 1rem;
-      position: relative;
-      z-index: 1;
-      font-family: "Josefin Slab", serif;
-      display: none;
-      letter-spacing: -1rem;
-    }
-    .show,
-    .space {
-      display: inline;
-    }
+    z-index: 1;
+    font-family: "Josefin Slab", serif;
   }
 
   .main-svg {

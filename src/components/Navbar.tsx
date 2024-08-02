@@ -73,10 +73,6 @@ const Wrapper = styled.nav`
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
-  .flex {
-    display: flex;
-    align-items: center;
-  }
   .logo {
     padding-left: 0.5rem;
     text-decoration: none;

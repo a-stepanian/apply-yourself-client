@@ -108,6 +108,7 @@ export const LoginPage = () => {
               required
               type="text"
               id="username"
+              name="username"
               value={form.username}
               onChange={e => updateForm(e)}
             />
@@ -121,6 +122,7 @@ export const LoginPage = () => {
               required
               type="password"
               id="password"
+              name="password"
               value={form.password}
               onChange={e => updateForm(e)}
             />

@@ -2,7 +2,45 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { IApplicationModel, IUserModel } from "../models/models";
 
 export const url = "https://apply-yourself-server.onrender.com";
-// const url = "http://localhost:5000";
+// export const url = "http://localhost:5000";
+
+interface IHasId {
+  id: number;
+}
+interface IHasName {
+  name: string;
+}
+interface IHasShortName {
+  short_name: string;
+}
+interface ICategory extends IHasName {}
+interface ILocation extends IHasName {}
+interface ILevel extends IHasName, IHasShortName {}
+interface ICompany extends IHasId, IHasName, IHasShortName {}
+
+export interface IJobResult extends IHasId, IHasName, IHasShortName {
+  categories: ICategory[];
+  company: ICompany;
+  contents: string;
+  levels: ILevel[];
+  locations: ILocation[];
+  model_type: string;
+  publication_date: string;
+  refs: { landing_page: string };
+  tags: any[];
+  type: string;
+}
+
+export interface IJobPageResults {
+  aggregations: any;
+  items_per_page: number;
+  page: number;
+  page_count: number;
+  results: IJobResult[];
+  timed_out: boolean;
+  took: number;
+  total: number;
+}
 
 interface IAppState {
   loggedIn: boolean;
@@ -15,8 +53,8 @@ interface IAppState {
   getLoggedIn: () => void;
   toggleDropdown: () => void;
   isDropdownOpen: boolean;
-  jobs: any[];
-  setJobs: React.Dispatch<React.SetStateAction<any[]>>;
+  currentJobPageResults: IJobPageResults;
+  setCurrentJobPageResults: React.Dispatch<React.SetStateAction<IJobPageResults>>;
 }
 
 interface Props {
@@ -36,7 +74,7 @@ const useAppContext = () => {
 const AppContextProvider: React.FC<Props> = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [applications, setApplications] = useState<IApplicationModel[]>([]);
-  const [jobs, setJobs] = useState<any[]>([]);
+  const [currentJobPageResults, setCurrentJobPageResults] = useState<any>(null);
   const [user, setUser] = useState<IUserModel | undefined>(undefined);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
@@ -135,8 +173,8 @@ const AppContextProvider: React.FC<Props> = ({ children }) => {
     getLoggedIn,
     isDropdownOpen,
     toggleDropdown,
-    jobs,
-    setJobs
+    currentJobPageResults,
+    setCurrentJobPageResults
   };
 
   return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;
