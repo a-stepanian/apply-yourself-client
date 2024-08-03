@@ -45,5 +45,5 @@ export default App;
 // @ts-ignore
 const Wrapper = styled.div`
   background-color: var(--white);
-  font-family: "Playfair Display", serif;
+  font-family: "Poppins", sans-serif;
 `;

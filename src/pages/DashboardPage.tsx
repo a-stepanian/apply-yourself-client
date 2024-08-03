@@ -7,7 +7,7 @@ import { Metrics } from "../components/Metrics";
 import { useAppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import { ApplicationSection } from "../components/ApplicationSection";
-import { IApplicationModel } from "../models/models";
+import { IApplicationModel } from "../interfaces/interfaces";
 
 export interface ITotals {
   total: number;

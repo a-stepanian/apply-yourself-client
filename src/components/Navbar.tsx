@@ -11,54 +11,61 @@ export const Navbar = () => {
   const { loggedIn, user, isDropdownOpen, toggleDropdown } = useAppContext();
 
   return (
-    <>
-      <Wrapper className="navbar">
-        <Link to="/" className="logo">
-          <h1>Apply Yourself</h1>
-        </Link>
-        <Link to="/jobs" className="logo">
-          Job Listings
-        </Link>
-        <Hamburger />
-        {loggedIn && (
-          <>
-            <div className="links">
-              <Link to="/dashboard">
-                <span>Dashboard</span>
-                <RiFolderChartLine className="icon" />
-              </Link>
-              <div className="divider" />
-              <div
-                className="username"
-                onMouseEnter={() => document?.querySelector(".logout-btn-wrapper")?.classList?.add("slide-in")}
-                onMouseLeave={() => document?.querySelector(".logout-btn-wrapper")?.classList?.remove("slide-in")}>
-                <span>{user?.username}</span>
-                <RiUserLine className="icon" />
-              </div>
-              <div
-                className="logout-btn-wrapper"
-                onMouseEnter={() => document?.querySelector(".logout-btn-wrapper")?.classList?.add("slide-in")}
-                onMouseLeave={() => document?.querySelector(".logout-btn-wrapper")?.classList?.remove("slide-in")}>
-                <LogoutButton />
-              </div>
-            </div>
-          </>
-        )}
-        {!loggedIn && (
+    <Wrapper className="navbar">
+      <Link to="/" className="logo">
+        <img src="/logo512.png" width={50} height={40} alt="" />
+        <h1>Apply Yourself</h1>
+      </Link>
+      <Link to="/jobs" className="logo page-link">
+        Job Listings
+      </Link>
+      <Hamburger />
+      {loggedIn && (
+        <>
           <div className="links">
-            <Link to="/register">
-              <span>Register</span>
-              <RiUserAddLine className="icon" />
+            <Link to="/jobs" className="logo page-link">
+              Job Listings
             </Link>
             <div className="divider" />
-            <Link to="/login">
-              <span>Login</span>
-              <RiLoginBoxLine className="icon" />
+            <Link to="/dashboard">
+              <span>Dashboard</span>
+              <RiFolderChartLine className="icon" />
             </Link>
+            <div className="divider" />
+            <div
+              className="username"
+              onMouseEnter={() => document?.querySelector(".logout-btn-wrapper")?.classList?.add("slide-in")}
+              onMouseLeave={() => document?.querySelector(".logout-btn-wrapper")?.classList?.remove("slide-in")}>
+              <span>{user?.username}</span>
+              <RiUserLine className="icon" />
+            </div>
+            <div
+              className="logout-btn-wrapper"
+              onMouseEnter={() => document?.querySelector(".logout-btn-wrapper")?.classList?.add("slide-in")}
+              onMouseLeave={() => document?.querySelector(".logout-btn-wrapper")?.classList?.remove("slide-in")}>
+              <LogoutButton />
+            </div>
           </div>
-        )}
-      </Wrapper>
-    </>
+        </>
+      )}
+      {!loggedIn && (
+        <div className="links">
+          <Link to="/register">
+            <span>Register</span>
+            <RiUserAddLine className="icon" />
+          </Link>
+          <div className="divider" />
+          <Link to="/login">
+            <span>Login</span>
+            <RiLoginBoxLine className="icon" />
+          </Link>
+          <div className="divider" />
+          <Link to="/jobs" className="logo page-link">
+            Job Listings
+          </Link>
+        </div>
+      )}
+    </Wrapper>
   );
 };
 
@@ -67,21 +74,30 @@ const Wrapper = styled.nav`
   position: relative;
   z-index: 3;
   width: 100%;
-  padding: 0.5rem 0;
-  background-color: var(--light-purple);
+  padding: 2px 8px;
+  background: #111;
   display: flex;
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
+  .page-link {
+    color: #6d46f8;
+  }
   .logo {
     padding-left: 0.5rem;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    img {
+      border-radius: 20%;
+      margin-right: 6px;
+    }
     &:hover {
       text-decoration: none;
     }
     h1 {
       font-weight: 400;
-      color: black;
+      color: #3a5eff;
     }
   }
   .divider,
@@ -106,7 +122,7 @@ const Wrapper = styled.nav`
       width: 0.05rem;
       height: 2rem;
       margin: 0 0.5rem;
-      background-color: black;
+      background-color: #c024ff;
       transform: translateY(0.5rem);
     }
     .links > a,
@@ -116,7 +132,7 @@ const Wrapper = styled.nav`
       position: relative;
       z-index: 3;
       display: block;
-      color: black;
+      color: #c024ff;
       text-decoration: none;
       display: flex;
       align-items: center;

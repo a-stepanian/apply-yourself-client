@@ -56,7 +56,7 @@ const Wrapper = styled.footer`
     display: flex;
     flex-direction: column;
     h2 {
-      font-family: "Josefin Slab", serif;
+      font-family: "Poppins", sans-serif;
       font-size: 1.3rem;
       margin-bottom: 1rem;
     }

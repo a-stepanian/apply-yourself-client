@@ -21,7 +21,7 @@ const Wrapper = styled.main`
   padding-top: 3rem;
   p {
     color: var(--yellow);
-    font-family: "Josefin Slab", serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 900;
   }
   .four-oh-four {

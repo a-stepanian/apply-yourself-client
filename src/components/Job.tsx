@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { GrEdit } from "react-icons/gr";
 import { MdOutlineLocationOn, MdExpandLess, MdExpandMore } from "react-icons/md";
-import { IApplicationModel } from "../models/models";
+import { IApplicationModel } from "../interfaces/interfaces";
 
 interface IJobProps {
   app: IApplicationModel;
@@ -116,7 +116,7 @@ const Wrapper = styled.article`
       }
       .location {
         font-size: 0.8rem;
-        font-family: "Josefin Slab", serif;
+        font-family: "Poppins", sans-serif;
       }
     }
 

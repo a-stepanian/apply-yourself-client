@@ -13,6 +13,9 @@ export const Dropdown = () => {
       <nav className={isDropdownOpen ? "open" : ""}>
         {loggedIn && (
           <>
+            <Link to="/jobs" className="logo page-link">
+              Job Listings
+            </Link>
             <Link to="/applications" onClick={() => toggleDropdown()}>
               <span>View All</span>
               <RiFolderOpenLine className="icon" />
@@ -37,6 +40,9 @@ export const Dropdown = () => {
             <Link to="/login" onClick={() => toggleDropdown()}>
               <span>Login</span>
               <RiLoginBoxLine className="icon" />
+            </Link>
+            <Link to="/jobs" className="logo page-link">
+              Job Listings
             </Link>
           </>
         )}

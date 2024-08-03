@@ -48,9 +48,11 @@ export const HeroPage = () => {
 
   return (
     <Wrapper>
-      <LineDesign />
-      <TypingEffect text="Land your dream job." textElementType="h1" speedInMilliseconds={50} />
-      <img className="main-svg" src="hero.svg" alt="Happy employees collaborating at work." />
+      {/* <LineDesign /> */}
+      <div className="hero-text-wrapper">
+        <TypingEffect text="Land your dream job." textElementType="h1" speedInMilliseconds={40} />
+      </div>
+      <img className="main-svg" src="desk-pink.svg" alt="Happy employees collaborating at work." />
       <div className="register-wrapper">
         {loggedIn ? (
           <Link to="/dashboard" className="register">
@@ -78,7 +80,12 @@ export const HeroPage = () => {
         <div className="blue-block-top block-top" />
         <p className="details">Getting a job can be difficult - managing the process shouldn't be.</p>
         <div className="svg-wrapper">
-          <img className="hero1-svg svg" src="manage.svg" alt="Employee managing their application process." />
+          {/* <img className="hero1-svg svg" src="manage.svg" alt="Employee managing their application process." /> */}
+          <img
+            className="hero1-svg svg"
+            src="brainstorm-purple.svg"
+            alt="Employee managing their application process."
+          />
         </div>
         <div className="blue-block-bottom block-bottom" />
       </article>
@@ -137,22 +144,31 @@ const Wrapper = styled.main`
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
+  background-color: rgb(4, 0, 12);
   justify-content: center;
   align-items: center;
+  .hero-text-wrapper {
+    width: 100vw;
+    padding: 0 10vw;
+    display: flex;
+  }
   h1 {
     width: 17rem;
+    width: 5rem;
     height: 8rem;
     margin: 8rem 0;
     font-size: 3.5rem;
     line-height: 3rem;
     z-index: 1;
-    font-family: "Josefin Slab", serif;
+    font-family: "Poppins", sans-serif;
+    color: #3a5eff;
+    text-shadow: 0 0 80px rgb(115, 0, 255);
   }
 
   .main-svg {
     position: relative;
     z-index: 1;
-    width: 100%;
+    width: 30%;
     margin-bottom: 1rem;
   }
 
@@ -166,7 +182,6 @@ const Wrapper = styled.main`
     border: 2px solid rgba(0, 0, 0, 0.7);
     border-radius: 1.5rem;
     background: linear-gradient(rgba(215, 210, 255, 0.8), rgba(235, 243, 200, 0.8), rgba(200, 220, 255, 0.8));
-    color: black;
     font-weight: 700;
     font-size: 1.1rem;
     display: flex;
@@ -196,7 +211,7 @@ const Wrapper = styled.main`
       font-size: 2rem;
       height: 4rem;
       margin: 1rem 0 2rem 1rem;
-      font-family: "Josefin Slab", serif;
+      font-family: "Poppins", sans-serif;
     }
     .block-top {
       position: absolute;
@@ -248,10 +263,10 @@ const Wrapper = styled.main`
     }
     .hero1-svg {
       padding: 1rem;
-      background-color: var(--blue2);
       position: relative;
       z-index: 1;
       width: 100%;
+      filter: drop-shadow(0 0 30px rgb(34, 0, 136));
     }
   }
 
@@ -309,7 +324,7 @@ const Wrapper = styled.main`
       margin-bottom: 2rem;
       text-align: center;
       font-size: 3rem;
-      font-family: "Josefin Slab", serif;
+      font-family: "Poppins", sans-serif;
     }
     .sign-up {
       width: 10rem;
@@ -364,8 +379,6 @@ const Wrapper = styled.main`
       margin: 25vh 0 40vh;
       font-size: 4.5rem;
       line-height: 4.5rem;
-      display: flex;
-      justify-content: center;
     }
     .register-wrapper,
     .login-wrapper {

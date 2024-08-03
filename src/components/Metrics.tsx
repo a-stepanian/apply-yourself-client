@@ -4,7 +4,7 @@ import { MdTimer } from "react-icons/md";
 import { RiReplyLine, RiStackLine } from "react-icons/ri";
 // @ts-ignore
 import styled from "styled-components";
-import { IApplicationModel } from "../models/models";
+import { IApplicationModel } from "../interfaces/interfaces";
 import { IResponseTime, IWaitTime } from "../pages/DashboardPage";
 
 interface IMetricsProps {
@@ -110,7 +110,7 @@ const Wrapper = styled.section`
     height: 5rem;
     width: calc(50% - 1.2rem);
     margin: 0.2rem;
-    font-family: "Josefin Slab", serif;
+    font-family: "Poppins", sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;

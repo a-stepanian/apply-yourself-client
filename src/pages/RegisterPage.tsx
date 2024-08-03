@@ -249,7 +249,7 @@ const Wrapper = styled.main`
       width: 15rem;
       text-align: center;
       color: red;
-      font-family: "Josefin Slab", serif;
+      font-family: "Poppins", sans-serif;
       top: 1.5rem;
     }
     .pwd-error {
@@ -257,7 +257,7 @@ const Wrapper = styled.main`
       width: 15rem;
       text-align: center;
       color: red;
-      font-family: "Josefin Slab", serif;
+      font-family: "Poppins", sans-serif;
       top: 19.5rem;
     }
     .form-input {
@@ -293,7 +293,7 @@ const Wrapper = styled.main`
       border: 2px solid rgba(0, 0, 0, 0.3);
       border-radius: 2px;
       background-color: rgba(215, 210, 255, 0.5);
-      font-family: "Playfair Display", serif;
+      font-family: "Poppins", sans-serif;
       font-weight: 700;
       font-size: 1.1rem;
       &:hover {

@@ -35,7 +35,7 @@ const Wrapper = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Playfair Display", serif;
+  font-family: "Poppins", sans-serif;
   font-size: 1rem;
 
   &:hover {
