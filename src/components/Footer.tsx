@@ -49,7 +49,8 @@ export const Footer = () => {
 
 // @ts-ignore
 const Wrapper = styled.footer`
-  background-color: var(--light-purple);
+  /* background-color: var(--light-purple); */
+  background-color: #111;
 
   .top {
     display: flex;
@@ -63,12 +64,13 @@ const Wrapper = styled.footer`
     h2 {
       font-family: "Poppins", sans-serif;
       font-size: 0.7rem;
-      font-weight: 900;
+      font-weight: 700;
+      color: #29325a;
     }
     a {
       height: 1.5rem;
       text-decoration: none;
-      color: black;
+      color: #6d46f8;
       margin: 0.6rem 0 0;
       display: flex;
       align-items: center;

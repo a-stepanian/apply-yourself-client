@@ -76,3 +76,10 @@ export interface IApplicationModel {
   status: string;
   __v: number;
 }
+
+export interface IStyleTheme {
+  primaryBackground: string;
+  color1: string;
+  color2: string;
+  color3: string;
+}
