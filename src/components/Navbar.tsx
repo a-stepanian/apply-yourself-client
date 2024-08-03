@@ -16,7 +16,7 @@ export const Navbar = () => {
         <img src="/logo512.png" width={50} height={40} alt="" />
         <h1>Apply Yourself</h1>
       </Link>
-      <Link to="/jobs" className="logo page-link">
+      <Link to="/jobs" className="logo page-link job-listings">
         Job Listings
       </Link>
       <Hamburger />
@@ -71,10 +71,13 @@ export const Navbar = () => {
 
 // @ts-ignore
 const Wrapper = styled.nav`
-  position: relative;
-  z-index: 3;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 99;
   width: 100%;
-  padding: 2px 8px;
+  padding: 0 8px;
+  height: 48px;
   background: #111;
   display: flex;
   align-items: center;
@@ -89,6 +92,7 @@ const Wrapper = styled.nav`
     display: flex;
     align-items: center;
     img {
+      display: none;
       border-radius: 20%;
       margin-right: 6px;
     }
@@ -96,9 +100,14 @@ const Wrapper = styled.nav`
       text-decoration: none;
     }
     h1 {
+      font-size: 1.1rem;
       font-weight: 400;
       color: #3a5eff;
     }
+  }
+
+  .job-listings {
+    display: none;
   }
   .divider,
   .links > a,
@@ -161,6 +170,11 @@ const Wrapper = styled.nav`
     }
     .slide-in {
       right: 0;
+    }
+  }
+  @media (min-width: 768px) {
+    .logo img {
+      display: block;
     }
   }
 `;

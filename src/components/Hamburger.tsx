@@ -27,9 +27,9 @@ const Wrapper = styled.button`
   }
   .line {
     position: absolute;
-    width: 2rem;
+    width: 1.3rem;
     height: 1.5px;
-    background-color: black;
+    background-color: #6d46f8;
     transition: 0.6s;
   }
   .top {
@@ -40,10 +40,12 @@ const Wrapper = styled.button`
   }
   .top-open {
     top: 1rem;
+    width: 0.9rem;
     transform: rotate(45deg);
   }
   .bottom-open {
     top: 1rem;
+    width: 0.9rem;
     transform: rotate(-45deg);
   }
   @media (min-width: 768px) {

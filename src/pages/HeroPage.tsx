@@ -50,10 +50,16 @@ export const HeroPage = () => {
     <Wrapper>
       {/* <LineDesign /> */}
       <div className="hero-text-wrapper">
-        <TypingEffect text="Land your dream job." textElementType="h1" speedInMilliseconds={40} />
+        <TypingEffect text="Land your dream job." textElementType="h1" speedInMilliseconds={50} />
+        <a href="/jobs" className="get-started-cta">
+          Get Started Now
+        </a>
       </div>
-      <img className="main-svg" src="desk-pink.svg" alt="Happy employees collaborating at work." />
-      <div className="register-wrapper">
+      {/* <img className="main-svg" src="desk-pink.svg" alt="Happy employees collaborating at work." /> */}
+      <div className="astronaut-wrapper">
+        <img className="astronaut" src="purple-astronaut.svg" alt="Happy Astronaut." />
+      </div>
+      {/* <div className="register-wrapper">
         {loggedIn ? (
           <Link to="/dashboard" className="register">
             Go To Your Dashboard
@@ -63,7 +69,7 @@ export const HeroPage = () => {
             Sign up for a free account
           </Link>
         )}
-      </div>
+      </div> */}
       {!loggedIn && (
         <div className="login-wrapper">
           <p>
@@ -81,6 +87,8 @@ export const HeroPage = () => {
         <p className="details">Getting a job can be difficult - managing the process shouldn't be.</p>
         <div className="svg-wrapper">
           {/* <img className="hero1-svg svg" src="manage.svg" alt="Employee managing their application process." /> */}
+        </div>
+        <div>
           <img
             className="hero1-svg svg"
             src="brainstorm-purple.svg"
@@ -140,7 +148,7 @@ export const HeroPage = () => {
 const Wrapper = styled.main`
   position: relative;
   width: 100%;
-  padding: 0 1rem;
+  padding: 48px 1rem;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
@@ -151,18 +159,44 @@ const Wrapper = styled.main`
     width: 100vw;
     padding: 0 10vw;
     display: flex;
+    min-height: 20rem;
+    padding-top: 3rem;
+    position: relative;
   }
   h1 {
-    width: 17rem;
-    width: 5rem;
-    height: 8rem;
-    margin: 8rem 0;
+    width: 170px;
+    min-height: 280px;
     font-size: 3.5rem;
-    line-height: 3rem;
+    line-height: 3.5rem;
     z-index: 1;
     font-family: "Poppins", sans-serif;
     color: #3a5eff;
     text-shadow: 0 0 80px rgb(115, 0, 255);
+  }
+  .get-started-cta {
+    position: absolute;
+    top: 360px;
+    right: 10vw;
+    background: #c024ff;
+    padding: 1rem 2rem;
+    text-decoration: none;
+    font-weight: 700;
+    color: #111;
+    border-radius: 5px;
+  }
+
+  .astronaut-wrapper {
+    position: absolute;
+    top: 48px;
+    right: -5vw;
+    width: calc(30% - 10px);
+    padding-top: 2rem;
+    z-index: 999;
+    opacity: 0;
+    animation: fadeInLight 2.3s ease-in forwards;
+    img {
+      width: 100%;
+    }
   }
 
   .main-svg {
@@ -218,8 +252,8 @@ const Wrapper = styled.main`
       top: 0;
       z-index: 0;
       width: 100vw;
-      height: 6rem;
-      transition: 1s;
+      height: 16rem;
+      transition: 0.5s ease-out;
       transform: translateX(110%);
     }
     .details {
@@ -244,7 +278,7 @@ const Wrapper = styled.main`
       z-index: 0;
       width: 100vw;
       height: 2rem;
-      transition: 1s;
+      transition: 0.5s ease-out;
       transform: translateX(-100%);
     }
     .slide-left {
@@ -259,7 +293,8 @@ const Wrapper = styled.main`
   .hero1 {
     .blue-block-top,
     .blue-block-bottom {
-      background-color: var(--blue);
+      /* background-color: var(--blue); */
+      background-color: #3a5eff;
     }
     .hero1-svg {
       padding: 1rem;
@@ -338,13 +373,17 @@ const Wrapper = styled.main`
   /* Media Queries */
   @media (min-width: 480px) {
     h1 {
-      width: 20rem;
+      /* width: 20rem; */
       height: 8rem;
       font-size: 4.2rem;
-      line-height: 5rem;
+      /* line-height: 5rem; */
+      line-height: 4rem;
     }
     .main-svg {
       margin-bottom: 5rem;
+    }
+    .astronaut-wrapper {
+      right: 10px;
     }
     .register-wrapper,
     .login-wrapper {
@@ -375,7 +414,8 @@ const Wrapper = styled.main`
 
   @media (min-width: 768px) {
     h1 {
-      width: 100%;
+      /* width: 100%; */
+      width: 26rem;
       margin: 25vh 0 40vh;
       font-size: 4.5rem;
       line-height: 4.5rem;
@@ -428,6 +468,8 @@ const Wrapper = styled.main`
     h1 {
       margin: 25vh 0 40vh;
       font-size: 5.5rem;
+      line-height: 5.5rem;
+      width: 31rem;
     }
     .register-wrapper,
     .login-wrapper {
@@ -445,6 +487,15 @@ const Wrapper = styled.main`
       top: calc(60vh + 2.5rem);
     }
   }
+  @media (min-width: 1200px) {
+    h1 {
+      line-height: 7rem;
+    }
+    .hero-text-wrapper {
+      width: 100vw;
+      padding: 0 20vw;
+    }
+  }
 
   /* Animations */
   @keyframes fadeIn {
@@ -456,6 +507,21 @@ const Wrapper = styled.main`
     }
     100% {
       opacity: 1;
+    }
+  }
+  @keyframes fadeInLight {
+    0% {
+      opacity: 0;
+    }
+    25% {
+      opacity: 0;
+    }
+    75% {
+      transform: scale(1.1);
+    }
+    100% {
+      opacity: 0.1;
+      transform: scale(1.1);
     }
   }
   @keyframes hover {

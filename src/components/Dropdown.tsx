@@ -13,7 +13,7 @@ export const Dropdown = () => {
       <nav className={isDropdownOpen ? "open" : ""}>
         {loggedIn && (
           <>
-            <Link to="/jobs" className="logo page-link">
+            <Link to="/jobs" className="logo page-link" onClick={() => toggleDropdown()}>
               Job Listings
             </Link>
             <Link to="/applications" onClick={() => toggleDropdown()}>
@@ -54,24 +54,26 @@ export const Dropdown = () => {
 // @ts-ignore
 const Wrapper = styled.div`
   position: relative;
-  z-index: 2;
+  z-index: 98;
   width: 100%;
 
   nav {
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: 48px;
     left: 0;
     width: 100%;
-    height: 15rem;
-    background-color: var(--white);
-    box-shadow: 2px 2px 5px var(--beige2);
+    height: calc(100vh - 48px);
+    background: linear-gradient(#3a5eff, #c024ff);
+    /* background-color: var(--black); */
+    /* box-shadow: 2px 2px 5px var(--beige2); */
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     justify-content: space-evenly;
     transition: 0.4s;
-    transform: translateY(-15rem);
+    transform: translateY(-100vh);
     a {
+      font-size: 1.6rem;
       padding: 0.2rem;
       color: black;
       text-decoration: none;

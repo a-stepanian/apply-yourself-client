@@ -25,7 +25,7 @@ export const Metrics = (props: IMetricsProps) => {
 
   const avgRespTime = respTime?.reduce((total: number, next: any) => total + next.difference, 0) / respTime.length;
 
-  const countSpeed = 30;
+  const countSpeed = 70;
 
   // counting effect for the metrics
   useEffect(() => {
