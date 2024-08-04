@@ -8,7 +8,7 @@ interface IDarkModeButtonProps {
 }
 
 export const DarkModeButton = (props: IDarkModeButtonProps) => {
-  const { theme, toggleDarkMode } = props;
+  const { toggleDarkMode } = props;
   return (
     <Wrapper onClick={toggleDarkMode} title="Toggle Dark Mode">
       <BsMoonStars className="moon" />

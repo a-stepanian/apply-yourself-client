@@ -126,7 +126,7 @@ export const NewAppPage = () => {
                     required={true}
                     type="radio"
                     id="positionApplied"
-                    name="positionApplied"
+                    name="status"
                     value="Applied"
                     checked={form.status === "Applied"}
                     onChange={e => updateForm(e)}
@@ -138,7 +138,7 @@ export const NewAppPage = () => {
                     required={true}
                     type="radio"
                     id="positionDeclined"
-                    name="positionDeclined"
+                    name="status"
                     value="Declined"
                     checked={form.status === "Declined"}
                     onChange={e => updateForm(e)}
@@ -150,7 +150,7 @@ export const NewAppPage = () => {
                     required={true}
                     type="radio"
                     id="positionInterview"
-                    name="positionInterview"
+                    name="status"
                     value="Interview"
                     checked={form.status === "Interview"}
                     onChange={e => updateForm(e)}

@@ -159,7 +159,7 @@ const Wrapper = styled.main`
     font-size: 3.5rem;
     line-height: 3.5rem;
     z-index: 1;
-    color: #3a5eff;
+    color: ${({ theme }) => theme.color1};
     text-shadow: 0 0 80px rgb(115, 0, 255);
   }
   .get-started-cta {

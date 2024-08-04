@@ -111,6 +111,9 @@ const Wrapper = styled.nav`
   @media (min-width: 768px) {
     transition: background-color 0.2s linear;
     background-color: ${({ theme }) => theme.bodyBackground};
+    .nav-left {
+      width: 200px;
+    }
     .nav-center {
       display: flex;
       justify-content: center;
@@ -136,7 +139,9 @@ const Wrapper = styled.nav`
     }
     .nav-right {
       display: flex;
+      justify-content: flex-end;
       height: 100%;
+      width: 200px;
       .nav-link {
         display: flex;
         align-items: center;
@@ -149,7 +154,7 @@ const Wrapper = styled.nav`
         }
       }
       .register-link {
-        margin: 6px 2rem 6px 1rem;
+        margin: 6px 1rem 6px;
         border: 1px solid ${({ theme }) => theme.color3};
         border-radius: 3px;
         color: ${({ theme }) => theme.color3};
