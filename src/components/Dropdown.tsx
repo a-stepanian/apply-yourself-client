@@ -5,13 +5,23 @@ import { Link } from "react-router-dom";
 import { LogoutButton } from "./LogoutButton";
 import { RiFolderChartLine, RiFolderOpenLine, RiFolderAddLine, RiUserAddLine, RiLoginBoxLine } from "react-icons/ri";
 import { useAppContext } from "../context/AppContext";
+import { DarkModeButton } from "./DarkModeButton";
 
-export const Dropdown = () => {
+interface IDropdownProps {
+  theme: any;
+  toggleDarkMode: any;
+}
+
+export const Dropdown = (props: IDropdownProps) => {
+  const { theme, toggleDarkMode } = props;
   const { loggedIn, isDropdownOpen, toggleDropdown } = useAppContext();
   return (
     <Wrapper>
       <nav className={isDropdownOpen ? "open" : ""}>
-        {loggedIn && (
+        <Link to="/jobs" className="logo page-link" onClick={() => toggleDropdown()}>
+          Job Listings
+        </Link>
+        {loggedIn ? (
           <>
             <Link to="/applications" onClick={() => toggleDropdown()}>
               <span>View All</span>
@@ -27,8 +37,7 @@ export const Dropdown = () => {
             </Link>
             <LogoutButton />
           </>
-        )}
-        {!loggedIn && (
+        ) : (
           <>
             <Link to="/register" onClick={() => toggleDropdown()}>
               <span>Register</span>
@@ -40,6 +49,7 @@ export const Dropdown = () => {
             </Link>
           </>
         )}
+        <DarkModeButton theme={theme} toggleDarkMode={() => toggleDarkMode()} />
       </nav>
     </Wrapper>
   );
@@ -48,24 +58,25 @@ export const Dropdown = () => {
 // @ts-ignore
 const Wrapper = styled.div`
   position: relative;
-  z-index: 2;
   width: 100%;
+  z-index: 99;
 
   nav {
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: 48px;
     left: 0;
     width: 100%;
-    height: 15rem;
-    background-color: var(--white);
-    box-shadow: 2px 2px 5px var(--beige2);
+    height: calc(100vh - 48px);
+    padding: 48px 12px;
+    background: ${({ theme }) =>
+      theme.name === "darkMode" ? `linear-gradient( ${theme.color1}, ${theme.color3})` : theme.bodyBackground};
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
-    transition: 0.4s;
-    transform: translateY(-15rem);
+    transition: transform 0.5s ease-out;
+    transform: translateY(calc(-100vh - 300px));
     a {
+      font-size: 1.6rem;
       padding: 0.2rem;
       color: black;
       text-decoration: none;

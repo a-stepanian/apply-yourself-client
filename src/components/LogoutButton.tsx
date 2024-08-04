@@ -31,12 +31,11 @@ export const LogoutButton = () => {
 
 const Wrapper = styled.button`
   background-color: transparent;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Playfair Display", serif;
-  font-size: 1rem;
+
+  font-size: 1.6rem;
 
   &:hover {
     cursor: pointer;

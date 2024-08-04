@@ -7,6 +7,7 @@ import { RiLinkedinBoxFill, RiProfileLine, RiComputerLine, RiServerLine } from "
 export const Footer = () => {
   return (
     <Wrapper>
+      <div className="top-border"></div>
       <section className="top">
         <article className="sitemap">
           <h2>Sitemap</h2>
@@ -37,34 +38,47 @@ export const Footer = () => {
           <img src="/connect.svg" alt="Global connections." />
         </div>
       </section>
-      <p className="copyright">&copy;2022 Apply Yourself</p>
+      <div className="copyright">
+        <div className="top-border"></div>
+        <p>&copy;2022 Apply Yourself</p>
+        <p>
+          Designed & Developed by <a href="https://www.alex-stepanian.com">Alex Stepanian</a>
+        </p>
+      </div>
     </Wrapper>
   );
 };
 
 // @ts-ignore
 const Wrapper = styled.footer`
-  background-color: var(--light-purple);
-
+  position: relative;
+  .top-border {
+    position: absolute;
+    z-index: 90;
+    top: 0;
+    width: 100%;
+    height: 1px;
+    background: ${({ theme }) => `linear-gradient(90deg, ${theme.color1}, ${theme.color3})`};
+  }
   .top {
     display: flex;
     justify-content: space-evenly;
   }
 
   .sitemap {
-    margin: 3rem 0;
+    margin: 3rem 0 1rem;
     display: flex;
     flex-direction: column;
     h2 {
-      font-family: "Josefin Slab", serif;
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: ${({ theme }) => theme.color1};
     }
     a {
       height: 1.5rem;
       text-decoration: none;
-      color: black;
-      margin: 0.6rem 0;
+      color: #6d46f8;
+      margin: 0.6rem 0 0;
       display: flex;
       align-items: center;
     }
@@ -79,19 +93,33 @@ const Wrapper = styled.footer`
   }
 
   .copyright {
+    position: relative;
     width: 100%;
-    background-color: var(--purple);
-    padding: 1rem 0;
-    text-align: center;
-    font-size: 0.9rem;
-    font-weight: 800;
-    letter-spacing: 0.1rem;
+    background: ${({ theme }) => theme.bodyBackground};
+    font-size: 0.7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    p {
+      margin-top: 10px;
+      text-align: center;
+      color: ${({ theme }) => theme.color1};
+      &:last-of-type {
+        font-weight: 700;
+        font-size: 0.6rem;
+        a {
+          white-space: nowrap;
+          color: ${({ theme }) => theme.color1};
+        }
+      }
+    }
   }
   @media (min-width: 990px) {
     .sitemap {
       h2 {
-        font-size: 1.6rem;
-        margin: 1rem 0;
+        font-size: 0.8rem;
+        margin-top: 1rem;
       }
     }
     .img-wrapper {

@@ -4,7 +4,7 @@ import { MdTimer } from "react-icons/md";
 import { RiReplyLine, RiStackLine } from "react-icons/ri";
 // @ts-ignore
 import styled from "styled-components";
-import { IApplicationModel } from "../models/models";
+import { IApplicationModel } from "../interfaces/interfaces";
 import { IResponseTime, IWaitTime } from "../pages/DashboardPage";
 
 interface IMetricsProps {
@@ -25,7 +25,7 @@ export const Metrics = (props: IMetricsProps) => {
 
   const avgRespTime = respTime?.reduce((total: number, next: any) => total + next.difference, 0) / respTime.length;
 
-  const countSpeed = 30;
+  const countSpeed = 70;
 
   // counting effect for the metrics
   useEffect(() => {
@@ -110,7 +110,7 @@ const Wrapper = styled.section`
     height: 5rem;
     width: calc(50% - 1.2rem);
     margin: 0.2rem;
-    font-family: "Josefin Slab", serif;
+
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { GrEdit } from "react-icons/gr";
 import { MdOutlineLocationOn, MdExpandLess, MdExpandMore } from "react-icons/md";
-import { IApplicationModel } from "../models/models";
+import { IApplicationModel } from "../interfaces/interfaces";
 
 interface IJobProps {
   app: IApplicationModel;
@@ -116,7 +116,6 @@ const Wrapper = styled.article`
       }
       .location {
         font-size: 0.8rem;
-        font-family: "Josefin Slab", serif;
       }
     }
 
@@ -129,7 +128,6 @@ const Wrapper = styled.article`
       font-size: 0.6rem;
       font-weight: 100;
       border-left: 1px solid rgba(0, 0, 0, 0.1);
-      font-family: Arial, Helvetica, sans-serif;
       p {
         text-align: end;
       }
@@ -161,7 +159,6 @@ const Wrapper = styled.article`
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     .comments {
       width: 100%;
-      font-family: Arial, Helvetica, sans-serif;
       font-weight: 100;
       font-size: 0.8rem;
       margin-bottom: 1rem;
@@ -173,7 +170,6 @@ const Wrapper = styled.article`
       justify-content: flex-end;
       .edit {
         width: 1rem;
-        font-family: Arial, Helvetica, sans-serif;
         font-size: 1rem;
         font-weight: 900;
         color: gray;

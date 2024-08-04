@@ -126,7 +126,7 @@ export const NewAppPage = () => {
                     required={true}
                     type="radio"
                     id="positionApplied"
-                    name="positionApplied"
+                    name="status"
                     value="Applied"
                     checked={form.status === "Applied"}
                     onChange={e => updateForm(e)}
@@ -138,7 +138,7 @@ export const NewAppPage = () => {
                     required={true}
                     type="radio"
                     id="positionDeclined"
-                    name="positionDeclined"
+                    name="status"
                     value="Declined"
                     checked={form.status === "Declined"}
                     onChange={e => updateForm(e)}
@@ -150,7 +150,7 @@ export const NewAppPage = () => {
                     required={true}
                     type="radio"
                     id="positionInterview"
-                    name="positionInterview"
+                    name="status"
                     value="Interview"
                     checked={form.status === "Interview"}
                     onChange={e => updateForm(e)}
@@ -226,7 +226,7 @@ const Wrapper = styled.main`
       border: 2px solid rgba(0, 0, 0, 0.3);
       border-radius: 2px;
       background-color: rgba(215, 210, 255, 0.5);
-      font-family: "Playfair Display", serif;
+
       font-weight: 700;
       &:hover {
         cursor: pointer;

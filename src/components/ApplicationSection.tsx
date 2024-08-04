@@ -7,7 +7,7 @@ import { useAppContext } from "../context/AppContext";
 import { RiFolderAddLine } from "react-icons/ri";
 import { Filter } from "./Filter";
 import { LineDesign } from "./LineDesign";
-import { IApplicationModel } from "../models/models";
+import { IApplicationModel } from "../interfaces/interfaces";
 
 export const ApplicationSection = () => {
   const [filter, setFilter] = useState<string>("all");
@@ -67,12 +67,10 @@ const Wrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: var(--main-bg);
   overflow-x: hidden;
   align-items: center;
   min-height: 38rem;
   .sticky-header {
-    background-color: var(--white);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -84,7 +82,6 @@ const Wrapper = styled.div`
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
     .my-applications {
       margin-top: 0.5rem;
-      font-family: "Josefin Slab", serif;
     }
     .button-wrapper {
       padding: 1rem;

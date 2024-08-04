@@ -36,30 +36,30 @@ export const JobsPage = () => {
       } catch (err) {
         console.log(err);
       }
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 300);
+      setIsLoading(false);
     };
     getJobs();
   }, [currentPage]);
 
   return (
     <Wrapper>
-      <label htmlFor="company">Filter by Company</label>
-      <input type="text" name="company" placeholder="company" />
-      <div className="flex">
-        {currentPage > 1 && <button onClick={() => setCurrentPage(currentPage - 1)}>{currentPage - 1}</button>}
-        <button disabled>{currentPage}</button>
-        <button onClick={() => setCurrentPage(currentPage + 1)}>{currentPage + 1}</button>
-      </div>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <>
-          {currentJobPageResults?.results?.length > 0 &&
-            currentJobPageResults?.results.map(x => <JobListing key={x.id} job={x} />)}
-        </>
-      )}
+      <section className="container">
+        <label htmlFor="company">Filter by Company</label>
+        <input type="text" name="company" placeholder="company" />
+        <div className="flex">
+          {currentPage > 1 && <button onClick={() => setCurrentPage(currentPage - 1)}>{currentPage - 1}</button>}
+          <button disabled>{currentPage}</button>
+          <button onClick={() => setCurrentPage(currentPage + 1)}>{currentPage + 1}</button>
+        </div>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            {currentJobPageResults?.results?.length > 0 &&
+              currentJobPageResults?.results.map(x => <JobListing key={x.id} job={x} />)}
+          </>
+        )}
+      </section>
     </Wrapper>
   );
 };
@@ -67,29 +67,35 @@ export const JobsPage = () => {
 // @ts-ignore
 const Wrapper = styled.main`
   min-height: 100vh;
-  position: relative;
-  padding: 0 1rem;
-  overflow-x: hidden;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  h1,
-  input {
-    margin-bottom: 1rem;
-  }
-  .flex > button {
-    padding: 0.5rem 1rem;
-    background-color: var(--purple2);
-    border-radius: 3px;
-    margin: 0 0.5rem 1rem;
-    font-family: "Josefin Slab", serif;
-    &:hover {
-      cursor: pointer;
-      opacity: 0.7;
+  justify-content: center;
+  .container {
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+    padding: 0 1rem;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h1,
+    input {
+      margin-bottom: 1rem;
     }
-    &:disabled {
-      cursor: default;
-      opacity: 1;
+    .flex > button {
+      padding: 0.5rem 1rem;
+      background-color: var(--purple2);
+      border-radius: 3px;
+      margin: 0 0.5rem 1rem;
+
+      &:hover {
+        cursor: pointer;
+        opacity: 0.7;
+      }
+      &:disabled {
+        cursor: default;
+        opacity: 1;
+      }
     }
   }
 `;

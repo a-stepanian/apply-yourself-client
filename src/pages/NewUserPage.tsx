@@ -141,7 +141,6 @@ const Wrapper = styled.section`
         padding: 0.2rem;
         width: 8.5rem;
         font-size: 1rem;
-        font-family: "Playfair Display", serif;
       }
     }
     .date-and-status {
@@ -175,7 +174,7 @@ const Wrapper = styled.section`
       border: 2px solid rgba(0, 0, 0, 0.3);
       border-radius: 2px;
       background-color: rgba(215, 210, 255, 0.5);
-      font-family: "Playfair Display", serif;
+
       font-weight: 700;
       font-size: 1.1rem;
       &:hover {
