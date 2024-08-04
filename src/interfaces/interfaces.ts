@@ -47,8 +47,11 @@ export interface IAppState {
   getLoggedIn: () => void;
   toggleDropdown: () => void;
   isDropdownOpen: boolean;
+  toggleUserDropdown: () => void;
+  isUserDropdownOpen: boolean;
   currentJobPageResults: IJobPageResults;
   setCurrentJobPageResults: React.Dispatch<React.SetStateAction<IJobPageResults>>;
+  setIsUserDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IUserModel {
@@ -78,8 +81,13 @@ export interface IApplicationModel {
 }
 
 export interface IStyleTheme {
-  primaryBackground: string;
+  name: string;
+  primaryFont: string;
+  bodyBackground: string;
   color1: string;
+  backgroundColor1: string;
   color2: string;
+  backgroundColor2: string;
   color3: string;
+  backgroundColor3: string;
 }

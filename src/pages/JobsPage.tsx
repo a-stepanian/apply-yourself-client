@@ -82,7 +82,7 @@ const Wrapper = styled.main`
     background-color: var(--purple2);
     border-radius: 3px;
     margin: 0 0.5rem 1rem;
-    font-family: "Poppins", sans-serif;
+
     &:hover {
       cursor: pointer;
       opacity: 0.7;

@@ -18,8 +18,10 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [currentJobPageResults, setCurrentJobPageResults] = useState<any>(null);
   const [user, setUser] = useState<IUserModel | undefined>(undefined);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState<boolean>(false);
 
   const toggleDropdown = () => setIsDropdownOpen(currentValue => !currentValue);
+  const toggleUserDropdown = () => setIsUserDropdownOpen(currentValue => !currentValue);
 
   const fetchApplications = async () => {
     try {
@@ -110,6 +112,9 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     getLoggedIn,
     isDropdownOpen,
     toggleDropdown,
+    isUserDropdownOpen,
+    setIsUserDropdownOpen,
+    toggleUserDropdown,
     currentJobPageResults,
     setCurrentJobPageResults
   };

@@ -51,9 +51,9 @@ export const HeroPage = () => {
       {/* <LineDesign /> */}
       <div className="hero-text-wrapper">
         <TypingEffect text="Land your dream job." textElementType="h1" speedInMilliseconds={50} />
-        <a href="/jobs" className="get-started-cta">
-          Get Started Now
-        </a>
+        <Link to="/jobs" className="get-started-cta">
+          Search openings now
+        </Link>
       </div>
       {/* <img className="main-svg" src="desk-pink.svg" alt="Happy employees collaborating at work." /> */}
       <div className="astronaut-wrapper">
@@ -70,16 +70,6 @@ export const HeroPage = () => {
           </Link>
         )}
       </div> */}
-      {!loggedIn && (
-        <div className="login-wrapper">
-          <p>
-            Already have an account?
-            <Link to="/login" className="login">
-              Log In
-            </Link>
-          </p>
-        </div>
-      )}
       <div className="scroll-target" />
       <article className="hero hero1">
         <h2 className="info">Manage the application process</h2>
@@ -152,7 +142,7 @@ const Wrapper = styled.main`
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  background-color: rgb(4, 0, 12);
+  /* background-color: rgb(4, 0, 12); */
   justify-content: center;
   align-items: center;
   .hero-text-wrapper {
@@ -169,7 +159,6 @@ const Wrapper = styled.main`
     font-size: 3.5rem;
     line-height: 3.5rem;
     z-index: 1;
-    font-family: "Poppins", sans-serif;
     color: #3a5eff;
     text-shadow: 0 0 80px rgb(115, 0, 255);
   }
@@ -178,11 +167,13 @@ const Wrapper = styled.main`
     top: 360px;
     right: 10vw;
     background: #c024ff;
-    padding: 1rem 2rem;
+    padding: 1.5rem 3rem;
     text-decoration: none;
-    font-weight: 700;
+    font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.2rem" : "1.4rem")};
+    font-weight: ${({ theme }) => (theme.name === "darkMode" ? "500" : "700")};
     color: #111;
     border-radius: 5px;
+    z-index: 55;
   }
 
   .astronaut-wrapper {
@@ -191,7 +182,7 @@ const Wrapper = styled.main`
     right: -5vw;
     width: calc(30% - 10px);
     padding-top: 2rem;
-    z-index: 999;
+    z-index: 9;
     opacity: 0;
     animation: fadeInLight 2.3s ease-in forwards;
     img {
@@ -245,7 +236,6 @@ const Wrapper = styled.main`
       font-size: 2rem;
       height: 4rem;
       margin: 1rem 0 2rem 1rem;
-      font-family: "Poppins", sans-serif;
     }
     .block-top {
       position: absolute;
@@ -359,7 +349,6 @@ const Wrapper = styled.main`
       margin-bottom: 2rem;
       text-align: center;
       font-size: 3rem;
-      font-family: "Poppins", sans-serif;
     }
     .sign-up {
       width: 10rem;
@@ -413,10 +402,13 @@ const Wrapper = styled.main`
   }
 
   @media (min-width: 768px) {
+    .hero-text-wrapper {
+      padding-top: 0;
+    }
     h1 {
       /* width: 100%; */
       width: 26rem;
-      margin: 25vh 0 40vh;
+      margin: 15vh 0 40vh;
       font-size: 4.5rem;
       line-height: 4.5rem;
     }
@@ -466,7 +458,6 @@ const Wrapper = styled.main`
 
   @media (min-width: 990px) {
     h1 {
-      margin: 25vh 0 40vh;
       font-size: 5.5rem;
       line-height: 5.5rem;
       width: 31rem;

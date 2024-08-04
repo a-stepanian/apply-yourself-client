@@ -110,7 +110,7 @@ const Wrapper = styled.section`
     height: 5rem;
     width: calc(50% - 1.2rem);
     margin: 0.2rem;
-    font-family: "Poppins", sans-serif;
+
     display: flex;
     flex-direction: column;
     align-items: center;

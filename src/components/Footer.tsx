@@ -7,6 +7,7 @@ import { RiLinkedinBoxFill, RiProfileLine, RiComputerLine, RiServerLine } from "
 export const Footer = () => {
   return (
     <Wrapper>
+      <div className="top-border"></div>
       <section className="top">
         <article className="sitemap">
           <h2>Sitemap</h2>
@@ -38,6 +39,7 @@ export const Footer = () => {
         </div>
       </section>
       <div className="copyright">
+        <div className="top-border"></div>
         <p>&copy;2022 Apply Yourself</p>
         <p>
           Designed & Developed by <a href="https://www.alex-stepanian.com">Alex Stepanian</a>
@@ -49,9 +51,15 @@ export const Footer = () => {
 
 // @ts-ignore
 const Wrapper = styled.footer`
-  /* background-color: var(--light-purple); */
-  background-color: #111;
-
+  position: relative;
+  .top-border {
+    position: absolute;
+    z-index: 90;
+    top: 0;
+    width: 100%;
+    height: 1px;
+    background: ${({ theme }) => `linear-gradient(90deg, ${theme.color1}, ${theme.color3})`};
+  }
   .top {
     display: flex;
     justify-content: space-evenly;
@@ -62,10 +70,9 @@ const Wrapper = styled.footer`
     display: flex;
     flex-direction: column;
     h2 {
-      font-family: "Poppins", sans-serif;
       font-size: 0.7rem;
       font-weight: 700;
-      color: #29325a;
+      color: ${({ theme }) => theme.color1};
     }
     a {
       height: 1.5rem;
@@ -86,9 +93,9 @@ const Wrapper = styled.footer`
   }
 
   .copyright {
+    position: relative;
     width: 100%;
-    background: linear-gradient(#111, 85%, #3a5eff);
-    padding: 0;
+    background: ${({ theme }) => theme.bodyBackground};
     font-size: 0.7rem;
     display: flex;
     flex-direction: column;
@@ -97,16 +104,13 @@ const Wrapper = styled.footer`
     p {
       margin-top: 10px;
       text-align: center;
-      &:first-of-type {
-        color: #3a5eff;
-      }
+      color: ${({ theme }) => theme.color1};
       &:last-of-type {
         font-weight: 700;
         font-size: 0.6rem;
-        color: #222;
         a {
-          color: #000e4f;
           white-space: nowrap;
+          color: ${({ theme }) => theme.color1};
         }
       }
     }

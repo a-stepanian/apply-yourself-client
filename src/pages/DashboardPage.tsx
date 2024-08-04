@@ -194,7 +194,6 @@ const Wrapper = styled.main`
   flex-direction: column;
   align-items: center;
   .dashboard-section {
-    background-color: var(--white);
     margin: 1rem;
     width: 100%;
     box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);

@@ -59,7 +59,6 @@ const Wrapper = styled.form`
   }
 
   .filter-btn {
-    font-family: "Poppins", sans-serif;
     position: relative;
     z-index: 1;
     height: 2rem;

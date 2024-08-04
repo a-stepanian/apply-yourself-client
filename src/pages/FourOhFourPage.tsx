@@ -14,14 +14,13 @@ export const FourOhFourPage = () => {
 };
 
 const Wrapper = styled.main`
-  background-color: var(--dark-blue);
+  background-color: ${({ theme }) => (theme.name === "darkMode" ? theme.bodyBackground : "#11172c")};
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 3rem;
   p {
     color: var(--yellow);
-    font-family: "Poppins", sans-serif;
     font-weight: 900;
   }
   .four-oh-four {

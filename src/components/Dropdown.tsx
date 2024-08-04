@@ -5,17 +5,24 @@ import { Link } from "react-router-dom";
 import { LogoutButton } from "./LogoutButton";
 import { RiFolderChartLine, RiFolderOpenLine, RiFolderAddLine, RiUserAddLine, RiLoginBoxLine } from "react-icons/ri";
 import { useAppContext } from "../context/AppContext";
+import { DarkModeButton } from "./DarkModeButton";
 
-export const Dropdown = () => {
+interface IDropdownProps {
+  theme: any;
+  toggleDarkMode: any;
+}
+
+export const Dropdown = (props: IDropdownProps) => {
+  const { theme, toggleDarkMode } = props;
   const { loggedIn, isDropdownOpen, toggleDropdown } = useAppContext();
   return (
     <Wrapper>
       <nav className={isDropdownOpen ? "open" : ""}>
-        {loggedIn && (
+        <Link to="/jobs" className="logo page-link" onClick={() => toggleDropdown()}>
+          Job Listings
+        </Link>
+        {loggedIn ? (
           <>
-            <Link to="/jobs" className="logo page-link" onClick={() => toggleDropdown()}>
-              Job Listings
-            </Link>
             <Link to="/applications" onClick={() => toggleDropdown()}>
               <span>View All</span>
               <RiFolderOpenLine className="icon" />
@@ -30,8 +37,7 @@ export const Dropdown = () => {
             </Link>
             <LogoutButton />
           </>
-        )}
-        {!loggedIn && (
+        ) : (
           <>
             <Link to="/register" onClick={() => toggleDropdown()}>
               <span>Register</span>
@@ -41,11 +47,9 @@ export const Dropdown = () => {
               <span>Login</span>
               <RiLoginBoxLine className="icon" />
             </Link>
-            <Link to="/jobs" className="logo page-link">
-              Job Listings
-            </Link>
           </>
         )}
+        <DarkModeButton theme={theme} toggleDarkMode={() => toggleDarkMode()} />
       </nav>
     </Wrapper>
   );
@@ -54,8 +58,8 @@ export const Dropdown = () => {
 // @ts-ignore
 const Wrapper = styled.div`
   position: relative;
-  z-index: 98;
   width: 100%;
+  z-index: 99;
 
   nav {
     position: fixed;
@@ -63,15 +67,14 @@ const Wrapper = styled.div`
     left: 0;
     width: 100%;
     height: calc(100vh - 48px);
-    background: linear-gradient(#3a5eff, #c024ff);
-    /* background-color: var(--black); */
-    /* box-shadow: 2px 2px 5px var(--beige2); */
+    padding: 48px 12px;
+    background: ${({ theme }) =>
+      theme.name === "darkMode" ? `linear-gradient( ${theme.color1}, ${theme.color3})` : theme.bodyBackground};
     display: flex;
     flex-direction: column;
-    align-items: start;
-    justify-content: space-evenly;
-    transition: 0.4s;
-    transform: translateY(-100vh);
+    align-items: center;
+    transition: transform 0.5s ease-out;
+    transform: translateY(calc(-100vh - 300px));
     a {
       font-size: 1.6rem;
       padding: 0.2rem;
