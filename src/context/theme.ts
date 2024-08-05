@@ -4,6 +4,7 @@ import { createGlobalStyle } from "styled-components";
 export const lightTheme: IStyleTheme = {
   name: "lightMode",
   primaryFont: "'Josefin Slab', serif",
+  primaryBorderRadius: "250px",
   bodyBackground: "#fafafa",
   color1: "#222",
   backgroundColor1: "#363537",
@@ -15,6 +16,7 @@ export const lightTheme: IStyleTheme = {
 export const darkTheme: IStyleTheme = {
   name: "darkMode",
   primaryFont: "'Poppins', san-serif",
+  primaryBorderRadius: "2px",
   bodyBackground: "#040012", // Dark Background
   color1: "#3a5eff", // Blue
   backgroundColor1: "#3a5eff", // Blue

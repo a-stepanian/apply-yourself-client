@@ -83,6 +83,7 @@ export interface IApplicationModel {
 export interface IStyleTheme {
   name: string;
   primaryFont: string;
+  primaryBorderRadius: string;
   bodyBackground: string;
   color1: string;
   backgroundColor1: string;

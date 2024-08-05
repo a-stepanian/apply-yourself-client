@@ -109,7 +109,7 @@ const Wrapper = styled.nav`
   }
 
   @media (min-width: 768px) {
-    transition: background-color 0.2s linear;
+    transition: 0.2s linear;
     background-color: ${({ theme }) => theme.bodyBackground};
     .nav-left {
       width: 200px;
@@ -156,7 +156,7 @@ const Wrapper = styled.nav`
       .register-link {
         margin: 6px 1rem 6px;
         border: 1px solid ${({ theme }) => theme.color3};
-        border-radius: 3px;
+        border-radius: ${({ theme }) => theme.primaryBorderRadius};
         color: ${({ theme }) => theme.color3};
         span {
           font-size: ${({ theme }) => (theme.name === "darkMode" ? "0.8rem" : "0.9rem")};

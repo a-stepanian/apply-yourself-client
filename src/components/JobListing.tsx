@@ -53,13 +53,11 @@ export const JobListing = (props: IJobListingProps) => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper style={{ height: `${showMore ? "400px" : "150px"}` }}>
       <div className="card">
-        <div className="title">
-          <h2>{job.name}</h2>
+        <h2>{job.name}</h2>
+        <div className="flex">
           <h3>{job.company.name}</h3>
-        </div>
-        <div className="button-group">
           <button
             type="button"
             className="view-details-button"
@@ -83,49 +81,47 @@ const Wrapper = styled.div`
   margin-bottom: 2rem;
   box-shadow: 0 2px 5px ${({ theme }) => theme.color2};
   background-color: #222;
+  height: auto;
+  transition: 1s linear;
   .card {
-    display: flex;
-    justify-content: space-between;
-    .title {
-      max-width: 67%;
-      h2 {
-        font-size: ${({ theme }) => (theme.name === "darkMode" ? "0.9rem" : "1rem")};
-        font-weight: ${({ theme }) => (theme.name === "darkMode" ? "500" : "700")};
-        /* color: ${({ theme }) => theme.color2}; */
-        color: #eee;
-        margin-bottom: 1rem;
-      }
-      h3 {
-        font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.2rem" : "1.4rem")};
-        font-weight: ${({ theme }) => (theme.name === "darkMode" ? "700" : "900")};
-        color: ${({ theme }) => theme.color2};
-      }
+    h2 {
+      font-size: ${({ theme }) => (theme.name === "darkMode" ? "0.9rem" : "1rem")};
+      font-weight: ${({ theme }) => (theme.name === "darkMode" ? "500" : "700")};
+      /* color: ${({ theme }) => theme.color2}; */
+      color: #eee;
+      margin-bottom: 1rem;
     }
-    .button-group {
+    .flex {
       display: flex;
-      flex-direction: column;
-      button {
-        width: 100px;
-        padding: 0.5rem 0;
-        border-radius: 3px;
+      justify-content: space-between;
+    }
+    h3 {
+      font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.2rem" : "1.4rem")};
+      font-weight: ${({ theme }) => (theme.name === "darkMode" ? "700" : "900")};
+      color: ${({ theme }) => theme.color2};
+    }
+    button {
+      width: 100px;
+      padding: 0.5rem 0;
+      border-radius: 3px;
+      color: ${({ theme }) => theme.bodyBackground};
+      background: ${({ theme }) => theme.color3};
+      border: 1px solid ${({ theme }) => theme.color3};
+      cursor: pointer;
+      &:hover {
+        color: ${({ theme }) => theme.color3};
+        background: ${({ theme }) =>
+          `linear-gradient(45deg, ${theme.color1}, ${theme.bodyBackground},${theme.color1})`};
+      }
+      &:disabled {
         color: ${({ theme }) => theme.bodyBackground};
-        background-color: ${({ theme }) => theme.color3};
-        border: 1px solid ${({ theme }) => theme.color3};
-        cursor: pointer;
-        &:hover {
-          color: ${({ theme }) => theme.color3};
-          background-color: ${({ theme }) => theme.bodyBackground};
-        }
-        &:disabled {
-          color: ${({ theme }) => theme.bodyBackground};
-          background-color: ${({ theme }) => theme.color3};
-        }
-        &:first-of-type {
-          margin-bottom: 1rem;
-          color: ${({ theme }) => theme.color1};
-          background-color: ${({ theme }) => theme.bodyBackground};
-          border: 1px solid ${({ theme }) => theme.color1};
-        }
+        background: ${({ theme }) => theme.color3};
+      }
+      &:first-of-type {
+        margin-bottom: 1rem;
+        color: ${({ theme }) => theme.color1};
+        background: ${({ theme }) => theme.bodyBackground};
+        border: 1px solid ${({ theme }) => theme.color1};
       }
     }
   }

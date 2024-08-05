@@ -18,7 +18,7 @@ import { GlobalStyles, lightTheme, darkTheme } from "./context/theme";
 import { DarkModeButton } from "./components/DarkModeButton";
 
 const App = () => {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
   const toggleDarkMode = () => {
     setCookie("darkMode", theme === "dark" ? "false" : "true", 7);
     setTheme(prev => (prev === "light" ? "dark" : "light"));
@@ -64,7 +64,7 @@ const App = () => {
             </div>
             <Dropdown theme={theme} toggleDarkMode={toggleDarkMode} />
             <Routes>
-              <Route path="/" element={<HeroPage />} />
+              <Route path="/" element={<HeroPage theme={theme} />} />
               <Route path="/jobs" element={<JobsPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
