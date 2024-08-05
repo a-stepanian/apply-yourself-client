@@ -20,22 +20,22 @@ export const DarkModeButton = (props: IDarkModeButtonProps) => {
 
 const Wrapper = styled.button`
   position: absolute;
-  bottom: 8px;
+  bottom: 72px;
   right: 12px;
   background: transparent;
   border: 2px solid #111;
   color: #111;
-  border-radius: 16px;
-  height: 28px;
-  width: 56px;
+  border-radius: 34px;
+  height: 36px;
+  width: 72px;
   cursor: pointer;
   .circle {
     position: absolute;
     top: -1px;
-    left: ${({ theme }) => `${theme.name === "darkMode" ? "28px" : "-1px"}`};
-    width: 27px;
-    height: 27px;
-    border-radius: 24px;
+    left: ${({ theme }) => `${theme.name === "darkMode" ? "36px" : "-1px"}`};
+    width: 34px;
+    height: 34px;
+    border-radius: 34px;
     background-color: #111;
     border: 2px solid #111;
     transition: 0.1s linear;
@@ -44,16 +44,16 @@ const Wrapper = styled.button`
     position: absolute;
     top: 4px;
     left: 4px;
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
     color: #111;
   }
   .sun {
     position: absolute;
     top: -1px;
-    right: 0px;
-    width: 26px;
-    height: 26px;
+    right: -4px;
+    width: 36px;
+    height: 36px;
     color: #111;
   }
   @media (min-width: 768px) {

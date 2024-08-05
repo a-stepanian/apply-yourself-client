@@ -20,7 +20,7 @@ export const darkTheme: IStyleTheme = {
   bodyBackground: "#040012", // Dark Background
   color1: "#3a5eff", // Blue
   backgroundColor1: "#3a5eff", // Blue
-  color2: "#6d46f8", // Purple
+  color2: "#6dfff8", // Purple
   backgroundColor2: "#6d46f8", // Purple
   color3: "#c024ff", // Pink
   backgroundColor3: "#c024ff" // Pink

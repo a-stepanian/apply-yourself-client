@@ -76,7 +76,7 @@ export const LoginPage = () => {
 
   return (
     <Wrapper>
-      <LineDesign />
+      {/* <LineDesign /> */}
       <section className="form-section">
         <div className="image-wrapper">
           <img src="login.svg" alt="Ambitious job seeker creating a new Apply Yourself account." />

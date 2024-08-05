@@ -5,9 +5,13 @@ import { Link } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 import { TypingEffect } from "../components/TypingEffect";
 
-export const HeroPage = () => {
-  const { loggedIn } = useAppContext();
+interface IHeroPageProps {
+  theme: string;
+}
 
+export const HeroPage = (props: IHeroPageProps) => {
+  const { theme } = props;
+  const { loggedIn } = useAppContext();
   useEffect(() => {
     const handleScroll = () => {
       const scrollTarget0 = document.querySelectorAll(".scroll-target")[0];
@@ -48,42 +52,34 @@ export const HeroPage = () => {
 
   return (
     <Wrapper>
-      {/* <LineDesign /> */}
+      {theme === "light" && <LineDesign />}
       <div className="hero-text-wrapper">
         <TypingEffect text="Land your dream job." textElementType="h1" speedInMilliseconds={50} />
         <Link to="/jobs" className="get-started-cta">
-          Search openings now
+          See current job postings
         </Link>
       </div>
-      {/* <img className="main-svg" src="desk-pink.svg" alt="Happy employees collaborating at work." /> */}
+      {/* {theme === "dark" && (
+        <img className="main-svg" src="desk-pink.svg" alt="Happy employees collaborating at work." />
+      )} */}
       <div className="astronaut-wrapper">
         <img className="astronaut" src="purple-astronaut.svg" alt="Happy Astronaut." />
       </div>
-      {/* <div className="register-wrapper">
-        {loggedIn ? (
-          <Link to="/dashboard" className="register">
-            Go To Your Dashboard
-          </Link>
-        ) : (
-          <Link to="/register" className="register">
-            Sign up for a free account
-          </Link>
-        )}
-      </div> */}
       <div className="scroll-target" />
       <article className="hero hero1">
         <h2 className="info">Manage the application process</h2>
         <div className="blue-block-top block-top" />
         <p className="details">Getting a job can be difficult - managing the process shouldn't be.</p>
         <div className="svg-wrapper">
-          {/* <img className="hero1-svg svg" src="manage.svg" alt="Employee managing their application process." /> */}
-        </div>
-        <div>
-          <img
-            className="hero1-svg svg"
-            src="brainstorm-purple.svg"
-            alt="Employee managing their application process."
-          />
+          {theme === "light" ? (
+            <img className="hero1-svg svg" src="manage.svg" alt="Employee managing their application process." />
+          ) : (
+            <img
+              className="hero1-svg svg"
+              src="brainstorm-purple.svg"
+              alt="Employee managing their application process."
+            />
+          )}
         </div>
         <div className="blue-block-bottom block-bottom" />
       </article>
@@ -96,7 +92,11 @@ export const HeroPage = () => {
           Spend more time focusing on your career and less time organizing your applications and interviews.
         </p>
         <div className="svg-wrapper">
-          <img className="hero2-svg svg" src="time.svg" alt="Employee excerizing excellent time management." />
+          {theme === "light" ? (
+            <img className="hero2-svg svg" src="time.svg" alt="Employee excerizing excellent time management." />
+          ) : (
+            <img className="hero2-svg svg" src="purple-time.svg" alt="Employee excerizing excellent time management." />
+          )}
         </div>
         <div className="yellow-block-bottom block-bottom" />
       </article>
@@ -107,11 +107,19 @@ export const HeroPage = () => {
         <div className="purple-block-top block-top" />
         <p className="details">Learn what works and what doesn't - leverage this information in your search.</p>
         <div className="svg-wrapper">
-          <img
-            className="hero3-svg svg"
-            src="charts.svg"
-            alt="Job application metrics visualized to help with your job search."
-          />
+          {theme === "light" ? (
+            <img
+              className="hero3-svg svg"
+              src="charts.svg"
+              alt="Job application metrics visualized to help with your job search."
+            />
+          ) : (
+            <img
+              className="hero3-svg svg"
+              src="pink-resume.svg"
+              alt="Job application metrics visualized to help with your job search."
+            />
+          )}
         </div>
         <div className="purple-block-bottom block-bottom" />
       </article>
@@ -122,7 +130,11 @@ export const HeroPage = () => {
         </div>
       ) : (
         <div className="register-wrapper-bottom">
-          <h2 className="get-started">Get started today</h2>
+          <h2 className="get-started">
+            Get started
+            <br />
+            today
+          </h2>
           <Link to="/register" className="register sign-up">
             Sign Up
           </Link>
@@ -148,7 +160,9 @@ const Wrapper = styled.main`
   .hero-text-wrapper {
     width: 100vw;
     padding: 0 10vw;
+    height: 500px;
     display: flex;
+    flex-direction: column;
     min-height: 20rem;
     padding-top: 3rem;
     position: relative;
@@ -164,23 +178,25 @@ const Wrapper = styled.main`
   }
   .get-started-cta {
     position: absolute;
+    width: 80vw;
+    left: 10vw;
     top: 360px;
-    right: 10vw;
     background: #c024ff;
     padding: 1.5rem 3rem;
     text-decoration: none;
-    font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.2rem" : "1.4rem")};
-    font-weight: ${({ theme }) => (theme.name === "darkMode" ? "500" : "700")};
+    text-align: center;
+    font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.5rem" : "1.9rem")};
+    font-weight: ${({ theme }) => (theme.name === "darkMode" ? "700" : "900")};
     color: #111;
-    border-radius: 5px;
+    border-radius: ${({ theme }) => theme.primaryBorderRadius};
     z-index: 55;
   }
 
   .astronaut-wrapper {
     position: absolute;
-    top: 48px;
-    right: -5vw;
-    width: calc(30% - 10px);
+    top: 130px;
+    right: -10vw;
+    width: calc(50% - 10px);
     padding-top: 2rem;
     z-index: 9;
     opacity: 0;
@@ -235,16 +251,16 @@ const Wrapper = styled.main`
       z-index: 1;
       font-size: 2rem;
       height: 4rem;
-      margin: 1rem 0 2rem 1rem;
+      margin: 1rem 0 2rem 5rem;
     }
     .block-top {
       position: absolute;
       top: 0;
       z-index: 0;
-      width: 100vw;
+      width: 150vw;
       height: 16rem;
-      transition: 0.5s ease-out;
       transform: translateX(110%);
+      transition: all 0.5s linear;
     }
     .details {
       position: relative;
@@ -258,7 +274,10 @@ const Wrapper = styled.main`
       display: flex;
       justify-content: center;
       img {
+        position: relative;
         max-width: 30rem;
+        padding: 1rem;
+        z-index: 1;
       }
     }
     .block-bottom {
@@ -268,7 +287,6 @@ const Wrapper = styled.main`
       z-index: 0;
       width: 100vw;
       height: 2rem;
-      transition: 0.5s ease-out;
       transform: translateX(-100%);
     }
     .slide-left {
@@ -283,15 +301,17 @@ const Wrapper = styled.main`
   .hero1 {
     .blue-block-top,
     .blue-block-bottom {
-      /* background-color: var(--blue); */
-      background-color: #3a5eff;
+      background-color: ${({ theme }) => theme.color2};
+      border-radius: ${({ theme }) => theme.primaryBorderRadius};
+      z-index: 10;
+    }
+    .info,
+    .details {
+      color: ${({ theme }) => theme.bodyBackground};
+      z-index: 11;
     }
     .hero1-svg {
-      padding: 1rem;
-      position: relative;
-      z-index: 1;
       width: 100%;
-      filter: drop-shadow(0 0 30px rgb(34, 0, 136));
     }
   }
 
@@ -299,18 +319,19 @@ const Wrapper = styled.main`
   .hero2 {
     .yellow-block-top,
     .yellow-block-bottom {
-      background-color: var(--yellow);
+      background-color: ${({ theme }) => theme.color3};
+      border-radius: ${({ theme }) => theme.primaryBorderRadius};
     }
     .svg-wrapper {
       img {
         max-width: 25rem;
       }
     }
+    .info,
+    .details {
+      color: ${({ theme }) => theme.bodyBackground};
+    }
     .hero2-svg {
-      padding: 1rem;
-      background-color: var(--yellow2);
-      position: relative;
-      z-index: 1;
       width: 80%;
       padding-left: 20%;
       transform: translateX(20%);
@@ -321,18 +342,19 @@ const Wrapper = styled.main`
   .hero3 {
     .purple-block-top,
     .purple-block-bottom {
-      background-color: var(--purple);
+      background-color: ${({ theme }) => (theme.name === "darkMode" ? "#6d46f8" : theme.color2)};
+      border-radius: ${({ theme }) => theme.primaryBorderRadius};
     }
     .svg-wrapper {
       img {
-        max-width: 25rem;
+        max-width: ${({ theme }) => (theme.name === "darkMode" ? "18rem" : "25rem")};
       }
     }
+    .info,
+    .details {
+      color: ${({ theme }) => theme.bodyBackground};
+    }
     .hero3-svg {
-      padding: 1rem;
-      background-color: var(--purple2);
-      position: relative;
-      z-index: 1;
       width: 100%;
     }
   }
@@ -349,6 +371,7 @@ const Wrapper = styled.main`
       margin-bottom: 2rem;
       text-align: center;
       font-size: 3rem;
+      text-shadow: 0 0 80px rgb(115, 0, 255);
     }
     .sign-up {
       width: 10rem;
@@ -373,6 +396,9 @@ const Wrapper = styled.main`
     }
     .astronaut-wrapper {
       right: 10px;
+    }
+    .get-started-cta {
+      top: 400px;
     }
     .register-wrapper,
     .login-wrapper {
@@ -406,11 +432,20 @@ const Wrapper = styled.main`
       padding-top: 0;
     }
     h1 {
-      /* width: 100%; */
       width: 26rem;
       margin: 15vh 0 40vh;
       font-size: 4.5rem;
       line-height: 4.5rem;
+    }
+    .get-started-cta {
+      width: 50vw;
+      transform: translateX(25vw);
+      &:hover {
+        transform: translateX(25vw) translateY(-5px);
+        box-shadow: 0 8px 8px
+          ${({ theme }) => (theme.name === "darkMode" ? "rgba(255, 255, 255, 0.3)" : "rgba(255, 255, 255, 0.8)")};
+        color: rgba(0, 0, 0, 0.5);
+      }
     }
     .register-wrapper,
     .login-wrapper {
@@ -433,10 +468,10 @@ const Wrapper = styled.main`
     .hero {
       .info {
         font-size: 2.5rem;
-        margin: 1rem 0 2rem 10rem;
+        margin: ${({ theme }) => (theme.name === "darkMode" ? "1rem 0 2rem 10rem" : "1rem 0 2rem 15rem")};
       }
       .details {
-        margin: 5rem 0 5rem 2rem;
+        margin: ${({ theme }) => (theme.name === "darkMode" ? "5rem 0 5rem 10rem" : "5rem 0 5rem 10rem")};
         line-height: 2rem;
         transform: translateX(8rem);
       }
@@ -462,6 +497,12 @@ const Wrapper = styled.main`
       line-height: 5.5rem;
       width: 31rem;
     }
+    .get-started-cta {
+      margin-top: 5rem;
+    }
+    .astronaut-wrapper {
+      animation: fadeInLight 2s linear forwards;
+    }
     .register-wrapper,
     .login-wrapper {
       position: absolute;
@@ -482,9 +523,15 @@ const Wrapper = styled.main`
     h1 {
       line-height: 7rem;
     }
+
     .hero-text-wrapper {
       width: 100vw;
       padding: 0 20vw;
+    }
+  }
+  @media (min-width: 1600px) {
+    h1 {
+      width: 100%;
     }
   }
 

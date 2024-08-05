@@ -52,6 +52,8 @@ export const Footer = () => {
 // @ts-ignore
 const Wrapper = styled.footer`
   position: relative;
+  background-color: ${({ theme }) => (theme.name === "darkMode" ? theme.bodyBackground : theme.color1)};
+  transition: all 0.5s linear;
   .top-border {
     position: absolute;
     z-index: 90;
@@ -72,12 +74,12 @@ const Wrapper = styled.footer`
     h2 {
       font-size: 0.7rem;
       font-weight: 700;
-      color: ${({ theme }) => theme.color1};
+      color: ${({ theme }) => (theme.name === "darkMode" ? theme.color3 : theme.bodyBackground)};
     }
     a {
       height: 1.5rem;
       text-decoration: none;
-      color: #6d46f8;
+      color: ${({ theme }) => (theme.name === "darkMode" ? theme.color1 : theme.bodyBackground)};
       margin: 0.6rem 0 0;
       display: flex;
       align-items: center;
@@ -86,6 +88,11 @@ const Wrapper = styled.footer`
       font-size: 1.3rem;
       transform: translateY(0.1rem);
       padding-right: 0.2rem;
+    }
+    &:last-of-type {
+      a {
+        color: ${({ theme }) => (theme.name === "darkMode" ? theme.color2 : theme.bodyBackground)};
+      }
     }
   }
   .img-wrapper {
