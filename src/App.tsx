@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { HeroPage } from "./pages/HeroPage";
 import { JobsPage } from "./pages/JobsPage";
 import { Navbar } from "./components/Navbar";
@@ -54,28 +54,26 @@ const App = () => {
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <GlobalStyles />
+      <ScrollToTop />
       <AppContextProvider>
-        <BrowserRouter>
-          <Wrapper>
-            <ScrollToTop />
-            <Navbar />
-            <div className="dark-mode-button-wrapper">
-              <DarkModeButton theme={theme} toggleDarkMode={toggleDarkMode} />
-            </div>
-            <Dropdown theme={theme} toggleDarkMode={toggleDarkMode} />
-            <Routes>
-              <Route path="/" element={<HeroPage theme={theme} />} />
-              <Route path="/jobs" element={<JobsPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/applications/new" element={<NewAppPage />} />
-              <Route path="/applications/:id/edit" element={<EditAppPage />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="*" element={<FourOhFourPage />} />
-            </Routes>
-            <Footer />
-          </Wrapper>
-        </BrowserRouter>
+        <Wrapper>
+          <Navbar />
+          <div className="dark-mode-button-wrapper">
+            <DarkModeButton theme={theme} toggleDarkMode={toggleDarkMode} />
+          </div>
+          <Dropdown theme={theme} toggleDarkMode={toggleDarkMode} />
+          <Routes>
+            <Route path="/" element={<HeroPage theme={theme} />} />
+            <Route path="/jobs" element={<JobsPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/applications/new" element={<NewAppPage />} />
+            <Route path="/applications/:id/edit" element={<EditAppPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="*" element={<FourOhFourPage />} />
+          </Routes>
+          <Footer />
+        </Wrapper>
       </AppContextProvider>
     </ThemeProvider>
   );

@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
 // @ts-ignore
 import styled from "styled-components";
-import { RiFolderChartLine, RiLoginBoxLine, RiUserAddLine, RiUserLine } from "react-icons/ri";
 import { Hamburger } from "./Hamburger";
-import { LogoutButton } from "./LogoutButton";
 import { useAppContext } from "../context/AppContext";
-import UserDropdown, { UserDropdownButton } from "./UserDropdownButton";
-import UserDropdownMenu from "./UserDropdownMenu";
+import { UserDropdownButton } from "./UserDropdownButton";
+import { UserDropdownMenu } from "./UserDropdownMenu";
 
 export const Navbar = () => {
   const { loggedIn } = useAppContext();
@@ -58,7 +56,7 @@ const Wrapper = styled.nav`
   z-index: 100;
   position: sticky;
   top: 0;
-  height: 49px;
+  height: 59px;
   padding-bottom: 1px;
   display: flex;
   align-items: center;
@@ -164,7 +162,6 @@ const Wrapper = styled.nav`
         }
         padding: 1rem;
         text-decoration: none;
-        transition: 0.2s linear;
         display: flex;
         align-items: center;
         &:hover {

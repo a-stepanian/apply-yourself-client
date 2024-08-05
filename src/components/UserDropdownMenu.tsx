@@ -70,4 +70,3 @@ const Wrapper = styled.div`
     transform: translateY(6px);
   }
 `;
-export default UserDropdownMenu;

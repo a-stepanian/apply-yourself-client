@@ -9,6 +9,7 @@ interface IDarkModeButtonProps {
 
 export const DarkModeButton = (props: IDarkModeButtonProps) => {
   const { toggleDarkMode } = props;
+
   return (
     <Wrapper onClick={toggleDarkMode} title="Toggle Dark Mode">
       <BsMoonStars className="moon" />
@@ -19,13 +20,11 @@ export const DarkModeButton = (props: IDarkModeButtonProps) => {
 };
 
 const Wrapper = styled.button`
-  position: absolute;
-  bottom: 72px;
-  right: 12px;
+  position: relative;
   background: transparent;
   border: 2px solid #111;
   color: #111;
-  border-radius: 34px;
+  border-radius: 35px;
   height: 36px;
   width: 72px;
   cursor: pointer;
@@ -33,9 +32,9 @@ const Wrapper = styled.button`
     position: absolute;
     top: -1px;
     left: ${({ theme }) => `${theme.name === "darkMode" ? "36px" : "-1px"}`};
-    width: 34px;
-    height: 34px;
-    border-radius: 34px;
+    width: 35px;
+    height: 35px;
+    border-radius: 35px;
     background-color: #111;
     border: 2px solid #111;
     transition: 0.1s linear;
@@ -58,6 +57,8 @@ const Wrapper = styled.button`
   }
   @media (min-width: 768px) {
     position: fixed;
+    bottom: 12px;
+    right: 12px;
     background-color: ${({ theme }) => theme.bodyBackground};
     border: 2px solid ${({ theme }) => theme.color1};
     color: ${({ theme }) => theme.color1};
@@ -70,5 +71,9 @@ const Wrapper = styled.button`
     .sun {
       color: ${({ theme }) => theme.color1};
     }
+  }
+  @media (min-width: 990px) {
+    bottom: 24px;
+    right: 24px;
   }
 `;

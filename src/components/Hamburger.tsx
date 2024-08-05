@@ -6,7 +6,7 @@ import { useAppContext } from "../context/AppContext";
 export const Hamburger = () => {
   const { isDropdownOpen, toggleDropdown } = useAppContext();
   return (
-    <Wrapper onClick={() => toggleDropdown()}>
+    <Wrapper onClick={() => toggleDropdown()} title="Navigation Menu">
       <div className="hamburger-wrapper">
         <div className={isDropdownOpen ? "line top top-open" : "line top"} />
         <div className={isDropdownOpen ? "line bottom bottom-open" : "line bottom"} />
@@ -19,11 +19,10 @@ export const Hamburger = () => {
 const Wrapper = styled.button`
   margin-right: 0.5rem;
   background-color: transparent;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border: 2px solid transparent;
   border-radius: 5px;
-  transition: 0.1s;
   &:hover {
     border-color: ${({ theme }) => theme.color1};
   }
@@ -41,21 +40,21 @@ const Wrapper = styled.button`
       width: 1.3rem;
       height: 1.5px;
       background-color: ${({ theme }) => theme.color1};
-      transition: 0.6s;
+      transition: height 0.4s linear, width 0.4s linear, transform 0.4s linear, top 0.4s linear;
     }
     .top {
-      top: 13px;
+      top: 20px;
     }
     .bottom {
-      top: 21px;
+      top: 25px;
     }
     .top-open {
-      top: 1.1rem;
+      top: 22px;
       width: 0.9rem;
       transform: rotate(45deg);
     }
     .bottom-open {
-      top: 1.1rem;
+      top: 22px;
       width: 0.9rem;
       transform: rotate(-45deg);
     }
