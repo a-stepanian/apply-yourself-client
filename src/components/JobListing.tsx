@@ -1,74 +1,38 @@
 import styled from "styled-components";
-import DOMPurify from "dompurify";
-import { useState } from "react";
-import { url } from "../context/AppContext";
+import { useAppContext } from "../context/AppContext";
 import { IJobResult } from "../interfaces/interfaces";
-import { LoadingSpinner } from "./LoadingSpinner";
+import React from "react";
 
 interface IJobListingProps {
   job: IJobResult;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const JobListing = (props: IJobListingProps) => {
-  const { job } = props;
-  const [showMore, setShowMore] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { job, setShowModal } = props;
 
-  let jobDescription = job?.contents ? job.contents : "";
-  if (jobDescription.length > 0) {
-    jobDescription = DOMPurify.sanitize(jobDescription);
-  }
-
-  const applyToJob = async () => {
-    setIsLoading(true);
-    try {
-      const newApplication = {
-        company: job?.company?.name ?? "N/A",
-        position: job?.name ?? "N/A",
-        website: job?.refs?.landing_page ?? "N/A",
-        location: job?.locations?.[0]?.name ?? "N/A",
-        applied: true,
-        response: "",
-        comments: "",
-        status: "Applied"
-      };
-      // send post request to server
-      await fetch(`${url}/applications`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(newApplication),
-        credentials: "include"
-      }).catch(error => {
-        console.log(error);
-        return;
-      });
-    } catch (err) {
-      console.log(err);
-    }
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-  };
+  const { setSelectedJob } = useAppContext();
 
   return (
-    <Wrapper style={{ height: `${showMore ? "400px" : "150px"}` }}>
+    <Wrapper>
       <div className="card">
         <h2>{job.name}</h2>
         <div className="flex">
           <h3>{job.company.name}</h3>
-          <button
-            type="button"
-            className="view-details-button"
-            title={`${showMore ? "Hide" : "View"} Job Description`}
-            onClick={() => setShowMore(prev => !prev)}>{`${showMore ? "Hide" : "View"} Details`}</button>
-          <button className="apply-now-button" type="button" onClick={applyToJob} disabled={isLoading}>
-            {isLoading ? <LoadingSpinner /> : "Apply Now"}
-          </button>
+          <div>
+            <button
+              type="button"
+              className="view-details-button"
+              title="View Job Description"
+              onClick={() => {
+                setSelectedJob(job);
+                setShowModal(true);
+              }}>
+              View Details
+            </button>
+          </div>
         </div>
       </div>
-      {showMore && <div dangerouslySetInnerHTML={{ __html: jobDescription }}></div>}
     </Wrapper>
   );
 };
@@ -76,56 +40,51 @@ export const JobListing = (props: IJobListingProps) => {
 const Wrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.color1};
   width: 100%;
-  border-radius: 5px;
+  border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "18px")};
   padding: 1rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 2px 5px ${({ theme }) => theme.color2};
-  background-color: #222;
-  height: auto;
-  transition: 1s linear;
+  margin-bottom: 1rem;
+  background-color: ${({ theme }) => theme.secondaryBackgroundColor};
+  transition: 0.4s linear;
   .card {
     h2 {
-      font-size: ${({ theme }) => (theme.name === "darkMode" ? "0.9rem" : "1rem")};
-      font-weight: ${({ theme }) => (theme.name === "darkMode" ? "500" : "700")};
-      /* color: ${({ theme }) => theme.color2}; */
-      color: #eee;
-      margin-bottom: 1rem;
+      font-family: "Poppins", sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: ${({ theme }) => theme.color2};
     }
     .flex {
       display: flex;
       justify-content: space-between;
-    }
-    h3 {
-      font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.2rem" : "1.4rem")};
-      font-weight: ${({ theme }) => (theme.name === "darkMode" ? "700" : "900")};
-      color: ${({ theme }) => theme.color2};
-    }
-    button {
-      width: 100px;
-      padding: 0.5rem 0;
-      border-radius: 3px;
-      color: ${({ theme }) => theme.bodyBackground};
-      background: ${({ theme }) => theme.color3};
-      border: 1px solid ${({ theme }) => theme.color3};
-      cursor: pointer;
-      &:hover {
-        color: ${({ theme }) => theme.color3};
-        background: ${({ theme }) =>
-          `linear-gradient(45deg, ${theme.color1}, ${theme.bodyBackground},${theme.color1})`};
+      h3 {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 900;
+        color: ${({ theme }) => theme.color2};
       }
-      &:disabled {
-        color: ${({ theme }) => theme.bodyBackground};
+      button {
+        width: 100px;
+        padding: 0.5rem 0;
+        border-radius: 3px;
+        color: ${({ theme }) => theme.primaryBackgroundColor};
         background: ${({ theme }) => theme.color3};
-      }
-      &:first-of-type {
-        margin-bottom: 1rem;
-        color: ${({ theme }) => theme.color1};
-        background: ${({ theme }) => theme.bodyBackground};
-        border: 1px solid ${({ theme }) => theme.color1};
+        border: 1px solid ${({ theme }) => theme.color3};
+        white-space: nowrap;
+        cursor: pointer;
+        &:hover {
+          color: ${({ theme }) => theme.color3};
+          background: ${({ theme }) =>
+            `linear-gradient(45deg, ${theme.color1}, ${theme.primaryBackgroundColor},${theme.color1})`};
+        }
+        &:disabled {
+          color: ${({ theme }) => theme.primaryBackgroundColor};
+          background: ${({ theme }) => theme.color3};
+        }
+        &:first-of-type {
+          color: ${({ theme }) => theme.color1};
+          background: ${({ theme }) => theme.primaryBackgroundColor};
+          border: 1px solid ${({ theme }) => theme.color1};
+        }
       }
     }
-  }
-  li {
-    margin-left: 1rem;
   }
 `;

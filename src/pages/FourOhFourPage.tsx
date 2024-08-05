@@ -14,7 +14,7 @@ export const FourOhFourPage = () => {
 };
 
 const Wrapper = styled.main`
-  background-color: ${({ theme }) => (theme.name === "darkMode" ? theme.bodyBackground : "#11172c")};
+  background-color: ${({ theme }) => (theme.name === "darkMode" ? theme.primaryBackgroundColor : "#11172c")};
   display: flex;
   flex-direction: column;
   align-items: center;

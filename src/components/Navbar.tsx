@@ -7,14 +7,21 @@ import { UserDropdownButton } from "./UserDropdownButton";
 import { UserDropdownMenu } from "./UserDropdownMenu";
 
 export const Navbar = () => {
-  const { loggedIn } = useAppContext();
+  const { loggedIn, toggleDropdown, isDropdownOpen } = useAppContext();
 
   return (
     <>
       <UserDropdownMenu />
       <Wrapper className="navbar">
         <div className="nav-left">
-          <Link to="/" className="logo">
+          <Link
+            to="/"
+            className="logo"
+            onClick={() => {
+              if (isDropdownOpen) {
+                toggleDropdown();
+              }
+            }}>
             <img src="/logo512.png" width={50} height={40} alt="" />
             <h1>
               Apply
@@ -24,6 +31,9 @@ export const Navbar = () => {
           </Link>
         </div>
         <div className="nav-center">
+          <Link to="/about" className="nav-link">
+            <span>About</span>
+          </Link>
           <Link to="/jobs" className="nav-link">
             <span>Jobs</span>
           </Link>
@@ -61,7 +71,7 @@ const Wrapper = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: ${({ theme }) => theme.bodyBackground};
+  background-color: ${({ theme }) => theme.primaryBackgroundColor};
   .nav-left {
     display: flex;
     align-items: center;
@@ -108,7 +118,7 @@ const Wrapper = styled.nav`
 
   @media (min-width: 768px) {
     transition: 0.2s linear;
-    background-color: ${({ theme }) => theme.bodyBackground};
+    background-color: ${({ theme }) => theme.primaryBackgroundColor};
     .nav-left {
       width: 200px;
     }
@@ -121,7 +131,7 @@ const Wrapper = styled.nav`
         display: flex;
         align-items: center;
         justify-content: center;
-        color: ${({ theme }) => theme.color2};
+        color: ${({ theme }) => theme.color4};
         padding: 0 0.5rem;
         margin-right: 1rem;
         text-decoration: none;
@@ -167,7 +177,7 @@ const Wrapper = styled.nav`
         &:hover {
           text-decoration: none;
           background-color: ${({ theme }) => (theme.name === "darkMode" ? theme.color3 : theme.color2)};
-          color: ${({ theme }) => theme.bodyBackground};
+          color: ${({ theme }) => theme.primaryBackgroundColor};
         }
       }
     }

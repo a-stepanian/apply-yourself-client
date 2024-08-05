@@ -12,47 +12,27 @@ interface IHeroPageProps {
 export const HeroPage = (props: IHeroPageProps) => {
   const { theme } = props;
   const { loggedIn } = useAppContext();
+
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTarget0 = document.querySelectorAll(".scroll-target")[0];
-      // get distance from the top of the viewport
-      const distanceFromTop0 = scrollTarget0.getBoundingClientRect().top;
-      if (distanceFromTop0 < 600) {
-        const blueBlockTop = document.querySelector(".blue-block-top");
-        blueBlockTop?.classList.add("slide-left");
-        const blueBlockBottom = document.querySelector(".blue-block-bottom");
-        blueBlockBottom?.classList.add("slide-right");
-      }
-
-      const scrollTarget1 = document.querySelectorAll(".scroll-target")[1];
-      // get distance from the top of the viewport
-      const distanceFromTop1 = scrollTarget1.getBoundingClientRect().top;
-      if (distanceFromTop1 < 600) {
-        const yellowBlockTop = document.querySelector(".yellow-block-top");
-        yellowBlockTop?.classList.add("slide-left");
-        const yellowBlockBottom = document.querySelector(".yellow-block-bottom");
-        yellowBlockBottom?.classList.add("slide-right");
-      }
-
-      const scrollTarget2 = document.querySelectorAll(".scroll-target")[2];
-      // get distance from the top of the viewport
-      const distanceFromTop2 = scrollTarget2.getBoundingClientRect().top;
-      if (distanceFromTop2 < 600) {
-        const purpleBlockTop = document.querySelector(".purple-block-top");
-        purpleBlockTop?.classList?.add("slide-left");
-        const purpleBlockBottom = document.querySelector(".purple-block-bottom");
-        purpleBlockBottom?.classList?.add("slide-right");
+      const scrollTargets = document?.querySelectorAll(".scroll-target");
+      if (scrollTargets?.length > 0) {
+        for (let i = 0; i < scrollTargets.length; i++) {
+          const distanceFromTop = scrollTargets[i]?.getBoundingClientRect().top;
+          if (distanceFromTop < 600) {
+            document.querySelector(`.block-top-${i}`)?.classList.add(`slide-left`);
+            document.querySelector(`.block-bottom-${i}`)?.classList.add(`slide-right`);
+          }
+        }
       }
     };
-
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <Wrapper>
-      {theme === "light" && <LineDesign />}
+      {/* {theme === "light" && <LineDesign />} */}
       <div className="hero-text-wrapper">
         <TypingEffect text="Land your dream job." textElementType="h1" speedInMilliseconds={50} />
         <Link to="/jobs" className="get-started-cta">
@@ -65,7 +45,7 @@ export const HeroPage = (props: IHeroPageProps) => {
       <div className="scroll-target" />
       <article className="hero hero1">
         <h2 className="info">Manage the application process</h2>
-        <div className="blue-block-top block-top" />
+        <div className="block-top-0 block-top" />
         <p className="details">Getting a job can be difficult - managing the process shouldn't be.</p>
         <div className="centering-wrapper">
           <div className="svg-wrapper">
@@ -80,12 +60,12 @@ export const HeroPage = (props: IHeroPageProps) => {
             )}
           </div>
         </div>
-        <div className="blue-block-bottom block-bottom" />
+        <div className="block-bottom-0 block-bottom" />
       </article>
       <div className="scroll-target" />
       <article className="hero hero2">
         <h2 className="info">Make the most of your time</h2>
-        <div className="yellow-block-top block-top" />
+        <div className="block-top-1 block-top" />
         <p className="details">
           Spend more time focusing on your career and less time organizing your applications and interviews.
         </p>
@@ -102,12 +82,12 @@ export const HeroPage = (props: IHeroPageProps) => {
             )}
           </div>
         </div>
-        <div className="yellow-block-bottom block-bottom" />
+        <div className="block-bottom-1 block-bottom" />
       </article>
       <div className="scroll-target" />
       <article className="hero hero3">
         <h2 className="info">Gain valuable insights</h2>
-        <div className="purple-block-top block-top" />
+        <div className="block-top-2 block-top" />
         <p className="details">Learn what works and what doesn't - leverage this information in your search.</p>
         <div className="centering-wrapper">
           <div className="svg-wrapper">
@@ -126,7 +106,7 @@ export const HeroPage = (props: IHeroPageProps) => {
             )}
           </div>
         </div>
-        <div className="purple-block-bottom block-bottom" />
+        <div className="block-bottom-2 block-bottom" />
       </article>
       {loggedIn ? (
         <div className="register-wrapper-bottom">
@@ -139,7 +119,7 @@ export const HeroPage = (props: IHeroPageProps) => {
             <br />
             today
           </h2>
-          <Link to="/register" className="register sign-up">
+          <Link to="/register" className="register">
             Sign Up
           </Link>
         </div>
@@ -230,7 +210,7 @@ const Wrapper = styled.main`
     .details {
       position: relative;
       z-index: 11;
-      color: ${({ theme }) => theme.bodyBackground};
+      color: ${({ theme }) => theme.primaryBackgroundColor};
     }
     .info {
       font-size: 2rem;
@@ -249,6 +229,7 @@ const Wrapper = styled.main`
       width: 150vw;
       height: 16rem;
       transform: translateX(110%);
+      border-radius: ${({ theme }) => theme.primaryBorderRadius};
       transition: transform 0.8s linear, border-radius 0.3s linear;
     }
     .centering-wrapper {
@@ -275,6 +256,8 @@ const Wrapper = styled.main`
       width: 100vw;
       height: 2rem;
       transform: translateX(-100%);
+      border-radius: ${({ theme }) => theme.primaryBorderRadius};
+
       transition: transform 0.8s linear, border-radius 0.3s linear;
     }
     .slide-left {
@@ -285,25 +268,21 @@ const Wrapper = styled.main`
     }
   }
   .hero1 {
-    .blue-block-top,
-    .blue-block-bottom {
-      background-color: ${({ theme }) => theme.color2};
-      border-radius: ${({ theme }) => theme.primaryBorderRadius};
-      z-index: 10;
+    .block-top-0,
+    .block-bottom-0 {
+      background-color: ${({ theme }) => theme.color4};
     }
   }
   .hero2 {
-    .yellow-block-top,
-    .yellow-block-bottom {
-      background-color: ${({ theme }) => theme.color3};
-      border-radius: ${({ theme }) => theme.primaryBorderRadius};
+    .block-top-1,
+    .block-bottom-1 {
+      background-color: ${({ theme }) => theme.color2};
     }
   }
   .hero3 {
-    .purple-block-top,
-    .purple-block-bottom {
-      background-color: ${({ theme }) => (theme.name === "darkMode" ? "#6d46f8" : theme.color2)};
-      border-radius: ${({ theme }) => theme.primaryBorderRadius};
+    .block-top-2,
+    .block-bottom-2 {
+      background-color: ${({ theme }) => theme.color3};
     }
   }
   .register-wrapper-bottom {
@@ -319,9 +298,6 @@ const Wrapper = styled.main`
       text-align: center;
       font-size: 3rem;
       text-shadow: 0 0 80px rgb(115, 0, 255);
-    }
-    .sign-up {
-      width: 10rem;
     }
   }
 
@@ -350,9 +326,6 @@ const Wrapper = styled.main`
         width: 24rem;
         font-size: 5rem;
         margin-bottom: 4rem;
-      }
-      .sign-up {
-        width: 12rem;
       }
     }
   }
@@ -396,9 +369,6 @@ const Wrapper = styled.main`
         width: 45rem;
         font-size: 5.5rem;
         margin-bottom: 4rem;
-      }
-      .sign-up {
-        width: 12rem;
       }
     }
   }

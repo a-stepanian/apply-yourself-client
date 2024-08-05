@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   .loading-spinner {
     border: 4px solid rgba(0, 0, 0, 0.3); /* Light grey border */
     border-radius: 50%;
-    border-top: 4px solid ${({ theme }) => theme.bodyBackground};
+    border-top: 4px solid ${({ theme }) => theme.primaryBackgroundColor};
     width: 16px;
     height: 16px;
     animation: spin 1s linear infinite;

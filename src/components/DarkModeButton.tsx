@@ -23,6 +23,7 @@ const Wrapper = styled.button`
   position: relative;
   background: transparent;
   border: 2px solid #111;
+  outline: 2px solid ${({ theme }) => theme.primaryBackgroundColor};
   color: #111;
   border-radius: 35px;
   height: 36px;
@@ -59,7 +60,7 @@ const Wrapper = styled.button`
     position: fixed;
     bottom: 12px;
     right: 12px;
-    background-color: ${({ theme }) => theme.bodyBackground};
+    background-color: ${({ theme }) => theme.primaryBackgroundColor};
     border: 2px solid ${({ theme }) => theme.color1};
     color: ${({ theme }) => theme.color1};
     transition: 0.1s linear;

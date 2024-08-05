@@ -1,27 +1,31 @@
 import React, { useRef, useEffect, ReactNode } from "react";
-import { useAppContext } from "../context/AppContext";
 
-function useOutsideClickDetector(ref?: React.RefObject<HTMLDivElement>) {
-  const { toggleUserDropdown } = useAppContext();
-
+function useOutsideClickDetector(onOutsideClick: () => void, ref: React.RefObject<HTMLDivElement> | undefined) {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (event.target instanceof HTMLElement && event.target.classList.contains("exclude-click-detection")) {
         return;
-      } else if (ref?.current && !ref.current.contains(event.target as Node)) {
-        toggleUserDropdown();
+      }
+      if (ref?.current && !ref.current.contains(event.target as Node)) {
+        onOutsideClick();
       }
     }
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref]);
+  }, [onOutsideClick, ref]); // Added `onOutsideClick` to the dependency array
 }
 
-export const OutsideClickDetector: React.FC<{ activated: boolean; children: ReactNode }> = props => {
+export const OutsideClickDetector: React.FC<{
+  onOutsideClick: () => void;
+  activated: boolean;
+  children: ReactNode;
+}> = ({ onOutsideClick, activated, children }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  useOutsideClickDetector(props.activated ? wrapperRef : undefined);
 
-  return <div ref={wrapperRef}>{props.children}</div>;
+  useOutsideClickDetector(onOutsideClick, activated ? wrapperRef : undefined);
+
+  return <div ref={wrapperRef}>{children}</div>;
 };

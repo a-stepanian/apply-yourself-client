@@ -52,7 +52,7 @@ export const Footer = () => {
 // @ts-ignore
 const Wrapper = styled.footer`
   position: relative;
-  background-color: ${({ theme }) => (theme.name === "darkMode" ? theme.bodyBackground : theme.color1)};
+  background-color: ${({ theme }) => (theme.name === "darkMode" ? theme.primaryBackgroundColor : theme.color1)};
   transition: all 0.5s linear;
   .top-border {
     position: absolute;
@@ -74,12 +74,12 @@ const Wrapper = styled.footer`
     h2 {
       font-size: 0.7rem;
       font-weight: 700;
-      color: ${({ theme }) => (theme.name === "darkMode" ? theme.color3 : theme.bodyBackground)};
+      color: ${({ theme }) => (theme.name === "darkMode" ? theme.color3 : theme.primaryBackgroundColor)};
     }
     a {
       height: 1.5rem;
       text-decoration: none;
-      color: ${({ theme }) => (theme.name === "darkMode" ? theme.color1 : theme.bodyBackground)};
+      color: ${({ theme }) => (theme.name === "darkMode" ? theme.color1 : theme.primaryBackgroundColor)};
       margin: 0.6rem 0 0;
       display: flex;
       align-items: center;
@@ -91,7 +91,7 @@ const Wrapper = styled.footer`
     }
     &:last-of-type {
       a {
-        color: ${({ theme }) => (theme.name === "darkMode" ? theme.color2 : theme.bodyBackground)};
+        color: ${({ theme }) => (theme.name === "darkMode" ? theme.color2 : theme.primaryBackgroundColor)};
       }
     }
   }
@@ -102,7 +102,7 @@ const Wrapper = styled.footer`
   .copyright {
     position: relative;
     width: 100%;
-    background: ${({ theme }) => theme.bodyBackground};
+    background: ${({ theme }) => theme.primaryBackgroundColor};
     font-size: 0.7rem;
     display: flex;
     flex-direction: column;

@@ -52,6 +52,8 @@ export interface IAppState {
   currentJobPageResults: IJobPageResults;
   setCurrentJobPageResults: React.Dispatch<React.SetStateAction<IJobPageResults>>;
   setIsUserDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedJob: IJobResult | null;
+  setSelectedJob: React.Dispatch<React.SetStateAction<IJobResult | null>>;
 }
 
 export interface IUserModel {
@@ -84,11 +86,10 @@ export interface IStyleTheme {
   name: string;
   primaryFont: string;
   primaryBorderRadius: string;
-  bodyBackground: string;
+  primaryBackgroundColor: string;
+  secondaryBackgroundColor: string;
   color1: string;
-  backgroundColor1: string;
   color2: string;
-  backgroundColor2: string;
   color3: string;
-  backgroundColor3: string;
+  color4: string;
 }

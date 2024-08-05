@@ -17,7 +17,7 @@ export const UserDropdownButton = () => {
 const Wrapper = styled.button`
   position: relative;
   margin: 6px;
-  background-color: ${({ theme }) => theme.bodyBackground};
+  background-color: ${({ theme }) => theme.primaryBackgroundColor};
   border: 1px solid ${({ theme }) => theme.color3};
   border-radius: 3px;
   color: ${({ theme }) => theme.color3};
@@ -31,7 +31,7 @@ const Wrapper = styled.button`
   &:hover {
     text-decoration: none;
     background-color: ${({ theme }) => (theme.name === "darkMode" ? theme.color3 : theme.color2)};
-    color: ${({ theme }) => theme.bodyBackground};
+    color: ${({ theme }) => theme.primaryBackgroundColor};
   }
   span {
     font-size: ${({ theme }) => (theme.name === "darkMode" ? "0.9rem" : "1.1rem")};

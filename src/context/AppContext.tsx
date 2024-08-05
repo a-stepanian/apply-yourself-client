@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { IApplicationModel, IAppState, IUserModel } from "../interfaces/interfaces";
+import { IApplicationModel, IAppState, IJobResult, IUserModel } from "../interfaces/interfaces";
 
 export const url = "https://apply-yourself-server.onrender.com";
 // export const url = "http://localhost:5000";
@@ -19,6 +19,7 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [user, setUser] = useState<IUserModel | undefined>(undefined);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState<boolean>(false);
+  const [selectedJob, setSelectedJob] = useState<IJobResult | null>(null);
 
   const toggleDropdown = () => setIsDropdownOpen(currentValue => !currentValue);
   const toggleUserDropdown = () => setIsUserDropdownOpen(currentValue => !currentValue);
@@ -116,7 +117,9 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setIsUserDropdownOpen,
     toggleUserDropdown,
     currentJobPageResults,
-    setCurrentJobPageResults
+    setCurrentJobPageResults,
+    selectedJob,
+    setSelectedJob
   };
 
   return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;

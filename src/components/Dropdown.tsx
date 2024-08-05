@@ -69,7 +69,7 @@ const Wrapper = styled.div`
     height: calc(100vh - 48px);
     padding: 48px 12px;
     background: ${({ theme }) =>
-      theme.name === "darkMode" ? `linear-gradient( ${theme.color1}, ${theme.color3})` : theme.bodyBackground};
+      theme.name === "darkMode" ? `linear-gradient( ${theme.color1}, ${theme.color3})` : theme.primaryBackgroundColor};
     display: flex;
     flex-direction: column;
     align-items: center;

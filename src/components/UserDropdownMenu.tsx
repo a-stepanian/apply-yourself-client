@@ -10,7 +10,7 @@ export const UserDropdownMenu = () => {
   const { toggleUserDropdown, isUserDropdownOpen } = useAppContext();
   return (
     <Wrapper>
-      <OutsideClickDetector activated={isUserDropdownOpen}>
+      <OutsideClickDetector onOutsideClick={() => toggleUserDropdown()} activated={isUserDropdownOpen}>
         <nav className={isUserDropdownOpen ? "open" : ""}>
           <Link to="/applications" onClick={toggleUserDropdown}>
             <span>View All</span>
@@ -35,7 +35,7 @@ export const UserDropdownMenu = () => {
 const Wrapper = styled.div`
   nav {
     box-shadow: 0 0 15px ${({ theme }) => theme.color1};
-    border: 1px solid ${({ theme }) => (theme.name === "darkMode" ? theme.bodyBackground : theme.color1)};
+    border: 1px solid ${({ theme }) => (theme.name === "darkMode" ? theme.primaryBackgroundColor : theme.color1)};
     border-radius: 3px;
     position: fixed;
     z-index: 70;
@@ -43,7 +43,7 @@ const Wrapper = styled.div`
     right: 6px;
     padding: 12px;
     background: ${({ theme }) =>
-      theme.name === "darkMode" ? `linear-gradient( ${theme.color1}, ${theme.color3})` : theme.bodyBackground};
+      theme.name === "darkMode" ? `linear-gradient( ${theme.color1}, ${theme.color3})` : theme.primaryBackgroundColor};
     display: flex;
     flex-direction: column;
     align-items: center;

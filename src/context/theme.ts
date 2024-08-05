@@ -5,30 +5,28 @@ export const lightTheme: IStyleTheme = {
   name: "lightMode",
   primaryFont: "'Josefin Slab', serif",
   primaryBorderRadius: "250px",
-  bodyBackground: "#fafafa",
-  color1: "#222",
-  backgroundColor1: "#363537",
+  primaryBackgroundColor: "#fafafa",
+  secondaryBackgroundColor: "#ddd",
+  color1: "#363537",
   color2: "#363537",
-  backgroundColor2: "#363537",
   color3: "#363537",
-  backgroundColor3: "#363537"
+  color4: "#363537"
 };
 export const darkTheme: IStyleTheme = {
   name: "darkMode",
   primaryFont: "'Poppins', san-serif",
   primaryBorderRadius: "2px",
-  bodyBackground: "#040012", // Dark Background
+  primaryBackgroundColor: "#040012", // Dark Background
+  secondaryBackgroundColor: "#333", // Dark Background
   color1: "#3a5eff", // Blue
-  backgroundColor1: "#3a5eff", // Blue
-  color2: "#6dfff8", // Purple
-  backgroundColor2: "#6d46f8", // Purple
+  color2: "#6dfff8", // Green
   color3: "#c024ff", // Pink
-  backgroundColor3: "#c024ff" // Pink
+  color4: "#6d46f8" // Purple
 };
 
 export const GlobalStyles = createGlobalStyle`
   body {
-    background-color: ${({ theme }) => theme.bodyBackground};
+    background-color: ${({ theme }) => theme.primaryBackgroundColor};
     color: ${({ theme }) => theme.color1};
     font-family: ${({ theme }) => theme.primaryFont};
     transition: all 0.2s linear;
