@@ -20,8 +20,6 @@ export const HeroPage = (props: IHeroPageProps) => {
         for (let i = 0; i < scrollTargets.length; i++) {
           const target = scrollTargets[i];
           const rect = target.getBoundingClientRect();
-
-          // Check if the target is entering the viewport from the bottom
           if (rect.top < window.innerHeight && rect.bottom > 0) {
             document.querySelector(`.block-top-${i}`)?.classList.add(`slide-left`);
             document.querySelector(`.block-bottom-${i}`)?.classList.add(`slide-right`);
@@ -29,14 +27,13 @@ export const HeroPage = (props: IHeroPageProps) => {
         }
       }
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <Wrapper>
-      {/* {theme === "light" && <LineDesign />} */}
+      {theme === "light" && <LineDesign />}
       <div className="hero-text-wrapper">
         <TypingEffect text="Land your dream job." textElementType="h1" speedInMilliseconds={50} />
         <Link to="/jobs" className="get-started-cta">
@@ -53,15 +50,11 @@ export const HeroPage = (props: IHeroPageProps) => {
         <p className="details">Getting a job can be difficult - managing the process shouldn't be.</p>
         <div className="centering-wrapper">
           <div className="svg-wrapper">
-            {theme === "light" ? (
-              <img className="hero1-svg svg" src="manage.svg" alt="Employee managing their application process." />
-            ) : (
-              <img
-                className="hero1-svg svg"
-                src="brainstorm-purple.svg"
-                alt="Employee managing their application process."
-              />
-            )}
+            <img
+              className="hero1-svg svg"
+              src={`${theme === "light" ? "manage" : "brainstorm-purple"}.svg`}
+              alt={`${theme === "light" ? "Employee managing their application process." : "Brainstorming session"}`}
+            />
           </div>
         </div>
         <div className="block-bottom-0 block-bottom" />
@@ -70,20 +63,14 @@ export const HeroPage = (props: IHeroPageProps) => {
       <article className="hero hero2">
         <h2 className="info">Make the most of your time</h2>
         <div className="block-top-1 block-top" />
-        <p className="details">
-          Spend more time focusing on your career and less time organizing your applications and interviews.
-        </p>
+        <p className="details">Spend more time job hunting and less time organizing.</p>
         <div className="centering-wrapper">
           <div className="svg-wrapper">
-            {theme === "light" ? (
-              <img className="hero2-svg svg" src="time.svg" alt="Employee excerizing excellent time management." />
-            ) : (
-              <img
-                className="hero2-svg svg"
-                src="purple-time.svg"
-                alt="Employee excerizing excellent time management."
-              />
-            )}
+            <img
+              className="hero2-svg svg"
+              src={`${theme === "light" ? "time" : "blue-time"}.svg`}
+              alt={`${theme === "light" ? "Employee excerizing excellent time management." : "Hourglass"}`}
+            />
           </div>
         </div>
         <div className="block-bottom-1 block-bottom" />
@@ -95,19 +82,11 @@ export const HeroPage = (props: IHeroPageProps) => {
         <p className="details">Learn what works and what doesn't - leverage this information in your search.</p>
         <div className="centering-wrapper">
           <div className="svg-wrapper">
-            {theme === "light" ? (
-              <img
-                className="hero3-svg svg"
-                src="charts.svg"
-                alt="Job application metrics visualized to help with your job search."
-              />
-            ) : (
-              <img
-                className="hero3-svg svg"
-                src="pink-resume.svg"
-                alt="Job application metrics visualized to help with your job search."
-              />
-            )}
+            <img
+              className="hero3-svg svg"
+              src={`${theme === "light" ? "charts" : "pink-resume"}.svg`}
+              alt={`${theme === "light" ? "Job application metrics." : "Handing in a resume."}`}
+            />
           </div>
         </div>
         <div className="block-bottom-2 block-bottom" />
@@ -262,9 +241,9 @@ const Wrapper = styled.main`
       left: 0;
       z-index: 0;
       width: 100vw;
-      height: 2rem;
+      height: 24rem;
       transform: translateX(-100%);
-      border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "1rem")};
+      border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "12rem")};
       transition: transform 0.8s linear, border-radius 0.4s linear, background-color 0.4s linear;
     }
     .slide-left {
@@ -279,17 +258,32 @@ const Wrapper = styled.main`
     .block-bottom-0 {
       background-color: ${({ theme }) => theme.color4};
     }
+    .info,
+    .details {
+      text-shadow: -1px -1px 0 ${({ theme }) => theme.color4}, 1px -1px 0 ${({ theme }) => theme.color4},
+        -1px 1px 0 ${({ theme }) => theme.color4}, 1px 1px 0 ${({ theme }) => theme.color4};
+    }
   }
   .hero2 {
     .block-top-1,
     .block-bottom-1 {
       background-color: ${({ theme }) => theme.color2};
     }
+    .info,
+    .details {
+      text-shadow: -1px -1px 0 ${({ theme }) => theme.color2}, 1px -1px 0 ${({ theme }) => theme.color2},
+        -1px 1px 0 ${({ theme }) => theme.color2}, 1px 1px 0 ${({ theme }) => theme.color2};
+    }
   }
   .hero3 {
     .block-top-2,
     .block-bottom-2 {
       background-color: ${({ theme }) => theme.color3};
+    }
+    .info,
+    .details {
+      text-shadow: -1px -1px 0 ${({ theme }) => theme.color3}, 1px -1px 0 ${({ theme }) => theme.color3},
+        -1px 1px 0 ${({ theme }) => theme.color3}, 1px 1px 0 ${({ theme }) => theme.color3};
     }
   }
   .register-wrapper-bottom {

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { url, useAppContext } from "../context/AppContext";
 import { JobListing } from "../components/JobListing";
-import { Loading } from "../components/Loading";
 import { JobDescriptionModal } from "../components/JobDescriptionModal";
-import { OutsideClickDetector } from "../components/OutsideClickDetector";
+import { Loading } from "../components/Loading";
+import { Pagination } from "../components/Pagination";
 
 export const JobsPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -48,27 +48,19 @@ export const JobsPage = () => {
     <Wrapper style={{ position: "relative", zIndex: `${showModal ? "999" : ""}` }}>
       <section className="container">
         <label htmlFor="company">Filter by Company</label>
-        <input type="text" name="company" placeholder="company" />
-        <div className="flex">
-          {currentPage > 1 && (
-            <button className="pagination-button" onClick={() => setCurrentPage(currentPage - 1)}>
-              {currentPage - 1}
-            </button>
-          )}
-          <button className="pagination-button" disabled>
-            {currentPage}
-          </button>
-          <button className="pagination-button" onClick={() => setCurrentPage(currentPage + 1)}>
-            {currentPage + 1}
-          </button>
-        </div>
+        <input type="text" name="company" placeholder="company" disabled={isLoading} />
         {isLoading ? (
           <Loading />
-        ) : (
+        ) : currentJobPageResults?.results?.length > 0 ? (
           <>
-            {currentJobPageResults?.results?.length > 0 &&
-              currentJobPageResults?.results.map(x => <JobListing key={x.id} job={x} setShowModal={setShowModal} />)}
+            <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            {currentJobPageResults.results.map(x => (
+              <JobListing key={x.id} job={x} setShowModal={setShowModal} />
+            ))}
+            <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
           </>
+        ) : (
+          <p>No results found.</p>
         )}
       </section>
       {showModal && <JobDescriptionModal showModal={showModal} setShowModal={setShowModal} />}
@@ -83,7 +75,6 @@ const Wrapper = styled.main`
   justify-content: center;
   .container {
     width: 100%;
-    max-width: 600px;
     position: relative;
     padding: 0 1rem;
     overflow-x: hidden;
@@ -94,20 +85,15 @@ const Wrapper = styled.main`
     input {
       margin-bottom: 1rem;
     }
-    .pagination-button {
-      padding: 0.5rem 1rem;
-      background-color: var(--purple2);
-      border-radius: 3px;
-      margin: 0 0.5rem 1rem;
-
-      &:hover {
-        cursor: pointer;
-        opacity: 0.7;
-      }
-      &:disabled {
-        cursor: default;
-        opacity: 1;
-      }
+  }
+  @media (min-width: 768px) {
+    .container {
+      max-width: 80vw;
+    }
+  }
+  @media (min-width: 990px) {
+    .container {
+      max-width: 790px;
     }
   }
 `;

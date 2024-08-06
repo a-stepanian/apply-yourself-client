@@ -67,6 +67,6 @@ const Wrapper = styled.div`
     }
   }
   .open {
-    transform: translateY(6px);
+    transform: translateY(18px);
   }
 `;

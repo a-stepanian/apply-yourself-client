@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { url, useAppContext } from "../context/AppContext";
 import DOMPurify from "dompurify";
@@ -21,6 +21,14 @@ export const JobDescriptionModal = (props: IJobDescriptionModalProps) => {
   if (jobDescription.length > 0) {
     jobDescription = DOMPurify.sanitize(jobDescription);
   }
+
+  useEffect(() => {
+    if (showModal) {
+      setTimeout(() => {
+        document?.querySelector(".show")?.classList?.add("grow");
+      }, 50);
+    }
+  }, [showModal]);
 
   const applyToJob = async () => {
     setIsLoading(true);
@@ -71,7 +79,7 @@ export const JobDescriptionModal = (props: IJobDescriptionModalProps) => {
               <IoCloseOutline />
             </button>
           </div>
-          {selectedJob && <div dangerouslySetInnerHTML={{ __html: jobDescription }}></div>}
+          {selectedJob && <div className="job-description" dangerouslySetInnerHTML={{ __html: jobDescription }}></div>}
         </div>
       </OutsideClickDetector>
     </Wrapper>
@@ -92,18 +100,22 @@ const Wrapper = styled.main`
   align-items: center;
   .modal {
     display: none;
+    transform: scale(0.8) translateY(30px);
+    opacity: 0;
   }
   .show {
     position: relative;
     z-index: 999;
     display: block;
-    background-color: ${({ theme }) => theme.primaryBackgroundColor};
+    background-color: #ccc;
+    border-radius: 3px;
     height: calc(100% - 2rem);
     max-height: 100vh;
     margin: 1rem;
-    overflow-y: scroll;
+    overflow: hidden;
     padding: 1rem;
     max-width: 800px;
+    transition: transform 0.2s linear, opacity 0.2s linear;
     .flex {
       display: flex;
       justify-content: space-between;
@@ -144,10 +156,19 @@ const Wrapper = styled.main`
         }
       }
     }
+    .job-description {
+      height: 100%;
+      max-height: calc(100vh - 200px);
+      overflow-y: scroll;
+    }
   }
   /* Fixes weird indentation in the html */
   li {
     margin-left: 1rem;
+  }
+  .grow {
+    transform: scale(1) translateY(0);
+    opacity: 1;
   }
   @media (min-width: 480px) {
     .show {

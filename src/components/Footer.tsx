@@ -102,7 +102,7 @@ const Wrapper = styled.footer`
   .copyright {
     position: relative;
     width: 100%;
-    background: ${({ theme }) => theme.primaryBackgroundColor};
+    background: ${({ theme }) => (theme.name === "darkMode" ? theme.primaryBackgroundColor : "#111")};
     font-size: 0.7rem;
     display: flex;
     flex-direction: column;
@@ -111,13 +111,14 @@ const Wrapper = styled.footer`
     p {
       margin-top: 10px;
       text-align: center;
-      color: ${({ theme }) => theme.color1};
+      color: ${({ theme }) => (theme.name === "darkMode" ? theme.color1 : "#ccc")};
       &:last-of-type {
+        margin-bottom: 10px;
         font-weight: 700;
         font-size: 0.6rem;
         a {
           white-space: nowrap;
-          color: ${({ theme }) => theme.color1};
+          color: ${({ theme }) => (theme.name === "darkMode" ? theme.color1 : "#ccc")};
         }
       }
     }

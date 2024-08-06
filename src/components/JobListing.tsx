@@ -16,9 +16,20 @@ export const JobListing = (props: IJobListingProps) => {
   return (
     <Wrapper>
       <div className="card">
-        <h2>{job.name}</h2>
+        <div className="card-header">
+          <h2>{job.name}</h2>
+          <div className="company-and-location">
+            <h3>{job.company.name}</h3>
+          </div>
+        </div>
         <div className="flex">
-          <h3>{job.company.name}</h3>
+          <div className="details-wrapper">
+            <span>{job?.locations[0]?.name ?? "Location Not Provided"}</span>
+            <span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+            <span>{job?.categories[0]?.name ?? "Category Not Provided"}</span>
+            <span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+            <span>{job?.levels[0]?.name ?? "Level Not Provided"}</span>
+          </div>
           <div>
             <button
               type="button"
@@ -38,51 +49,77 @@ export const JobListing = (props: IJobListingProps) => {
 };
 
 const Wrapper = styled.div`
-  border: 1px solid ${({ theme }) => theme.color1};
+  border: 2px solid ${({ theme }) => (theme.name === "darkMode" ? "transparent" : theme.color1)};
   width: 100%;
-  border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "18px")};
-  padding: 1rem;
+  border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "32px")};
   margin-bottom: 1rem;
   background-color: ${({ theme }) => theme.secondaryBackgroundColor};
   transition: 0.4s linear;
   .card {
-    h2 {
-      font-family: "Poppins", sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      color: ${({ theme }) => theme.color2};
-    }
-    .flex {
-      display: flex;
-      justify-content: space-between;
+    .card-header {
+      color: #eee;
+      margin: 1rem;
+      padding: 1rem;
+      background-color: #222;
+      border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px 3px 3px 3px" : "16px 16px 3px 3px")};
+      transition: 0.4s linear;
+      h2 {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.2rem;
+        font-weight: 300;
+        margin-bottom: 0.5rem;
+      }
       h3 {
         font-family: "Poppins", sans-serif;
-        font-size: 1.4rem;
-        font-weight: 900;
-        color: ${({ theme }) => theme.color2};
+        font-size: 0.8rem;
+        font-weight: 600;
       }
-      button {
-        width: 100px;
-        padding: 0.5rem 0;
+    }
+    .flex {
+      padding: 0 1rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.4s linear;
+      color: ${({ theme }) => (theme.name === "darkMode" ? "#eee" : theme.color2)};
+      .details-wrapper {
+        font-family: "Poppins", sans-serif;
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: ${({ theme }) => (theme.name === "darkMode" ? "#eee" : theme.color2)};
+      }
+      .view-details-button {
+        padding: 0.5rem 1rem;
         border-radius: 3px;
         color: ${({ theme }) => theme.primaryBackgroundColor};
         background: ${({ theme }) => theme.color3};
         border: 1px solid ${({ theme }) => theme.color3};
+        border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "1.5rem")};
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
         white-space: nowrap;
         cursor: pointer;
+        transition: 0.4s linear;
         &:hover {
           color: ${({ theme }) => theme.color3};
-          background: ${({ theme }) =>
-            `linear-gradient(45deg, ${theme.color1}, ${theme.primaryBackgroundColor},${theme.color1})`};
+          background: transparent;
         }
         &:disabled {
           color: ${({ theme }) => theme.primaryBackgroundColor};
           background: ${({ theme }) => theme.color3};
         }
-        &:first-of-type {
-          color: ${({ theme }) => theme.color1};
-          background: ${({ theme }) => theme.primaryBackgroundColor};
-          border: 1px solid ${({ theme }) => theme.color1};
+      }
+    }
+    @media (min-width: 480px) {
+      .company-and-location {
+        display: flex;
+        align-items: center;
+        h3,
+        h4 {
+          white-space: nowrap;
+        }
+        h3 {
+          margin-right: 1rem;
         }
       }
     }

@@ -7,8 +7,8 @@ export const UserDropdownButton = () => {
   const { user, toggleUserDropdown } = useAppContext();
   return (
     <Wrapper onClick={toggleUserDropdown} className="exclude-click-detection">
-      <span className="exclude-click-detection">{user?.username ?? "No username"}</span>
-      <LiaUserCircleSolid className="user-icon exclude-click-detection" />
+      <span className="exclude-click-detection">Welcome, {user?.username ?? "No username"}</span>
+      {/* <LiaUserCircleSolid className="user-icon exclude-click-detection" /> */}
     </Wrapper>
   );
 };
