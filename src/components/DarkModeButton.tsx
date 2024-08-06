@@ -23,7 +23,7 @@ const Wrapper = styled.button`
   position: relative;
   background: transparent;
   border: 2px solid #111;
-  outline: 2px solid ${({ theme }) => theme.primaryBackgroundColor};
+  outline: 2px solid #111;
   color: #111;
   border-radius: 35px;
   height: 36px;
@@ -38,7 +38,7 @@ const Wrapper = styled.button`
     border-radius: 35px;
     background-color: #111;
     border: 2px solid #111;
-    transition: 0.1s linear;
+    transition: left 0.2s linear;
   }
   .moon {
     position: absolute;
@@ -60,6 +60,7 @@ const Wrapper = styled.button`
     position: fixed;
     bottom: 12px;
     right: 12px;
+    outline: 2px solid ${({ theme }) => theme.primaryBackgroundColor};
     background-color: ${({ theme }) => theme.primaryBackgroundColor};
     border: 2px solid ${({ theme }) => theme.color1};
     color: ${({ theme }) => theme.color1};
@@ -67,6 +68,7 @@ const Wrapper = styled.button`
     .circle {
       background-color: ${({ theme }) => theme.color1};
       border: 2px solid ${({ theme }) => theme.color1};
+      transition: all 0.1s linear;
     }
     .moon,
     .sun {

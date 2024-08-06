@@ -18,14 +18,18 @@ export const HeroPage = (props: IHeroPageProps) => {
       const scrollTargets = document?.querySelectorAll(".scroll-target");
       if (scrollTargets?.length > 0) {
         for (let i = 0; i < scrollTargets.length; i++) {
-          const distanceFromTop = scrollTargets[i]?.getBoundingClientRect().top;
-          if (distanceFromTop < 600) {
+          const target = scrollTargets[i];
+          const rect = target.getBoundingClientRect();
+
+          // Check if the target is entering the viewport from the bottom
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
             document.querySelector(`.block-top-${i}`)?.classList.add(`slide-left`);
             document.querySelector(`.block-bottom-${i}`)?.classList.add(`slide-right`);
           }
         }
       }
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -163,15 +167,19 @@ const Wrapper = styled.main`
     width: 80vw;
     left: 10vw;
     top: 360px;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: #c024ff;
-    padding: 1.5rem 3rem;
     text-decoration: none;
     text-align: center;
     font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.5rem" : "1.9rem")};
     font-weight: ${({ theme }) => (theme.name === "darkMode" ? "700" : "900")};
     color: #111;
-    border-radius: ${({ theme }) => theme.primaryBorderRadius};
+    border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "3rem")};
     z-index: 55;
+    transition: border-radius 0.4s linear, background-color 0.4s linear;
   }
   .astronaut-wrapper {
     position: absolute;
@@ -229,8 +237,8 @@ const Wrapper = styled.main`
       width: 150vw;
       height: 16rem;
       transform: translateX(110%);
-      border-radius: ${({ theme }) => theme.primaryBorderRadius};
-      transition: transform 0.8s linear, border-radius 0.3s linear;
+      border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "8rem")};
+      transition: transform 0.8s linear, border-radius 0.4s linear, background-color 0.4s linear;
     }
     .centering-wrapper {
       display: flex;
@@ -256,9 +264,8 @@ const Wrapper = styled.main`
       width: 100vw;
       height: 2rem;
       transform: translateX(-100%);
-      border-radius: ${({ theme }) => theme.primaryBorderRadius};
-
-      transition: transform 0.8s linear, border-radius 0.3s linear;
+      border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "1rem")};
+      transition: transform 0.8s linear, border-radius 0.4s linear, background-color 0.4s linear;
     }
     .slide-left {
       transform: translateX(0);
@@ -387,6 +394,7 @@ const Wrapper = styled.main`
       max-width: 40rem;
     }
     .hero {
+      margin: 16rem 0;
       .centering-wrapper {
         .svg-wrapper {
           width: 20rem;

@@ -166,6 +166,8 @@ const Wrapper = styled.nav`
         border: 1px solid ${({ theme }) => theme.color3};
         border-radius: ${({ theme }) => theme.primaryBorderRadius};
         color: ${({ theme }) => theme.color3};
+        transition: border-radius 0.3s linear, background-color 0.4s linear;
+        border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "2rem")};
         span {
           font-size: ${({ theme }) => (theme.name === "darkMode" ? "0.8rem" : "0.9rem")};
           font-weight: ${({ theme }) => (theme.name === "darkMode" ? "500" : "900")};
