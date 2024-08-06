@@ -1,2 +1,1 @@
-Using the fetch API is showing me how much axios made requests easier on previous projects. But I'm learning alot more about how the headers function in a request this way. Also spent alot of time making requests to the server via postman before jumping onto the front end and making requests from the browser. Learned how to look at headers in the chrome dev tools to see if set-cookie came through. Need to set credentials to "include" for the frontend requests using fetch API in order to recieve the cookie from the backend.
-Learned how to look in dev tools to see where my request failed when deploying and was able to figure out that I had the wrong server url in the context file.
+# https://client-apply-yourself.netlify.app/
