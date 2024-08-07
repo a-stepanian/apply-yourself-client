@@ -150,7 +150,7 @@ const Wrapper = styled.main`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #c024ff;
+    background: ${({ theme }) => theme.color1};
     text-decoration: none;
     text-align: center;
     font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.5rem" : "1.9rem")};
@@ -213,9 +213,9 @@ const Wrapper = styled.main`
       position: absolute;
       top: 0;
       z-index: 0;
-      width: 150vw;
+      width: 100vw;
       height: 16rem;
-      transform: translateX(110%);
+      transform: translateX(100%);
       border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "8rem")};
       transition: transform 0.8s linear, border-radius 0.4s linear, background-color 0.4s linear;
     }
@@ -244,10 +244,10 @@ const Wrapper = styled.main`
       height: 24rem;
       transform: translateX(-100%);
       border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "12rem")};
-      transition: transform 0.8s linear, border-radius 0.4s linear, background-color 0.4s linear;
+      transition: transform 0.8s linear 0.4s, border-radius 0.4s linear, background-color 0.4s linear;
     }
     .slide-left {
-      transform: translateX(0);
+      transform: translateX(50%);
     }
     .slide-right {
       transform: translateX(-40%);

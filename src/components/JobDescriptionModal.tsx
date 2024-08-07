@@ -115,7 +115,7 @@ const Wrapper = styled.main`
     overflow: hidden;
     padding: 1rem;
     max-width: 800px;
-    transition: transform 0.2s linear, opacity 0.2s linear;
+    transition: transform 0.1s linear, opacity 0.1s linear;
     .flex {
       display: flex;
       justify-content: space-between;

@@ -15,7 +15,7 @@ export const Pagination = (props: IPaginationProps) => {
         <button
           type="button"
           title="Go back 5 pages"
-          className="pagination-button arrow-button"
+          className="pagination-button arrow-button hide-xs"
           onClick={() => {
             setCurrentPage(currentPage - 5);
             window.scrollTo({ top: 0, behavior: "smooth" });
@@ -38,7 +38,7 @@ export const Pagination = (props: IPaginationProps) => {
       {currentPage > 2 && (
         <button
           type="button"
-          className="pagination-button"
+          className="pagination-button hide-xs"
           onClick={() => {
             setCurrentPage(currentPage - 2);
             window.scrollTo({ top: 0, behavior: "smooth" });
@@ -71,7 +71,7 @@ export const Pagination = (props: IPaginationProps) => {
       </button>
       <button
         type="button"
-        className="pagination-button"
+        className="pagination-button hide-xs"
         onClick={() => {
           setCurrentPage(currentPage + 2);
           window.scrollTo({ top: 0, behavior: "smooth" });
@@ -91,7 +91,7 @@ export const Pagination = (props: IPaginationProps) => {
       <button
         type="button"
         title="Go forward 5 pages"
-        className="pagination-button arrow-button"
+        className="pagination-button arrow-button hide-xs"
         onClick={() => {
           setCurrentPage(currentPage + 5);
           window.scrollTo({ top: 0, behavior: "smooth" });
@@ -130,7 +130,15 @@ const Wrapper = styled.div`
       opacity: 0.5;
     }
   }
+  .hide-xs {
+    display: none;
+  }
   .arrow-button {
     border: none;
+  }
+  @media (min-width: 480px) {
+    .hide-xs {
+      display: block;
+    }
   }
 `;

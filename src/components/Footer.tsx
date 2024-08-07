@@ -77,16 +77,16 @@ const Wrapper = styled.footer`
       color: ${({ theme }) => (theme.name === "darkMode" ? theme.color3 : theme.primaryBackgroundColor)};
     }
     a {
-      height: 1.5rem;
+      height: 1.8rem;
       text-decoration: none;
       color: ${({ theme }) => (theme.name === "darkMode" ? theme.color1 : theme.primaryBackgroundColor)};
+      font-size: ${({ theme }) => (theme.name === "darkMode" ? "1rem" : "1.2rem")};
       margin: 0.6rem 0 0;
       display: flex;
       align-items: center;
     }
     .icon {
       font-size: 1.3rem;
-      transform: translateY(0.1rem);
       padding-right: 0.2rem;
     }
     &:last-of-type {
@@ -123,8 +123,20 @@ const Wrapper = styled.footer`
       }
     }
   }
+  @media (min-width: 480px) {
+    .sitemap {
+      a {
+        font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.3rem" : "1.4rem")};
+      }
+      .icon {
+        font-size: 1.5rem;
+        padding-right: 0.2rem;
+      }
+    }
+  }
   @media (min-width: 990px) {
     .sitemap {
+      margin: 6rem 0 1rem;
       h2 {
         font-size: 0.8rem;
         margin-top: 1rem;
@@ -134,6 +146,7 @@ const Wrapper = styled.footer`
       margin: 3rem 0;
       display: block;
       width: 33%;
+      max-width: 600px;
       img {
         width: 100%;
         animation: rock 4s infinite linear;

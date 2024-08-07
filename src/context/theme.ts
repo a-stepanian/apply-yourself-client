@@ -19,9 +19,13 @@ export const darkTheme: IStyleTheme = {
   primaryBackgroundColor: "#040012", // Dark Background
   secondaryBackgroundColor: "#333", // Dark Background
   color1: "#3a5eff", // Blue
+  // color1: "#8097FF", // Blue
   color2: "#6dfff8", // Green
+  // color2: "#67A8A4", // Green
   color3: "#c024ff", // Pink
+  // color3: "#ff8091", // Pink
   color4: "#6d46f8" // Purple
+  // color4: "#A78FFF" // Purple
 };
 
 export const GlobalStyles = createGlobalStyle`
