@@ -1,5 +1,5 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 export const LoadingSpinner: React.FC = () => {
   return (
@@ -15,9 +15,9 @@ const Wrapper = styled.div`
   align-items: center;
   height: 100%;
   .loading-spinner {
-    border: 4px solid rgba(0, 0, 0, 0.3); /* Light grey border */
+    border: 4px solid rgba(100, 100, 100, 0.3);
     border-radius: 50%;
-    border-top: 4px solid ${({ theme }) => theme.primaryBackgroundColor};
+    border-top: 4px solid rgba(200, 200, 200, 0.7);
     width: 16px;
     height: 16px;
     animation: spin 1s linear infinite;

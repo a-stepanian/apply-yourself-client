@@ -55,6 +55,7 @@ const Wrapper = styled.div`
   margin-bottom: 1rem;
   background-color: ${({ theme }) => theme.secondaryBackgroundColor};
   transition: 0.4s linear;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
   .card {
     .card-header {
       color: #eee;

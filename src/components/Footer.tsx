@@ -74,16 +74,19 @@ const Wrapper = styled.footer`
     h2 {
       font-size: 0.7rem;
       font-weight: 700;
-      color: ${({ theme }) => (theme.name === "darkMode" ? theme.color3 : theme.primaryBackgroundColor)};
+      color: ${({ theme }) => (theme.name === "darkMode" ? theme.color1 : theme.primaryBackgroundColor)};
     }
     a {
       height: 1.8rem;
       text-decoration: none;
-      color: ${({ theme }) => (theme.name === "darkMode" ? theme.color1 : theme.primaryBackgroundColor)};
+      color: ${({ theme }) => (theme.name === "darkMode" ? theme.color4 : theme.primaryBackgroundColor)};
       font-size: ${({ theme }) => (theme.name === "darkMode" ? "1rem" : "1.2rem")};
       margin: 0.6rem 0 0;
       display: flex;
       align-items: center;
+      &:hover {
+        text-decoration: underline;
+      }
     }
     .icon {
       font-size: 1.3rem;
@@ -91,7 +94,7 @@ const Wrapper = styled.footer`
     }
     &:last-of-type {
       a {
-        color: ${({ theme }) => (theme.name === "darkMode" ? theme.color2 : theme.primaryBackgroundColor)};
+        color: ${({ theme }) => (theme.name === "darkMode" ? theme.color3 : theme.primaryBackgroundColor)};
       }
     }
   }

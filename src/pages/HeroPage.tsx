@@ -4,6 +4,7 @@ import { LineDesign } from "../components/LineDesign";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 import { TypingEffect } from "../components/TypingEffect";
+import { FaRegArrowAltCircleRight } from "react-icons/fa";
 
 interface IHeroPageProps {
   theme: string;
@@ -38,6 +39,7 @@ export const HeroPage = (props: IHeroPageProps) => {
         <TypingEffect text="Land your dream job." textElementType="h1" speedInMilliseconds={50} />
         <Link to="/jobs" className="get-started-cta">
           See current job postings
+          <FaRegArrowAltCircleRight className="arrow-icon" />
         </Link>
       </div>
       <div className="astronaut-wrapper">
@@ -142,23 +144,29 @@ const Wrapper = styled.main`
     text-shadow: 0 0 80px rgb(115, 0, 255);
   }
   .get-started-cta {
+    padding-left: 1rem;
+    padding-right: 1rem;
     position: absolute;
     width: 80vw;
+    max-width: 600px;
     left: 10vw;
     top: 360px;
     height: 6rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: ${({ theme }) => theme.color1};
+    background: ${({ theme }) => theme.color3};
     text-decoration: none;
     text-align: center;
     font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.5rem" : "1.9rem")};
     font-weight: ${({ theme }) => (theme.name === "darkMode" ? "700" : "900")};
-    color: #111;
+    color: ${({ theme }) => theme.primaryBackgroundColor};
     border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "3rem")};
     z-index: 55;
     transition: border-radius 0.4s linear, background-color 0.4s linear;
+    .arrow-icon {
+      margin-left: 1rem;
+    }
   }
   .astronaut-wrapper {
     position: absolute;
@@ -348,7 +356,7 @@ const Wrapper = styled.main`
         transform: translateX(25vw) translateY(-5px);
         box-shadow: 0 8px 8px
           ${({ theme }) => (theme.name === "darkMode" ? "rgba(255, 255, 255, 0.3)" : "rgba(255, 255, 255, 0.8)")};
-        color: rgba(0, 0, 0, 0.5);
+        color: ${({ theme }) => (theme.name === "darkMode" ? "rgba(2, 0, 6, 0.7)" : "rgba(255, 255, 255, 0.8)")};
       }
     }
     .hero {
@@ -405,6 +413,9 @@ const Wrapper = styled.main`
       width: 100vw;
       padding: 0 20vw;
     }
+    .hero1 {
+      margin-top: 50vh;
+    }
   }
   @keyframes fadeIn {
     0% {
@@ -428,7 +439,7 @@ const Wrapper = styled.main`
       transform: scale(1.1);
     }
     100% {
-      opacity: 0.1;
+      opacity: 0.3;
       transform: scale(1.1);
     }
   }

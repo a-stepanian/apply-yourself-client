@@ -1,6 +1,4 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
-// @ts-ignore
 import styled from "styled-components";
 import { RiLogoutBoxRLine } from "react-icons/ri";
 import { useAppContext, url } from "../context/AppContext";
@@ -8,20 +6,24 @@ import { useAppContext, url } from "../context/AppContext";
 export const LogoutButton = () => {
   const { setLoggedIn } = useAppContext();
   const navigate = useNavigate();
+
   const logoutUser = async () => {
-    await fetch(`${url}/auth/logout`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      credentials: "include"
-    }).catch(error => {
+    try {
+      await fetch(`${url}/auth/logout`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include"
+      });
+      setLoggedIn(false);
+      navigate("/login");
+    } catch (error) {
       console.log(error);
       return;
-    });
-    setLoggedIn(false);
-    navigate("/login");
+    }
   };
+
   return (
     <Wrapper onClick={logoutUser}>
       <span>Logout</span> <RiLogoutBoxRLine className="icon" />
@@ -34,9 +36,7 @@ const Wrapper = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-size: 1.6rem;
-
   &:hover {
     cursor: pointer;
     text-decoration: underline;
@@ -49,7 +49,6 @@ const Wrapper = styled.button`
   }
   @media (min-width: 768px) {
     font-size: 0.8rem;
-
     &:hover {
       cursor: pointer;
       text-decoration: underline;

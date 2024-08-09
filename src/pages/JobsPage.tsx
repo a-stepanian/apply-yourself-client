@@ -6,27 +6,51 @@ import { JobDescriptionModal } from "../components/JobDescriptionModal";
 import { Loading } from "../components/Loading";
 import { Pagination } from "../components/Pagination";
 import { LuFilter, LuSearch } from "react-icons/lu";
+import { IJobPageResults } from "../interfaces/interfaces";
 
 export const JobsPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [companyName, setCompanyName] = useState<string>("");
 
   const { currentJobPageResults, setCurrentJobPageResults } = useAppContext();
 
-  // Fetch Jobs
-  useEffect(() => {
-    const getJobs = async () => {
-      setIsLoading(true);
-      try {
-        // first try to get the record from local DB
-        let response = await fetch(`${url}/job-pages/${currentPage}`);
-        let data = await response?.json();
-        // if it doesn't exist, fetch it from the API and create a new record in the local DB
-        if (!data) {
-          response = await fetch(`https://www.themuse.com/api/public/jobs?page=${currentPage}`);
-          data = await response.json();
-          // create new job page record
+  const getSingleJobPage = async (baseUrl: string = url): Promise<IJobPageResults> => {
+    try {
+      // Build url with query params
+      const params = new URLSearchParams();
+      if (companyName.length > 0) {
+        params.append("company", companyName);
+      }
+      if (currentPage > 0) {
+        params.append("page", currentPage.toString());
+      }
+      const fullUrl = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
+
+      const response = await fetch(fullUrl);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = (await response.json()) as IJobPageResults;
+      return data;
+    } catch (error) {
+      console.error("Error fetching job page:", error);
+      throw error;
+    }
+  };
+
+  const getJobs = async () => {
+    setIsLoading(true);
+    try {
+      // let data = await getSingleJobPage(`${url}/job-pages`); // first try to get the record from local DB
+      let data: any = false;
+      if (data) {
+        setCurrentJobPageResults(data);
+      } else {
+        data = await getSingleJobPage("https://www.themuse.com/api/public/jobs"); // second try the API
+        if (data) {
           await fetch(`${url}/job-pages/new`, {
             method: "POST",
             headers: {
@@ -35,13 +59,22 @@ export const JobsPage = () => {
             body: JSON.stringify(data),
             credentials: "include"
           });
+          setCurrentJobPageResults(data);
         }
-        setCurrentJobPageResults(data);
-      } catch (err) {
-        console.log(err);
       }
+    } catch (err) {
+      console.log(err);
+    } finally {
       setIsLoading(false);
-    };
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    getJobs();
+  };
+
+  useEffect(() => {
     getJobs();
   }, [currentPage]);
 
@@ -53,13 +86,17 @@ export const JobsPage = () => {
             Filter by Company
           </label>
           <div className="search-wrapper">
-            <input
-              className="search-input"
-              type="text"
-              name="company"
-              placeholder="industrial engineer"
-              disabled={isLoading}
-            />
+            <form action="#" onSubmit={e => handleSubmit(e)}>
+              <input
+                className="search-input"
+                type="text"
+                name="company"
+                value={companyName}
+                placeholder="industrial engineer"
+                disabled={isLoading}
+                onChange={e => setCompanyName(e.target.value)}
+              />
+            </form>
             <LuSearch className="search-icon" />
             <button className="filter-button" type="button">
               Filters
@@ -96,6 +133,7 @@ const Wrapper = styled.main`
   justify-content: center;
   .container {
     width: 100%;
+    min-height: calc(200vh + 50px);
     position: relative;
     padding: 0 1rem;
     overflow-x: hidden;
@@ -111,8 +149,11 @@ const Wrapper = styled.main`
         width: 100%;
         display: flex;
         border-bottom: 1px solid ${({ theme }) => theme.color1};
-        .search-input {
+        form {
           width: 75%;
+        }
+        .search-input {
+          width: 100%;
           background-color: ${({ theme }) => theme.primaryBackgroundColor};
           font-family: "Poppins", sans-serif;
           font-weight: 400;
@@ -123,20 +164,24 @@ const Wrapper = styled.main`
           border-right: 1px solid ${({ theme }) => theme.color1};
           border-left: 1px solid ${({ theme }) => theme.color1};
           padding: 0.2rem 0 0.2rem 30px;
-          transition: 0.3s linear;
+          transition: 0.1s linear;
+          &:hover {
+            cursor: text;
+          }
           &:focus-visible {
             outline: none;
+            background-color: rgba(200, 200, 200, 0.5);
+            color: #111;
           }
         }
         .search-icon {
           font-size: 1.2rem;
           position: absolute;
           top: 9px;
-          /* right: calc(25% + 5px); */
           left: 8px;
         }
         .filter-button {
-          transition: 0.3s linear;
+          transition: 0.1s linear;
           flex: 1;
           background-color: ${({ theme }) => theme.primaryBackgroundColor};
           color: ${({ theme }) => theme.color1};
@@ -187,9 +232,8 @@ const Wrapper = styled.main`
           width: 100%;
           border: none;
           .search-input {
-            width: 80%;
+            width: calc(100% - 8px);
             box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
-            margin-right: 8px;
             border: none;
             border: 2px solid ${({ theme }) => theme.color1};
             border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "2.9rem")};
@@ -197,6 +241,12 @@ const Wrapper = styled.main`
             font-size: 1rem;
             line-height: 3rem;
             padding: 0.2rem 0 0.2rem 46px;
+            &:hover {
+              border: 2px solid ${({ theme }) => theme.color3};
+            }
+            &:focus-visible {
+              border: 2px solid ${({ theme }) => theme.color3};
+            }
           }
           .search-icon {
             font-size: 1.8rem;

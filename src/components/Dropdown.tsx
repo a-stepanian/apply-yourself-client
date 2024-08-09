@@ -42,8 +42,6 @@ export const Dropdown = (props: IDropdownProps) => {
           <>
             <Link to="/register" onClick={() => toggleDropdown()}>
               <span>Register</span>
-              <RiLoginBoxLine className="icon" />
-              <RiUserAddLine className="icon" />
             </Link>
             <Link to="/login" onClick={() => toggleDropdown()}>
               <span>Login</span>
@@ -76,8 +74,9 @@ const Wrapper = styled.div`
     transition: transform 0.5s ease-out;
     transform: translateY(calc(-100vh - 300px));
     a {
-      font-size: 1.6rem;
-      padding: 0.2rem;
+      font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.6rem" : "2rem")};
+      padding: 0.3rem;
+      margin-top: ${({ theme }) => (theme.name === "darkMode" ? "1rem" : "1.3rem")};
       color: black;
       text-decoration: none;
       display: flex;

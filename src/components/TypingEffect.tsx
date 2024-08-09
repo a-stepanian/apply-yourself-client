@@ -24,8 +24,8 @@ export const TypingEffect = ({ text, speedInMilliseconds = 20, textElementType =
 
 interface ITypingEffectProps {
   text: string;
-  speedInMilliseconds?: number;
-  textElementType?:
+  speedInMilliseconds: number;
+  textElementType:
     | "p"
     | "h1"
     | "h2"
