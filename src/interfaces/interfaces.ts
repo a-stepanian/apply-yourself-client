@@ -12,7 +12,8 @@ interface ILocation extends IHasName {}
 interface ILevel extends IHasName, IHasShortName {}
 interface ICompany extends IHasId, IHasName, IHasShortName {}
 
-export interface IJobResult extends IHasId, IHasName, IHasShortName {
+export interface IJobResult extends IHasName, IHasShortName {
+  _id: number;
   categories: ICategory[];
   company: ICompany;
   contents: string;

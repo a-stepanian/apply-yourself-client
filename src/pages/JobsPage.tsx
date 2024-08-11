@@ -6,7 +6,7 @@ import { JobDescriptionModal } from "../components/JobDescriptionModal";
 import { Loading } from "../components/Loading";
 import { Pagination } from "../components/Pagination";
 import { LuFilter, LuSearch } from "react-icons/lu";
-import { IJobPageResults } from "../interfaces/interfaces";
+import { IJobPageResults, IJobResult } from "../interfaces/interfaces";
 
 export const JobsPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -16,19 +16,9 @@ export const JobsPage = () => {
 
   const { currentJobPageResults, setCurrentJobPageResults } = useAppContext();
 
-  const getSingleJobPage = async (baseUrl: string = url): Promise<IJobPageResults> => {
+  const getSingleJobPage = async (urlToUse: string = url): Promise<IJobPageResults> => {
     try {
-      // Build url with query params
-      const params = new URLSearchParams();
-      if (companyName.length > 0) {
-        params.append("company", companyName);
-      }
-      if (currentPage > 0) {
-        params.append("page", currentPage.toString());
-      }
-      const fullUrl = params.toString() ? `${baseUrl}?${params.toString()}` : baseUrl;
-
-      const response = await fetch(fullUrl);
+      const response = await fetch(urlToUse);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -44,21 +34,37 @@ export const JobsPage = () => {
   const getJobs = async () => {
     setIsLoading(true);
     try {
-      // let data = await getSingleJobPage(`${url}/job-pages`); // first try to get the record from local DB
-      let data: any = false;
+      let data = await getSingleJobPage(`${url}/job-pages/${currentPage.toString()}`); // first try to get the record from local DB
       if (data) {
         setCurrentJobPageResults(data);
       } else {
         data = await getSingleJobPage("https://www.themuse.com/api/public/jobs"); // second try the API
-        if (data) {
+
+        if (data?.results?.length > 0) {
+          const jobPromises = data.results.map(async (x: IJobResult) => {
+            const response = await fetch(`${url}/job/new`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(x),
+              credentials: "include"
+            });
+            const { id } = await response.json();
+            return { ...x, _id: id };
+          });
+
+          const jobs = await Promise.all(jobPromises);
+
           await fetch(`${url}/job-pages/new`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify({ ...data, results: jobs }),
             credentials: "include"
           });
+
           setCurrentJobPageResults(data);
         }
       }
@@ -110,7 +116,7 @@ export const JobsPage = () => {
           <>
             <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
             {currentJobPageResults.results.map(x => (
-              <JobListing key={x.id} job={x} setShowModal={setShowModal} />
+              <JobListing key={x._id} job={x} setShowModal={setShowModal} />
             ))}
             <div className="pagination-wrapper">
               <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
