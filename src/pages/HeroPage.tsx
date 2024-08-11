@@ -38,17 +38,17 @@ export const HeroPage = (props: IHeroPageProps) => {
       <div className="hero-text-wrapper">
         <TypingEffect text="Land your dream job." textElementType="h1" speedInMilliseconds={50} />
         <Link to="/jobs" className="get-started-cta">
-          See current job postings
+          Latest Job Postings
           <FaRegArrowAltCircleRight className="arrow-icon" />
         </Link>
       </div>
       <div className="astronaut-wrapper">
         <img className="astronaut" src="purple-astronaut.svg" alt="Happy Astronaut." />
       </div>
-      <div className="scroll-target" />
+      <div className="scroll-target"></div>
       <article className="hero hero1">
         <h2 className="info">Manage the application process</h2>
-        <div className="block-top-0 block-top" />
+        <div className="block-top-0 block-top"></div>
         <p className="details">Getting a job can be difficult - managing the process shouldn't be.</p>
         <div className="centering-wrapper">
           <div className="svg-wrapper">
@@ -59,7 +59,7 @@ export const HeroPage = (props: IHeroPageProps) => {
             />
           </div>
         </div>
-        <div className="block-bottom-0 block-bottom" />
+        <div className="block-bottom-0 block-bottom"></div>
       </article>
       <div className="scroll-target" />
       <article className="hero hero2">
@@ -158,7 +158,7 @@ const Wrapper = styled.main`
     background: ${({ theme }) => theme.color3};
     text-decoration: none;
     text-align: center;
-    font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.5rem" : "1.9rem")};
+    font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.2rem" : "1.5rem")};
     font-weight: ${({ theme }) => (theme.name === "darkMode" ? "700" : "900")};
     color: ${({ theme }) => theme.primaryBackgroundColor};
     border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "3rem")};
@@ -244,7 +244,6 @@ const Wrapper = styled.main`
       }
     }
     .block-bottom {
-      position: absolute;
       bottom: 0;
       left: 0;
       z-index: 0;
@@ -255,10 +254,10 @@ const Wrapper = styled.main`
       transition: transform 0.8s linear 0.4s, border-radius 0.4s linear, background-color 0.4s linear;
     }
     .slide-left {
-      transform: translateX(50%);
+      transform: translateX(-10%);
     }
     .slide-right {
-      transform: translateX(-40%);
+      transform: translateX(-10%);
     }
   }
   .hero1 {
@@ -329,6 +328,12 @@ const Wrapper = styled.main`
         font-size: 1.4rem;
         text-align: start;
       }
+      .slide-left {
+        transform: translateX(50%);
+      }
+      .slide-right {
+        transform: translateX(-40%);
+      }
     }
     .register-wrapper-bottom {
       .get-started {
@@ -369,8 +374,14 @@ const Wrapper = styled.main`
         line-height: 2rem;
         transform: translateX(8rem);
       }
+      .block-bottom {
+        position: absolute;
+      }
       .slide-left {
-        transform: translateX(8rem);
+        transform: translateX(50%);
+      }
+      .slide-right {
+        transform: translateX(-40%);
       }
     }
     .register-wrapper-bottom {

@@ -25,9 +25,9 @@ export const JobListing = (props: IJobListingProps) => {
         <div className="flex">
           <div className="details-wrapper">
             <span>{job?.locations[0]?.name ?? "Location Not Provided"}</span>
-            <span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+            <span className="hide-sm">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
             <span>{job?.categories[0]?.name ?? "Category Not Provided"}</span>
-            <span>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
+            <span className="hide-sm">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
             <span>{job?.levels[0]?.name ?? "Level Not Provided"}</span>
           </div>
           <div>
@@ -88,6 +88,11 @@ const Wrapper = styled.div`
         font-size: 0.7rem;
         font-weight: 500;
         color: ${({ theme }) => (theme.name === "darkMode" ? "#eee" : theme.color2)};
+        display: flex;
+        flex-direction: column;
+        .hide-sm {
+          display: none;
+        }
       }
       .view-details-button {
         padding: 0.5rem 1rem;
@@ -111,16 +116,28 @@ const Wrapper = styled.div`
         }
       }
     }
-    @media (min-width: 480px) {
-      .company-and-location {
-        display: flex;
-        align-items: center;
-        h3,
-        h4 {
-          white-space: nowrap;
-        }
-        h3 {
-          margin-right: 1rem;
+  }
+  @media (min-width: 480px) {
+    .company-and-location {
+      display: flex;
+      align-items: center;
+      h3,
+      h4 {
+        white-space: nowrap;
+      }
+      h3 {
+        margin-right: 1rem;
+      }
+    }
+  }
+  @media (min-width: 768px) {
+    .card {
+      .flex {
+        .details-wrapper {
+          flex-direction: row;
+          .hide-sm {
+            display: block;
+          }
         }
       }
     }

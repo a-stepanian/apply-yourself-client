@@ -18,7 +18,15 @@ export const Dropdown = (props: IDropdownProps) => {
   return (
     <Wrapper>
       <nav className={isDropdownOpen ? "open" : ""}>
-        <DarkModeButton theme={theme} toggleDarkMode={() => toggleDarkMode()} />
+        <DarkModeButton
+          theme={theme}
+          toggleDarkMode={() => {
+            toggleDropdown();
+            setTimeout(() => {
+              toggleDarkMode();
+            }, 200);
+          }}
+        />
         <Link to="/jobs" className="logo page-link" onClick={() => toggleDropdown()}>
           Job Listings
         </Link>

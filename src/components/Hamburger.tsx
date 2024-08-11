@@ -8,8 +8,8 @@ export const Hamburger = () => {
   return (
     <Wrapper onClick={() => toggleDropdown()} title="Navigation Menu">
       <div className="hamburger-wrapper">
-        <div className={isDropdownOpen ? "line top top-open" : "line top"} />
-        <div className={isDropdownOpen ? "line bottom bottom-open" : "line bottom"} />
+        <div className={isDropdownOpen ? "line top top-open" : "line top"}></div>
+        <div className={isDropdownOpen ? "line bottom bottom-open" : "line bottom"}></div>
       </div>
     </Wrapper>
   );

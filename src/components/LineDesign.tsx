@@ -5,9 +5,9 @@ import styled from "styled-components";
 export const LineDesign = () => {
   return (
     <Wrapper>
-      <div className="line" />
-      <div className="line" />
-      <div className="line" />
+      <div className="line"></div>
+      <div className="line"></div>
+      <div className="line"></div>
     </Wrapper>
   );
 };

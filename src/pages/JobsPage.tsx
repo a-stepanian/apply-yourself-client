@@ -126,7 +126,6 @@ export const JobsPage = () => {
           <p>No results found.</p>
         )}
       </section>
-      <img className="astronaut" src="green-astonaut.svg" alt="Astronaut landing on the footer of the page" />
       {showModal && <JobDescriptionModal showModal={showModal} setShowModal={setShowModal} />}
     </Wrapper>
   );
@@ -221,12 +220,7 @@ const Wrapper = styled.main`
       padding: 4rem 0 10rem;
     }
   }
-  .astronaut {
-    position: absolute;
-    bottom: 0;
-    width: 80px;
-    height: 80px;
-  }
+
   @media (min-width: 768px) {
     .container {
       max-width: 80vw;
@@ -280,10 +274,6 @@ const Wrapper = styled.main`
       .pagination-wrapper {
         padding: 4rem 0 12rem;
       }
-    }
-    .astronaut {
-      width: 100px;
-      height: 100px;
     }
   }
   @media (min-width: 990px) {

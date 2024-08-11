@@ -30,7 +30,7 @@ export const ApplicationSection = () => {
         <>
           <header className="sticky-header">
             <h2 className="my-applications">My Applications</h2>
-            <div className="cover-strip" />
+            <div className="cover-strip"></div>
             <div className="button-wrapper">
               <Link to="/applications/new" className="add-app">
                 <span>Add Application</span>

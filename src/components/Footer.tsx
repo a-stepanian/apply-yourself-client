@@ -8,6 +8,7 @@ export const Footer = () => {
   return (
     <Wrapper>
       <div className="top-border"></div>
+      <img className="astronaut" src="green-astonaut.svg" alt="Astronaut landing on the footer of the page" />
       <section className="top">
         <article className="sitemap">
           <h2>Sitemap</h2>
@@ -125,6 +126,13 @@ const Wrapper = styled.footer`
         }
       }
     }
+  }
+  .astronaut {
+    position: absolute;
+    top: -80px;
+    left: calc(50% - 40px);
+    width: 80px;
+    height: 80px;
   }
   @media (min-width: 480px) {
     .sitemap {
