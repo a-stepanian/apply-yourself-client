@@ -1,13 +1,19 @@
-// @ts-ignore
 import styled from "styled-components";
 
-export const FourOhFourPage = () => {
+interface IFourOhFourPageProps {
+  theme: string;
+}
+export const FourOhFourPage = (props: IFourOhFourPageProps) => {
+  const { theme } = props;
   return (
     <Wrapper>
-      <p className="four-oh-four">404</p>
+      {theme !== "light" && <p className="four-oh-four">404</p>}
       <p className="not-found">Page Not Found</p>
       <div className="img-wrapper">
-        <img src="/notfound.svg" alt="Alien getting abducted into spaceship." />
+        <img
+          src={`${theme === "light" ? "four-oh-four" : "notfound"}.svg`}
+          alt="Illustration representing a 404 error.  Content missing from page."
+        />
       </div>
     </Wrapper>
   );
@@ -30,6 +36,7 @@ const Wrapper = styled.main`
     font-size: 1.2rem;
   }
   .img-wrapper {
+    margin-bottom: 5rem;
     padding: 1rem 0 0 1rem;
     width: 100%;
     max-width: 30rem;

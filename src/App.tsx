@@ -70,7 +70,7 @@ const App = () => {
             <Route path="/applications/new" element={<NewAppPage />} />
             <Route path="/applications/:id/edit" element={<EditAppPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="*" element={<FourOhFourPage />} />
+            <Route path="*" element={<FourOhFourPage theme={theme} />} />
           </Routes>
           <Footer />
         </Wrapper>
