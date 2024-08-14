@@ -4,7 +4,7 @@ import { LineDesign } from "../components/LineDesign";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../context/AppContext";
 import { TypingEffect } from "../components/TypingEffect";
-import { FaRegArrowAltCircleRight } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 
 interface IHeroPageProps {
   theme: string;
@@ -40,7 +40,7 @@ export const HeroPage = (props: IHeroPageProps) => {
           <TypingEffect text="Land your dream job." textElementType="h1" speedInMilliseconds={50} />
           <Link to="/jobs" className="get-started-cta">
             See who's hiring
-            <FaRegArrowAltCircleRight className="arrow-icon" />
+            <FaArrowRight className="arrow-icon" />
           </Link>
         </div>
         <div className="astronaut-wrapper">
@@ -48,7 +48,7 @@ export const HeroPage = (props: IHeroPageProps) => {
         </div>
         <div className="scroll-target"></div>
       </section>
-      <article className="hero hero1">
+      <section className="hero hero1">
         <h2 className="info">Manage the application process</h2>
         <div className="block-top-0 block-top"></div>
         <div className="centering-wrapper">
@@ -62,13 +62,13 @@ export const HeroPage = (props: IHeroPageProps) => {
         </div>
         <div className="block-bottom-0 block-bottom"></div>
         <p className="details">Getting a job can be difficult - managing the process shouldn't be.</p>
-      </article>
+      </section>
       <Link to="/jobs" className="cta-2">
         All openings
-        <FaRegArrowAltCircleRight className="arrow-icon" />
+        <FaArrowRight className="arrow-icon" />
       </Link>
       <div className="scroll-target" />
-      <article className="hero hero2">
+      <section className="hero hero2">
         <h2 className="info">Make the most of your time</h2>
         <div className="block-top-1 block-top" />
         <div className="centering-wrapper">
@@ -83,13 +83,13 @@ export const HeroPage = (props: IHeroPageProps) => {
         </div>
         <div className="block-bottom-1 block-bottom" />
         <p className="details">Spend more time job hunting and less time organizing.</p>{" "}
-      </article>
+      </section>
       <Link to="/jobs" className="cta-2">
         Latest Postings
-        <FaRegArrowAltCircleRight className="arrow-icon" />
+        <FaArrowRight className="arrow-icon" />
       </Link>
       <div className="scroll-target" />
-      <article className="hero hero3">
+      <section className="hero hero3">
         <h2 className="info">Gain valuable insights</h2>
         <div className="block-top-2 block-top" />
         <div className="centering-wrapper">
@@ -103,19 +103,16 @@ export const HeroPage = (props: IHeroPageProps) => {
         </div>
         <div className="block-bottom-2 block-bottom" />
         <p className="details">Learn what works and what doesn't - leverage this information in your search.</p>{" "}
-      </article>
-      {loggedIn ? (
-        <div className="register-wrapper-bottom">
+      </section>
+      <div className="register-wrapper-bottom">
+        {loggedIn ? (
           <h2 className="get-started">Good Luck!</h2>
-        </div>
-      ) : (
-        <div className="register-wrapper-bottom">
-          <h2 className="get-started">
+        ) : (
+          <Link to="/register" className="get-started">
             Get started today
-            <FaRegArrowAltCircleRight className="arrow-icon" />
-          </h2>
-        </div>
-      )}
+          </Link>
+        )}
+      </div>
     </Wrapper>
   );
 };
@@ -166,7 +163,6 @@ const Wrapper = styled.main`
     justify-content: center;
     align-items: center;
     background: #c024ff;
-    text-decoration: none;
     font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.2rem" : "1.5rem")};
     font-weight: ${({ theme }) => (theme.name === "darkMode" ? "700" : "900")};
     color: #111;
@@ -189,7 +185,6 @@ const Wrapper = styled.main`
     justify-content: center;
     align-items: center;
     background: #c024ff;
-    text-decoration: none;
     font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.2rem" : "1.5rem")};
     font-weight: ${({ theme }) => (theme.name === "darkMode" ? "700" : "900")};
     color: #111;
@@ -332,12 +327,9 @@ const Wrapper = styled.main`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 0 4rem;
+    margin-bottom: 4rem;
     .get-started {
-      position: relative;
-      width: 18rem;
       z-index: 1;
-      margin-bottom: 2rem;
       text-align: center;
       font-size: 3rem;
       text-shadow: 0 0 80px rgb(115, 0, 255);
@@ -358,17 +350,23 @@ const Wrapper = styled.main`
       top: 400px;
     }
     .hero {
+      .info {
+        margin: 0 5vw 2rem 33vw;
+        font-size: ${({ theme }) => (theme.name === "darkMode" ? "2rem" : "2.4rem")};
+        padding: 3rem 0;
+      }
       .details {
         width: 80%;
-        margin: 5rem 10%;
-        font-size: 1.4rem;
+        margin: 3rem 10%;
+        font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.8rem" : "2.2rem")};
+        height: unset;
         text-align: start;
       }
       .slide-left {
         transform: translateX(15%);
       }
       .slide-right {
-        transform: translateX(-50%);
+        transform: translateX(-20%);
       }
     }
     .register-wrapper-bottom {
@@ -403,7 +401,9 @@ const Wrapper = styled.main`
     .hero {
       .info {
         font-size: 2.5rem;
-        margin: ${({ theme }) => (theme.name === "darkMode" ? "1rem 0 2rem 10rem" : "1rem 0 2rem 15rem")};
+        padding: 0;
+        margin: 2rem 0 0 25vw;
+        width: 100%;
       }
       .details {
         margin: ${({ theme }) => (theme.name === "darkMode" ? "5rem 0 5rem 10rem" : "5rem 0 5rem 10rem")};

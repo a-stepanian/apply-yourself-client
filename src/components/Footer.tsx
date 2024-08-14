@@ -41,7 +41,7 @@ export const Footer = () => {
       </section>
       <div className="copyright">
         <div className="top-border"></div>
-        <p>&copy;2022 Apply Yourself</p>
+        <p>&copy;2024 Apply Yourself</p>
         <p>
           Designed & Developed by <a href="https://www.alex-stepanian.com">Alex Stepanian</a>
         </p>
