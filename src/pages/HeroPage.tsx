@@ -35,21 +35,22 @@ export const HeroPage = (props: IHeroPageProps) => {
   return (
     <Wrapper>
       {theme === "light" && <LineDesign />}
-      <div className="hero-text-wrapper">
-        <TypingEffect text="Land your dream job." textElementType="h1" speedInMilliseconds={50} />
-        <Link to="/jobs" className="get-started-cta">
-          Latest Job Postings
-          <FaRegArrowAltCircleRight className="arrow-icon" />
-        </Link>
-      </div>
-      <div className="astronaut-wrapper">
-        <img className="astronaut" src="purple-astronaut.svg" alt="Happy Astronaut." />
-      </div>
-      <div className="scroll-target"></div>
+      <section className="above-the-fold">
+        <div className="hero-text-wrapper">
+          <TypingEffect text="Land your dream job." textElementType="h1" speedInMilliseconds={50} />
+          <Link to="/jobs" className="get-started-cta">
+            See who's hiring
+            <FaRegArrowAltCircleRight className="arrow-icon" />
+          </Link>
+        </div>
+        <div className="astronaut-wrapper">
+          <img className="astronaut" src="purple-astronaut.svg" alt="Happy Astronaut." />
+        </div>
+        <div className="scroll-target"></div>
+      </section>
       <article className="hero hero1">
         <h2 className="info">Manage the application process</h2>
         <div className="block-top-0 block-top"></div>
-        <p className="details">Getting a job can be difficult - managing the process shouldn't be.</p>
         <div className="centering-wrapper">
           <div className="svg-wrapper">
             <img
@@ -60,38 +61,48 @@ export const HeroPage = (props: IHeroPageProps) => {
           </div>
         </div>
         <div className="block-bottom-0 block-bottom"></div>
+        <p className="details">Getting a job can be difficult - managing the process shouldn't be.</p>
       </article>
+      <Link to="/jobs" className="cta-2">
+        All openings
+        <FaRegArrowAltCircleRight className="arrow-icon" />
+      </Link>
       <div className="scroll-target" />
       <article className="hero hero2">
         <h2 className="info">Make the most of your time</h2>
         <div className="block-top-1 block-top" />
-        <p className="details">Spend more time job hunting and less time organizing.</p>
         <div className="centering-wrapper">
           <div className="svg-wrapper">
             <img
               className="hero2-svg svg"
-              src={`${theme === "light" ? "time" : "blue-time"}.svg`}
+              // src={`${theme === "light" ? "time" : "blue-time"}.svg`}
+              src={`${theme === "light" ? "time" : "time-management"}.svg`}
               alt={`${theme === "light" ? "Employee excerizing excellent time management." : "Hourglass"}`}
             />
           </div>
         </div>
         <div className="block-bottom-1 block-bottom" />
+        <p className="details">Spend more time job hunting and less time organizing.</p>{" "}
       </article>
+      <Link to="/jobs" className="cta-2">
+        Latest Postings
+        <FaRegArrowAltCircleRight className="arrow-icon" />
+      </Link>
       <div className="scroll-target" />
       <article className="hero hero3">
         <h2 className="info">Gain valuable insights</h2>
         <div className="block-top-2 block-top" />
-        <p className="details">Learn what works and what doesn't - leverage this information in your search.</p>
         <div className="centering-wrapper">
           <div className="svg-wrapper">
             <img
               className="hero3-svg svg"
-              src={`${theme === "light" ? "charts" : "pink-resume"}.svg`}
+              src={`${theme === "light" ? "charts" : "purple-analytics"}.svg`}
               alt={`${theme === "light" ? "Job application metrics." : "Handing in a resume."}`}
             />
           </div>
         </div>
         <div className="block-bottom-2 block-bottom" />
+        <p className="details">Learn what works and what doesn't - leverage this information in your search.</p>{" "}
       </article>
       {loggedIn ? (
         <div className="register-wrapper-bottom">
@@ -100,13 +111,9 @@ export const HeroPage = (props: IHeroPageProps) => {
       ) : (
         <div className="register-wrapper-bottom">
           <h2 className="get-started">
-            Get started
-            <br />
-            today
+            Get started today
+            <FaRegArrowAltCircleRight className="arrow-icon" />
           </h2>
-          <Link to="/register" className="register">
-            Sign Up
-          </Link>
         </div>
       )}
     </Wrapper>
@@ -124,6 +131,9 @@ const Wrapper = styled.main`
   /* background-color: rgb(4, 0, 12); */
   justify-content: center;
   align-items: center;
+  .above-the-fold {
+    min-height: 100vh;
+  }
   .hero-text-wrapper {
     width: 100vw;
     padding: 0 10vw;
@@ -157,7 +167,6 @@ const Wrapper = styled.main`
     align-items: center;
     background: #c024ff;
     text-decoration: none;
-    text-align: center;
     font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.2rem" : "1.5rem")};
     font-weight: ${({ theme }) => (theme.name === "darkMode" ? "700" : "900")};
     color: #111;
@@ -165,6 +174,30 @@ const Wrapper = styled.main`
     border: 5px solid rgb(2, 0, 8);
     z-index: 55;
     transition: border-radius 0.4s linear, background-color 0.4s linear;
+    .arrow-icon {
+      margin-left: 1rem;
+    }
+  }
+  .cta-2 {
+    position: relative;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 80vw;
+    max-width: 600px;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #c024ff;
+    text-decoration: none;
+    font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.2rem" : "1.5rem")};
+    font-weight: ${({ theme }) => (theme.name === "darkMode" ? "700" : "900")};
+    color: #111;
+    border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "3rem")};
+    border: 5px solid rgb(2, 0, 8);
+    z-index: 55;
+    transition: border-radius 0.4s linear, background-color 0.4s linear;
+    margin-bottom: 8rem;
     .arrow-icon {
       margin-left: 1rem;
     }
@@ -200,7 +233,7 @@ const Wrapper = styled.main`
   }
   .hero {
     position: relative;
-    margin: 7rem 0;
+    margin-bottom: 8rem;
     max-width: 40rem;
     .info,
     .details {
@@ -209,21 +242,24 @@ const Wrapper = styled.main`
       color: ${({ theme }) => theme.primaryBackgroundColor};
     }
     .info {
-      font-size: 2rem;
-      height: 4rem;
-      margin: 5rem 0 2rem 5rem;
+      font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.6rem" : "2rem")};
+      height: 12rem;
+      margin: 0 0 2rem;
+      padding: 4rem 0;
     }
     .details {
-      margin: 5rem 0 3rem 0;
+      /* color: ${({ theme }) => (theme.name === "darkMode" ? "#eee" : "#111")}; */
+      font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.4rem" : "1.6rem")};
       line-height: 2rem;
-      text-align: center;
+      height: 12rem;
+      padding-top: 3rem;
     }
     .block-top {
       position: absolute;
       top: 0;
       z-index: 0;
       width: 150vw;
-      height: 16rem;
+      height: 12rem;
       transform: translateX(100%);
       border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "8rem")};
       transition: transform 0.8s linear, border-radius 0.4s linear, background-color 0.4s linear;
@@ -231,6 +267,7 @@ const Wrapper = styled.main`
     .centering-wrapper {
       display: flex;
       justify-content: center;
+      margin-bottom: 2rem;
       .svg-wrapper {
         width: 10rem;
         height: 10rem;
@@ -245,11 +282,11 @@ const Wrapper = styled.main`
       }
     }
     .block-bottom {
+      position: absolute;
       bottom: 0;
-      left: 0;
       z-index: 0;
-      width: 100vw;
-      height: 24rem;
+      width: 150vw;
+      height: 12rem;
       transform: translateX(-100%);
       border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "12rem")};
       transition: transform 0.8s linear 0.4s, border-radius 0.4s linear, background-color 0.4s linear;
@@ -258,7 +295,7 @@ const Wrapper = styled.main`
       transform: translateX(-10%);
     }
     .slide-right {
-      transform: translateX(-10%);
+      transform: translateX(-30%);
     }
   }
   .hero1 {
@@ -266,8 +303,7 @@ const Wrapper = styled.main`
     .block-bottom-0 {
       background-color: ${({ theme }) => theme.color4};
     }
-    .info,
-    .details {
+    .info {
       text-shadow: -1px -1px 0 ${({ theme }) => theme.color4}, 1px -1px 0 ${({ theme }) => theme.color4},
         -1px 1px 0 ${({ theme }) => theme.color4}, 1px 1px 0 ${({ theme }) => theme.color4};
     }
@@ -277,8 +313,7 @@ const Wrapper = styled.main`
     .block-bottom-1 {
       background-color: ${({ theme }) => theme.color2};
     }
-    .info,
-    .details {
+    .info {
       text-shadow: -1px -1px 0 ${({ theme }) => theme.color2}, 1px -1px 0 ${({ theme }) => theme.color2},
         -1px 1px 0 ${({ theme }) => theme.color2}, 1px 1px 0 ${({ theme }) => theme.color2};
     }
@@ -286,19 +321,18 @@ const Wrapper = styled.main`
   .hero3 {
     .block-top-2,
     .block-bottom-2 {
-      background-color: ${({ theme }) => theme.color3};
+      background-color: ${({ theme }) => theme.color4};
     }
-    .info,
-    .details {
-      text-shadow: -1px -1px 0 ${({ theme }) => theme.color3}, 1px -1px 0 ${({ theme }) => theme.color3},
-        -1px 1px 0 ${({ theme }) => theme.color3}, 1px 1px 0 ${({ theme }) => theme.color3};
+    .info {
+      text-shadow: -1px -1px 0 ${({ theme }) => theme.color4}, 1px -1px 0 ${({ theme }) => theme.color4},
+        -1px 1px 0 ${({ theme }) => theme.color4}, 1px 1px 0 ${({ theme }) => theme.color4};
     }
   }
   .register-wrapper-bottom {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 8rem 0;
+    margin: 0 0 4rem;
     .get-started {
       position: relative;
       width: 18rem;
@@ -307,6 +341,7 @@ const Wrapper = styled.main`
       text-align: center;
       font-size: 3rem;
       text-shadow: 0 0 80px rgb(115, 0, 255);
+      color: ${({ theme }) => theme.color1};
     }
   }
 
@@ -330,10 +365,10 @@ const Wrapper = styled.main`
         text-align: start;
       }
       .slide-left {
-        transform: translateX(50%);
+        transform: translateX(15%);
       }
       .slide-right {
-        transform: translateX(-40%);
+        transform: translateX(-50%);
       }
     }
     .register-wrapper-bottom {

@@ -8,7 +8,7 @@ export const Footer = () => {
   return (
     <Wrapper>
       <div className="top-border"></div>
-      <img className="astronaut" src="green-astonaut.svg" alt="Astronaut landing on the footer of the page" />
+      <img className="astronaut" src="astronaut-svg.svg" alt="Astronaut landing on the footer of the page" />
       <section className="top">
         <article className="sitemap">
           <h2>Sitemap</h2>

@@ -22,7 +22,9 @@ export const DarkModeButton = (props: IDarkModeButtonProps) => {
 const Wrapper = styled.button`
   position: relative;
   background: transparent;
+  border: none;
   border: 2px solid #111;
+  outline: none;
   outline: 2px solid #111;
   color: #111;
   border-radius: 35px;
