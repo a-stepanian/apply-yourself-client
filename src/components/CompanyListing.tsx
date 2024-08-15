@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useAppContext } from "../context/AppContext";
 import { ICompanyResult } from "../interfaces/interfaces";
+import { FaArrowRight } from "react-icons/fa6";
 
 interface ICompanyListingProps {
   company: ICompanyResult;
@@ -15,21 +16,27 @@ export const CompanyListing = (props: ICompanyListingProps) => {
     <Wrapper>
       <div className="card">
         <div className="card-header">
-          <h2>{company.name}</h2>
-          <div className="company-and-location">
-            <h3>placeholder?</h3>
+          <div className="logo-wrapper">
+            {company?.refs?.logo_image?.length > 0 && (
+              <img src={company.refs.logo_image} alt={company.name} className="logo" />
+            )}
           </div>
         </div>
-        <div>
+        <div className="flex">
+          <div>
+            <h2>{company.name}</h2>
+            <h3>{company?.industries[0]?.name}</h3>
+          </div>
           <button
             type="button"
-            className="view-details-button"
+            className="jobs-button"
             title="View Company Description"
             onClick={() => {
               setSelectedCompany(company);
               setShowModal(true);
             }}>
-            View Details
+            Jobs&nbsp;
+            <FaArrowRight />
           </button>
         </div>
       </div>
@@ -40,6 +47,7 @@ export const CompanyListing = (props: ICompanyListingProps) => {
 const Wrapper = styled.div`
   border: 2px solid ${({ theme }) => (theme.name === "darkMode" ? "transparent" : theme.color1)};
   width: 100%;
+  max-width: 500px;
   border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "32px")};
   margin-bottom: 1rem;
   background-color: ${({ theme }) => theme.secondaryBackgroundColor};
@@ -49,41 +57,44 @@ const Wrapper = styled.div`
     .card-header {
       color: #eee;
       margin: 1rem;
-      padding: 1rem;
-      background-color: #222;
       border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px 3px 3px 3px" : "16px 16px 3px 3px")};
       transition: 0.4s linear;
-      h2 {
-        font-family: "Poppins", sans-serif;
-        font-size: 1.2rem;
-        font-weight: 300;
-        margin-bottom: 0.5rem;
-      }
-      h3 {
-        font-family: "Poppins", sans-serif;
-        font-size: 0.8rem;
-        font-weight: 600;
+      .logo-wrapper {
+        padding: 0.5rem;
+        width: 100%;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fafafa;
+        border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px 3px 3px 3px" : "14px 14px 3px 3px")};
+        transition: 0.4s linear;
+        .logo {
+          max-width: 100%;
+          max-height: 100%;
+        }
       }
     }
     .flex {
-      padding: 0 1rem 1rem;
+      padding: 0 1rem;
+      margin-bottom: 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       transition: 0.4s linear;
       color: ${({ theme }) => (theme.name === "darkMode" ? "#eee" : theme.color2)};
-      .details-wrapper {
+      h2 {
         font-family: "Poppins", sans-serif;
-        font-size: 0.7rem;
-        font-weight: 500;
-        color: ${({ theme }) => (theme.name === "darkMode" ? "#eee" : theme.color2)};
-        display: flex;
-        flex-direction: column;
-        .hide-sm {
-          display: none;
-        }
+        font-size: 0.8rem;
+        font-weight: 400;
       }
-      .view-details-button {
+      h3 {
+        font-family: "Poppins", sans-serif;
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+      }
+      .jobs-button {
         padding: 0.5rem 1rem;
         border-radius: 3px;
         color: ${({ theme }) => theme.primaryBackgroundColor};
@@ -93,6 +104,8 @@ const Wrapper = styled.div`
         font-family: "Poppins", sans-serif;
         font-weight: 700;
         white-space: nowrap;
+        display: flex;
+        align-items: center;
         cursor: pointer;
         transition: 0.4s linear;
         &:hover {
@@ -116,18 +129,6 @@ const Wrapper = styled.div`
       }
       h3 {
         margin-right: 1rem;
-      }
-    }
-  }
-  @media (min-width: 768px) {
-    .card {
-      .flex {
-        .details-wrapper {
-          flex-direction: row;
-          .hide-sm {
-            display: block;
-          }
-        }
       }
     }
   }

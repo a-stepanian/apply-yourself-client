@@ -32,8 +32,8 @@ export const CompaniesPage = () => {
   const getCompanies = async () => {
     setIsLoading(true);
     try {
-      // let data = await getSingleCompanyPage(`${url}/company-pages/${currentPage.toString()}`); // first try to get the record from local DB
-      let data = undefined;
+      let data = await getSingleCompanyPage(`${url}/company-pages/${currentPage.toString()}`); // first try to get the record from local DB
+      console.log(data);
       if (data) {
         setCurrentCompanyPageResults(data);
       } else {
@@ -117,11 +117,11 @@ export const CompaniesPage = () => {
         {isLoading ? (
           <Loading />
         ) : currentCompanyPageResults?.results?.length > 0 ? (
-          <p>
+          <>
             {currentCompanyPageResults.results.map(x => (
               <CompanyListing key={x._id} company={x} />
             ))}
-          </p>
+          </>
         ) : (
           <p>No results found.</p>
         )}

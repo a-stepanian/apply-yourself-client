@@ -116,11 +116,11 @@ export const JobsPage = () => {
         {isLoading ? (
           <Loading />
         ) : currentJobPageResults?.results?.length > 0 ? (
-          <p>
+          <>
             {currentJobPageResults.results.map(x => (
               <JobListing key={x._id} job={x} />
             ))}
-          </p>
+          </>
         ) : (
           <p>No results found.</p>
         )}
