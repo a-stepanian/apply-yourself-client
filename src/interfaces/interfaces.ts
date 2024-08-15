@@ -55,6 +55,8 @@ export interface IAppState {
   setIsUserDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>;
   selectedJob: IJobResult | null;
   setSelectedJob: React.Dispatch<React.SetStateAction<IJobResult | null>>;
+  showModal: boolean;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface IUserModel {

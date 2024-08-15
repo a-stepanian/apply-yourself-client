@@ -4,6 +4,7 @@ import { url, useAppContext } from "../context/AppContext";
 import styled from "styled-components";
 import { LuAlertTriangle } from "react-icons/lu";
 import { Button } from "../components/Button";
+import { PiEye, PiEyeClosed } from "react-icons/pi";
 
 interface IRegistrationForm {
   username: string;
@@ -12,7 +13,7 @@ interface IRegistrationForm {
   passwordVerify: string;
 }
 
-interface IFormErrors {
+export interface IFormErrors {
   showError: boolean;
   errorMessages: string[];
 }
@@ -24,6 +25,7 @@ export const RegisterPage = () => {
     password: "",
     passwordVerify: ""
   });
+  const [showPwd, setShowPwd] = useState<boolean>(false);
   const [formErrors, setFormErrors] = useState<IFormErrors>({ showError: false, errorMessages: [] });
 
   const navigate = useNavigate();
@@ -32,15 +34,17 @@ export const RegisterPage = () => {
 
   useEffect(() => {
     if (loggedIn) {
+      setFormErrors({ showError: false, errorMessages: [] });
+      setForm({
+        username: "",
+        email: "",
+        password: "",
+        passwordVerify: ""
+      });
+      if (isDropdownOpen) toggleDropdown();
       navigate("/dashboard");
     }
   }, [loggedIn, navigate]);
-
-  const updateForm = (e: React.ChangeEvent<HTMLInputElement>) => {
-    return setForm(prev => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
-  };
 
   useEffect(() => {
     let errors = [];
@@ -57,6 +61,12 @@ export const RegisterPage = () => {
       errorMessages: errors
     });
   }, [form]);
+
+  const updateForm = (e: React.ChangeEvent<HTMLInputElement>) => {
+    return setForm(prev => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -90,27 +100,9 @@ export const RegisterPage = () => {
     await getLoggedIn();
   };
 
-  useEffect(() => {
-    if (loggedIn) {
-      setFormErrors({ showError: false, errorMessages: [] });
-
-      setForm({
-        username: "",
-        email: "",
-        password: "",
-        passwordVerify: ""
-      });
-
-      // Close mobile dropdown menu
-      if (isDropdownOpen) toggleDropdown();
-
-      navigate("/dashboard");
-    }
-  }, [loggedIn]);
-
   return (
     <Wrapper>
-      <form onSubmit={e => handleSubmit(e)}>
+      <form onSubmit={handleSubmit}>
         <h4>Sign Up</h4>
         <div className="form-input">
           <label className="label" htmlFor="username">
@@ -147,12 +139,15 @@ export const RegisterPage = () => {
           <input
             autoComplete="off"
             required
-            type="password"
+            type={showPwd ? "text" : "password"}
             id="password"
             name="password"
             value={form.password}
             onChange={e => updateForm(e)}
           />
+          <button type="button" onClick={() => setShowPwd(prev => !prev)} className="eye-button">
+            {showPwd ? <PiEyeClosed /> : <PiEye />}
+          </button>
         </div>
         <div className="form-input">
           <label className="label" htmlFor="passwordVerify">
@@ -161,25 +156,35 @@ export const RegisterPage = () => {
           <input
             required
             autoComplete="off"
-            type="password"
+            type={showPwd ? "text" : "password"}
             id="passwordVerify"
             name="passwordVerify"
             value={form.passwordVerify}
             onChange={e => updateForm(e)}
           />
+          <button type="button" onClick={() => setShowPwd(prev => !prev)} className="eye-button">
+            {showPwd ? <PiEyeClosed /> : <PiEye />}
+          </button>
         </div>
         {formErrors.showError && formErrors.errorMessages.length > 0 && (
           <div className="form-error">
             <LuAlertTriangle className="alert-icon" />
             <div>
               {formErrors.errorMessages.map(x => (
-                <p className="error-message">{x}</p>
+                <p key={x} className="error-message">
+                  {x}
+                </p>
               ))}
             </div>
           </div>
         )}
-        {/* <button type="submit">Submit</button> */}
-        <Button disabled={formErrors.showError} type="submit" size="xs" variant="primary" clickHandler={handleSubmit}>
+        <Button
+          disabled={formErrors.showError}
+          type="submit"
+          size="xs"
+          variant="primary"
+          clickHandler={handleSubmit}
+          className="submit-button">
           Submit
         </Button>
         <p className="login-wrapper">
@@ -189,9 +194,9 @@ export const RegisterPage = () => {
           </Link>
         </p>
       </form>
-      <div className="image-wrapper">
+      {/* <div className="image-wrapper">
         <img src="newaccount.svg" alt="Ambitious job seeker creating a new Apply Yourself account." />
-      </div>
+      </div> */}
     </Wrapper>
   );
 };
@@ -205,8 +210,8 @@ const Wrapper = styled.main`
     border-radius: 3px;
     position: relative;
     width: 100%;
-    padding: 1rem;
-    margin-bottom: 4rem;
+    padding: 0 2rem 10rem;
+    background: rgb(115 115 115 / 23%);
     h4 {
       font-family: ${({ theme }) => theme.primaryFont};
       font-weight: ${({ theme }) => (theme.name === "darkMode" ? 500 : 900)};
@@ -218,12 +223,12 @@ const Wrapper = styled.main`
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: rgba(255, 0, 89, 0.15);
+      background-color: rgba(255, 0, 89, 0.1);
       color: #dc002c;
       border: 1px solid #dc002c;
       border-radius: 3px;
       padding: 0.5rem 1rem;
-      margin: 2rem 1rem;
+      margin: 2rem 0;
       .alert-icon {
         width: 50px;
         font-size: 2rem;
@@ -239,6 +244,7 @@ const Wrapper = styled.main`
       }
     }
     .form-input {
+      position: relative;
       margin-bottom: 1rem;
       display: flex;
       flex-direction: column;
@@ -249,37 +255,58 @@ const Wrapper = styled.main`
         padding: 0.5rem;
         border: 1px solid rgba(0, 0, 0, 0.6);
         border-radius: 3px;
+        background-color: rgba(134, 134, 134, 0.15);
+        color: ${({ theme }) => (theme.name === "darkMode" ? "#eee" : "#222")};
+      }
+      .eye-button {
+        position: absolute;
+        right: 4px;
+        bottom: 2px;
+        background-color: transparent;
+        color: ${({ theme }) => theme.color1};
+        border: none;
+        cursor: pointer;
+        svg {
+          font-size: 1.3rem;
+        }
+        &:hover {
+        }
       }
     }
     .login-wrapper {
       font-family: ${({ theme }) => theme.primaryFont};
       font-weight: ${({ theme }) => (theme.name === "darkMode" ? 500 : 900)};
-      display: flex;
-      justify-content: center;
+      font-size: 0.8rem;
+      text-align: center;
       .login {
         margin-left: 0.5rem;
       }
     }
-    /* button {
-      color: black;
+    .submit-button {
       width: 100%;
+      padding: 1.5rem;
+      display: flex;
+      justify-content: center;
+      background: rgb(192, 36, 255);
+      font-size: 1.2rem;
+      font-weight: ${({ theme }) => (theme.name === "darkMode" ? "700" : "900")};
+      color: #111;
+      border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "3rem")};
+      transition: border-radius 0.4s linear, background-color 0.4s linear;
       margin-bottom: 1rem;
-      padding: 1rem;
-      border: 2px solid rgba(0, 0, 0, 0.3);
-      border-radius: 2px;
-      background-color: rgba(215, 210, 255, 0.5);
-      font-weight: 700;
-      font-size: 1.1rem;
-      &:hover {
-        cursor: pointer;
-        background-color: rgba(215, 210, 255, 1);
-      }
-    } */
+    }
   }
   .image-wrapper {
     display: none;
   }
 
+  @media (min-width: 480px) {
+    form {
+      max-width: 380px;
+      margin: 3rem 0 0;
+      padding: 0 3rem 10rem;
+    }
+  }
   @media (min-width: 768px) {
     .image-wrapper {
       display: block;
@@ -297,11 +324,6 @@ const Wrapper = styled.main`
   }
 
   @media (min-width: 1200px) {
-    form {
-      max-width: 30rem;
-      padding: 4rem;
-      margin: 1rem 1rem 8rem;
-    }
     .image-wrapper {
       animation: fadeUpLeft 1s forwards;
       top: calc(50% - 5rem);

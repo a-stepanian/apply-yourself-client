@@ -5,13 +5,12 @@ import React from "react";
 
 interface IJobListingProps {
   job: IJobResult;
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const JobListing = (props: IJobListingProps) => {
-  const { job, setShowModal } = props;
+  const { job } = props;
 
-  const { setSelectedJob } = useAppContext();
+  const { setSelectedJob, setShowModal } = useAppContext();
 
   return (
     <Wrapper>

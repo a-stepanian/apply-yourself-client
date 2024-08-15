@@ -19,6 +19,7 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [user, setUser] = useState<IUserModel | undefined>(undefined);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedJob, setSelectedJob] = useState<IJobResult | null>(null);
 
   const toggleDropdown = () => setIsDropdownOpen(currentValue => !currentValue);
@@ -119,7 +120,9 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     currentJobPageResults,
     setCurrentJobPageResults,
     selectedJob,
-    setSelectedJob
+    setSelectedJob,
+    showModal,
+    setShowModal
   };
 
   return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;

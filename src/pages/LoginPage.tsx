@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-// @ts-ignore
 import styled from "styled-components";
-import { LineDesign } from "../components/LineDesign";
 import { useEffect } from "react";
 import { url, useAppContext } from "../context/AppContext";
+import { LuAlertTriangle } from "react-icons/lu";
+import { PiEyeClosed, PiEye } from "react-icons/pi";
+import { Button } from "../components/Button";
+import { IFormErrors } from "./RegisterPage";
+import { LoadingSpinner } from "../components/LoadingSpinner";
+import { FaArrowRight } from "react-icons/fa";
 
 interface ILoginForm {
   username: string;
@@ -16,89 +20,71 @@ export const LoginPage = () => {
     username: "",
     password: ""
   });
-  const [error, setError] = useState<boolean>(false);
+  const [showPwd, setShowPwd] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [formErrors, setFormErrors] = useState<IFormErrors>({ showError: false, errorMessages: [] });
 
   const navigate = useNavigate();
   const { loggedIn, getLoggedIn, isDropdownOpen, toggleDropdown } = useAppContext();
 
-  // Set form state when input values change
   const updateForm = (e: React.ChangeEvent<HTMLInputElement>) => {
-    return setForm(prev => {
+    setFormErrors({ showError: false, errorMessages: [] });
+    setForm(prev => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
 
-  // This function handles the form submission.
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
     const loginInfo = {
       username: form.username,
       password: form.password
     };
 
     try {
-    } catch (e) {}
-    await fetch(`${url}/auth/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(loginInfo),
-      credentials: "include"
-    }).catch(error => {
-      console.error(error);
-      return;
-    });
+      const response = await fetch(`${url}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(loginInfo),
+        credentials: "include"
+      });
 
-    // check token
-    await getLoggedIn();
-    if (!loggedIn) setError(true);
+      const data = await response.json();
+      if (data?.errorMessage) {
+        setFormErrors({ showError: true, errorMessages: [data.errorMessage] });
+      } else {
+        await getLoggedIn();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+    setIsLoading(false);
   };
 
   useEffect(() => {
     if (loggedIn) {
-      setError(false);
-
-      // clear form
+      setFormErrors({ showError: false, errorMessages: [] });
       setForm({
         username: "",
         password: ""
       });
-
-      // Close mobile dropdown menu
       if (isDropdownOpen) toggleDropdown();
-
-      // Redirect user to applications page
       if (loggedIn) navigate("/dashboard");
     }
-    // eslint-disable-next-line
   }, [loggedIn]);
 
   return (
     <Wrapper>
-      {/* <LineDesign /> */}
-      <section className="form-section">
-        <div className="image-wrapper">
-          <img src="login.svg" alt="Ambitious job seeker creating a new Apply Yourself account." />
-        </div>
-        <div className="image-wrapper">
-          <img src="login2.svg" alt="Ambitious job seeker creating a new Apply Yourself account." />
-        </div>
-        <h4>Log In To Your Account</h4>
-        <div className="register-wrapper">
-          <p>
-            Don't have an account?
-            <Link to="/register" className="register">
-              Sign Up
-            </Link>
-          </p>
-        </div>
+      {loggedIn ? (
+        <h2>
+          View Dashboard <FaArrowRight />
+        </h2>
+      ) : (
         <form onSubmit={handleSubmit}>
-          {error && (
-            <div className="error">
-              <p>Username or password incorrect Please try again</p>
-            </div>
-          )}
+          <h4>Sign In</h4>
           <div className="form-input">
             <label className="label" htmlFor="username">
               Username
@@ -120,188 +106,192 @@ export const LoginPage = () => {
             <input
               autoComplete="off"
               required
-              type="password"
+              type={showPwd ? "text" : "password"}
               id="password"
               name="password"
               value={form.password}
               onChange={e => updateForm(e)}
             />
+            <button type="button" onClick={() => setShowPwd(prev => !prev)} className="eye-button">
+              {showPwd ? <PiEyeClosed /> : <PiEye />}
+            </button>
           </div>
-          <button type="submit">Log In</button>
+          {formErrors.showError && formErrors.errorMessages.length > 0 && (
+            <div className="form-error">
+              <LuAlertTriangle className="alert-icon" />
+              <div>
+                {formErrors.errorMessages.map(x => (
+                  <p key={x} className="error-message">
+                    {x}
+                  </p>
+                ))}
+              </div>
+            </div>
+          )}
+          <Button
+            disabled={isLoading || formErrors.showError}
+            type="submit"
+            size="xs"
+            variant="primary"
+            clickHandler={handleSubmit}
+            className="submit-button">
+            {isLoading ? <LoadingSpinner /> : "Submit"}
+          </Button>
+          <p className="login-wrapper">
+            Don't have an account?
+            <Link to="/register" className="login">
+              Sign Up
+            </Link>
+          </p>
         </form>
-      </section>
+      )}
     </Wrapper>
   );
 };
 
-// @ts-ignore
 const Wrapper = styled.main`
-  position: relative;
-  height: 60rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
-  .form-section {
-    position: relative;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    .image-wrapper:nth-of-type(1) {
-      display: block;
-      position: absolute;
-      top: 42rem;
-      opacity: 0.4;
-      width: 100%;
-      left: 0;
-      display: flex;
-      justify-content: center;
-      img {
-        padding-right: 2rem;
-        width: 100%;
-        max-width: 20rem;
-      }
-    }
-    .image-wrapper:nth-of-type(2) {
-      display: none;
-    }
-  }
-  h4 {
-    z-index: 1;
-    width: 20rem;
-    position: relative;
-    margin: 5rem 1rem 1rem;
-    font-weight: 500;
-    font-size: 2.4rem;
-    text-align: center;
-  }
-  .register-wrapper {
-    position: relative;
-    z-index: 1;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    p {
-      font-size: 0.8rem;
-      font-weight: 900;
-    }
-    .register {
-      margin-left: 0.5rem;
-    }
-  }
   form {
-    z-index: 1;
-    background-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 3px 3px 10px rgb(0, 0, 0, 0.2);
+    font-family: "Poppins", sans-serif;
     border-radius: 3px;
     position: relative;
     width: 100%;
-    max-width: 20rem;
-    margin: 1rem 1rem 5rem;
-    padding: 3rem 2rem;
-    .error {
-      width: 15rem;
-      position: absolute;
-      top: 0.5rem;
+    padding: 0 2rem 10rem;
+    background: rgb(115 115 115 / 23%);
+    h4 {
+      font-family: ${({ theme }) => theme.primaryFont};
+      font-weight: ${({ theme }) => (theme.name === "darkMode" ? 500 : 900)};
+      font-size: 1.4rem;
       text-align: center;
-      color: red;
+      margin: 2rem;
+    }
+    .form-error {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 0, 89, 0.1);
+      color: #dc002c;
+      border: 1px solid #dc002c;
+      border-radius: 3px;
+      padding: 0.5rem 1rem;
+      margin: 2rem 0;
+      .alert-icon {
+        width: 50px;
+        font-size: 2rem;
+        margin-right: 0.5rem;
+      }
+      .error-message {
+        font-size: 0.8rem;
+        margin-right: 2rem;
+        margin-bottom: 0.4rem;
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
     }
     .form-input {
+      position: relative;
       margin-bottom: 1rem;
       display: flex;
       flex-direction: column;
+      .label {
+        font-weight: 500;
+      }
       input {
-        padding: 0.4rem;
+        padding: 0.5rem;
         border: 1px solid rgba(0, 0, 0, 0.6);
-        border-radius: 1px;
+        border-radius: 3px;
+        background-color: rgba(134, 134, 134, 0.15);
+        color: ${({ theme }) => (theme.name === "darkMode" ? "#eee" : "#222")};
+      }
+      .eye-button {
+        position: absolute;
+        right: 4px;
+        bottom: 2px;
+        background-color: transparent;
+        color: ${({ theme }) => theme.color1};
+        border: none;
+        cursor: pointer;
+        svg {
+          font-size: 1.3rem;
+        }
+        &:hover {
+        }
       }
     }
-    .label {
-      font-weight: 500;
+    .login-wrapper {
+      font-family: ${({ theme }) => theme.primaryFont};
+      font-weight: ${({ theme }) => (theme.name === "darkMode" ? 500 : 900)};
+      font-size: 0.8rem;
+      text-align: center;
+      .login {
+        margin-left: 0.5rem;
+      }
     }
-    button {
-      color: black;
+    .submit-button {
       width: 100%;
-      margin: 1rem 0;
-      padding: 1rem;
-      border: 2px solid rgba(0, 0, 0, 0.3);
-      border-radius: 2px;
-      background-color: rgba(215, 210, 255, 0.5);
-
-      font-weight: 700;
-      font-size: 1.1rem;
-      &:hover {
-        cursor: pointer;
-        background-color: rgba(215, 210, 255, 1);
+      padding: 1.5rem;
+      display: flex;
+      justify-content: center;
+      background: rgb(192, 36, 255);
+      font-size: 1.2rem;
+      font-weight: ${({ theme }) => (theme.name === "darkMode" ? "700" : "900")};
+      color: #111;
+      border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "3rem")};
+      transition: border-radius 0.4s linear, background-color 0.4s linear;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      &:disabled {
+        opacity: 0.5;
+        cursor: default;
       }
     }
   }
+  .image-wrapper {
+    display: none;
+  }
 
+  @media (min-width: 480px) {
+    form {
+      max-width: 380px;
+      margin: 3rem 0 0;
+      padding: 0 3rem 10rem;
+    }
+  }
   @media (min-width: 768px) {
-    height: 45rem;
-
-    .form-section {
-      .image-wrapper {
-        &:nth-of-type(1) {
-          top: calc(50% + 5rem);
-          opacity: 0.4;
-          width: calc(40% - 7rem);
-          left: 0;
-          img {
-            max-width: 100%;
-          }
-        }
-        &:nth-of-type(2) {
-          display: block;
-          position: absolute;
-          top: calc(50% - 5rem);
-          opacity: 0.6;
-          width: calc(40% - 5rem);
-          right: 0;
-        }
-        img {
-          width: 100%;
-        }
+    .image-wrapper {
+      display: block;
+      position: absolute;
+      &:nth-of-type(1) {
+        top: calc(50% + 5rem);
+        opacity: 0.5;
+        width: calc(40% - 7rem);
+        left: 0;
+      }
+      img {
+        width: 100%;
       }
     }
   }
 
   @media (min-width: 1200px) {
-    .form-section {
-      .image-wrapper {
-        &:nth-of-type(1) {
-          top: calc(50% - 5rem);
-          width: calc(60% - 7rem);
-          left: 0;
-          animation: fadeUp1 1s forwards;
-        }
-        &:nth-of-type(2) {
-          top: calc(50% - 10rem);
-          width: calc(60% - 5rem);
-          right: 0;
-          animation: fadeUp2 1s forwards;
-        }
-      }
+    .image-wrapper {
+      animation: fadeUpLeft 1s forwards;
+      top: calc(50% - 5rem);
+      width: calc(60% - 7rem);
+      left: 0;
     }
-    @keyframes fadeUp1 {
-      0% {
-        opacity: 0.01;
-        transform: scale(0.95);
-      }
-      100% {
-        opacity: 0.05;
-        transform: scale(1);
-      }
+  }
+  @keyframes fadeUpLeft {
+    0% {
+      opacity: 0.04;
+      transform: translateX(0) scale(0.5);
     }
-    @keyframes fadeUp2 {
-      0% {
-        opacity: 0.04;
-        transform: scale(0.95);
-      }
-      100% {
-        opacity: 0.1;
-        transform: scale(1);
-      }
+    100% {
+      opacity: 0.3;
+      transform: translateX(-80px) scale(0.8);
     }
   }
 `;

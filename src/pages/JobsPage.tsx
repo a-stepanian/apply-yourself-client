@@ -10,7 +10,6 @@ import { IJobPageResults, IJobResult } from "../interfaces/interfaces";
 
 export const JobsPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [showModal, setShowModal] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [companyName, setCompanyName] = useState<string>("");
 
@@ -85,7 +84,7 @@ export const JobsPage = () => {
   }, [currentPage]);
 
   return (
-    <Wrapper style={{ position: "relative", zIndex: `${showModal ? "999" : ""}` }}>
+    <Wrapper>
       <section className="container">
         <div className="search-and-filter-wrapper">
           <label style={{ display: "none" }} htmlFor="company">
@@ -116,7 +115,7 @@ export const JobsPage = () => {
           <>
             <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
             {currentJobPageResults.results.map(x => (
-              <JobListing key={x._id} job={x} setShowModal={setShowModal} />
+              <JobListing key={x._id} job={x} />
             ))}
             <div className="pagination-wrapper">
               <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
@@ -126,7 +125,6 @@ export const JobsPage = () => {
           <p>No results found.</p>
         )}
       </section>
-      {showModal && <JobDescriptionModal showModal={showModal} setShowModal={setShowModal} />}
     </Wrapper>
   );
 };

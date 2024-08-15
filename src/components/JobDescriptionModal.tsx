@@ -5,30 +5,17 @@ import DOMPurify from "dompurify";
 import { LoadingSpinner } from "./LoadingSpinner";
 import { IoCloseOutline } from "react-icons/io5";
 import { OutsideClickDetector } from "./OutsideClickDetector";
+import { Link } from "react-router-dom";
 
-interface IJobDescriptionModalProps {
-  showModal: boolean;
-  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export const JobDescriptionModal = (props: IJobDescriptionModalProps) => {
-  const { showModal, setShowModal } = props;
+export const JobDescriptionModal = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { selectedJob } = useAppContext();
+  const { loggedIn, selectedJob, showModal, setShowModal } = useAppContext();
 
   let jobDescription = selectedJob?.contents ? selectedJob.contents : "";
   if (jobDescription.length > 0) {
     jobDescription = DOMPurify.sanitize(jobDescription);
   }
-
-  useEffect(() => {
-    if (showModal) {
-      setTimeout(() => {
-        document?.querySelector(".show")?.classList?.add("grow");
-      }, 50);
-    }
-  }, [showModal]);
 
   const applyToJob = async () => {
     setIsLoading(true);
@@ -90,16 +77,17 @@ export const JobDescriptionModal = (props: IJobDescriptionModalProps) => {
             </div>
           </div>
           <div className="justify-center">
-            <button className="apply-now-button" type="button" onClick={applyToJob} disabled={isLoading}>
-              {isLoading ? <LoadingSpinner /> : "Apply Now"}
-            </button>
+            {loggedIn ? (
+              <button className="apply-now-button" type="button" onClick={applyToJob} disabled={isLoading}>
+                {isLoading ? <LoadingSpinner /> : "Apply Now"}
+              </button>
+            ) : (
+              <Link className="apply-now-button" to="/login" onClick={() => setShowModal(false)}>
+                Log in to apply
+              </Link>
+            )}
           </div>
           {selectedJob && <div className="job-description" dangerouslySetInnerHTML={{ __html: jobDescription }}></div>}
-          <div className="justify-center">
-            <button className="apply-now-button" type="button" onClick={applyToJob} disabled={isLoading}>
-              {isLoading ? <LoadingSpinner /> : "Apply Now"}
-            </button>
-          </div>
         </div>
       </OutsideClickDetector>
     </Wrapper>
@@ -109,7 +97,7 @@ export const JobDescriptionModal = (props: IJobDescriptionModalProps) => {
 // @ts-ignore
 const Wrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.85);
-  z-index: 0;
+  z-index: 999;
   position: fixed;
   top: 0;
   left: 0;
@@ -151,6 +139,7 @@ const Wrapper = styled.div`
       display: flex;
       justify-content: center;
       .apply-now-button {
+        text-decoration: none;
         margin: 2rem 0;
         padding: 1rem 2rem;
         border-radius: ${({ theme }) => theme.primaryBorderRadius};

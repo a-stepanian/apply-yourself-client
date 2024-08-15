@@ -7,12 +7,13 @@ interface IButtonProps {
   variant: "primary" | "secondary";
   size: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
   clickHandler: any;
+  className?: string;
 }
 
 export const Button = (props: IButtonProps) => {
-  const { children, disabled, type, size, variant, clickHandler } = props;
+  const { children, disabled, type, size, variant, clickHandler, className } = props;
   return (
-    <Wrapper disabled={disabled} type={type} variant={variant} size={size} onClick={clickHandler}>
+    <Wrapper disabled={disabled} type={type} variant={variant} size={size} onClick={clickHandler} className={className}>
       {children}
     </Wrapper>
   );
