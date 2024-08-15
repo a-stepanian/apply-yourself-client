@@ -112,7 +112,7 @@ export const JobsPage = () => {
             </button>
           </div>
         </div>
-        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} isLoading={isLoading} />
         {isLoading ? (
           <Loading />
         ) : currentJobPageResults?.results?.length > 0 ? (
@@ -125,7 +125,7 @@ export const JobsPage = () => {
           <p>No results found.</p>
         )}
         <div className="pagination-wrapper">
-          <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
+          <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} isLoading={isLoading} />
         </div>
       </section>
     </Wrapper>

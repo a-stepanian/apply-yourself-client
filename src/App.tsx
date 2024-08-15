@@ -85,7 +85,7 @@ export const App = () => {
         <Dropdown theme={theme} toggleDarkMode={toggleDarkMode} />
         <Routes>
           <Route path="/" element={<HeroPage theme={theme} />} />
-          <Route path="/about" element={<AboutPage theme={theme} />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/jobs" element={<JobsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />

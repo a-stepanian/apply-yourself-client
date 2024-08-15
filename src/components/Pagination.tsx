@@ -4,17 +4,18 @@ import { FaAngleLeft, FaAnglesLeft, FaAngleRight, FaAnglesRight } from "react-ic
 interface IPaginationProps {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  isLoading: boolean;
 }
 
 export const Pagination = (props: IPaginationProps) => {
-  const { currentPage, setCurrentPage } = props;
+  const { currentPage, setCurrentPage, isLoading } = props;
 
   return (
     <Wrapper>
       <button
         type="button"
         className="pagination-button arrow-button hide-xs"
-        disabled={currentPage <= 1}
+        disabled={currentPage <= 1 || isLoading}
         onClick={() => {
           setCurrentPage(currentPage < 5 ? 1 : currentPage - 5);
           window.scrollTo({ top: 0, behavior: "smooth" });
@@ -25,7 +26,7 @@ export const Pagination = (props: IPaginationProps) => {
       <button
         type="button"
         className="pagination-button arrow-button"
-        disabled={currentPage <= 1}
+        disabled={currentPage <= 1 || isLoading}
         onClick={() => {
           setCurrentPage(currentPage - 1);
           window.scrollTo({ top: 0, behavior: "smooth" });
@@ -35,6 +36,7 @@ export const Pagination = (props: IPaginationProps) => {
       {currentPage > 2 && (
         <button
           type="button"
+          disabled={isLoading}
           className="pagination-button hide-xs"
           onClick={() => {
             setCurrentPage(currentPage - 2);
@@ -46,6 +48,7 @@ export const Pagination = (props: IPaginationProps) => {
       {currentPage > 1 && (
         <button
           type="button"
+          disabled={isLoading}
           className="pagination-button"
           onClick={() => {
             setCurrentPage(currentPage - 1);
@@ -54,11 +57,12 @@ export const Pagination = (props: IPaginationProps) => {
           {currentPage - 1}
         </button>
       )}
-      <button type="button" className="pagination-button" disabled>
+      <button type="button" disabled className="pagination-button">
         {currentPage}
       </button>
       <button
         type="button"
+        disabled={isLoading}
         className="pagination-button"
         onClick={() => {
           setCurrentPage(currentPage + 1);
@@ -68,6 +72,7 @@ export const Pagination = (props: IPaginationProps) => {
       </button>
       <button
         type="button"
+        disabled={isLoading}
         className="pagination-button hide-xs"
         onClick={() => {
           setCurrentPage(currentPage + 2);
@@ -77,6 +82,7 @@ export const Pagination = (props: IPaginationProps) => {
       </button>
       <button
         type="button"
+        disabled={isLoading}
         className="pagination-button arrow-button"
         onClick={() => {
           setCurrentPage(currentPage + 1);
@@ -86,6 +92,7 @@ export const Pagination = (props: IPaginationProps) => {
       </button>
       <button
         type="button"
+        disabled={isLoading}
         className="pagination-button arrow-button hide-xs"
         onClick={() => {
           setCurrentPage(currentPage + 5);
