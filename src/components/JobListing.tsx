@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useAppContext } from "../context/AppContext";
 import { IJobResult } from "../interfaces/interfaces";
-import React from "react";
 
 interface IJobListingProps {
   job: IJobResult;

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { CgGhostCharacter } from "react-icons/cg";
 import { MdTimer } from "react-icons/md";
 import { RiReplyLine, RiStackLine } from "react-icons/ri";
-// @ts-ignore
 import styled from "styled-components";
 import { IApplicationModel } from "../interfaces/interfaces";
 import { IResponseTime, IWaitTime } from "../pages/DashboardPage";

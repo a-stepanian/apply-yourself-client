@@ -14,16 +14,16 @@ import {
   NewAppPage,
   EditAppPage,
   RegisterPage,
-  FourOhFourPage
+  FourOhFourPage,
+  AboutPage
 } from "./pages/index";
 import styled, { ThemeProvider } from "styled-components";
 import { GlobalStyles, lightTheme, darkTheme } from "./context/theme";
 import { useAppContext } from "./context/AppContext";
 
-const App = () => {
+export const App = () => {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
-  const { showModal, setShowModal } = useAppContext();
-
+  const { showModal } = useAppContext();
   const siteWrapperRef = useRef<HTMLDivElement>(null);
 
   const toggleDarkMode = () => {
@@ -85,6 +85,7 @@ const App = () => {
         <Dropdown theme={theme} toggleDarkMode={toggleDarkMode} />
         <Routes>
           <Route path="/" element={<HeroPage theme={theme} />} />
+          <Route path="/about" element={<AboutPage theme={theme} />} />
           <Route path="/jobs" element={<JobsPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -116,5 +117,3 @@ const Wrapper = styled.div.attrs<{ $showModal?: boolean }>(props => ({
     }
   }
 `;
-
-export default App;

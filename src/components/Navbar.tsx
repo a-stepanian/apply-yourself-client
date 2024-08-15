@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-// @ts-ignore
 import styled from "styled-components";
 import { Hamburger } from "./Hamburger";
 import { useAppContext } from "../context/AppContext";
@@ -31,14 +30,14 @@ export const Navbar = () => {
           </Link>
         </div>
         <div className="nav-center">
-          <Link to="/about" className="nav-link">
-            <span>About</span>
-          </Link>
           <Link to="/jobs" className="nav-link">
             <span>Jobs</span>
           </Link>
           <Link to="/companies" className="nav-link">
             <span>Companies</span>
+          </Link>
+          <Link to="/about" className="nav-link">
+            <span>About</span>
           </Link>
         </div>
         <Hamburger />

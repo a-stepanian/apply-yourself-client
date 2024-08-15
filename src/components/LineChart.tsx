@@ -1,7 +1,6 @@
 import React from "react";
 import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
-// @ts-ignore
 import styled from "styled-components";
 import { useState } from "react";
 import { useEffect } from "react";

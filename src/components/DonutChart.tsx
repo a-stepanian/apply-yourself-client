@@ -1,7 +1,6 @@
 import React from "react";
 import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
-// @ts-ignore
 import styled from "styled-components";
 import { ITotals } from "../pages/DashboardPage";
 

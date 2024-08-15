@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-// @ts-ignore
 import styled from "styled-components";
 import { DonutChart } from "../components/DonutChart";
 import { LineChart } from "../components/LineChart";

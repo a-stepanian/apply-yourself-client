@@ -1,5 +1,4 @@
 import React from "react";
-// @ts-ignore
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { LogoutButton } from "./LogoutButton";

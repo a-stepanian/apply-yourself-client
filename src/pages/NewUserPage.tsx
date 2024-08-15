@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LineDesign } from "../components/LineDesign";
-// @ts-ignore
 import styled from "styled-components";
 import { url } from "../context/AppContext";
 

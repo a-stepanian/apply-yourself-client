@@ -6,4 +6,15 @@ import { NewAppPage } from "./NewAppPage";
 import { EditAppPage } from "./EditAppPage";
 import { RegisterPage } from "./RegisterPage";
 import { FourOhFourPage } from "./FourOhFourPage";
-export { DashboardPage, HeroPage, JobsPage, LoginPage, NewAppPage, EditAppPage, RegisterPage, FourOhFourPage };
+import { AboutPage } from "./AboutPage";
+export {
+  DashboardPage,
+  HeroPage,
+  JobsPage,
+  LoginPage,
+  NewAppPage,
+  EditAppPage,
+  RegisterPage,
+  FourOhFourPage,
+  AboutPage
+};

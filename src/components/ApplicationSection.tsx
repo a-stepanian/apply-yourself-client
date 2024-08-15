@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Job } from "./Job";
-// @ts-ignore
 import styled from "styled-components";
 import { useAppContext } from "../context/AppContext";
 import { RiFolderAddLine } from "react-icons/ri";

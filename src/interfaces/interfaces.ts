@@ -95,4 +95,7 @@ export interface IStyleTheme {
   color2: string;
   color3: string;
   color4: string;
+  primaryBlue: string;
+  primaryPink: string;
+  primaryGreen: string;
 }

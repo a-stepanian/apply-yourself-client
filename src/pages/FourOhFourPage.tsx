@@ -20,13 +20,15 @@ export const FourOhFourPage = (props: IFourOhFourPageProps) => {
 };
 
 const Wrapper = styled.main`
-  background-color: ${({ theme }) => (theme.name === "darkMode" ? theme.primaryBackgroundColor : "#11172c")};
+  transition: 0.4s linear;
+  background-color: ${({ theme }) => theme.primaryBackgroundColor};
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 3rem;
+  padding-bottom: ${({ theme }) => (theme.name === "darkMode" ? "0" : "8rem")};
   p {
-    color: var(--yellow);
+    color: ${({ theme }) => (theme.name === "darkMode" ? "#e3f5c0" : "#111")};
     font-weight: 900;
   }
   .four-oh-four {
@@ -36,7 +38,7 @@ const Wrapper = styled.main`
     font-size: 1.2rem;
   }
   .img-wrapper {
-    margin-bottom: 5rem;
+    margin-bottom: ${({ theme }) => (theme.name === "darkMode" ? "0" : "5rem")};
     padding: 1rem 0 0 1rem;
     width: 100%;
     max-width: 30rem;

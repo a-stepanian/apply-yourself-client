@@ -1,5 +1,4 @@
 import React from "react";
-// @ts-ignore
 import styled from "styled-components";
 import { useAppContext } from "../context/AppContext";
 

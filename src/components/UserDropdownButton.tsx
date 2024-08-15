@@ -1,4 +1,3 @@
-// @ts-ignore
 import styled from "styled-components";
 import { useAppContext } from "../context/AppContext";
 import { LiaUserCircleSolid } from "react-icons/lia";

@@ -10,7 +10,10 @@ export const lightTheme: IStyleTheme = {
   color1: "#363537",
   color2: "#363537",
   color3: "#363537",
-  color4: "#363537"
+  color4: "#363537",
+  primaryBlue: "#3a5eff", // Blue
+  primaryPink: "#c024ff", // Pink
+  primaryGreen: "#6dfff8" // Green
 };
 export const darkTheme: IStyleTheme = {
   name: "darkMode",
@@ -24,8 +27,11 @@ export const darkTheme: IStyleTheme = {
   // color2: "#67A8A4", // Green
   color3: "#c024ff", // Pink
   // color3: "#ff8091", // Pink
-  color4: "#6d46f8" // Purple
+  color4: "#6d46f8", // Purple
   // color4: "#A78FFF" // Purple
+  primaryBlue: "#3a5eff", // Blue
+  primaryPink: "#c024ff", // Pink
+  primaryGreen: "#6dfff8" // Green
 };
 
 export const GlobalStyles = createGlobalStyle`
@@ -34,5 +40,10 @@ export const GlobalStyles = createGlobalStyle`
     color: ${({ theme }) => theme.color1};
     font-family: ${({ theme }) => theme.primaryFont};
     transition: all 0.2s linear;
+    *::selection {
+      background-color: ${({ theme }) => theme.primaryGreen};
+      color: #111;
+      text-shadow: none;
+    }
   }
   `;

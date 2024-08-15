@@ -167,7 +167,7 @@ const Wrapper = styled.main`
     font-weight: ${({ theme }) => (theme.name === "darkMode" ? "700" : "900")};
     color: #111;
     border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "3rem")};
-    border: 5px solid rgb(2, 0, 8);
+    border: 3px solid rgb(2, 0, 8);
     z-index: 55;
     transition: border-radius 0.4s linear, background-color 0.4s linear;
     .arrow-icon {
@@ -391,9 +391,10 @@ const Wrapper = styled.main`
     .get-started-cta {
       width: 50vw;
       transform: translateX(25vw);
+      transition: 0.2s linear;
       &:hover {
         transform: translateX(25vw) translateY(-5px);
-        box-shadow: 0 8px 8px
+        box-shadow: 0 8px 16px
           ${({ theme }) => (theme.name === "darkMode" ? "rgba(255, 255, 255, 0.3)" : "rgba(255, 255, 255, 0.8)")};
         color: ${({ theme }) => (theme.name === "darkMode" ? "rgba(2, 0, 6, 0.7)" : "rgba(255, 255, 255, 0.8)")};
       }

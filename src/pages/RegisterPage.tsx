@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { url, useAppContext } from "../context/AppContext";
 import styled from "styled-components";
 import { LuAlertTriangle } from "react-icons/lu";
@@ -28,23 +28,7 @@ export const RegisterPage = () => {
   const [showPwd, setShowPwd] = useState<boolean>(false);
   const [formErrors, setFormErrors] = useState<IFormErrors>({ showError: false, errorMessages: [] });
 
-  const navigate = useNavigate();
-
-  const { loggedIn, getLoggedIn, isDropdownOpen, toggleDropdown } = useAppContext();
-
-  useEffect(() => {
-    if (loggedIn) {
-      setFormErrors({ showError: false, errorMessages: [] });
-      setForm({
-        username: "",
-        email: "",
-        password: "",
-        passwordVerify: ""
-      });
-      if (isDropdownOpen) toggleDropdown();
-      navigate("/dashboard");
-    }
-  }, [loggedIn, navigate]);
+  const { getLoggedIn } = useAppContext();
 
   useEffect(() => {
     let errors = [];
@@ -102,22 +86,16 @@ export const RegisterPage = () => {
 
   return (
     <Wrapper>
+      <svg
+        className="blue-blob"
+        id="10015.io"
+        viewBox="0 0 480 480"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/1999/xlink">
+        <path fill="#3a5eff" d="M297,341Q123,442,127,246.5Q131,51,301,145.5Q471,240,297,341Z" />
+      </svg>
       <form onSubmit={handleSubmit}>
         <h4>Sign Up</h4>
-        <div className="form-input">
-          <label className="label" htmlFor="username">
-            Username
-          </label>
-          <input
-            autoComplete="off"
-            required
-            type="text"
-            id="username"
-            name="username"
-            value={form.username}
-            onChange={e => updateForm(e)}
-          />
-        </div>
         <div className="form-input">
           <label className="label" htmlFor="email">
             Email
@@ -129,6 +107,20 @@ export const RegisterPage = () => {
             id="email"
             name="email"
             value={form.email}
+            onChange={e => updateForm(e)}
+          />
+        </div>
+        <div className="form-input">
+          <label className="label" htmlFor="username">
+            Username
+          </label>
+          <input
+            autoComplete="off"
+            required
+            type="text"
+            id="username"
+            name="username"
+            value={form.username}
             onChange={e => updateForm(e)}
           />
         </div>
@@ -194,24 +186,28 @@ export const RegisterPage = () => {
           </Link>
         </p>
       </form>
-      {/* <div className="image-wrapper">
-        <img src="newaccount.svg" alt="Ambitious job seeker creating a new Apply Yourself account." />
-      </div> */}
     </Wrapper>
   );
 };
 
 const Wrapper = styled.main`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
+  .blue-blob {
+    display: none;
+  }
   form {
     font-family: "Poppins", sans-serif;
     border-radius: 3px;
     position: relative;
     width: 100%;
     padding: 0 2rem 10rem;
-    background: rgb(115 115 115 / 23%);
+    background: ${({ theme }) => (theme.name === "darkMode" ? "#333" : "#efefef")};
+    color: ${({ theme }) => (theme.name === "darkMode" ? "#efefef" : "##222")};
+    transition: 0.4s linear;
     h4 {
       font-family: ${({ theme }) => theme.primaryFont};
       font-weight: ${({ theme }) => (theme.name === "darkMode" ? 500 : 900)};
@@ -227,17 +223,18 @@ const Wrapper = styled.main`
       color: #dc002c;
       border: 1px solid #dc002c;
       border-radius: 3px;
-      padding: 0.5rem 1rem;
+      padding: 5px;
       margin: 2rem 0;
       .alert-icon {
-        width: 50px;
-        font-size: 2rem;
-        margin-right: 0.5rem;
+        width: 40px;
+        font-size: 1.5rem;
+        margin-right: 6px;
+        margin-bottom: 3px;
       }
       .error-message {
-        font-size: 0.8rem;
-        margin-right: 2rem;
-        margin-bottom: 0.4rem;
+        font-size: 0.75rem;
+        line-height: 0.75rem;
+        margin-bottom: 8px;
         &:last-of-type {
           margin-bottom: 0;
         }
@@ -280,6 +277,7 @@ const Wrapper = styled.main`
       text-align: center;
       .login {
         margin-left: 0.5rem;
+        color: ${({ theme }) => theme.primaryBlue};
       }
     }
     .submit-button {
@@ -302,12 +300,24 @@ const Wrapper = styled.main`
 
   @media (min-width: 480px) {
     form {
-      max-width: 380px;
-      margin: 3rem 0 0;
-      padding: 0 3rem 10rem;
+      max-width: 420px;
+      margin: 2rem 0 12rem;
+      padding: 0 3rem 2rem;
+      box-shadow: ${({ theme }) => (theme.name === "darkMode" ? "none" : "5px 5px 5px rgba(0, 0, 0, 0.3)")};
     }
   }
   @media (min-width: 768px) {
+    .blue-blob {
+      display: block;
+      top: -350px;
+      position: absolute;
+      width: 1400px;
+      z-index: -1;
+      opacity: ${({ theme }) => (theme.name === "darkMode" ? 0.2 : 0.1)};
+    }
+    form {
+      margin: 4rem 0 12rem;
+    }
     .image-wrapper {
       display: block;
       position: absolute;

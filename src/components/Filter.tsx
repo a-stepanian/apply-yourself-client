@@ -1,6 +1,5 @@
 import React from "react";
 import { useState } from "react";
-// @ts-ignore
 import styled from "styled-components";
 import { RiFilter3Line, RiCloseLine } from "react-icons/ri";
 

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// @ts-ignore
 import styled from "styled-components";
 import { GrEdit } from "react-icons/gr";
 import { MdOutlineLocationOn, MdExpandLess, MdExpandMore } from "react-icons/md";

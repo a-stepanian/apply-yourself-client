@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { url, useAppContext } from "../context/AppContext";
 import { JobListing } from "../components/JobListing";
-import { JobDescriptionModal } from "../components/JobDescriptionModal";
 import { Loading } from "../components/Loading";
 import { Pagination } from "../components/Pagination";
 import { LuFilter, LuSearch } from "react-icons/lu";
@@ -92,44 +91,47 @@ export const JobsPage = () => {
           </label>
           <div className="search-wrapper">
             <form action="#" onSubmit={e => handleSubmit(e)}>
-              <input
-                className="search-input"
-                type="text"
-                name="company"
-                value={companyName}
-                placeholder="industrial engineer"
-                disabled={isLoading}
-                onChange={e => setCompanyName(e.target.value)}
-              />
+              <div className="input-wrapper">
+                <input
+                  className="search-input"
+                  type="text"
+                  name="company"
+                  value={companyName}
+                  placeholder="industrial engineer"
+                  disabled={isLoading}
+                  onChange={e => setCompanyName(e.target.value)}
+                />
+                <LuSearch className="search-icon" />
+              </div>
             </form>
-            <LuSearch className="search-icon" />
             <button className="filter-button" type="button">
-              Filters
-              <LuFilter className="filter-icon" />
+              <div className="button-text-wrapper">
+                <span>Filters</span>
+                <LuFilter className="filter-icon" />
+              </div>
             </button>
           </div>
         </div>
+        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
         {isLoading ? (
           <Loading />
         ) : currentJobPageResults?.results?.length > 0 ? (
-          <>
-            <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
+          <p>
             {currentJobPageResults.results.map(x => (
               <JobListing key={x._id} job={x} />
             ))}
-            <div className="pagination-wrapper">
-              <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
-            </div>
-          </>
+          </p>
         ) : (
           <p>No results found.</p>
         )}
+        <div className="pagination-wrapper">
+          <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        </div>
       </section>
     </Wrapper>
   );
 };
 
-// @ts-ignore
 const Wrapper = styled.main`
   min-height: 100vh;
   display: flex;
@@ -167,13 +169,15 @@ const Wrapper = styled.main`
           border-right: 1px solid ${({ theme }) => theme.color1};
           border-left: 1px solid ${({ theme }) => theme.color1};
           padding: 0.2rem 0 0.2rem 30px;
-          transition: 0.1s linear;
+          transition: border-radius 0.4s linear;
           &:hover {
             cursor: text;
+            border-right: 1px solid ${({ theme }) => (theme.name === "darkMode" ? theme.color1 : theme.primaryBlue)};
+            border-left: 1px solid ${({ theme }) => (theme.name === "darkMode" ? theme.color1 : theme.primaryBlue)};
           }
           &:focus-visible {
             outline: none;
-            background-color: rgba(200, 200, 200, 0.5);
+            background-color: rgba(150, 150, 150, 0.5);
             color: #111;
           }
         }
@@ -184,7 +188,7 @@ const Wrapper = styled.main`
           left: 8px;
         }
         .filter-button {
-          transition: 0.1s linear;
+          transition: border-radius 0.4s linear;
           flex: 1;
           background-color: ${({ theme }) => theme.primaryBackgroundColor};
           color: ${({ theme }) => theme.color1};
@@ -198,9 +202,9 @@ const Wrapper = styled.main`
           border-right: 1px solid ${({ theme }) => theme.color1};
           width: 25%;
           &:hover {
-            color: ${({ theme }) => theme.color3};
-            border: 1px solid ${({ theme }) => theme.color3};
-            border-right: 2px solid ${({ theme }) => theme.color3};
+            color: ${({ theme }) => (theme.name === "darkMode" ? theme.color3 : theme.primaryPink)};
+            border: 2px solid ${({ theme }) => (theme.name === "darkMode" ? theme.color3 : theme.primaryPink)};
+            border-right: 2px solid ${({ theme }) => (theme.name === "darkMode" ? theme.color3 : theme.primaryPink)};
             cursor: pointer;
           }
           &:disabled {
@@ -229,42 +233,73 @@ const Wrapper = styled.main`
           position: relative;
           width: 100%;
           border: none;
-          .search-input {
-            width: calc(100% - 8px);
-            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
-            border: none;
-            border: 2px solid ${({ theme }) => theme.color1};
-            border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "2.9rem")};
-            font-weight: 400;
-            font-size: 1rem;
-            line-height: 3rem;
-            padding: 0.2rem 0 0.2rem 46px;
+          .input-wrapper {
+            .search-input {
+              transition: border-radius 0.4s linear, border 0.1s linear, font-size 0.1s linear, padding 0.1s linear;
+              width: calc(100% - 8px);
+              box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+              border: none;
+              border: 3px solid ${({ theme }) => theme.color1};
+              border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "2.9rem")};
+              font-weight: bold;
+              font-size: 1rem;
+              line-height: 3rem;
+              padding: 0.18rem 0 0.22rem 46px;
+              &:hover {
+                font-size: 1.1rem;
+                border: 3px solid ${({ theme }) => (theme.name === "darkMode" ? theme.color1 : theme.primaryBlue)};
+                padding: 0.16rem 0 0.24rem 50px;
+              }
+              &:focus-visible {
+                transition: border-radius 0.4s linear, border 0.1s linear, font-size 0.2s linear, padding 0.1s linear;
+                font-size: 1.1rem;
+                border: 3px solid ${({ theme }) => (theme.name === "darkMode" ? theme.color1 : theme.primaryBlue)};
+                padding: 0.2rem 0 0.2rem 50px;
+              }
+            }
+            .search-icon {
+              transition: 0.1s linear;
+              font-size: 1.6rem;
+              position: absolute;
+              top: 16px;
+              left: 10px;
+            }
             &:hover {
-              border: 2px solid ${({ theme }) => theme.color3};
+              .search-icon {
+                color: ${({ theme }) => (theme.name === "darkMode" ? theme.color1 : theme.primaryBlue)};
+                font-size: 1.9rem;
+                top: 13px;
+              }
             }
             &:focus-visible {
-              border: 2px solid ${({ theme }) => theme.color3};
+              .search-icon {
+                font-size: 1.6rem;
+              }
             }
-          }
-          .search-icon {
-            font-size: 1.8rem;
-            position: absolute;
-            top: 13px;
-            /* right: calc(25% + 5px); */
-            left: 8px;
           }
           .filter-button {
             box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
             font-size: 1rem;
-            border: 2px solid ${({ theme }) => theme.color1};
+            border: 3px solid ${({ theme }) => theme.color1};
             border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "2.9rem")};
-            &:hover {
-              color: ${({ theme }) => theme.color3};
-              border: 2px solid ${({ theme }) => theme.color3};
+            transition: border-radius 0.4s linear font-size 0.1s linear;
+            .button-text-wrapper {
+              width: 18rem;
+              display: flex;
+              justify-content: center;
+              align-items: center;
             }
             .filter-icon {
               font-size: 1.4rem;
               margin-right: 0;
+              transition: 0.1s linear;
+            }
+            &:hover {
+              font-size: 1.1rem;
+              border-width: 3px;
+              .filter-icon {
+                font-size: 2rem;
+              }
             }
           }
         }

@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// @ts-ignore
 import styled from "styled-components";
 import { RiLinkedinBoxFill, RiProfileLine, RiComputerLine, RiServerLine } from "react-icons/ri";
 
