@@ -369,13 +369,6 @@ const Wrapper = styled.main`
         transform: translateX(-20%);
       }
     }
-    .register-wrapper-bottom {
-      .get-started {
-        width: 24rem;
-        font-size: 5rem;
-        margin-bottom: 4rem;
-      }
-    }
   }
 
   @media (min-width: 768px) {
@@ -410,6 +403,13 @@ const Wrapper = styled.main`
         margin: ${({ theme }) => (theme.name === "darkMode" ? "5rem 0 5rem 10rem" : "5rem 0 5rem 10rem")};
         line-height: 2rem;
         transform: translateX(8rem);
+      }
+    }
+    .register-wrapper-bottom {
+      .get-started {
+        width: 100%;
+        font-size: 5rem;
+        margin-bottom: 4rem;
       }
     }
   }

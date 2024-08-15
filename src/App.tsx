@@ -20,6 +20,7 @@ import {
 import styled, { ThemeProvider } from "styled-components";
 import { GlobalStyles, lightTheme, darkTheme } from "./context/theme";
 import { useAppContext } from "./context/AppContext";
+import { CompaniesPage } from "./pages/CompaniesPage";
 
 export const App = () => {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
@@ -87,6 +88,7 @@ export const App = () => {
           <Route path="/" element={<HeroPage theme={theme} />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/jobs" element={<JobsPage />} />
+          <Route path="/companies" element={<CompaniesPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/applications/new" element={<NewAppPage />} />

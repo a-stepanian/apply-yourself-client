@@ -1,46 +1,47 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { url, useAppContext } from "../context/AppContext";
-import { JobListing } from "../components/JobListing";
+import { CompanyListing } from "../components/CompanyListing";
 import { Loading } from "../components/Loading";
 import { Pagination } from "../components/Pagination";
 import { LuFilter, LuSearch } from "react-icons/lu";
-import { IJobPageResults, IJobResult } from "../interfaces/interfaces";
+import { ICompanyPageResults, ICompanyResult } from "../interfaces/interfaces";
 
-export const JobsPage = () => {
+export const CompaniesPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [companyName, setCompanyName] = useState<string>("");
 
-  const { currentJobPageResults, setCurrentJobPageResults } = useAppContext();
+  const { currentCompanyPageResults, setCurrentCompanyPageResults } = useAppContext();
 
-  const getSingleJobPage = async (urlToUse: string = url): Promise<IJobPageResults> => {
+  const getSingleCompanyPage = async (urlToUse: string = url): Promise<ICompanyPageResults> => {
     try {
       const response = await fetch(urlToUse);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      const data = (await response.json()) as IJobPageResults;
+      const data = (await response.json()) as ICompanyPageResults;
       return data;
     } catch (error) {
-      console.error("Error fetching job page:", error);
+      console.error("Error fetching company page:", error);
       throw error;
     }
   };
 
-  const getJobs = async () => {
+  const getCompanies = async () => {
     setIsLoading(true);
     try {
-      let data = await getSingleJobPage(`${url}/job-pages/${currentPage.toString()}`); // first try to get the record from local DB
+      // let data = await getSingleCompanyPage(`${url}/company-pages/${currentPage.toString()}`); // first try to get the record from local DB
+      let data = undefined;
       if (data) {
-        setCurrentJobPageResults(data);
+        setCurrentCompanyPageResults(data);
       } else {
-        data = await getSingleJobPage("https://www.themuse.com/api/public/jobs"); // second try the API
+        data = await getSingleCompanyPage(`https://www.themuse.com/api/public/companies?page=${currentPage}`); // second try the API
 
         if (data?.results?.length > 0) {
-          const jobPromises = data.results.map(async (x: IJobResult) => {
-            const response = await fetch(`${url}/job/new`, {
+          const companyPromises = data.results.map(async (x: ICompanyResult) => {
+            const response = await fetch(`${url}/company/new`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
@@ -52,18 +53,18 @@ export const JobsPage = () => {
             return { ...x, _id: id };
           });
 
-          const jobs = await Promise.all(jobPromises);
+          const companies = await Promise.all(companyPromises);
 
-          await fetch(`${url}/job-pages/new`, {
+          await fetch(`${url}/company-pages/new`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
             },
-            body: JSON.stringify({ ...data, results: jobs }),
+            body: JSON.stringify({ ...data, results: companies }),
             credentials: "include"
           });
 
-          setCurrentJobPageResults(data);
+          setCurrentCompanyPageResults(data);
         }
       }
     } catch (err) {
@@ -75,11 +76,11 @@ export const JobsPage = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    getJobs();
+    getCompanies();
   };
 
   useEffect(() => {
-    getJobs();
+    getCompanies();
   }, [currentPage]);
 
   return (
@@ -97,7 +98,7 @@ export const JobsPage = () => {
                   type="text"
                   name="company"
                   value={companyName}
-                  placeholder="industrial engineer"
+                  placeholder="delta airlines"
                   disabled={isLoading}
                   onChange={e => setCompanyName(e.target.value)}
                 />
@@ -115,10 +116,10 @@ export const JobsPage = () => {
         <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} isLoading={isLoading} />
         {isLoading ? (
           <Loading />
-        ) : currentJobPageResults?.results?.length > 0 ? (
+        ) : currentCompanyPageResults?.results?.length > 0 ? (
           <p>
-            {currentJobPageResults.results.map(x => (
-              <JobListing key={x._id} job={x} />
+            {currentCompanyPageResults.results.map(x => (
+              <CompanyListing key={x._id} company={x} />
             ))}
           </p>
         ) : (

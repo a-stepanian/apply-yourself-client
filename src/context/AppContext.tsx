@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { IApplicationModel, IAppState, IJobResult, IUserModel } from "../interfaces/interfaces";
+import { IApplicationModel, IAppState, ICompanyResult, IJobResult, IUserModel } from "../interfaces/interfaces";
 
 export const url = "https://apply-yourself-server.onrender.com";
 // export const url = "http://localhost:5000";
@@ -16,11 +16,13 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
   const [applications, setApplications] = useState<IApplicationModel[]>([]);
   const [currentJobPageResults, setCurrentJobPageResults] = useState<any>(null);
+  const [currentCompanyPageResults, setCurrentCompanyPageResults] = useState<any>(null);
   const [user, setUser] = useState<IUserModel | undefined>(undefined);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedJob, setSelectedJob] = useState<IJobResult | null>(null);
+  const [selectedCompany, setSelectedCompany] = useState<ICompanyResult | null>(null);
 
   const toggleDropdown = () => setIsDropdownOpen(currentValue => !currentValue);
   const toggleUserDropdown = () => setIsUserDropdownOpen(currentValue => !currentValue);
@@ -119,8 +121,12 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     toggleUserDropdown,
     currentJobPageResults,
     setCurrentJobPageResults,
+    currentCompanyPageResults,
+    setCurrentCompanyPageResults,
     selectedJob,
     setSelectedJob,
+    selectedCompany,
+    setSelectedCompany,
     showModal,
     setShowModal
   };

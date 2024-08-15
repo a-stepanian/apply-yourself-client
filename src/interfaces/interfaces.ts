@@ -7,18 +7,16 @@ interface IHasName {
 interface IHasShortName {
   short_name: string;
 }
-interface ICategory extends IHasName {}
-interface ILocation extends IHasName {}
 interface ILevel extends IHasName, IHasShortName {}
 interface ICompany extends IHasId, IHasName, IHasShortName {}
 
 export interface IJobResult extends IHasName, IHasShortName {
   _id: number;
-  categories: ICategory[];
+  categories: IHasName[];
   company: ICompany;
   contents: string;
   levels: ILevel[];
-  locations: ILocation[];
+  locations: IHasName[];
   model_type: string;
   publication_date: string;
   refs: { landing_page: string };
@@ -32,6 +30,40 @@ export interface IJobPageResults {
   page: number;
   page_count: number;
   results: IJobResult[];
+  timed_out: boolean;
+  took: number;
+  total: number;
+}
+
+interface ICompanyRefs {
+  f1_image: string;
+  f2_image: string;
+  f3_image: string;
+  jobs_page: string;
+  landing_page: string;
+  logo_image: string;
+  mini_f1_image: string;
+}
+
+export interface ICompanyResult extends IHasName, IHasShortName {
+  _id: number;
+  id: number;
+  description: string;
+  industries: IHasName[];
+  locations: IHasName[];
+  model_type: string;
+  publication_date: string;
+  refs: ICompanyRefs;
+  tags: any[];
+  twitter?: string;
+}
+
+export interface ICompanyPageResults {
+  aggregations: any;
+  items_per_page: number;
+  page: number;
+  page_count: number;
+  results: ICompanyResult[];
   timed_out: boolean;
   took: number;
   total: number;
@@ -52,9 +84,13 @@ export interface IAppState {
   isUserDropdownOpen: boolean;
   currentJobPageResults: IJobPageResults;
   setCurrentJobPageResults: React.Dispatch<React.SetStateAction<IJobPageResults>>;
+  currentCompanyPageResults: ICompanyPageResults;
+  setCurrentCompanyPageResults: React.Dispatch<React.SetStateAction<ICompanyPageResults>>;
   setIsUserDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>;
   selectedJob: IJobResult | null;
   setSelectedJob: React.Dispatch<React.SetStateAction<IJobResult | null>>;
+  selectedCompany: ICompanyResult | null;
+  setSelectedCompany: React.Dispatch<React.SetStateAction<ICompanyResult | null>>;
   showModal: boolean;
   setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
