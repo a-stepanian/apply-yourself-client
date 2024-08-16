@@ -1,0 +1,366 @@
+{
+  "id": "cececbce-bed6-4cbb-8d70-5e4be48dfe7d",
+  "version": "2.0",
+  "name": "Browse jobs",
+  "url": "http://localhost:3000",
+  "tests": [{
+    "id": "6daf0827-d41a-4d11-8567-d70ecd599b40",
+    "name": "test",
+    "commands": [{
+      "id": "5bd5afe8-fcf4-4a30-a205-dfe426de418c",
+      "comment": "",
+      "command": "open",
+      "target": "/jobs",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "ae36cd91-2506-4c9e-9471-2648c273c879",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1552x832",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "10af2593-443f-4810-aacb-b9d90ab81272",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(6) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(6) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "e7648c95-de5e-4fa4-9d22-1bc5a87b268f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(7) path",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(7) path", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "831308f7-9ef5-49e1-813e-2424bbd25365",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(9) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "c542ecd5-990c-49b7-bdb9-2640832c8540",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(9) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "52e79212-5710-4d2f-9062-6dc78d599b54",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(9) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "14eecbd0-5eeb-4472-8131-01c58186bc68",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "60dd400c-b178-4a21-9851-3c55a92088b7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "c0b89257-eeeb-4204-9667-4cd4a0c8042b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "1e471df3-8bcf-4936-bc93-5e4c606e53ec",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "7ed6be2d-17ad-4e29-979a-90f2301bce35",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "c03cc0cc-0583-48cb-a6ed-b44c5f15e55a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "0c9ebef8-3f13-44fc-9698-9306b6b62bbe",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "7375b303-3417-47c8-a2ab-3f372decd8f6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "20d129fe-bf08-404b-9423-63a2bb41ae99",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "9d1ed677-0d14-494c-aaee-8fb52b7e55bb",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "ca7a289c-d119-4ec0-8c72-3f0e3f844be7",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "3f9d9434-9a15-4de8-959d-8085ae9535a3",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "aae3c913-6693-4fc5-9133-5143da1caa6b",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "63a2f101-132f-4dde-bbb3-54c7a0296ac6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "507d4484-fb7b-499b-8161-affde4ff9900",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "668d4eb5-e260-4b37-bf4a-98c9182eb955",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "41dd8ce3-528e-4635-9d5b-95b8c29711fe",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "4543afab-d8c0-448e-b9e0-2e2da1032e6e",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "01bc7fed-baa1-4bc5-8498-5a9359d39c94",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "9e18d3d6-3d6e-47a6-a0c1-b1bc170faa01",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "a482692a-8d41-408a-8b98-7543f95ea2fa",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "32e1a78e-652c-47da-be0c-947032a6ef49",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "d9c1596f-f0cd-4c97-9059-ae0449e07a38",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "bbf2666e-1c38-49c4-b791-a0353ffd0e82",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "c784ae31-32cc-4bca-b588-48630a5267dd",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "37b0b9c9-08b3-4e7f-a4b4-cd9e6696c3f4",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "34988ac6-6380-4c99-b4a6-ef0fc4e0b2a0",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "ffffefbc-4d0e-4bd6-838a-3314857b168f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "cb2f15a0-b31e-4ac9-aa70-d314b5100c58",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "f25ab64a-c467-4697-ab47-ecfa9db21bc6",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "725d1889-49db-44c9-a0c3-91872b30aa1d",
+      "comment": "",
+      "command": "click",
+      "target": "css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg",
+      "targets": [
+        ["css=.sc-hfvVTD:nth-child(2) > .pagination-button:nth-child(8) > svg", "css:finder"]
+      ],
+      "value": ""
+    }, {
+      "id": "f70180d6-651d-4150-b438-7ca796c72228",
+      "comment": "",
+      "command": "",
+      "target": "",
+      "targets": [],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "74d59ca6-c695-4d0b-8e19-5368a6d39a3c",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["6daf0827-d41a-4d11-8567-d70ecd599b40"]
+  }],
+  "urls": ["http://localhost:3000/"],
+  "plugins": []
+}
