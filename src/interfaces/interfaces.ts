@@ -1,7 +1,7 @@
 interface IHasId {
   id: number;
 }
-interface IHasName {
+export interface IHasName {
   name: string;
 }
 interface IHasShortName {

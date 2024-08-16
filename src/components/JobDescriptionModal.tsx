@@ -21,20 +21,18 @@ export const JobDescriptionModal = () => {
     setIsLoading(true);
     if (!selectedJob) return;
     try {
-      const newApplication = {
-        jobId: selectedJob._id,
-        applied: true,
-        response: "",
-        comments: "",
-        status: "Applied"
-      };
-      // send post request to server
       await fetch(`${url}/applications`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(newApplication),
+        body: JSON.stringify({
+          jobId: selectedJob._id,
+          applied: true,
+          response: "",
+          comments: "",
+          status: "Applied"
+        }),
         credentials: "include"
       });
     } catch (err) {

@@ -67,7 +67,9 @@ export const HeroPage = (props: IHeroPageProps) => {
           </Link>
         </p>
       </section>
-
+      <div className="stars-wrapper">
+        <img className="stars" src="purple-stars.svg" alt="Stars." />
+      </div>
       <div className="scroll-target" />
       <section className="hero hero2">
         <h2 className="info">Make the most of your time</h2>
@@ -91,6 +93,9 @@ export const HeroPage = (props: IHeroPageProps) => {
           </Link>
         </p>
       </section>
+      <div className="stars-wrapper">
+        <img className="stars" src="purple-stars.svg" alt="Galaxy." />
+      </div>
       <div className="scroll-target" />
       <section className="hero hero3">
         <h2 className="info">Gain valuable insights</h2>
@@ -113,6 +118,9 @@ export const HeroPage = (props: IHeroPageProps) => {
           </Link>
         </p>
       </section>
+      <div className="stars-wrapper">
+        <img className="stars" src="purple-stars.svg" alt="Galaxy." />
+      </div>
       <p className="already-have-an-account">
         Already have an account?&nbsp;
         <Link to={"/login"}>Log In</Link>
@@ -194,7 +202,7 @@ const Wrapper = styled.main`
   }
   .hero {
     position: relative;
-    margin-bottom: 8rem;
+    /* margin-bottom: 8rem; */
     .info {
       position: relative;
       z-index: 11;
@@ -286,6 +294,17 @@ const Wrapper = styled.main`
     .info {
       text-shadow: -1px -1px 0 ${({ theme }) => theme.color4}, 1px -1px 0 ${({ theme }) => theme.color4},
         -1px 1px 0 ${({ theme }) => theme.color4}, 1px 1px 0 ${({ theme }) => theme.color4};
+    }
+  }
+  .stars-wrapper {
+    height: 50vw;
+    max-height: 400px;
+    width: 50vw;
+    max-width: 400px;
+    animation: fadeInLight 0.5s ease-in forwards;
+    img {
+      opacity: 0.3;
+      width: 100%;
     }
   }
   .hero2 {
@@ -410,7 +429,7 @@ const Wrapper = styled.main`
       }
     }
     .hero {
-      margin: 16rem 0;
+      margin: 0;
       .centering-wrapper {
         .svg-wrapper {
           width: 20rem;
