@@ -30,7 +30,7 @@ export const CompanyListing = (props: ICompanyListingProps) => {
           <button
             type="button"
             className="jobs-button"
-            title="View Company Description"
+            title={`View All ${company.name} Jobs`}
             onClick={() => {
               setSelectedCompany(company);
               setShowModal(true);

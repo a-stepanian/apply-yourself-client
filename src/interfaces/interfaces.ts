@@ -78,6 +78,7 @@ export interface IAppState {
   setUser: React.Dispatch<React.SetStateAction<IUserModel | undefined>>;
   fetchApplications: () => void;
   getLoggedIn: () => void;
+  logoutUser: () => void;
   toggleDropdown: () => void;
   isDropdownOpen: boolean;
   toggleUserDropdown: () => void;

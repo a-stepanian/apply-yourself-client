@@ -69,6 +69,7 @@ export const JobsPage = () => {
     } catch (err) {
       console.log(err);
     } finally {
+      await new Promise(resolve => setTimeout(resolve, 300));
       setIsLoading(false);
     }
   };
@@ -112,21 +113,23 @@ export const JobsPage = () => {
             </button>
           </div>
         </div>
-        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} isLoading={isLoading} />
+        <Pagination type="jobs" currentPage={currentPage} setCurrentPage={setCurrentPage} isLoading={isLoading} />
         {isLoading ? (
-          <Loading />
+          <div className="loading-wrapper">
+            <Loading />
+          </div>
         ) : currentJobPageResults?.results?.length > 0 ? (
           <>
-            {currentJobPageResults.results.map(x => (
-              <JobListing key={x._id} job={x} />
+            {currentJobPageResults.results.map((x, index) => (
+              <JobListing key={x._id ?? index} job={x} />
             ))}
+            <div className="pagination-wrapper">
+              <Pagination type="jobs" currentPage={currentPage} setCurrentPage={setCurrentPage} isLoading={isLoading} />
+            </div>
           </>
         ) : (
           <p>No results found.</p>
         )}
-        <div className="pagination-wrapper">
-          <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} isLoading={isLoading} />
-        </div>
       </section>
     </Wrapper>
   );
@@ -221,6 +224,9 @@ const Wrapper = styled.main`
     .pagination-wrapper {
       padding: 4rem 0 10rem;
     }
+    .loading-wrapper {
+      min-height: calc(100vh - 150px);
+    }
   }
 
   @media (min-width: 768px) {
@@ -254,7 +260,7 @@ const Wrapper = styled.main`
                 transition: border-radius 0.4s linear, border 0.1s linear, font-size 0.2s linear, padding 0.1s linear;
                 font-size: 1.1rem;
                 border: 3px solid ${({ theme }) => (theme.name === "darkMode" ? theme.color1 : theme.primaryBlue)};
-                padding: 0.2rem 0 0.2rem 50px;
+                padding: 0.16rem 0 0.24rem 50px;
               }
             }
             .search-icon {

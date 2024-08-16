@@ -101,6 +101,22 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   };
 
+  const logoutUser = async () => {
+    try {
+      await fetch(`${url}/auth/logout`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        credentials: "include"
+      });
+      setLoggedIn(false);
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+  };
+
   useEffect(() => {
     getLoggedIn();
   }, []);
@@ -114,6 +130,7 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setUser,
     fetchApplications,
     getLoggedIn,
+    logoutUser,
     isDropdownOpen,
     toggleDropdown,
     isUserDropdownOpen,

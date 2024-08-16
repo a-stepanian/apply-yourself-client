@@ -33,10 +33,14 @@ export const LogoutButton = () => {
 
 const Wrapper = styled.button`
   background-color: transparent;
+  border: none;
+  font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.6rem" : "2rem")};
+  padding: 0.3rem;
+  margin-top: ${({ theme }) => (theme.name === "darkMode" ? "1rem" : "1.3rem")};
+  color: black;
+  text-decoration: none;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1.6rem;
   &:hover {
     cursor: pointer;
     text-decoration: underline;
@@ -46,18 +50,5 @@ const Wrapper = styled.button`
   }
   .icon {
     font-size: 1.2rem;
-  }
-  @media (min-width: 768px) {
-    font-size: 0.8rem;
-    &:hover {
-      cursor: pointer;
-      text-decoration: underline;
-    }
-    span {
-      margin-right: 0.5rem;
-    }
-    .icon {
-      display: none;
-    }
   }
 `;

@@ -21,6 +21,7 @@ import styled, { ThemeProvider } from "styled-components";
 import { GlobalStyles, lightTheme, darkTheme } from "./context/theme";
 import { useAppContext } from "./context/AppContext";
 import { CompaniesPage } from "./pages/CompaniesPage";
+import { AdminPage } from "./pages/AdminPage";
 
 export const App = () => {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
@@ -86,6 +87,7 @@ export const App = () => {
         <Dropdown theme={theme} toggleDarkMode={toggleDarkMode} />
         <Routes>
           <Route path="/" element={<HeroPage theme={theme} />} />
+          <Route path="/admin" element={<AdminPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/jobs" element={<JobsPage />} />
           <Route path="/companies" element={<CompaniesPage />} />

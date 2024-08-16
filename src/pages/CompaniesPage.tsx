@@ -33,12 +33,10 @@ export const CompaniesPage = () => {
     setIsLoading(true);
     try {
       let data = await getSingleCompanyPage(`${url}/company-pages/${currentPage.toString()}`); // first try to get the record from local DB
-      console.log(data);
       if (data) {
         setCurrentCompanyPageResults(data);
       } else {
         data = await getSingleCompanyPage(`https://www.themuse.com/api/public/companies?page=${currentPage}`); // second try the API
-
         if (data?.results?.length > 0) {
           const companyPromises = data.results.map(async (x: ICompanyResult) => {
             const response = await fetch(`${url}/company/new`, {
@@ -113,21 +111,28 @@ export const CompaniesPage = () => {
             </button>
           </div>
         </div>
-        <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} isLoading={isLoading} />
+        <Pagination type="companies" currentPage={currentPage} setCurrentPage={setCurrentPage} isLoading={isLoading} />
         {isLoading ? (
-          <Loading />
+          <div className="loading-wrapper">
+            <Loading />
+          </div>
         ) : currentCompanyPageResults?.results?.length > 0 ? (
           <>
-            {currentCompanyPageResults.results.map(x => (
-              <CompanyListing key={x._id} company={x} />
+            {currentCompanyPageResults.results.map((x, index) => (
+              <CompanyListing key={x._id ?? index} company={x} />
             ))}
+            <div className="pagination-wrapper">
+              <Pagination
+                type="companies"
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                isLoading={isLoading}
+              />
+            </div>
           </>
         ) : (
           <p>No results found.</p>
         )}
-        <div className="pagination-wrapper">
-          <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} isLoading={isLoading} />
-        </div>
       </section>
     </Wrapper>
   );
@@ -222,6 +227,9 @@ const Wrapper = styled.main`
     .pagination-wrapper {
       padding: 4rem 0 10rem;
     }
+    .loading-wrapper {
+      min-height: calc(100vh - 150px);
+    }
   }
 
   @media (min-width: 768px) {
@@ -255,7 +263,7 @@ const Wrapper = styled.main`
                 transition: border-radius 0.4s linear, border 0.1s linear, font-size 0.2s linear, padding 0.1s linear;
                 font-size: 1.1rem;
                 border: 3px solid ${({ theme }) => (theme.name === "darkMode" ? theme.color1 : theme.primaryBlue)};
-                padding: 0.2rem 0 0.2rem 50px;
+                padding: 0.16rem 0 0.24rem 50px;
               }
             }
             .search-icon {

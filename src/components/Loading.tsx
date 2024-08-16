@@ -22,44 +22,43 @@ export const Loading = () => {
     setShow(prev => {
       return { ...prev, line0: true };
     });
-  }, 500);
+  }, 50);
   setTimeout(() => {
     setShow(prev => {
       return { ...prev, line1: true };
     });
-  }, 2000);
+  }, 300);
   setTimeout(() => {
     setShow(prev => {
       return { ...prev, line2: true };
     });
-  }, 3000);
+  }, 600);
   setTimeout(() => {
     setShow(prev => {
       return { ...prev, line3: true };
     });
-  }, 4000);
+  }, 900);
 
   return (
     <Wrapper>
       <LoadingSpinner />
       {show.line0 && (
-        <TypingEffect text="Waking up the server, just a minute..." textElementType="p" speedInMilliseconds={20} />
+        // <TypingEffect text="Waking up the server, just a minute..." textElementType="p" speedInMilliseconds={20} />
+        <TypingEffect text="Loading results..." textElementType="p" speedInMilliseconds={20} />
       )}
 
-      <div className="hide">
+      {/* {show.line1 && (
         <TypingEffect
           text="The downside of hosting the backend of this site on a free tiered service is that it goes to sleep after a
         period of inactivity."
           textElementType="p"
           speedInMilliseconds={20}
         />
-      </div>
-      <div className="hide">
-        <TypingEffect text="The upside is that it's free!" textElementType="p" speedInMilliseconds={20} />
-      </div>
-      <div className="hide">
+      )}
+      {show.line2 && <TypingEffect text="The upside is that it's free!" textElementType="p" speedInMilliseconds={20} />}
+      {show.line3 && (
         <TypingEffect text="Thank you for your patience :)" textElementType="p" speedInMilliseconds={20} />
-      </div>
+      )} */}
     </Wrapper>
   );
 };
@@ -69,13 +68,8 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  .hide {
-    display: none;
-  }
-  .show {
-    margin: 1rem;
-    font-size: 1rem;
-    font-weight: 500;
-    display: block;
+  padding-top: 2rem;
+  p {
+    margin: 2rem 0;
   }
 `;

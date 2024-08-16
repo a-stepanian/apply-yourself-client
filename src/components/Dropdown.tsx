@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { LogoutButton } from "./LogoutButton";
@@ -27,7 +26,13 @@ export const Dropdown = (props: IDropdownProps) => {
           }}
         />
         <Link to="/jobs" className="logo page-link" onClick={() => toggleDropdown()}>
-          Job Listings
+          Jobs
+        </Link>
+        <Link to="/companies" className="logo page-link" onClick={() => toggleDropdown()}>
+          Companies
+        </Link>
+        <Link to="/about" className="logo page-link" onClick={() => toggleDropdown()}>
+          About
         </Link>
         {loggedIn ? (
           <>

@@ -49,17 +49,20 @@ export const LoginPage = () => {
         body: JSON.stringify(loginInfo),
         credentials: "include"
       });
-
-      const data = await response.json();
-      if (data?.errorMessage) {
-        setFormErrors({ showError: true, errorMessages: [data.errorMessage] });
+      console.log(response);
+      if (response.ok) {
+        const res = getLoggedIn();
       } else {
-        await getLoggedIn();
+        const data = await response.json();
+        if (data?.errorMessage) {
+          setFormErrors({ showError: true, errorMessages: [data.errorMessage] });
+        }
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
@@ -73,9 +76,9 @@ export const LoginPage = () => {
         <path fill="#3a5eff" d="M297,341Q123,442,127,246.5Q131,51,301,145.5Q471,240,297,341Z" />
       </svg>
       {loggedIn ? (
-        <h2>
+        <Link to={"/dashboard"} className="view-dashboard">
           View Dashboard <FaArrowRight />
-        </h2>
+        </Link>
       ) : (
         <form onSubmit={handleSubmit}>
           <h4>Sign In</h4>
@@ -144,6 +147,7 @@ export const LoginPage = () => {
 };
 
 const Wrapper = styled.main`
+  min-height: 500px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -151,6 +155,17 @@ const Wrapper = styled.main`
   overflow: hidden;
   .blue-blob {
     display: none;
+  }
+  .view-dashboard {
+    font-family: ${({ theme }) => theme.primaryFont};
+    font-weight: ${({ theme }) => (theme.name === "darkMode" ? 500 : 900)};
+    font-size: ${({ theme }) => (theme.name === "darkMode" ? "2rem" : "2.3rem")};
+    color: ${({ theme }) => theme.primaryPink};
+    text-align: center;
+    margin-top: ${({ theme }) => (theme.name === "darkMode" ? "10rem" : "10.4rem")};
+    svg {
+      font-size: 1.2rem;
+    }
   }
   form {
     font-family: "Poppins", sans-serif;

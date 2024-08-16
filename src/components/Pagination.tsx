@@ -1,14 +1,28 @@
 import styled from "styled-components";
 import { FaAngleLeft, FaAnglesLeft, FaAngleRight, FaAnglesRight } from "react-icons/fa6";
+import { useAppContext } from "../context/AppContext";
+import { useEffect } from "react";
 
 interface IPaginationProps {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   isLoading: boolean;
+  type: "jobs" | "companies";
 }
 
 export const Pagination = (props: IPaginationProps) => {
-  const { currentPage, setCurrentPage, isLoading } = props;
+  const { currentPage, setCurrentPage, isLoading, type } = props;
+
+  const { currentJobPageResults, currentCompanyPageResults } = useAppContext();
+  let totalPageCount =
+    type.toLowerCase() === "jobs" ? currentJobPageResults?.page_count ?? 1 : currentCompanyPageResults?.page_count ?? 1;
+
+  // useEffect(() => {
+  //   totalPageCount =
+  //     type.toLowerCase() === "jobs"
+  //       ? currentJobPageResults?.page_count ?? 1
+  //       : currentCompanyPageResults?.page_count ?? 1;
+  // }, [currentPage]);
 
   return (
     <Wrapper>
@@ -60,29 +74,33 @@ export const Pagination = (props: IPaginationProps) => {
       <button type="button" disabled className="pagination-button">
         {currentPage}
       </button>
+      {totalPageCount > 1 && currentPage + 1 < totalPageCount && (
+        <button
+          type="button"
+          disabled={isLoading}
+          className="pagination-button"
+          onClick={() => {
+            setCurrentPage(currentPage + 1);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}>
+          {currentPage + 1}
+        </button>
+      )}
+      {totalPageCount > 2 && currentPage + 2 < totalPageCount && (
+        <button
+          type="button"
+          disabled={isLoading}
+          className="pagination-button hide-xs"
+          onClick={() => {
+            setCurrentPage(currentPage + 2);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}>
+          {currentPage + 2}
+        </button>
+      )}
       <button
         type="button"
-        disabled={isLoading}
-        className="pagination-button"
-        onClick={() => {
-          setCurrentPage(currentPage + 1);
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}>
-        {currentPage + 1}
-      </button>
-      <button
-        type="button"
-        disabled={isLoading}
-        className="pagination-button hide-xs"
-        onClick={() => {
-          setCurrentPage(currentPage + 2);
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}>
-        {currentPage + 2}
-      </button>
-      <button
-        type="button"
-        disabled={isLoading}
+        disabled={isLoading || currentPage >= totalPageCount - 1}
         className="pagination-button arrow-button"
         onClick={() => {
           setCurrentPage(currentPage + 1);
@@ -92,7 +110,7 @@ export const Pagination = (props: IPaginationProps) => {
       </button>
       <button
         type="button"
-        disabled={isLoading}
+        disabled={isLoading || currentPage >= totalPageCount - 1}
         className="pagination-button arrow-button hide-xs"
         onClick={() => {
           setCurrentPage(currentPage + 5);
