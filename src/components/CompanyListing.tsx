@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useAppContext } from "../context/AppContext";
 import { ICompanyResult } from "../interfaces/interfaces";
 import { FaArrowRight } from "react-icons/fa6";
+import { useRef } from "react";
 
 interface ICompanyListingProps {
   company: ICompanyResult;
@@ -10,7 +11,16 @@ interface ICompanyListingProps {
 export const CompanyListing = (props: ICompanyListingProps) => {
   const { company } = props;
 
+  const imgRef = useRef<HTMLImageElement>(null);
   const { setSelectedCompany, setShowModal } = useAppContext();
+
+  const handleError = () => {
+    if (imgRef.current) {
+      imgRef.current.src = "/company-image-fallback-cropped.svg"; // Replace with your fallback image path
+      imgRef.current.alt = "Generic Company Image"; // Replace with your fallback image path
+      imgRef.current.title = "Generic Company Image"; // Replace with your fallback image path
+    }
+  };
 
   return (
     <Wrapper>
@@ -18,7 +28,13 @@ export const CompanyListing = (props: ICompanyListingProps) => {
         <div className="card-header">
           <div className="logo-wrapper">
             {company?.refs?.logo_image?.length > 0 && (
-              <img src={company.refs.logo_image} alt={company.name} className="logo" />
+              <img
+                ref={imgRef}
+                src={company.refs.logo_image}
+                alt={company.name}
+                className="logo"
+                onError={handleError}
+              />
             )}
           </div>
         </div>
