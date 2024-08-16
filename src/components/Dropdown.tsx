@@ -19,10 +19,10 @@ export const Dropdown = (props: IDropdownProps) => {
         <DarkModeButton
           theme={theme}
           toggleDarkMode={() => {
-            toggleDropdown();
-            setTimeout(() => {
-              toggleDarkMode();
-            }, 200);
+            toggleDarkMode();
+            // setTimeout(() => {
+            //   toggleDropdown();
+            // }, 500);
           }}
         />
         <Link to="/jobs" className="logo page-link" onClick={() => toggleDropdown()}>
@@ -78,13 +78,15 @@ const Wrapper = styled.div`
     width: 100%;
     height: calc(100vh - 48px);
     padding: 48px 12px;
+    box-shadow: 0 0 50px black;
     background: ${({ theme }) =>
       theme.name === "darkMode" ? `linear-gradient( ${theme.color1}, ${theme.color3})` : theme.primaryBackgroundColor};
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: transform 0.5s ease-out;
+    transition: transform 1s ease;
     transform: translateY(calc(-100vh - 300px));
+    opacity: 1;
     a {
       font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.6rem" : "2rem")};
       padding: 0.3rem;

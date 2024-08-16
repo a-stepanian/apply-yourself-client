@@ -13,6 +13,7 @@ export const LineDesign = () => {
 
 // @ts-ignore
 const Wrapper = styled.div`
+  display: none;
   .line {
     position: absolute;
     top: 0;
@@ -33,6 +34,7 @@ const Wrapper = styled.div`
     }
   }
   @media (min-width: 480px) {
+    display: block;
     .line {
       left: calc(50% - 7.5rem);
       width: 15rem;

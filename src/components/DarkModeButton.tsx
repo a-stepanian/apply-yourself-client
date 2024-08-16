@@ -41,7 +41,7 @@ const Wrapper = styled.div`
       border-radius: 35px;
       background-color: #111;
       border: 2px solid #111;
-      transition: 0.4s linear;
+      transition: 0.2s linear;
     }
     .moon {
       position: absolute;
