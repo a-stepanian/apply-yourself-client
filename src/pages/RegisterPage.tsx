@@ -5,6 +5,9 @@ import styled from "styled-components";
 import { LuAlertTriangle } from "react-icons/lu";
 import { Button } from "../components/Button";
 import { PiEye, PiEyeClosed } from "react-icons/pi";
+import { FaArrowRight } from "react-icons/fa";
+import { LoadingSpinner } from "../components/LoadingSpinner";
+import { TypingEffect } from "../components/TypingEffect";
 
 interface IRegistrationForm {
   username: string;
@@ -25,10 +28,11 @@ export const RegisterPage = () => {
     password: "",
     passwordVerify: ""
   });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showPwd, setShowPwd] = useState<boolean>(false);
   const [formErrors, setFormErrors] = useState<IFormErrors>({ showError: false, errorMessages: [] });
 
-  const { getLoggedIn } = useAppContext();
+  const { getLoggedIn, loggedIn, user } = useAppContext();
 
   useEffect(() => {
     let errors = [];
@@ -54,34 +58,35 @@ export const RegisterPage = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newUser = {
-      username: form.username,
-      email: form.email,
-      password: form.password,
-      passwordVerify: form.passwordVerify
-    };
+    setIsLoading(true);
 
-    const response = await fetch(`${url}/auth`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newUser),
-      credentials: "include"
-    }).catch(error => {
-      console.log("error from server: ", error);
-      return;
-    });
-
-    if (response?.status !== 200) {
-      const data = await response?.json();
-      if (data) {
-        setFormErrors({ showError: true, errorMessages: [data.errorMessage] });
+    try {
+      const response = await fetch(`${url}/auth`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username: form.username,
+          email: form.email,
+          password: form.password,
+          passwordVerify: form.passwordVerify
+        }),
+        credentials: "include"
+      });
+      if (response.ok) {
+        const res = getLoggedIn();
+      } else {
+        const data = await response.json();
+        if (data?.errorMessage) {
+          setFormErrors({ showError: true, errorMessages: [data.errorMessage] });
+        }
       }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
     }
-
-    // verify token and set state to logged in
-    await getLoggedIn();
   };
 
   return (
@@ -94,103 +99,117 @@ export const RegisterPage = () => {
         xmlnsXlink="http://www.w3.org/1999/xlink">
         <path fill="#3a5eff" d="M297,341Q123,442,127,246.5Q131,51,301,145.5Q471,240,297,341Z" />
       </svg>
-      <form onSubmit={handleSubmit}>
-        <h4>Sign Up</h4>
-        <div className="form-input">
-          <label className="label" htmlFor="email">
-            Email
-          </label>
-          <input
-            autoComplete="off"
-            required
-            type="email"
-            id="email"
-            name="email"
-            value={form.email}
-            onChange={e => updateForm(e)}
+      {loggedIn ? (
+        <div className="logged-in-message">
+          <TypingEffect
+            text={`Welcome${user?.username ? `, ${user.username}!` : "!"}`}
+            speedInMilliseconds={30}
+            textElementType="h2"
           />
-        </div>
-        <div className="form-input">
-          <label className="label" htmlFor="username">
-            Username
-          </label>
-          <input
-            autoComplete="off"
-            required
-            type="text"
-            id="username"
-            name="username"
-            value={form.username}
-            onChange={e => updateForm(e)}
-          />
-        </div>
-        <div className="form-input">
-          <label className="label" htmlFor="password">
-            Password
-          </label>
-          <input
-            autoComplete="off"
-            required
-            type={showPwd ? "text" : "password"}
-            id="password"
-            name="password"
-            value={form.password}
-            onChange={e => updateForm(e)}
-          />
-          <button type="button" onClick={() => setShowPwd(prev => !prev)} className="eye-button">
-            {showPwd ? <PiEyeClosed /> : <PiEye />}
-          </button>
-        </div>
-        <div className="form-input">
-          <label className="label" htmlFor="passwordVerify">
-            Confirm Password
-          </label>
-          <input
-            required
-            autoComplete="off"
-            type={showPwd ? "text" : "password"}
-            id="passwordVerify"
-            name="passwordVerify"
-            value={form.passwordVerify}
-            onChange={e => updateForm(e)}
-          />
-          <button type="button" onClick={() => setShowPwd(prev => !prev)} className="eye-button">
-            {showPwd ? <PiEyeClosed /> : <PiEye />}
-          </button>
-        </div>
-        {formErrors.showError && formErrors.errorMessages.length > 0 && (
-          <div className="form-error">
-            <LuAlertTriangle className="alert-icon" />
-            <div>
-              {formErrors.errorMessages.map(x => (
-                <p key={x} className="error-message">
-                  {x}
-                </p>
-              ))}
-            </div>
-          </div>
-        )}
-        <Button
-          disabled={formErrors.showError}
-          type="submit"
-          size="xs"
-          variant="primary"
-          clickHandler={handleSubmit}
-          className="submit-button">
-          Submit
-        </Button>
-        <p className="login-wrapper">
-          Already have an account?
-          <Link to="/login" className="login">
-            Log In
+          <Link to={"/dashboard"} className="view-dashboard">
+            View Dashboard <FaArrowRight />
           </Link>
-        </p>
-      </form>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <h4>Sign Up</h4>
+          <div className="form-input">
+            <label className="label" htmlFor="email">
+              Email
+            </label>
+            <input
+              autoComplete="off"
+              required
+              type="email"
+              id="email"
+              name="email"
+              value={form.email}
+              onChange={e => updateForm(e)}
+            />
+          </div>
+          <div className="form-input">
+            <label className="label" htmlFor="username">
+              Username
+            </label>
+            <input
+              autoComplete="off"
+              required
+              type="text"
+              id="username"
+              name="username"
+              value={form.username}
+              onChange={e => updateForm(e)}
+            />
+          </div>
+          <div className="form-input">
+            <label className="label" htmlFor="password">
+              Password
+            </label>
+            <input
+              autoComplete="off"
+              required
+              type={showPwd ? "text" : "password"}
+              id="password"
+              name="password"
+              value={form.password}
+              onChange={e => updateForm(e)}
+            />
+            <button type="button" onClick={() => setShowPwd(prev => !prev)} className="eye-button">
+              {showPwd ? <PiEyeClosed /> : <PiEye />}
+            </button>
+          </div>
+          <div className="form-input">
+            <label className="label" htmlFor="passwordVerify">
+              Confirm Password
+            </label>
+            <input
+              required
+              autoComplete="off"
+              type={showPwd ? "text" : "password"}
+              id="passwordVerify"
+              name="passwordVerify"
+              value={form.passwordVerify}
+              onChange={e => updateForm(e)}
+            />
+            <button type="button" onClick={() => setShowPwd(prev => !prev)} className="eye-button">
+              {showPwd ? <PiEyeClosed /> : <PiEye />}
+            </button>
+          </div>
+          {formErrors.showError && formErrors.errorMessages.length > 0 && (
+            <div className="form-error">
+              <LuAlertTriangle className="alert-icon" />
+              <div>
+                {formErrors.errorMessages.map(x => (
+                  <p key={x} className="error-message">
+                    {x}
+                  </p>
+                ))}
+              </div>
+            </div>
+          )}
+          <Button
+            disabled={isLoading || formErrors.showError}
+            type="submit"
+            size="xs"
+            variant="primary"
+            clickHandler={handleSubmit}
+            className="submit-button">
+            {isLoading ? <LoadingSpinner /> : "Submit"}
+          </Button>
+          <p className="login-wrapper">
+            Already have an account?
+            <Link to="/login" className="login">
+              Log In
+            </Link>
+          </p>
+        </form>
+      )}
     </Wrapper>
   );
 };
 
 const Wrapper = styled.main`
+  min-height: 500px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -198,6 +217,21 @@ const Wrapper = styled.main`
   overflow: hidden;
   .blue-blob {
     display: none;
+  }
+  .logged-in-message {
+    font-family: ${({ theme }) => theme.primaryFont};
+    text-align: center;
+    margin-top: ${({ theme }) => (theme.name === "darkMode" ? "10rem" : "10.4rem")};
+    .view-dashboard {
+      font-weight: ${({ theme }) => (theme.name === "darkMode" ? 500 : 900)};
+      font-size: ${({ theme }) => (theme.name === "darkMode" ? "2rem" : "2.3rem")};
+      display: block;
+      color: ${({ theme }) => theme.primaryPink};
+      margin-top: ${({ theme }) => (theme.name === "darkMode" ? "1rem" : "1.4rem")};
+      svg {
+        font-size: 1.2rem;
+      }
+    }
   }
   form {
     font-family: "Poppins", sans-serif;
@@ -218,7 +252,6 @@ const Wrapper = styled.main`
     .form-error {
       display: flex;
       align-items: center;
-      justify-content: center;
       background-color: rgba(255, 0, 89, 0.1);
       color: #dc002c;
       border: 1px solid #dc002c;
@@ -292,6 +325,10 @@ const Wrapper = styled.main`
       border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "3rem")};
       transition: border-radius 0.4s linear, background-color 0.4s linear;
       margin-bottom: 1rem;
+      &:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
     }
   }
   .image-wrapper {

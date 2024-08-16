@@ -34,13 +34,13 @@ const Wrapper = styled.button`
   .circle {
     position: absolute;
     top: -1px;
-    left: ${({ theme }) => `${theme.name === "darkMode" ? "36px" : "-1px"}`};
+    left: ${({ theme }) => (theme.name === "darkMode" ? "36px" : "-1px")};
     width: 35px;
     height: 35px;
     border-radius: 35px;
     background-color: #111;
     border: 2px solid #111;
-    transition: left 0.2s linear;
+    transition: 0.4s linear;
   }
   .moon {
     position: absolute;
@@ -66,11 +66,11 @@ const Wrapper = styled.button`
     background-color: ${({ theme }) => theme.primaryBackgroundColor};
     border: 2px solid ${({ theme }) => theme.color1};
     color: ${({ theme }) => theme.color1};
-    transition: 0.1s linear;
+    transition: 0.4s linear;
     .circle {
       background-color: ${({ theme }) => theme.color1};
       border: 2px solid ${({ theme }) => theme.color1};
-      transition: all 0.1s linear;
+      transition: 0.3s linear;
     }
     .moon,
     .sun {
@@ -80,16 +80,16 @@ const Wrapper = styled.button`
   @media (min-width: 990px) {
     border: 4px solid ${({ theme }) => theme.color1};
     outline: 4px solid ${({ theme }) => theme.primaryBackgroundColor};
-    border-radius: 39px;
+    border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "39px")};
     height: 42px;
     width: 84px;
     cursor: pointer;
     .circle {
       top: -3px;
-      left: ${({ theme }) => `${theme.name === "darkMode" ? "42px" : "-3px"}`};
+      left: ${({ theme }) => (theme.name === "darkMode" ? "40px" : "-3px")};
       width: 39px;
       height: 39px;
-      border-radius: 100%;
+      border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "39px")};
     }
     .moon {
       top: 4px;

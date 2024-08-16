@@ -67,6 +67,7 @@ export interface ICompanyPageResults {
   timed_out: boolean;
   took: number;
   total: number;
+  localRecord?: boolean;
 }
 
 export interface IAppState {

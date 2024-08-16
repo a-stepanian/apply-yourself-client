@@ -151,6 +151,7 @@ const Wrapper = styled.main`
         z-index: 1;
         color: ${({ theme }) => theme.color1};
         text-shadow: 0 0 80px rgb(115, 0, 255);
+        transition: color 0.4s linear;
       }
       .get-started-cta {
         padding-left: 1rem;

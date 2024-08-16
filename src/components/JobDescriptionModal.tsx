@@ -19,12 +19,10 @@ export const JobDescriptionModal = () => {
 
   const applyToJob = async () => {
     setIsLoading(true);
+    if (!selectedJob) return;
     try {
       const newApplication = {
-        company: selectedJob?.company?.name ?? "N/A",
-        position: selectedJob?.name ?? "N/A",
-        website: selectedJob?.refs?.landing_page ?? "N/A",
-        location: selectedJob?.locations?.[0]?.name ?? "N/A",
+        jobId: selectedJob._id,
         applied: true,
         response: "",
         comments: "",
@@ -38,16 +36,12 @@ export const JobDescriptionModal = () => {
         },
         body: JSON.stringify(newApplication),
         credentials: "include"
-      }).catch(error => {
-        console.log(error);
-        return;
       });
     } catch (err) {
       console.log(err);
-    }
-    setTimeout(() => {
+    } finally {
       setIsLoading(false);
-    }, 500);
+    }
   };
 
   return (

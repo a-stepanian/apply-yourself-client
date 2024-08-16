@@ -8,6 +8,7 @@ import { Button } from "../components/Button";
 import { IFormErrors } from "./RegisterPage";
 import { LoadingSpinner } from "../components/LoadingSpinner";
 import { FaArrowRight } from "react-icons/fa";
+import { TypingEffect } from "../components/TypingEffect";
 
 interface ILoginForm {
   username: string;
@@ -23,7 +24,7 @@ export const LoginPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [formErrors, setFormErrors] = useState<IFormErrors>({ showError: false, errorMessages: [] });
 
-  const { loggedIn, getLoggedIn } = useAppContext();
+  const { loggedIn, getLoggedIn, user } = useAppContext();
 
   const updateForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormErrors({ showError: false, errorMessages: [] });
@@ -35,10 +36,6 @@ export const LoginPage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    const loginInfo = {
-      username: form.username,
-      password: form.password
-    };
 
     try {
       const response = await fetch(`${url}/auth/login`, {
@@ -46,10 +43,12 @@ export const LoginPage = () => {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(loginInfo),
+        body: JSON.stringify({
+          username: form.username,
+          password: form.password
+        }),
         credentials: "include"
       });
-      console.log(response);
       if (response.ok) {
         const res = getLoggedIn();
       } else {
@@ -76,9 +75,16 @@ export const LoginPage = () => {
         <path fill="#3a5eff" d="M297,341Q123,442,127,246.5Q131,51,301,145.5Q471,240,297,341Z" />
       </svg>
       {loggedIn ? (
-        <Link to={"/dashboard"} className="view-dashboard">
-          View Dashboard <FaArrowRight />
-        </Link>
+        <div className="logged-in-message">
+          <TypingEffect
+            text={`Welcome back${user?.username ? `, ${user.username}!` : "!"}`}
+            speedInMilliseconds={30}
+            textElementType="h2"
+          />
+          <Link to={"/dashboard"} className="view-dashboard">
+            View Dashboard <FaArrowRight />
+          </Link>
+        </div>
       ) : (
         <form onSubmit={handleSubmit}>
           <h4>Sign In</h4>
@@ -156,15 +162,19 @@ const Wrapper = styled.main`
   .blue-blob {
     display: none;
   }
-  .view-dashboard {
+  .logged-in-message {
     font-family: ${({ theme }) => theme.primaryFont};
-    font-weight: ${({ theme }) => (theme.name === "darkMode" ? 500 : 900)};
-    font-size: ${({ theme }) => (theme.name === "darkMode" ? "2rem" : "2.3rem")};
-    color: ${({ theme }) => theme.primaryPink};
     text-align: center;
     margin-top: ${({ theme }) => (theme.name === "darkMode" ? "10rem" : "10.4rem")};
-    svg {
-      font-size: 1.2rem;
+    .view-dashboard {
+      font-weight: ${({ theme }) => (theme.name === "darkMode" ? 500 : 900)};
+      font-size: ${({ theme }) => (theme.name === "darkMode" ? "2rem" : "2.3rem")};
+      display: block;
+      color: ${({ theme }) => theme.primaryPink};
+      margin-top: ${({ theme }) => (theme.name === "darkMode" ? "1rem" : "1.4rem")};
+      svg {
+        font-size: 1.2rem;
+      }
     }
   }
   form {
@@ -186,7 +196,6 @@ const Wrapper = styled.main`
     .form-error {
       display: flex;
       align-items: center;
-      justify-content: center;
       background-color: rgba(255, 0, 89, 0.1);
       color: #dc002c;
       border: 1px solid #dc002c;

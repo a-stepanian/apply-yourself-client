@@ -55,6 +55,7 @@ export const Navbar = () => {
           )}
         </div>
         <div className="bottom-border"></div>
+        <div className="bottom-border"></div>
       </Wrapper>
     </>
   );
