@@ -7,6 +7,7 @@ import { useAppContext } from "../context/AppContext";
 import { useNavigate } from "react-router-dom";
 import { ApplicationSection } from "../components/ApplicationSection";
 import { IApplicationModel } from "../interfaces/interfaces";
+import { TypingEffect } from "../components/TypingEffect";
 
 export interface ITotals {
   total: number;
@@ -68,10 +69,6 @@ export const DashboardPage = () => {
   const navigate = useNavigate();
 
   const { applications, loggedIn } = useAppContext();
-
-  useEffect(() => {
-    if (!loggedIn) navigate("/login");
-  }, [loggedIn, navigate]);
 
   useEffect(() => {
     setAllApps(applications);
@@ -161,6 +158,10 @@ export const DashboardPage = () => {
     calculateTotals();
     calcAvgResponseTime();
   }, [allApps]);
+
+  if (!loggedIn) {
+    return <TypingEffect text="Checking current user............" speedInMilliseconds={30} textElementType="p" />;
+  }
 
   if (totals.total === 0) {
     return <ApplicationSection />;

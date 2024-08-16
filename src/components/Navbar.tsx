@@ -183,4 +183,30 @@ const Wrapper = styled.nav`
       }
     }
   }
+
+  @media (min-width: 992px) {
+    .nav-left {
+      .logo {
+        h1 {
+          margin-top: 4px;
+          line-height: 15px;
+          font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.1rem" : "1.25rem")};
+          line-height: ${({ theme }) => (theme.name === "darkMode" ? "1rem" : "1.2rem")};
+          font-weight: ${({ theme }) => (theme.name === "darkMode" ? "500" : "700")};
+          color: ${({ theme }) => theme.color1};
+        }
+        img {
+          display: block;
+          border-radius: 20%;
+          margin-right: 2px;
+        }
+      }
+    }
+    .nav-center {
+      .nav-link {
+        margin-right: 1rem;
+        font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.1rem" : "1.3rem")};
+      }
+    }
+  }
 `;

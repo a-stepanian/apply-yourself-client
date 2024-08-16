@@ -392,17 +392,21 @@ const Wrapper = styled.main`
   }
 
   @media (min-width: 990px) {
-    h1 {
-      font-size: ${({ theme }) => (theme.name === "darkMode" ? "5.5rem" : "6.2rem")};
-      line-height: ${({ theme }) => (theme.name === "darkMode" ? "5.5rem" : "6.2rem")};
-      width: 31rem;
-    }
-    .get-started-cta {
-      margin-top: 5rem;
-    }
-    .astronaut-wrapper {
-      animation: fadeInLight 2s linear forwards;
-      max-width: 40rem;
+    .above-the-fold {
+      .hero-text-wrapper {
+        h1 {
+          font-size: ${({ theme }) => (theme.name === "darkMode" ? "5.5rem" : "6.2rem")};
+          line-height: ${({ theme }) => (theme.name === "darkMode" ? "5.5rem" : "6.2rem")};
+          width: 31rem;
+        }
+        .get-started-cta {
+          margin-top: 5rem;
+        }
+      }
+      .astronaut-wrapper {
+        animation: fadeInLight 2s linear forwards;
+        max-width: 40rem;
+      }
     }
     .hero {
       margin: 16rem 0;
@@ -419,12 +423,16 @@ const Wrapper = styled.main`
     }
   }
   @media (min-width: 1200px) {
-    h1 {
-      line-height: 7rem;
-    }
-    .hero-text-wrapper {
-      width: 100vw;
-      padding: 0 20vw;
+    .above-the-fold {
+      .hero-text-wrapper {
+        h1 {
+          line-height: 7rem;
+        }
+        .hero-text-wrapper {
+          width: 100vw;
+          padding: 0 20vw;
+        }
+      }
     }
     .hero1 {
       margin-top: 50vh;

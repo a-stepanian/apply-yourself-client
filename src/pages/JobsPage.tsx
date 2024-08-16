@@ -69,7 +69,7 @@ export const JobsPage = () => {
     } catch (err) {
       console.log(err);
     } finally {
-      await new Promise(resolve => setTimeout(resolve, 300));
+      // await new Promise(resolve => setTimeout(resolve, 1000));
       setIsLoading(false);
     }
   };

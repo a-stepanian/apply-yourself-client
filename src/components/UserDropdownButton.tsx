@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import { useAppContext } from "../context/AppContext";
-import { LiaUserCircleSolid } from "react-icons/lia";
+import { RiArrowDropDownLine } from "react-icons/ri";
 
 export const UserDropdownButton = () => {
-  const { user, toggleUserDropdown } = useAppContext();
+  const { user, toggleUserDropdown, isUserDropdownOpen } = useAppContext();
+
   return (
     <Wrapper onClick={toggleUserDropdown} className="exclude-click-detection">
-      <span className="exclude-click-detection">Welcome, {user?.username ?? "No username"}</span>
-      {/* <LiaUserCircleSolid className="user-icon exclude-click-detection" /> */}
+      <span className="exclude-click-detection">{user?.username ?? "No username"}</span>
+      <RiArrowDropDownLine className={`user-icon exclude-click-detection ${isUserDropdownOpen ? "spin" : ""}`} />
     </Wrapper>
   );
 };
@@ -42,6 +43,10 @@ const Wrapper = styled.button`
   .user-icon {
     width: 24px;
     height: 24px;
+    transition: 0.2s linear;
+  }
+  .spin {
+    transform: rotate(180deg);
   }
 `;
 export default UserDropdownButton;

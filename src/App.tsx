@@ -24,7 +24,7 @@ import { CompaniesPage } from "./pages/CompaniesPage";
 import { AdminPage } from "./pages/AdminPage";
 
 export const App = () => {
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [theme, setTheme] = useState<"dark" | "light">("light");
   const { showModal } = useAppContext();
   const siteWrapperRef = useRef<HTMLDivElement>(null);
 

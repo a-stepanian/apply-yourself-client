@@ -78,7 +78,30 @@ const Wrapper = styled.button`
     }
   }
   @media (min-width: 990px) {
-    bottom: 24px;
-    right: 24px;
+    border: 4px solid ${({ theme }) => theme.color1};
+    outline: 4px solid ${({ theme }) => theme.primaryBackgroundColor};
+    border-radius: 39px;
+    height: 42px;
+    width: 84px;
+    cursor: pointer;
+    .circle {
+      top: -3px;
+      left: ${({ theme }) => `${theme.name === "darkMode" ? "42px" : "-3px"}`};
+      width: 39px;
+      height: 39px;
+      border-radius: 100%;
+    }
+    .moon {
+      top: 4px;
+      left: 6px;
+      width: 26px;
+      height: 26px;
+    }
+    .sun {
+      top: -3px;
+      right: -2px;
+      width: 39px;
+      height: 39px;
+    }
   }
 `;
