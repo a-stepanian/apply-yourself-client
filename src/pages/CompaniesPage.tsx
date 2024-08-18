@@ -21,7 +21,7 @@ export const CompaniesPage = () => {
     const pageQuery = `?page=${currentPage.toString()}`;
     const searchQuery = searchTerm.length > 0 ? `&search=${searchTerm}` : "";
     try {
-      const response = await fetch(`${url}/company${pageQuery}${searchQuery}`);
+      const response = await fetch(`${url}/companies${pageQuery}${searchQuery}`);
       const data = await response.json();
       setPageData(data);
     } catch (e) {

@@ -16,7 +16,7 @@ export const AdminPage = () => {
   const getAllCompanies = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${url}/company`, {
+      const response = await fetch(`${url}/companies`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json"
