@@ -34,6 +34,7 @@ export const LogoutButton = () => {
 const Wrapper = styled.button`
   background-color: transparent;
   border: none;
+  font-family: ${({ theme }) => theme.primaryFont};
   font-size: ${({ theme }) => (theme.name === "darkMode" ? "1.6rem" : "2rem")};
   padding: 0.3rem;
   margin-top: ${({ theme }) => (theme.name === "darkMode" ? "1rem" : "1.3rem")};

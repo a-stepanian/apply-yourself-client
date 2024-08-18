@@ -24,7 +24,7 @@ export const ApplicationSection = () => {
 
   return (
     <Wrapper>
-      <LineDesign />
+      {/* <LineDesign /> */}
       {applications.length > 0 ? (
         <>
           <header className="sticky-header">

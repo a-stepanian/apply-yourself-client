@@ -1,52 +1,43 @@
 import styled from "styled-components";
 import { FaAngleLeft, FaAnglesLeft, FaAngleRight, FaAnglesRight } from "react-icons/fa6";
-import { useAppContext } from "../context/AppContext";
-import { useEffect } from "react";
 
 interface IPaginationProps {
   currentPage: number;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  totalPages: number;
   isLoading: boolean;
-  type: "jobs" | "companies";
 }
 
 export const Pagination = (props: IPaginationProps) => {
-  const { currentPage, setCurrentPage, isLoading, type } = props;
-
-  const { currentJobPageResults, currentCompanyPageResults } = useAppContext();
-  let totalPageCount =
-    type.toLowerCase() === "jobs" ? currentJobPageResults?.page_count ?? 1 : currentCompanyPageResults?.page_count ?? 1;
-
-  // useEffect(() => {
-  //   totalPageCount =
-  //     type.toLowerCase() === "jobs"
-  //       ? currentJobPageResults?.page_count ?? 1
-  //       : currentCompanyPageResults?.page_count ?? 1;
-  // }, [currentPage]);
+  const { currentPage, setCurrentPage, totalPages, isLoading } = props;
 
   return (
     <Wrapper>
-      <button
-        type="button"
-        className="pagination-button arrow-button hide-xs"
-        disabled={currentPage <= 1 || isLoading}
-        onClick={() => {
-          setCurrentPage(currentPage < 5 ? 1 : currentPage - 5);
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}>
-        <FaAnglesLeft />
-      </button>
+      {currentPage > 1 && (
+        <>
+          <button
+            type="button"
+            className="pagination-button arrow-button hide-xs"
+            disabled={currentPage <= 1 || isLoading}
+            onClick={() => {
+              setCurrentPage(currentPage < 5 ? 1 : currentPage - 5);
+              window.scrollTo({ top: 0 });
+            }}>
+            <FaAnglesLeft />
+          </button>
+          <button
+            type="button"
+            className="pagination-button arrow-button"
+            disabled={currentPage <= 1 || isLoading}
+            onClick={() => {
+              setCurrentPage(currentPage - 1);
+              window.scrollTo({ top: 0 });
+            }}>
+            <FaAngleLeft />
+          </button>
+        </>
+      )}
 
-      <button
-        type="button"
-        className="pagination-button arrow-button"
-        disabled={currentPage <= 1 || isLoading}
-        onClick={() => {
-          setCurrentPage(currentPage - 1);
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}>
-        <FaAngleLeft />
-      </button>
       {currentPage > 2 && (
         <button
           type="button"
@@ -54,7 +45,7 @@ export const Pagination = (props: IPaginationProps) => {
           className="pagination-button hide-xs"
           onClick={() => {
             setCurrentPage(currentPage - 2);
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({ top: 0 });
           }}>
           {currentPage - 2}
         </button>
@@ -66,7 +57,7 @@ export const Pagination = (props: IPaginationProps) => {
           className="pagination-button"
           onClick={() => {
             setCurrentPage(currentPage - 1);
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({ top: 0 });
           }}>
           {currentPage - 1}
         </button>
@@ -74,50 +65,58 @@ export const Pagination = (props: IPaginationProps) => {
       <button type="button" disabled className="pagination-button">
         {currentPage}
       </button>
-      {totalPageCount > 1 && currentPage + 1 < totalPageCount && (
+      {totalPages > 1 && currentPage < totalPages && (
         <button
           type="button"
           disabled={isLoading}
           className="pagination-button"
           onClick={() => {
             setCurrentPage(currentPage + 1);
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({ top: 0 });
           }}>
           {currentPage + 1}
         </button>
       )}
-      {totalPageCount > 2 && currentPage + 2 < totalPageCount && (
+      {totalPages > 2 && currentPage + 1 < totalPages && (
         <button
           type="button"
           disabled={isLoading}
           className="pagination-button hide-xs"
           onClick={() => {
             setCurrentPage(currentPage + 2);
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({ top: 0 });
           }}>
           {currentPage + 2}
         </button>
       )}
-      <button
-        type="button"
-        disabled={isLoading || currentPage >= totalPageCount - 1}
-        className="pagination-button arrow-button"
-        onClick={() => {
-          setCurrentPage(currentPage + 1);
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}>
-        <FaAngleRight />
-      </button>
-      <button
-        type="button"
-        disabled={isLoading || currentPage >= totalPageCount - 1}
-        className="pagination-button arrow-button hide-xs"
-        onClick={() => {
-          setCurrentPage(currentPage + 5);
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }}>
-        <FaAnglesRight />
-      </button>
+      {currentPage < totalPages && (
+        <>
+          <button
+            type="button"
+            disabled={isLoading || currentPage >= totalPages}
+            className="pagination-button arrow-button"
+            onClick={() => {
+              setCurrentPage(currentPage + 1);
+              window.scrollTo({ top: 0 });
+            }}>
+            <FaAngleRight />
+          </button>
+          <button
+            type="button"
+            disabled={isLoading || currentPage >= totalPages}
+            className="pagination-button arrow-button hide-xs"
+            onClick={() => {
+              if (currentPage + 5 >= totalPages) {
+                setCurrentPage(totalPages);
+              } else {
+                setCurrentPage(currentPage + 5);
+              }
+              window.scrollTo({ top: 0 });
+            }}>
+            <FaAnglesRight />
+          </button>
+        </>
+      )}
     </Wrapper>
   );
 };

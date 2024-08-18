@@ -17,7 +17,7 @@ export const JobListing = (props: IJobListingProps) => {
         <div className="card-header">
           <h2>{job.name}</h2>
           <div className="company-and-location">
-            <h3>{job.company.name}</h3>
+            <h3>{job.name}</h3>
           </div>
         </div>
         <div className="flex">
