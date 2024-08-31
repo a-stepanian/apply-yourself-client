@@ -19,7 +19,7 @@ export const Loading = () => {
     <Wrapper>
       {show.line1 && (
         <TypingEffect
-          text={`Loading results... ${wavePattern} ...if you can read this... ${wavePattern} ...the server may still be waking up... ${wavePattern} ...Thank you for your patience! ${wavePattern}`}
+          text={`Loading results${wavePattern}if you can read this${wavePattern}the server may still be waking up${wavePattern}Thank you for your patience!${wavePattern}`}
           textElementType="p"
           speedInMilliseconds={30}
         />

@@ -5,8 +5,10 @@ import { JobListing } from "../components/JobListing";
 import { Loading } from "../components/Loading";
 import { Pagination } from "../components/Pagination";
 import { SearchAndFilter } from "../components/SearchAndFilter";
+import { IAppliedFilter } from "./CompaniesPage";
 
 export const JobsPage = () => {
+  const [appliedFilters, setAppliedFilters] = useState<IAppliedFilter>({ industry: "", location: "" });
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -43,6 +45,8 @@ export const JobsPage = () => {
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           placeholder="Industrial Engineer"
+          appliedFilters={{ industry: "", location: "" }}
+          setAppliedFilters={setAppliedFilters}
         />
         <Pagination
           totalPages={parseInt(pageData?.pages ?? 0)}

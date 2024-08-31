@@ -13,7 +13,7 @@ interface ICompany extends IHasId, IHasName, IHasShortName {}
 export interface IJobResult extends IHasName, IHasShortName {
   _id: number;
   categories: IHasName[];
-  company: ICompany;
+  company: ICompany[];
   contents: string;
   levels: ILevel[];
   locations: IHasName[];

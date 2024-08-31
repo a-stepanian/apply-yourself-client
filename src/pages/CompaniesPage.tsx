@@ -5,23 +5,55 @@ import { CompanyListing } from "../components/CompanyListing";
 import { Loading } from "../components/Loading";
 import { Pagination } from "../components/Pagination";
 import { SearchAndFilter } from "../components/SearchAndFilter";
+import { IHasName } from "../interfaces/interfaces";
+
+export interface IFilter {
+  filterName: string;
+  filterValues: string[];
+}
+
+export interface IAppliedFilter {
+  industry: string;
+  location: string;
+}
 
 export const CompaniesPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filters, setFilters] = useState<IFilter[]>([]);
+  const [appliedFilters, setAppliedFilters] = useState<IAppliedFilter>({ industry: "", location: "" });
   const [pageData, setPageData] = useState<any>({});
 
   useEffect(() => {
+    async function initializeFilters() {
+      const res1 = await fetch(`${url}/industries`);
+      const response1 = await res1.json();
+      const industryFilterTerms = Array.from(new Set(response1.data.map((x: IHasName) => x.name))).sort() as string[];
+
+      const res2 = await fetch(`${url}/locations`);
+      const response2 = await res2.json();
+      const locationFilterTerms = Array.from(new Set(response2.data.map((x: IHasName) => x.name))).sort() as string[];
+      setFilters([
+        { filterName: "Industry", filterValues: industryFilterTerms },
+        { filterName: "Location", filterValues: locationFilterTerms }
+      ]);
+    }
+    initializeFilters();
+  }, []);
+
+  useEffect(() => {
     searchCompanies();
-  }, [currentPage]);
+  }, [currentPage, appliedFilters]);
 
   async function searchCompanies(): Promise<void> {
     setIsLoading(true);
     const pageQuery = `?page=${currentPage.toString()}`;
     const searchQuery = searchTerm.length > 0 ? `&search=${searchTerm}` : "";
+    const industryQuery = appliedFilters.industry.length > 0 ? `&industry=${appliedFilters.industry}` : "";
+    const locationQuery = appliedFilters.location.length > 0 ? `&location=${appliedFilters.location}` : "";
     try {
-      const response = await fetch(`${url}/companies${pageQuery}${searchQuery}`);
+      const response = await fetch(`${url}/companies${pageQuery}${searchQuery}${industryQuery}${locationQuery}`);
       const data = await response.json();
       setPageData(data);
     } catch (e) {
@@ -37,6 +69,9 @@ export const CompaniesPage = () => {
         <SearchAndFilter
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
+          appliedFilters={appliedFilters}
+          setAppliedFilters={setAppliedFilters}
+          filters={filters}
           isLoading={isLoading}
           setIsLoading={setIsLoading}
           searchFunction={() => searchCompanies()}

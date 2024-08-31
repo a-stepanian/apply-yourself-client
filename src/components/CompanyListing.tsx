@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useAppContext } from "../context/AppContext";
-import { ICompanyResult } from "../interfaces/interfaces";
+import { ICompanyResult, IHasName } from "../interfaces/interfaces";
 import { FaArrowRight } from "react-icons/fa6";
 import { useRef } from "react";
 
@@ -41,7 +41,24 @@ export const CompanyListing = (props: ICompanyListingProps) => {
         <div className="flex">
           <div>
             <h2>{company.name}</h2>
-            <h3>{company?.industries[0]?.name}</h3>
+            <div className="industries">
+              {company?.industries?.length > 0 &&
+                company.industries
+                  .sort((a, b) => a.name.length - b.name.length)
+                  .map((x, index) => {
+                    if (index === 0) {
+                      return <span>{x.name}</span>;
+                    }
+                    return (
+                      <>
+                        <span>
+                          <span className="line">|</span>
+                          {x.name}
+                        </span>
+                      </>
+                    );
+                  })}
+            </div>
           </div>
           <button
             type="button"
@@ -104,11 +121,23 @@ const Wrapper = styled.div`
         font-size: 0.8rem;
         font-weight: 400;
       }
-      h3 {
-        font-family: "Poppins", sans-serif;
-        font-size: 0.8rem;
-        font-weight: 800;
-        letter-spacing: 0.2px;
+      .industries {
+        display: flex;
+        flex-wrap: wrap;
+        span {
+          display: flex;
+          align-items: center;
+          font-family: "Poppins", sans-serif;
+          font-size: 0.8rem;
+          font-weight: 800;
+          letter-spacing: 0.2px;
+          padding-right: 8px;
+        }
+        .line {
+          font-family: "Poppins", sans-serif;
+          font-size: 1.3rem;
+          font-weight: 200;
+        }
       }
       .jobs-button {
         padding: 0.5rem 1rem;

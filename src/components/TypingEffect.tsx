@@ -15,7 +15,7 @@ export const TypingEffect = ({ text, speedInMilliseconds = 20, textElementType =
     }, speedInMilliseconds);
 
     return () => clearTimeout(timer);
-  }, [currentLetterIndex, text, speedInMilliseconds]);
+  }, [currentLetterIndex]);
 
   const ElementType = textElementType as keyof JSX.IntrinsicElements;
 

@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import { LuFilter, LuSearch } from "react-icons/lu";
+import { IAppliedFilter, IFilter } from "../pages/CompaniesPage";
+import { useState } from "react";
 
 interface ISearchAndFilterProps {
   searchTerm: string;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-  filters?: any;
-  setFilters?: React.Dispatch<React.SetStateAction<any>>;
+  filters?: IFilter[];
+  setFilters?: React.Dispatch<React.SetStateAction<[]>>;
+  appliedFilters: IAppliedFilter;
+  setAppliedFilters: React.Dispatch<React.SetStateAction<IAppliedFilter>>;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   searchFunction: () => Promise<void>;
@@ -24,8 +28,10 @@ export const SearchAndFilter = (props: ISearchAndFilterProps) => {
     setCurrentPage,
     placeholder,
     filters,
-    setFilters
+    appliedFilters,
+    setAppliedFilters
   } = props;
+  const [showFilters, setShowFilters] = useState<boolean>(false);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement | HTMLButtonElement>) {
     e.preventDefault();
@@ -57,12 +63,54 @@ export const SearchAndFilter = (props: ISearchAndFilterProps) => {
             </button>
           </div>
         </form>
-        <button className="filter-button" type="button">
+        <button className="filter-button" type="button" onClick={() => setShowFilters(prev => !prev)}>
           <div className="button-text-wrapper">
             <span>Filters</span>
             <LuFilter className="filter-icon" />
           </div>
         </button>
+      </div>
+      <div className="filters">
+        {filters &&
+          showFilters &&
+          filters.map(x => {
+            return (
+              <>
+                <label>{x.filterName}</label>
+                <select
+                  key={x.filterName}
+                  value={
+                    x.filterName.toLowerCase() === "industry" ? appliedFilters?.industry : appliedFilters?.location
+                  }
+                  onChange={e => {
+                    setAppliedFilters(prev => {
+                      return {
+                        ...prev,
+                        [x.filterName.toLowerCase()]: e.target.value
+                      };
+                    });
+                  }}>
+                  {x.filterValues.length > 0 &&
+                    x.filterValues.map(y => {
+                      return <option key={y}>{y}</option>;
+                    })}
+                  <option value={""} disabled></option>
+                </select>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAppliedFilters(prev => {
+                      return {
+                        ...prev,
+                        [x.filterName.toLowerCase()]: ""
+                      };
+                    });
+                  }}>
+                  clear
+                </button>
+              </>
+            );
+          })}
       </div>
     </Wrapper>
   );

@@ -49,7 +49,7 @@ export const JobDescriptionModal = () => {
           <div className="flex">
             <div>
               <h2>{selectedJob?.name}</h2>
-              <h3>{selectedJob?.company.name}</h3>
+              <h3>{selectedJob?.company[0]?.name}</h3>
               <div className="details-wrapper">
                 <span>{selectedJob?.locations[0]?.name ?? "Location Not Provided"}</span>
                 <span className="hide-sm">&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</span>
