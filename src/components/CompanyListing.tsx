@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useAppContext } from "../context/AppContext";
-import { ICompanyResult, IHasName } from "../interfaces/interfaces";
+import { ICompanyResult } from "../interfaces/interfaces";
 import { FaArrowRight } from "react-icons/fa6";
 import { useRef } from "react";
 
@@ -38,27 +38,27 @@ export const CompanyListing = (props: ICompanyListingProps) => {
             )}
           </div>
         </div>
+        <p className="industries">
+          {company?.industries?.length > 0 &&
+            company.industries
+              .sort((a, b) => a.name.length - b.name.length)
+              .map((x, index) => {
+                if (index === company.industries.length - 1) {
+                  return x.name;
+                }
+                return `${x.name}, `;
+              })}
+        </p>
         <div className="flex">
           <div>
-            <h2>{company.name}</h2>
-            <div className="industries">
-              {company?.industries?.length > 0 &&
-                company.industries
-                  .sort((a, b) => a.name.length - b.name.length)
-                  .map((x, index) => {
-                    if (index === 0) {
-                      return <span>{x.name}</span>;
-                    }
-                    return (
-                      <>
-                        <span>
-                          <span className="line">|</span>
-                          {x.name}
-                        </span>
-                      </>
-                    );
-                  })}
-            </div>
+            <h2>
+              {company.name
+                .split(" ")
+                .reverse()
+                .map(word => (
+                  <span>{word}</span>
+                ))}
+            </h2>
           </div>
           <button
             type="button"
@@ -113,30 +113,20 @@ const Wrapper = styled.div`
       margin-bottom: 1rem;
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: end;
       transition: 0.4s linear;
       color: ${({ theme }) => (theme.name === "darkMode" ? "#eee" : theme.color2)};
       h2 {
+        display: flex;
+        flex-direction: row-reverse;
+        flex-wrap: wrap-reverse;
+        justify-content: flex-end;
         font-family: "Poppins", sans-serif;
         font-size: 0.8rem;
         font-weight: 400;
-      }
-      .industries {
-        display: flex;
-        flex-wrap: wrap;
+        opacity: ${({ theme }) => (theme.name === "darkMode" ? 0.2 : 0.4)};
         span {
-          display: flex;
-          align-items: center;
-          font-family: "Poppins", sans-serif;
-          font-size: 0.8rem;
-          font-weight: 800;
-          letter-spacing: 0.2px;
-          padding-right: 8px;
-        }
-        .line {
-          font-family: "Poppins", sans-serif;
-          font-size: 1.3rem;
-          font-weight: 200;
+          margin-right: 4px;
         }
       }
       .jobs-button {
@@ -152,7 +142,7 @@ const Wrapper = styled.div`
         display: flex;
         align-items: center;
         cursor: pointer;
-        transition: 0.4s linear;
+        transition: 0.2s linear;
         &:hover {
           color: ${({ theme }) => theme.color3};
           background: transparent;
@@ -162,6 +152,16 @@ const Wrapper = styled.div`
           background: ${({ theme }) => theme.color3};
         }
       }
+    }
+    .industries {
+      padding: 0 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      font-family: "Poppins", sans-serif;
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.2px;
     }
   }
   @media (min-width: 480px) {
@@ -175,6 +175,14 @@ const Wrapper = styled.div`
       h3 {
         margin-right: 1rem;
       }
+    }
+  }
+  @media (min-width: 768px) {
+    .card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
     }
   }
 `;

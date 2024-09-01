@@ -160,7 +160,7 @@ export const DashboardPage = () => {
   }, [allApps]);
 
   if (!loggedIn) {
-    return <TypingEffect text="Checking current user............" speedInMilliseconds={30} textElementType="p" />;
+    navigate("/login");
   }
 
   if (totals.total === 0) {

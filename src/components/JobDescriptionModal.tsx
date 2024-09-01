@@ -121,6 +121,7 @@ const Wrapper = styled.div`
       justify-content: space-between;
       display: flex;
       .details-wrapper {
+        display: flex;
         flex-direction: column;
         .hide-sm {
           display: none;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { url, useAppContext } from "../context/AppContext";
@@ -22,7 +22,10 @@ export const LoginPage = () => {
   });
   const [showPwd, setShowPwd] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [formErrors, setFormErrors] = useState<IFormErrors>({ showError: false, errorMessages: [] });
+  const [formErrors, setFormErrors] = useState<IFormErrors>({
+    showError: true,
+    errorMessages: ["All fields are requried"]
+  });
 
   const { loggedIn, getLoggedIn, user } = useAppContext();
 
@@ -33,8 +36,8 @@ export const LoginPage = () => {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
     setIsLoading(true);
 
     try {
@@ -44,8 +47,8 @@ export const LoginPage = () => {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          username: form.username,
-          password: form.password
+          username: e ? form.username : "test123",
+          password: e ? form.password : "test123"
         }),
         credentials: "include"
       });
@@ -58,10 +61,42 @@ export const LoginPage = () => {
         }
       }
     } catch (error) {
-      console.error(error);
+      setFormErrors({ showError: true, errorMessages: ["Network Error"] });
     } finally {
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
     }
+  };
+
+  const startDemo = () => {
+    let demoUsername = "test123";
+    let demoPassword = "test123";
+    setForm({ username: "", password: "" });
+    for (let i = 0; i < demoUsername.length; i++) {
+      setTimeout(() => {
+        setForm(prev => {
+          return {
+            ...prev,
+            username: prev.username + demoUsername[i]
+          };
+        });
+      }, 80 * i + 200);
+    }
+    for (let i = 0; i < demoPassword.length; i++) {
+      setTimeout(() => {
+        setForm(prev => {
+          return {
+            ...prev,
+            password: prev.password + demoPassword[i]
+          };
+        });
+      }, 80 * i + 1000);
+    }
+    setFormErrors({ showError: false, errorMessages: [] });
+    setTimeout(() => {
+      handleSubmit();
+    }, 1800);
   };
 
   return (
@@ -74,7 +109,7 @@ export const LoginPage = () => {
         xmlnsXlink="http://www.w3.org/1999/xlink">
         <path fill="#3a5eff" d="M297,341Q123,442,127,246.5Q131,51,301,145.5Q471,240,297,341Z" />
       </svg>
-      {loggedIn ? (
+      {loggedIn && !isLoading ? (
         <div className="logged-in-message">
           <TypingEffect
             text={`Welcome back${user?.username ? `, ${user.username}!` : "!"}`}
@@ -88,6 +123,9 @@ export const LoginPage = () => {
       ) : (
         <form onSubmit={handleSubmit}>
           <h4>Sign In</h4>
+          <button type="button" onClick={startDemo}>
+            demo
+          </button>
           <div className="form-input">
             <label className="label" htmlFor="username">
               Username
@@ -183,7 +221,7 @@ const Wrapper = styled.main`
     position: relative;
     width: 100%;
     padding: 0 2rem 10rem;
-    background: ${({ theme }) => (theme.name === "darkMode" ? "#333" : "#efefef")};
+    background: ${({ theme }) => (theme.name === "darkMode" ? "#333" : "#fefefe")};
     color: ${({ theme }) => (theme.name === "darkMode" ? "#efefef" : "##222")};
     transition: 0.4s linear;
     h4 {
@@ -298,6 +336,7 @@ const Wrapper = styled.main`
     }
     form {
       margin: 8rem 0 12rem;
+      border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "32px")};
     }
     .image-wrapper {
       display: block;

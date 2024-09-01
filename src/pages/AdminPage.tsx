@@ -26,14 +26,14 @@ export const AdminPage = () => {
       if (!response.ok) {
         throw new Error("GET to /companies response was not ok!!!!");
       }
-      const data = await response.json();
+      const { data } = await response.json();
       const sortedCompanies = data.sort((x: any, y: any) => {
         if (x.name.toLowerCase() < y.name.toLowerCase()) return -1;
         if (x.name.toLowerCase() > y.name.toLowerCase()) return 1;
         return 0;
       });
       setCompanies([...sortedCompanies]);
-      setFilteredCompanies(sortedCompanies);
+      setFilteredCompanies([...sortedCompanies]);
     } catch (err) {
       console.log(err);
     } finally {
@@ -69,6 +69,17 @@ export const AdminPage = () => {
 
   return (
     <Wrapper>
+      <button
+        type="button"
+        onClick={async () => {
+          try {
+            const response = await fetch(`${url}/seed`);
+          } catch (error) {
+            console.error("Error fetching companies:", error);
+          }
+        }}>
+        SEED THE DB
+      </button>
       <h1>Companies</h1>
       {isLoading ? (
         <div className="loading-wrapper">

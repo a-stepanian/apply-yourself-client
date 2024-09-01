@@ -36,17 +36,8 @@ export const Dropdown = (props: IDropdownProps) => {
         </Link>
         {loggedIn ? (
           <>
-            <Link to="/applications" onClick={() => toggleDropdown()}>
-              <span>View All</span>
-              <RiFolderOpenLine className="icon" />
-            </Link>
-            <Link to="/dashboard" onClick={() => toggleDropdown()}>
-              <span>Dashboard</span>
-              <RiFolderChartLine className="icon" />
-            </Link>
-            <Link to="/applications/new" onClick={() => toggleDropdown()}>
-              <span>Add An Application</span>
-              <RiFolderAddLine className="icon" />
+            <Link to="/dashboard" className="logo page-link" onClick={() => toggleDropdown()}>
+              Dashboard
             </Link>
             <LogoutButton />
           </>

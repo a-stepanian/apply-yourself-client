@@ -103,7 +103,7 @@ const Wrapper = styled.div`
         font-weight: 700;
         white-space: nowrap;
         cursor: pointer;
-        transition: 0.4s linear;
+        transition: 0.2s linear;
         &:hover {
           color: ${({ theme }) => theme.color3};
           background: transparent;

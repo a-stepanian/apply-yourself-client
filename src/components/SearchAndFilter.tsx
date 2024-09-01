@@ -75,7 +75,7 @@ export const SearchAndFilter = (props: ISearchAndFilterProps) => {
           showFilters &&
           filters.map(x => {
             return (
-              <>
+              <div key={x.filterName}>
                 <label>{x.filterName}</label>
                 <select
                   key={x.filterName}
@@ -108,7 +108,7 @@ export const SearchAndFilter = (props: ISearchAndFilterProps) => {
                   }}>
                   clear
                 </button>
-              </>
+              </div>
             );
           })}
       </div>

@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { url, useAppContext } from "../context/AppContext";
 import styled from "styled-components";
+import { url, useAppContext } from "../context/AppContext";
 import { LuAlertTriangle } from "react-icons/lu";
-import { Button } from "../components/Button";
 import { PiEye, PiEyeClosed } from "react-icons/pi";
-import { FaArrowRight } from "react-icons/fa";
+import { Button } from "../components/Button";
 import { LoadingSpinner } from "../components/LoadingSpinner";
+import { FaArrowRight } from "react-icons/fa";
 import { TypingEffect } from "../components/TypingEffect";
 
 interface IRegistrationForm {
@@ -28,32 +28,34 @@ export const RegisterPage = () => {
     password: "",
     passwordVerify: ""
   });
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showPwd, setShowPwd] = useState<boolean>(false);
-  const [formErrors, setFormErrors] = useState<IFormErrors>({ showError: false, errorMessages: [] });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [formErrors, setFormErrors] = useState<IFormErrors>({
+    showError: true,
+    errorMessages: ["All fields are required."]
+  });
 
   const { getLoggedIn, loggedIn, user } = useAppContext();
 
-  useEffect(() => {
+  const updateForm = (e: React.ChangeEvent<HTMLInputElement>) => {
     let errors = [];
-    if (form.password.length < 6) {
+    let updatedForm = { ...form, [e.target.name]: e.target.value };
+    if (["password", "passwordVerify"].includes(e.target.name) && updatedForm.password.length < 6) {
       errors.push("Password must be at least 6 characters.");
-    } else if (form.password !== form.passwordVerify) {
+    } else if (
+      ["password", "passwordVerify"].includes(e.target.name) &&
+      updatedForm.password !== updatedForm.passwordVerify
+    ) {
       errors.push("Passwords do not match.");
     }
-    if (!form.username || !form.email || !form.password || !form.passwordVerify) {
+    if (!updatedForm.username || !updatedForm.email || !updatedForm.password || !updatedForm.passwordVerify) {
       errors.push("All fields are required.");
     }
     setFormErrors({
       showError: errors.length > 0,
       errorMessages: errors
     });
-  }, [form]);
-
-  const updateForm = (e: React.ChangeEvent<HTMLInputElement>) => {
-    return setForm(prev => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
+    setForm(updatedForm);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -63,9 +65,7 @@ export const RegisterPage = () => {
     try {
       const response = await fetch(`${url}/auth`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username: form.username,
           email: form.email,
@@ -83,7 +83,7 @@ export const RegisterPage = () => {
         }
       }
     } catch (error) {
-      console.error(error);
+      setFormErrors({ showError: true, errorMessages: ["Network Error"] });
     } finally {
       setIsLoading(false);
     }
@@ -235,11 +235,11 @@ const Wrapper = styled.main`
   }
   form {
     font-family: "Poppins", sans-serif;
-    border-radius: 3px;
+    border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "32px")};
     position: relative;
     width: 100%;
     padding: 0 2rem 10rem;
-    background: ${({ theme }) => (theme.name === "darkMode" ? "#333" : "#efefef")};
+    background: ${({ theme }) => (theme.name === "darkMode" ? "#333" : "#fefefe")};
     color: ${({ theme }) => (theme.name === "darkMode" ? "#efefef" : "##222")};
     transition: 0.4s linear;
     h4 {
@@ -340,7 +340,7 @@ const Wrapper = styled.main`
       max-width: 420px;
       margin: 2rem 0 12rem;
       padding: 0 3rem 2rem;
-      box-shadow: ${({ theme }) => (theme.name === "darkMode" ? "none" : "5px 5px 5px rgba(0, 0, 0, 0.3)")};
+      box-shadow: ${({ theme }) => (theme.name === "darkMode" ? "none" : "5px 5px 15px rgba(0, 0, 0, 0.4)")};
     }
   }
   @media (min-width: 768px) {

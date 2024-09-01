@@ -42,10 +42,6 @@ export const CompaniesPage = () => {
     initializeFilters();
   }, []);
 
-  useEffect(() => {
-    searchCompanies();
-  }, [currentPage, appliedFilters]);
-
   async function searchCompanies(): Promise<void> {
     setIsLoading(true);
     const pageQuery = `?page=${currentPage.toString()}`;
@@ -62,6 +58,10 @@ export const CompaniesPage = () => {
       setIsLoading(false);
     }
   }
+
+  useEffect(() => {
+    searchCompanies();
+  }, [currentPage, appliedFilters]);
 
   return (
     <Wrapper>
@@ -91,9 +91,11 @@ export const CompaniesPage = () => {
           </div>
         ) : pageData?.data?.length > 0 ? (
           <>
-            {pageData.data.map((x: any, index: number) => (
-              <CompanyListing key={x._id ?? index} company={x} />
-            ))}
+            <div className="results-wrapper">
+              {pageData.data.map((x: any, index: number) => (
+                <CompanyListing key={x._id ?? index} company={x} />
+              ))}
+            </div>
             <div className="pagination-wrapper">
               <Pagination
                 totalPages={parseInt(pageData?.pages ?? 0)}
@@ -138,11 +140,25 @@ const Wrapper = styled.main`
       .pagination-wrapper {
         padding: 4rem 0 12rem;
       }
+      .results-wrapper {
+        display: grid;
+        grid-template-columns: 48% 48%;
+        grid-column-gap: 6%;
+      }
     }
   }
   @media (min-width: 990px) {
     .container {
       max-width: 790px;
+    }
+  }
+  @media (min-width: 1200px) {
+    .container {
+      max-width: 992px;
+      .results-wrapper {
+        grid-template-columns: 32% 32% 32%;
+        grid-column-gap: 2%;
+      }
     }
   }
 `;
