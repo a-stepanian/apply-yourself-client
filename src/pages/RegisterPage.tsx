@@ -341,6 +341,7 @@ const Wrapper = styled.main`
       margin: 2rem 0 12rem;
       padding: 0 3rem 2rem;
       box-shadow: ${({ theme }) => (theme.name === "darkMode" ? "none" : "5px 5px 15px rgba(0, 0, 0, 0.4)")};
+      border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "32px")};
     }
   }
   @media (min-width: 768px) {

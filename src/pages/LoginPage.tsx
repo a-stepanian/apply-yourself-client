@@ -323,6 +323,7 @@ const Wrapper = styled.main`
       margin: 6rem 0 12rem;
       padding: 0 3rem 2rem;
       box-shadow: ${({ theme }) => (theme.name === "darkMode" ? "none" : "5px 5px 5px rgba(0, 0, 0, 0.3)")};
+      border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "32px")};
     }
   }
   @media (min-width: 768px) {
@@ -336,7 +337,6 @@ const Wrapper = styled.main`
     }
     form {
       margin: 8rem 0 12rem;
-      border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "32px")};
     }
     .image-wrapper {
       display: block;
