@@ -4,7 +4,7 @@ import { RiLogoutBoxRLine } from "react-icons/ri";
 import { useAppContext, url } from "../context/AppContext";
 
 export const LogoutButton = () => {
-  const { setLoggedIn } = useAppContext();
+  const { setLoggedIn, toggleDropdown } = useAppContext();
   const navigate = useNavigate();
 
   const logoutUser = async () => {
@@ -18,9 +18,9 @@ export const LogoutButton = () => {
       });
       setLoggedIn(false);
       navigate("/login");
+      toggleDropdown();
     } catch (error) {
       console.log(error);
-      return;
     }
   };
 

@@ -141,6 +141,7 @@ const Wrapper = styled.main`
         padding: 4rem 0 12rem;
       }
       .results-wrapper {
+        width: 100%;
         display: grid;
         grid-template-columns: 48% 48%;
         grid-column-gap: 6%;
