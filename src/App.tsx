@@ -79,7 +79,7 @@ export const App = () => {
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <GlobalStyles />
       <ScrollToTop />
-      <Wrapper $showModal={showModal}>
+      <Wrapper>
         <Navbar />
         <div className="dark-mode-button-wrapper">
           <DarkModeButton theme={theme} toggleDarkMode={toggleDarkMode} />
@@ -105,10 +105,7 @@ export const App = () => {
   );
 };
 
-const Wrapper = styled.div.attrs<{ $showModal?: boolean }>(props => ({
-  $showModal: props.$showModal || false
-}))<{ $showModal: boolean }>`
-  position: ${({ $showModal }) => ($showModal ? "fixed" : "relative")};
+const Wrapper = styled.div`
   width: 100%;
   .dark-mode-button-wrapper {
     display: none;

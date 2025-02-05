@@ -58,8 +58,8 @@ export const CompanyListing = (props: ICompanyListingProps) => {
               {company.name
                 .split(" ")
                 .reverse()
-                .map(word => (
-                  <span>{word}</span>
+                .map((word, index) => (
+                  <span key={index}>{word}</span>
                 ))}
             </h2>
           </div>
@@ -165,6 +165,7 @@ const Wrapper = styled.div`
       font-size: 0.6rem;
       font-weight: 800;
       letter-spacing: 0.2px;
+      color: ${({ theme }) => (theme.name === "darkMode" ? "#eee" : theme.color2)};
     }
   }
   @media (min-width: 480px) {
