@@ -3,6 +3,7 @@ import { useAppContext } from "../context/AppContext";
 import { ICompanyResult } from "../interfaces/interfaces";
 import { FaArrowRight } from "react-icons/fa6";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 interface ICompanyListingProps {
   company: ICompanyResult;
@@ -10,6 +11,8 @@ interface ICompanyListingProps {
 
 export const CompanyListing = (props: ICompanyListingProps) => {
   const { company } = props;
+
+  const navigate = useNavigate();
 
   const imgRef = useRef<HTMLImageElement>(null);
   const { setSelectedCompany, setShowModal } = useAppContext();
@@ -66,7 +69,7 @@ export const CompanyListing = (props: ICompanyListingProps) => {
             title={`View All ${company.name} Jobs`}
             onClick={() => {
               setSelectedCompany(company);
-              setShowModal(true);
+              navigate("/");
             }}>
             Jobs&nbsp;
             <FaArrowRight />

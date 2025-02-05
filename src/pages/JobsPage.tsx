@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { url } from "../context/AppContext";
+import { url, useAppContext } from "../context/AppContext";
 import { JobListing } from "../components/JobListing";
 import { Loading } from "../components/Loading";
 import { Pagination } from "../components/Pagination";
@@ -8,11 +8,17 @@ import { SearchAndFilter } from "../components/SearchAndFilter";
 import { IAppliedFilter } from "./CompaniesPage";
 
 export const JobsPage = () => {
+  const { applications } = useAppContext();
   const [appliedFilters, setAppliedFilters] = useState<IAppliedFilter>({ industry: "", location: "" });
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [pageData, setPageData] = useState<any>({});
+
+  let jobIds: string[] = [];
+  if (applications?.length > 0) {
+    jobIds = applications.map(x => x.job);
+  }
 
   useEffect(() => {
     searchJobs();
@@ -61,7 +67,7 @@ export const JobsPage = () => {
         ) : pageData?.data?.length > 0 ? (
           <>
             {pageData.data.map((x: any, index: number) => (
-              <JobListing key={x._id ?? index} job={x} />
+              <JobListing key={x._id ?? index} job={x} applied={jobIds.includes(x._id)} />
             ))}
             <div className="pagination-wrapper">
               <Pagination

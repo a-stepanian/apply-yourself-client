@@ -1,21 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { url, useAppContext } from "../context/AppContext";
 import DOMPurify from "dompurify";
 import { LoadingSpinner } from "./LoadingSpinner";
 import { IoCloseOutline } from "react-icons/io5";
+import { FaCheck } from "react-icons/fa";
 import { OutsideClickDetector } from "./OutsideClickDetector";
 import { Link } from "react-router-dom";
 
 export const JobDescriptionModal = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [applied, setApplied] = useState<boolean>(false);
 
-  const { loggedIn, selectedJob, showModal, setShowModal } = useAppContext();
+  const { loggedIn, selectedJob, showModal, setShowModal, applications, fetchApplications } = useAppContext();
+
+  let jobIds: string[] = [];
+  if (applications?.length > 0) {
+    jobIds = applications.map(x => x.job);
+  }
 
   let jobDescription = selectedJob?.contents ? selectedJob.contents : "";
   if (jobDescription.length > 0) {
     jobDescription = DOMPurify.sanitize(jobDescription);
   }
+
+  useEffect(() => {
+    setIsLoading(true);
+    setApplied(jobIds.includes(selectedJob?._id?.toString() ?? ""));
+    setIsLoading(false);
+  }, []);
 
   const applyToJob = async () => {
     setIsLoading(true);
@@ -35,6 +48,8 @@ export const JobDescriptionModal = () => {
         }),
         credentials: "include"
       });
+      setApplied(true);
+      await fetchApplications();
     } catch (err) {
       console.log(err);
     } finally {
@@ -70,8 +85,21 @@ export const JobDescriptionModal = () => {
           </div>
           <div className="justify-center">
             {loggedIn ? (
-              <button className="apply-now-button" type="button" onClick={applyToJob} disabled={isLoading}>
-                {isLoading ? <LoadingSpinner /> : "Apply Now"}
+              <button
+                className={`apply-now-button ${applied ? "applied-button" : ""}`}
+                type="button"
+                onClick={applyToJob}
+                disabled={isLoading || applied}>
+                {isLoading ? (
+                  <LoadingSpinner />
+                ) : applied ? (
+                  <span>
+                    <FaCheck />
+                    &nbsp; Applied
+                  </span>
+                ) : (
+                  "Apply Now"
+                )}
               </button>
             ) : (
               <Link className="apply-now-button" to="/login" onClick={() => setShowModal(false)}>
@@ -132,7 +160,15 @@ const Wrapper = styled.div`
       display: flex;
       justify-content: center;
       .apply-now-button {
+        font-family: "Poppins", sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
         text-decoration: none;
+        width: 180px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
         margin: 2rem 0;
         padding: 1rem 2rem;
         border-radius: ${({ theme }) => theme.primaryBorderRadius};
@@ -146,9 +182,19 @@ const Wrapper = styled.div`
           color: ${({ theme }) => theme.color3};
           background-color: ${({ theme }) => theme.primaryBackgroundColor};
         }
-        &:disabled {
-          color: ${({ theme }) => theme.primaryBackgroundColor};
-          background: ${({ theme }) => theme.color3};
+      }
+      .applied-button {
+        cursor: default;
+        color: ${({ theme }) => theme.primaryBlack};
+        background-color: ${({ theme }) => theme.appliedBadge};
+        border: none;
+        span {
+          display: flex;
+          align-items: center;
+        }
+        &:hover {
+          color: ${({ theme }) => theme.primaryBlack};
+          background-color: ${({ theme }) => theme.appliedBadge};
         }
       }
     }

@@ -13,14 +13,16 @@ export const lightTheme: IStyleTheme = {
   color4: "#363537",
   primaryBlue: "#3a5eff", // Blue
   primaryPink: "#c024ff", // Pink
-  primaryGreen: "#6dfff8" // Green
+  primaryGreen: "#6dfff8", // Green
+  appliedBadge: "#a3febb",
+  primaryBlack: "#333"
 };
 export const darkTheme: IStyleTheme = {
   name: "darkMode",
   primaryFont: "'Poppins', san-serif",
   primaryBorderRadius: "2px",
   primaryBackgroundColor: "#040012", // Dark Background
-  secondaryBackgroundColor: "#333", // Dark Background
+  secondaryBackgroundColor: "#444", // Dark Background
   color1: "#3a5eff", // Blue
   // color1: "#8097FF", // Blue
   color2: "#6dfff8", // Green
@@ -31,7 +33,9 @@ export const darkTheme: IStyleTheme = {
   // color4: "#A78FFF" // Purple
   primaryBlue: "#3a5eff", // Blue
   primaryPink: "#c024ff", // Pink
-  primaryGreen: "#6dfff8" // Green
+  primaryGreen: "#6dfff8", // Green
+  appliedBadge: "#a3febb",
+  primaryBlack: "#333"
 };
 
 export const GlobalStyles = createGlobalStyle`

@@ -111,6 +111,7 @@ export interface IUserModel {
 
 export interface IApplicationModel {
   _id: string;
+  job: string;
   user: string;
   company: string;
   position: string;
@@ -136,4 +137,6 @@ export interface IStyleTheme {
   primaryBlue: string;
   primaryPink: string;
   primaryGreen: string;
+  appliedBadge: string;
+  primaryBlack: string;
 }

@@ -25,8 +25,9 @@ export const CompaniesPage = () => {
   const [appliedFilters, setAppliedFilters] = useState<IAppliedFilter>({ industry: "", location: "" });
   const [pageData, setPageData] = useState<any>({});
 
-  useEffect(() => {
-    async function initializeFilters() {
+  async function initializeFilters(): Promise<void> {
+    setIsLoading(true);
+    try {
       const res1 = await fetch(`${url}/industries`);
       const response1 = await res1.json();
       const industryFilterTerms = Array.from(new Set(response1.data.map((x: IHasName) => x.name))).sort() as string[];
@@ -38,17 +39,20 @@ export const CompaniesPage = () => {
         { filterName: "Industry", filterValues: industryFilterTerms },
         { filterName: "Location", filterValues: locationFilterTerms }
       ]);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
     }
-    initializeFilters();
-  }, []);
+  }
 
   async function searchCompanies(): Promise<void> {
     setIsLoading(true);
-    const pageQuery = `?page=${currentPage.toString()}`;
-    const searchQuery = searchTerm.length > 0 ? `&search=${searchTerm}` : "";
-    const industryQuery = appliedFilters.industry.length > 0 ? `&industry=${appliedFilters.industry}` : "";
-    const locationQuery = appliedFilters.location.length > 0 ? `&location=${appliedFilters.location}` : "";
     try {
+      const pageQuery = `?page=${currentPage.toString()}`;
+      const searchQuery = searchTerm.length > 0 ? `&search=${searchTerm}` : "";
+      const industryQuery = appliedFilters.industry.length > 0 ? `&industry=${appliedFilters.industry}` : "";
+      const locationQuery = appliedFilters.location.length > 0 ? `&location=${appliedFilters.location}` : "";
       const response = await fetch(`${url}/companies${pageQuery}${searchQuery}${industryQuery}${locationQuery}`);
       const data = await response.json();
       setPageData(data);
@@ -58,6 +62,10 @@ export const CompaniesPage = () => {
       setIsLoading(false);
     }
   }
+
+  useEffect(() => {
+    initializeFilters();
+  }, []);
 
   useEffect(() => {
     searchCompanies();

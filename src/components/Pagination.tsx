@@ -145,22 +145,21 @@ const Wrapper = styled.div`
     align-items: center;
     height: 32px;
     width: 32px;
-    color: ${({ theme }) => theme.primaryBackgroundColor};
-    background-color: ${({ theme }) => theme.color1};
-    border: 1px solid ${({ theme }) => theme.color1};
+    color: ${({ theme }) => theme.color1};
+    background-color: ${({ theme }) => theme.primaryBackgroundColor};
+    border: 2px solid ${({ theme }) => theme.color1};
     border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "16px")};
-    margin: 0 0.5rem 1rem;
-    transition: 0.1s linear;
+    margin: 0 0.2rem 1rem;
     font-size: 1.2rem;
     &:hover {
       cursor: pointer;
-      color: ${({ theme }) => theme.color1};
-      background-color: ${({ theme }) => theme.primaryBackgroundColor};
+      color: ${({ theme }) => theme.primaryBackgroundColor};
+      background-color: ${({ theme }) => theme.color1};
     }
     &:disabled {
       cursor: default;
-      color: ${({ theme }) => theme.primaryBackgroundColor};
-      background-color: ${({ theme }) => theme.color1};
+      color: ${({ theme }) => theme.color1};
+      background-color: ${({ theme }) => theme.primaryBackgroundColor};
       opacity: 0.5;
     }
   }
@@ -168,7 +167,8 @@ const Wrapper = styled.div`
     display: none;
   }
   .arrow-button {
-    border: 1px solid ${({ theme }) => theme.color1};
+    /* border: 1px solid ${({ theme }) => theme.color1}; */
+    border: none;
   }
   @media (min-width: 480px) {
     .hide-xs {

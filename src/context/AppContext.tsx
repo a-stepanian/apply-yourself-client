@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { IApplicationModel, IAppState, ICompanyResult, IJobResult, IUserModel } from "../interfaces/interfaces";
 
-export const url =
-  process.env.NODE_ENV === "production" ? "https://apply-yourself-server.onrender.com" : "http://localhost:5000";
+export const url = "http://localhost:5000"; // "https://apply-yourself-server.onrender.com";
 
 const AppContext = createContext<IAppState | undefined>(undefined);
 

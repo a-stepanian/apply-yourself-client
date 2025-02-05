@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import { useAppContext } from "../context/AppContext";
 import { IJobResult } from "../interfaces/interfaces";
+import { FaCheck } from "react-icons/fa";
 
 interface IJobListingProps {
   job: IJobResult;
+  applied: boolean;
 }
 
 export const JobListing = (props: IJobListingProps) => {
-  const { job } = props;
+  const { job, applied } = props;
 
   const { setSelectedJob, setShowModal } = useAppContext();
 
@@ -16,8 +18,14 @@ export const JobListing = (props: IJobListingProps) => {
       <div className="card">
         <div className="card-header">
           <h2>{job.name}</h2>
-          <div className="company-and-location">
+          <div className="company-and-status">
             <h3>{job?.company[0]?.name}</h3>
+            {applied && (
+              <p className="applied-badge">
+                <FaCheck />
+                &nbsp;Applied
+              </p>
+            )}
           </div>
         </div>
         <div className="flex">
@@ -47,17 +55,18 @@ export const JobListing = (props: IJobListingProps) => {
 };
 
 const Wrapper = styled.div`
-  border: 2px solid ${({ theme }) => (theme.name === "darkMode" ? "transparent" : theme.color1)};
+  position: relative;
   width: 100%;
-  border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "32px")};
   margin-bottom: 1rem;
-  background-color: ${({ theme }) => theme.secondaryBackgroundColor};
-  transition: 0.4s linear;
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
   .card {
+    padding: 1rem;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+    background-color: ${({ theme }) => theme.secondaryBackgroundColor};
+    border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px" : "32px")};
+    border: 2px solid ${({ theme }) => (theme.name === "darkMode" ? "transparent" : theme.color1)};
+    transition: 0.4s linear;
     .card-header {
       color: #eee;
-      margin: 1rem;
       padding: 1rem;
       background-color: #222;
       border-radius: ${({ theme }) => (theme.name === "darkMode" ? "3px 3px 3px 3px" : "16px 16px 3px 3px")};
@@ -68,14 +77,24 @@ const Wrapper = styled.div`
         font-weight: 300;
         margin-bottom: 0.5rem;
       }
-      h3 {
-        font-family: "Poppins", sans-serif;
-        font-size: 0.8rem;
-        font-weight: 600;
+      .company-and-status {
+        display: flex;
+        justify-content: space-between;
+        h3 {
+          font-family: "Poppins", sans-serif;
+          font-size: 0.8rem;
+          font-weight: 600;
+        }
+        .applied-badge {
+          display: flex;
+          align-items: center;
+          color: ${({ theme }) => theme.appliedBadge};
+          font-family: "Poppins", sans-serif;
+        }
       }
     }
     .flex {
-      padding: 0 1rem 1rem;
+      margin-top: 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
